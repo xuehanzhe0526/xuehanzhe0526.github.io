@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="What hurts more,the pain of hard work or the pain of regret.">
+    <meta name="keyword" content="null">
+    <meta name="theme-color" content="#600090">
+    <meta name="msapplication-navbutton-color" content="#600090">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#600090">
+    <link rel="shortcut icon" href="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-person-128.png">
+    <link rel="alternate" type="application/atom+xml" title="Haozhe" href="/atom.xml">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
+    <title>
+        
+        Guided Project:Police killings｜Haozhe&#39;s blog
+        
+    </title>
+
+    <link rel="canonical" href="http://yoursite.com/2016/10/11/项目3/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/blog-style.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+</head>
+
+<style>
+
+    header.intro-header {
+        background-image: url('http://7xrw7v.com1.z0.glb.clouddn.com/1485527729222.jpg')
+    }
+</style>
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="" class="animated fadeIn">
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost = "true" data-istags="false
+" data-ishome = "false" >
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand animated pulse" href="/">
+                <span class="brand-logo">
+                    Haozhe
+                </span>
+                's Blog
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <!-- /.navbar-collapse -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+					
+                    
+                        
+							
+                        <li>
+                            <a href="/tags/">tags</a>
+                        </li>
+							
+						
+                    
+					
+					
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+//    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+<!-- Main Content -->
+
+<!--only post-->
+
+
+<img class="wechat-title-img"
+     src="http://7xrw7v.com1.z0.glb.clouddn.com/148552521631.jpg#博文默认的图片">
+
+
+<style>
+    
+    header.intro-header {
+        background-image: url('http://7xrw7v.com1.z0.glb.clouddn.com/148552521631.jpg#博文默认的图片')
+    }
+
+    
+</style>
+
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <div class="post-heading">
+                    <h1>Guided Project:Police killings</h1>
+                    
+                    <span class="meta">
+                         作者 Haozhe Xue
+                        <span>
+                          日期 2016-10-11
+                         </span>
+                    </span>
+                    <div class="tags text-center">
+                        
+                        <a class="tag" href="/tags/#dataquest"
+                           title="dataquest">dataquest</a>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="post-title-haojen">
+        <span>
+            Guided Project:Police killings
+        </span>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <!-- Post Container -->
+            <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
+                <p>摘要：</p>
+<p>项目 Police killings</p>
+<p>merge() 函数使用</p>
+<a id="more"></a>
+<p>he dataset contains information on a police killing of a civilian in the US in from January 2015 to June 2015.</p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/1b28d5264b14b9a585bef83e2ea0eab1.png" alt=""><br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/5d872e5dc83d74ffdafc30e05268e5b3.png" alt=""></p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/8a64e87afdbe7650be3e69e2331bd3d1.png" alt=""></p>
+<h3 id="Shootings-By-Race"><a href="#Shootings-By-Race" class="headerlink" title="Shootings By Race"></a>Shootings By Race</h3><p>查看被射杀的每一个种族：<br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/b75ff3e30f01bf78af43fb2d2797cbb7.png" alt=""></p>
+<p>画图：</p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/c55d0ec0e00cd5cf65211d6e0c7799bd.png" alt=""></p>
+<p>调整X轴标签</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">plt.bar(range(6),counts)</div><div class="line">plt.xticks(range(6), counts.index)</div></pre></td></tr></table></figure>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/e7f17117ba80d4b2c30d987535454e65.png" alt=""></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line">plt.bar(range(<span class="number">6</span>),counts)</div><div class="line">plt.xticks(range(<span class="number">6</span>), counts.index,rotation = <span class="number">90</span>)<span class="comment"># rotation="vertical" 同样的效果</span></div></pre></td></tr></table></figure>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/03557132f59fde085f1dd0678facfd92.png" alt=""></p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/9b472f44531895c6d47e8aea8240709d.png" alt=""></p>
+<h3 id="Shootings-By-Regional-Income"><a href="#Shootings-By-Regional-Income" class="headerlink" title="Shootings By Regional Income"></a>Shootings By Regional Income</h3><p>查看 射杀与地区的收入关系</p>
+<p>原始的数据列 <code>p_income</code> 由于有一个地区 没有值 用<code>-</code>表示，从而这列的数据就变成了 字符串类型 而不是数值型</p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/f312bdad8c33c33eeb49284f8fc34f71.png" alt=""></p>
+<p>做以下处理：</p>
+<p><code>police_killings[&quot;p_income&quot;][police_killings[&quot;p_income&quot;] != &quot;-&quot;]</code></p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/2778b553f4cd7cfca9eab3248f9ea0bd.png" alt=""></p>
+<p>求发生地方的 收入均值</p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/95031f4c7eecd0fc8f18f9528f8bdf6f.png" alt=""></p>
+<p>根据<code>Census,</code>美国人均收入为28,567,而我们的均值为  22,348,意味着射杀多发生在 贫穷地区，同时 由于我们的样本集是小样本，也很难下此结论。</p>
+<h3 id="Shootings-By-State"><a href="#Shootings-By-State" class="headerlink" title="Shootings By State"></a>Shootings By State</h3><blockquote>
+<p>Finding that more people were shot in Texas than Georgia doesn’t automatically mean that cops are more likely to shoot people in Texas. This is because Texas has a higher population than Georgia.</p>
+</blockquote>
+<p>state-level data 每一个周人口的数据集：</p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/0629bbd55882336b65dc0f03d58e6674.png" alt=""></p>
+<p>在 <code>police_killings Dataframe</code> 州的名字 是简写<br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/dbb89ec7de0188d4c24edcf9afb6d5ab.png" alt=""></p>
+<p>而人口数据集<code>&quot;state_population.csv&quot;</code>为全称<br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/823cfecf47504e2b1ecc00caa309d6c2.png" alt=""></p>
+<p>所以使用<code>state_fp contains</code>人口普查代码<br>correspond to the STATE column in the population dataset.<br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/2b6f03890e17cc34f58681231a7a0dd5.png" alt=""></p>
+<p>建立联系 与 人口数据集</p>
+<ul>
+<li>merge() 函数</li>
+</ul>
+<blockquote>
+<p>merge a Dataframe with another Dataframe that shares a common column.<br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/8189023820ce61c33d48a38f6466eea0.png" alt=""></p>
+</blockquote>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/cc6a9027a6a8ac43534ae6b4f3f36437.png" alt=""></p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/245dc8451fd408e2f2f3e9d64ff4ddef.png" alt=""></p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/745220983c8d617b1bc8ab4e939ecd53.png" alt=""></p>
+<p>求得 每个州 射杀率<br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/06ae850708e080de3de2887856abaa9e.png" alt=""></p>
+<p>###　State By State Differences</p>
+<blockquote>
+<p>Why do some states have a much higher rate of police killings than others?</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line"></div><div class="line">pk = police_killings[</div><div class="line">    (police_killings[&quot;share_white&quot;] != &quot;-&quot;) &amp;</div><div class="line">    (police_killings[&quot;share_black&quot;] != &quot;-&quot;) &amp;</div><div class="line">    (police_killings[&quot;share_hispanic&quot;] != &quot;-&quot;)</div><div class="line">]</div><div class="line"></div><div class="line">pk[&quot;share_white&quot;] = pk[&quot;share_white&quot;].astype(float)</div><div class="line">pk[&quot;share_black&quot;] = pk[&quot;share_black&quot;].astype(float)</div><div class="line">pk[&quot;share_hispanic&quot;] = pk[&quot;share_hispanic&quot;].astype(float)</div></pre></td></tr></table></figure>
+<p>分别找出　枪击率　最低和最高　的十个州</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line">lowest_states = [<span class="string">"CT"</span>, <span class="string">"PA"</span>, <span class="string">"IA"</span>, <span class="string">"NY"</span>, <span class="string">"MA"</span>, <span class="string">"NH"</span>, <span class="string">"ME"</span>, <span class="string">"IL"</span>, <span class="string">"OH"</span>, <span class="string">"WI"</span>]</div><div class="line">highest_states = [<span class="string">"OK"</span>, <span class="string">"AZ"</span>, <span class="string">"NE"</span>, <span class="string">"HI"</span>, <span class="string">"AK"</span>, <span class="string">"ID"</span>, <span class="string">"NM"</span>, <span class="string">"LA"</span>, <span class="string">"CO"</span>, <span class="string">"DE"</span>]</div><div class="line"></div><div class="line">ls = pk[pk[<span class="string">"state"</span>].isin(lowest_states)]</div><div class="line">hs = pk[pk[<span class="string">"state"</span>].isin(highest_states)]</div></pre></td></tr></table></figure>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/d32c48a7cfde5c5799b7a547970e591f.png" alt=""></p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/92d3a27b92d3ed69c3cb9ec7966bce15.png" alt=""></p>
+<p>分析结论：</p>
+<blockquote>
+<p>State by state rates<br>It looks like the states with low rates of shootings tend to have a higher proportion of blacks in the population, and a lower proportion of hispanics in the census regions where the shootings occur. It looks like the income of the counties where the shootings occur is higher.<br>States with high rates of shootings tend to have high hispanic population shares in the counties where shootings occur.</p>
+</blockquote>
+
+                <hr>
+                
+                <!-- 多说 Share start -->
+                <div class="ds-share"
+                     style="text-align: right"
+                     data-thread-key="2016/10/11/项目3/"
+                     data-title="Guided Project:Police killings"
+                     data-url="http://yoursite.com/2016/10/11/项目3/"
+                     data-images=""
+                     data-content="摘要：
+项目 Police killings
+merge() 函数使用
+
+he dataset... | Haozhe&#39;s blog ">
+                    <div class="ds-share-inline">
+                        <ul class="ds-share-icons-16">
+                            <li data-toggle="ds-share-icons-more"><a class="ds-more" href="#">分享到：</a></li>
+                            <li><a class="ds-wechat flat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+                            <li><a class="ds-weibo flat" href="javascript:void(0);" data-service="weibo">微博</a></li>
+                            <li><a class="ds-douban flat" href="javascript:void(0);" data-service="douban">豆瓣</a></li>
+                        </ul>
+                        <div class="ds-share-icons-more">
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+                <!-- 多说 Share end-->
+                
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2016/10/12/数据清洗/" data-toggle="tooltip" data-placement="top"
+                           title="Data Cleaning Walkthrough:Cleaning The Data">&larr; Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2016/10/10/项目2/" data-toggle="tooltip" data-placement="top"
+                           title="Guided Project:Customizing Data Visualizations">Next Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+                <!-- 多说评论框 start -->
+                <div class="comment">
+                    <div class="ds-thread"
+                         data-thread-key="2016/10/11/项目3/"
+                         data-title="Guided Project:Police killings"
+                         data-url="http://yoursite.com/2016/10/11/项目3/">
+                    </div>
+                </div>
+                <!-- 多说评论框 end -->
+                
+
+                
+
+            </div>
+
+            <div class="hidden-xs col-sm-3 toc-col">
+                <div class="toc-wrap">
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Shootings-By-Race"><span class="toc-text">Shootings By Race</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Shootings-By-Regional-Income"><span class="toc-text">Shootings By Regional Income</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Shootings-By-State"><span class="toc-text">Shootings By State</span></a></li></ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5 class="text-center">
+                        <a href="/tags/">FEATURED TAGS</a>
+                    </h5>
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#dataquest"
+                           title="dataquest">dataquest</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <div style="margin-top: 20px;">
+                    <h5 class="text-center">FRIENDS</h5>
+                    <ul class="list-inline text-center">
+                        
+                        <li><a href="http://www.hankcs.com/">hankcs</a></li>
+                        
+                        <li><a href="http://www.lintcode.com/zh-cn/ladder/2/">lintcode</a></li>
+                        
+                        <li><a href="http://www.jiuzhang.com/solutions/">jiuzhang</a></li>
+                        
+                    </ul>
+                </div>
+                
+            </div>
+        </div>
+
+    </div>
+</article>
+
+
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    // dynamic User by Hux
+    var _user = 'xuehaozhe';
+
+    // duoshuo comment query.
+    var duoshuoQuery = {short_name: _user};
+    (function () {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';
+        ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0]
+        || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+</script>
+<!-- 多说公共JS代码 end -->
+
+
+
+
+
+<!-- Footer -->
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <br>
+                <ul class="list-inline text-center">
+                
+                
+                    <li>
+                        <a target="_blank" href="https://twitter.com/xuehaozhe">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/xuehaozhe0526">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="http://weibo.com/fendoujianchi">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/xuehanzhe0526">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Haozhe 2017
+                    <br>
+                    <span id="busuanzi_container_site_pv" style="font-size: 12px;">PV: <span id="busuanzi_value_site_pv"></span> Times</span>
+                    <br>
+                    Theme by <a href="https://haojen.github.io/">Haojen Ma</a>
+                </p>
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/blog.js"></script>
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://yoursite.com/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+
+
+<!-- swiftype -->
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','null','2.0.0');
+</script>
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<!--wechat title img-->
+<img class="wechat-title-img" src="http://7xrw7v.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160402220553.png">
+</body>
+
+</html>

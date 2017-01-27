@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="What hurts more,the pain of hard work or the pain of regret.">
+    <meta name="keyword" content="null">
+    <meta name="theme-color" content="#600090">
+    <meta name="msapplication-navbutton-color" content="#600090">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#600090">
+    <link rel="shortcut icon" href="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-person-128.png">
+    <link rel="alternate" type="application/atom+xml" title="Haozhe" href="/atom.xml">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
+    <title>
+        
+        画图基础｜Haozhe&#39;s blog
+        
+    </title>
+
+    <link rel="canonical" href="http://yoursite.com/2016/10/08/画图基础/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/blog-style.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+</head>
+
+<style>
+
+    header.intro-header {
+        background-image: url('http://7xrw7v.com1.z0.glb.clouddn.com/1485527729222.jpg')
+    }
+</style>
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="" class="animated fadeIn">
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost = "true" data-istags="false
+" data-ishome = "false" >
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand animated pulse" href="/">
+                <span class="brand-logo">
+                    Haozhe
+                </span>
+                's Blog
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <!-- /.navbar-collapse -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+					
+                    
+                        
+							
+                        <li>
+                            <a href="/tags/">tags</a>
+                        </li>
+							
+						
+                    
+					
+					
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+//    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+<!-- Main Content -->
+
+<!--only post-->
+
+
+<img class="wechat-title-img"
+     src="http://7xrw7v.com1.z0.glb.clouddn.com/148552521631.jpg#博文默认的图片">
+
+
+<style>
+    
+    header.intro-header {
+        background-image: url('http://7xrw7v.com1.z0.glb.clouddn.com/148552521631.jpg#博文默认的图片')
+    }
+
+    
+</style>
+
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <div class="post-heading">
+                    <h1>画图基础</h1>
+                    
+                    <span class="meta">
+                         作者 Haozhe Xue
+                        <span>
+                          日期 2016-10-08
+                         </span>
+                    </span>
+                    <div class="tags text-center">
+                        
+                        <a class="tag" href="/tags/#dataquest"
+                           title="dataquest">dataquest</a>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="post-title-haojen">
+        <span>
+            画图基础
+        </span>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <!-- Post Container -->
+            <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
+                <p>摘要：</p>
+<ul>
+<li>散点图/条形图/折线图/水平条形图</li>
+<li>Plot Aesthetics（美学）</li>
+<li>Chart Labels</li>
+</ul>
+<a id="more"></a>
+<h3 id="The-Dataset"><a href="#The-Dataset" class="headerlink" title="The Dataset"></a>The Dataset</h3><p>数据集下载：(<a href="http://www3.dsi.uminho.pt/pcortez/forestfires/" target="_blank" rel="external">http://www3.dsi.uminho.pt/pcortez/forestfires/</a>)</p>
+<p>关于：forest fires in Montesinho National Park</p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/d2705988756e905c9cbda23e17a50515.png" alt=""></p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/75615b17ecf9294b5f351c47f6e138db.png" alt=""></p>
+<h3 id="Plotting-Basics"><a href="#Plotting-Basics" class="headerlink" title="Plotting Basics"></a>Plotting Basics</h3><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">age   height</div><div class="line">5     25</div><div class="line">10    50</div><div class="line">15    70</div><div class="line">20    65</div></pre></td></tr></table></figure>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/2006142f5029d8048d3a996ff9672d27.png" alt=""></p>
+<h3 id="Scatter-Plots"><a href="#Scatter-Plots" class="headerlink" title="Scatter Plots"></a>Scatter Plots</h3><p><code>scatter() method</code></p>
+<p><code>import matplotlib.pyplot as plt</code></p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/5f81ea94c642d809277bcb075296ab69.png" alt=""><br><code>show() method</code><br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/dcfac886fb5ba755538e30e84a3fd6bb.png" alt=""></p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/24c83fc8b35969204469fc83184eb33a.png" alt=""></p>
+<h3 id="Line-Charts"><a href="#Line-Charts" class="headerlink" title="Line Charts"></a>Line Charts</h3><p><code>plot() method</code><br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/a055dce2393766d481c22b47e52e95ad.png" alt=""></p>
+<h3 id="Bar-Graphs"><a href="#Bar-Graphs" class="headerlink" title="Bar Graphs"></a>Bar Graphs</h3><blockquote>
+<p>Bar graphs are used for communicating categorical information</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">name            patrons</div><div class="line">McDonalds       10000</div><div class="line">Burger King     5000</div><div class="line">Wendys          5000</div><div class="line">Subway          7500</div></pre></td></tr></table></figure>
+<p>数据表示 各个连锁餐厅的一个月顾客人数。</p>
+<p>这个数据用散点图和折线图是没有意义的（对于散点图，该数据没有X 坐标；对于折线图，因为现在的数据 是离散值discrete items ）</p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/45960356fb20d78835bf275c0f4db448.png" alt=""></p>
+<p>以上 我们发现 x轴的标签是数字，这是因为（a quirk怪癖 in how bar graphs are created in matplotlib.）</p>
+<p>使用<code>pivot_table() method</code>方法<br><figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="keyword">import</span> numpy</div><div class="line">area_by_y = forest_fires.pivot_table(index=<span class="string">"Y"</span>, values=<span class="string">"area"</span>, aggfunc=numpy.mean)</div><div class="line">area_by_x = forest_fires.pivot_table(index=<span class="string">"X"</span>, values=<span class="string">"area"</span>, aggfunc=numpy.mean)</div></pre></td></tr></table></figure></p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/6d53c25caa994b722780a449b613abee.png" alt=""></p>
+<h3 id="Horizontal-水平-Bar-Graphs"><a href="#Horizontal-水平-Bar-Graphs" class="headerlink" title="Horizontal(水平) Bar Graphs"></a>Horizontal(水平) Bar Graphs</h3><p><code>barh() method.</code><br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/5700533647ef21a7d2c15f42eec66386.png" alt=""></p>
+<p>现在画出 每月/每天 的火灾平均面积</p>
+<p><code>pivot_table()</code></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line">area_by_month = forest_fires.pivot_table(index=<span class="string">"month"</span>, values=<span class="string">"area"</span>, aggfunc=numpy.mean)</div><div class="line">area_by_day = forest_fires.pivot_table(index=<span class="string">"day"</span>, values=<span class="string">"area"</span>, aggfunc=numpy.mean)</div></pre></td></tr></table></figure>
+<p>因为 index 为 字符串</p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/67e8bd1d9e5676e0dc02aaaca3b0f80c.png" alt=""></p>
+<p>所以 使用 <code>range(len(area_by_day))</code></p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/f2c52060cea841a0365ff0cc69f7fe63.png" alt=""></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line">area_by_month = forest_fires.pivot_table(index=<span class="string">"month"</span>, values=<span class="string">"area"</span>, aggfunc=numpy.mean)</div><div class="line">area_by_day = forest_fires.pivot_table(index=<span class="string">"day"</span>, values=<span class="string">"area"</span>, aggfunc=numpy.mean)</div><div class="line"></div><div class="line"><span class="keyword">print</span> (range(len(area_by_month)))</div><div class="line"></div><div class="line"><span class="keyword">print</span> (range(len(area_by_day)))</div><div class="line"></div><div class="line"></div><div class="line">plt.barh(range(len(area_by_month)), area_by_month)</div><div class="line">plt.show()</div><div class="line"></div><div class="line">plt.barh(range(len(area_by_day)), area_by_day)</div><div class="line">plt.show()</div></pre></td></tr></table></figure>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/c34fea23450782c8256fdc5319c11a19.png" alt=""></p>
+<h3 id="Chart-Labels"><a href="#Chart-Labels" class="headerlink" title="Chart Labels"></a>Chart Labels</h3><p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/f32c809a4c82b38e1f9205f320076e24.png" alt=""></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line">Title -- the title() method.</div><div class="line">X axis label -- the xlabel() method.</div><div class="line">Y axis label -- the ylabel() method.</div></pre></td></tr></table></figure>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/1cee18b4608cc6a038010c7422e62280.png" alt=""></p>
+<h3 id="Plot-Aesthetics（美学）"><a href="#Plot-Aesthetics（美学）" class="headerlink" title="Plot Aesthetics（美学）"></a>Plot Aesthetics（美学）</h3><p><code>style.use() method</code></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line">plt.style.use(<span class="string">"ggplot"</span>)</div></pre></td></tr></table></figure>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/438147054e047d0d7cf2660ccb2e7bee.png" alt=""></p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/85bf17cb57b9ca84fe64241d4cfb2141.png" alt=""></p>
+
+                <hr>
+                
+                <!-- 多说 Share start -->
+                <div class="ds-share"
+                     style="text-align: right"
+                     data-thread-key="2016/10/08/画图基础/"
+                     data-title="画图基础"
+                     data-url="http://yoursite.com/2016/10/08/画图基础/"
+                     data-images=""
+                     data-content="摘要：
+
+散点图/条形图/折线图/水平条形图
+Plot Aesthetics（美学）
+Char... | Haozhe&#39;s blog ">
+                    <div class="ds-share-inline">
+                        <ul class="ds-share-icons-16">
+                            <li data-toggle="ds-share-icons-more"><a class="ds-more" href="#">分享到：</a></li>
+                            <li><a class="ds-wechat flat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+                            <li><a class="ds-weibo flat" href="javascript:void(0);" data-service="weibo">微博</a></li>
+                            <li><a class="ds-douban flat" href="javascript:void(0);" data-service="douban">豆瓣</a></li>
+                        </ul>
+                        <div class="ds-share-icons-more">
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+                <!-- 多说 Share end-->
+                
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2016/10/08/数据可视化与数据探索/" data-toggle="tooltip" data-placement="top"
+                           title="数据可视化与数据探索">&larr; Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2016/10/08/pandas内部组件-DataFrames/" data-toggle="tooltip" data-placement="top"
+                           title="pandas内部组件-DataFrames">Next Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+                <!-- 多说评论框 start -->
+                <div class="comment">
+                    <div class="ds-thread"
+                         data-thread-key="2016/10/08/画图基础/"
+                         data-title="画图基础"
+                         data-url="http://yoursite.com/2016/10/08/画图基础/">
+                    </div>
+                </div>
+                <!-- 多说评论框 end -->
+                
+
+                
+
+            </div>
+
+            <div class="hidden-xs col-sm-3 toc-col">
+                <div class="toc-wrap">
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#The-Dataset"><span class="toc-text">The Dataset</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Plotting-Basics"><span class="toc-text">Plotting Basics</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Scatter-Plots"><span class="toc-text">Scatter Plots</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Line-Charts"><span class="toc-text">Line Charts</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Bar-Graphs"><span class="toc-text">Bar Graphs</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Horizontal-水平-Bar-Graphs"><span class="toc-text">Horizontal(水平) Bar Graphs</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Chart-Labels"><span class="toc-text">Chart Labels</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Plot-Aesthetics（美学）"><span class="toc-text">Plot Aesthetics（美学）</span></a></li></ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5 class="text-center">
+                        <a href="/tags/">FEATURED TAGS</a>
+                    </h5>
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#dataquest"
+                           title="dataquest">dataquest</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <div style="margin-top: 20px;">
+                    <h5 class="text-center">FRIENDS</h5>
+                    <ul class="list-inline text-center">
+                        
+                        <li><a href="http://www.hankcs.com/">hankcs</a></li>
+                        
+                        <li><a href="http://www.lintcode.com/zh-cn/ladder/2/">lintcode</a></li>
+                        
+                        <li><a href="http://www.jiuzhang.com/solutions/">jiuzhang</a></li>
+                        
+                    </ul>
+                </div>
+                
+            </div>
+        </div>
+
+    </div>
+</article>
+
+
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    // dynamic User by Hux
+    var _user = 'xuehaozhe';
+
+    // duoshuo comment query.
+    var duoshuoQuery = {short_name: _user};
+    (function () {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';
+        ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0]
+        || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+</script>
+<!-- 多说公共JS代码 end -->
+
+
+
+
+
+<!-- Footer -->
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <br>
+                <ul class="list-inline text-center">
+                
+                
+                    <li>
+                        <a target="_blank" href="https://twitter.com/xuehaozhe">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/xuehaozhe0526">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="http://weibo.com/fendoujianchi">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/xuehanzhe0526">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Haozhe 2017
+                    <br>
+                    <span id="busuanzi_container_site_pv" style="font-size: 12px;">PV: <span id="busuanzi_value_site_pv"></span> Times</span>
+                    <br>
+                    Theme by <a href="https://haojen.github.io/">Haojen Ma</a>
+                </p>
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/blog.js"></script>
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://yoursite.com/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+
+
+<!-- swiftype -->
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','null','2.0.0');
+</script>
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<!--wechat title img-->
+<img class="wechat-title-img" src="http://7xrw7v.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160402220553.png">
+</body>
+
+</html>

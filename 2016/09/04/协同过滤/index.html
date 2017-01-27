@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="What hurts more,the pain of hard work or the pain of regret.">
+    <meta name="keyword" content="null">
+    <meta name="theme-color" content="#600090">
+    <meta name="msapplication-navbutton-color" content="#600090">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#600090">
+    <link rel="shortcut icon" href="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-person-128.png">
+    <link rel="alternate" type="application/atom+xml" title="Haozhe" href="/atom.xml">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
+    <title>
+        
+        协同过滤-相似性｜Haozhe&#39;s blog
+        
+    </title>
+
+    <link rel="canonical" href="http://yoursite.com/2016/09/04/协同过滤/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/blog-style.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+</head>
+
+<style>
+
+    header.intro-header {
+        background-image: url('http://7xrw7v.com1.z0.glb.clouddn.com/1485527729222.jpg')
+    }
+</style>
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="" class="animated fadeIn">
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost = "true" data-istags="false
+" data-ishome = "false" >
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand animated pulse" href="/">
+                <span class="brand-logo">
+                    Haozhe
+                </span>
+                's Blog
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <!-- /.navbar-collapse -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+					
+                    
+                        
+							
+                        <li>
+                            <a href="/tags/">tags</a>
+                        </li>
+							
+						
+                    
+					
+					
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+//    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+<!-- Main Content -->
+
+<!--only post-->
+
+
+<img class="wechat-title-img"
+     src="http://7xrw7v.com1.z0.glb.clouddn.com/148552521631.jpg#博文默认的图片">
+
+
+<style>
+    
+    header.intro-header {
+        background-image: url('http://7xrw7v.com1.z0.glb.clouddn.com/148552521631.jpg#博文默认的图片')
+    }
+
+    
+</style>
+
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <div class="post-heading">
+                    <h1>协同过滤-相似性</h1>
+                    
+                    <span class="meta">
+                         作者 Haozhe Xue
+                        <span>
+                          日期 2016-09-04
+                         </span>
+                    </span>
+                    <div class="tags text-center">
+                        
+                        <a class="tag" href="/tags/#数据挖掘"
+                           title="数据挖掘">数据挖掘</a>
+                        
+                        <a class="tag" href="/tags/#A Programmer’s Guide to Data Mining"
+                           title="A Programmer’s Guide to Data Mining">A Programmer’s Guide to Data Mining</a>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="post-title-haojen">
+        <span>
+            协同过滤-相似性
+        </span>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <!-- Post Container -->
+            <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
+                <p>摘要：</p>
+<ul>
+<li>协同过滤</li>
+<li>曼哈顿距离</li>
+<li>欧氏距离</li>
+<li>皮尔逊相关系数</li>
+<li>余弦相似度</li>
+<li>相似性的选择</li>
+<li>k近邻</li>
+</ul>
+<a id="more"></a>
+<h3 id="协同过滤"><a href="#协同过滤" class="headerlink" title="协同过滤"></a>协同过滤</h3><p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/110a3d461c445dee3da9e5adfd5c5c31.png" alt=""></p>
+<h3 id="如果寻找相似用户："><a href="#如果寻找相似用户：" class="headerlink" title="如果寻找相似用户："></a>如果寻找相似用户：</h3><h4 id="曼哈顿距离"><a href="#曼哈顿距离" class="headerlink" title="曼哈顿距离"></a>曼哈顿距离</h4><p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/912a1005e6e89874223132f3aeb923a6.png" alt=""></p>
+<h4 id="欧氏距离"><a href="#欧氏距离" class="headerlink" title="欧氏距离"></a>欧氏距离</h4><p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/33a0ce9bd3d702e3234dcb57695beb05.png" alt=""></p>
+<p>注意：<br>如果没有缺失值的话 上述两个方法求距离很好。</p>
+<h4 id="一般化"><a href="#一般化" class="headerlink" title="一般化"></a>一般化</h4><p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/5a6be36239e4894bd5c331a40f7963ff.png" alt=""></p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/e1fdba0d7feddd4df228fcfaac0b30f3.png" alt=""></p>
+<h4 id="代码实例："><a href="#代码实例：" class="headerlink" title="代码实例："></a>代码实例：</h4><figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="comment"># -*- coding: utf-8 -*-</span></div><div class="line"><span class="string">"""</span></div><div class="line">Created on Sat Sep  3 20:21:51 2016</div><div class="line"></div><div class="line">@author: xuehaozhe</div><div class="line">"""</div><div class="line"></div><div class="line"><span class="keyword">from</span> math <span class="keyword">import</span> sqrt</div><div class="line"></div><div class="line">users = &#123;<span class="string">"Angelica"</span>: &#123;<span class="string">"Blues Traveler"</span>: <span class="number">3.5</span>, <span class="string">"Broken Bells"</span>: <span class="number">2.0</span>, <span class="string">"Norah Jones"</span>: <span class="number">4.5</span>, <span class="string">"Phoenix"</span>: <span class="number">5.0</span>, <span class="string">"Slightly Stoopid"</span>: <span class="number">1.5</span>, <span class="string">"The Strokes"</span>: <span class="number">2.5</span>, <span class="string">"Vampire Weekend"</span>: <span class="number">2.0</span>&#125;,</div><div class="line">         <span class="string">"Bill"</span>:&#123;<span class="string">"Blues Traveler"</span>: <span class="number">2.0</span>, <span class="string">"Broken Bells"</span>: <span class="number">3.5</span>, <span class="string">"Deadmau5"</span>: <span class="number">4.0</span>, <span class="string">"Phoenix"</span>: <span class="number">2.0</span>, <span class="string">"Slightly Stoopid"</span>: <span class="number">3.5</span>, <span class="string">"Vampire Weekend"</span>: <span class="number">3.0</span>&#125;,</div><div class="line">         <span class="string">"Chan"</span>: &#123;<span class="string">"Blues Traveler"</span>: <span class="number">5.0</span>, <span class="string">"Broken Bells"</span>: <span class="number">1.0</span>, <span class="string">"Deadmau5"</span>: <span class="number">1.0</span>, <span class="string">"Norah Jones"</span>: <span class="number">3.0</span>, <span class="string">"Phoenix"</span>: <span class="number">5</span>, <span class="string">"Slightly Stoopid"</span>: <span class="number">1.0</span>&#125;,</div><div class="line">         <span class="string">"Dan"</span>: &#123;<span class="string">"Blues Traveler"</span>: <span class="number">3.0</span>, <span class="string">"Broken Bells"</span>: <span class="number">4.0</span>, <span class="string">"Deadmau5"</span>: <span class="number">4.5</span>, <span class="string">"Phoenix"</span>: <span class="number">3.0</span>, <span class="string">"Slightly Stoopid"</span>: <span class="number">4.5</span>, <span class="string">"The Strokes"</span>: <span class="number">4.0</span>, <span class="string">"Vampire Weekend"</span>: <span class="number">2.0</span>&#125;,</div><div class="line">         <span class="string">"Hailey"</span>: &#123;<span class="string">"Broken Bells"</span>: <span class="number">4.0</span>, <span class="string">"Deadmau5"</span>: <span class="number">1.0</span>, <span class="string">"Norah Jones"</span>: <span class="number">4.0</span>, <span class="string">"The Strokes"</span>: <span class="number">4.0</span>, <span class="string">"Vampire Weekend"</span>: <span class="number">1.0</span>&#125;,</div><div class="line">         <span class="string">"Jordyn"</span>:  &#123;<span class="string">"Broken Bells"</span>: <span class="number">4.5</span>, <span class="string">"Deadmau5"</span>: <span class="number">4.0</span>, <span class="string">"Norah Jones"</span>: <span class="number">5.0</span>, <span class="string">"Phoenix"</span>: <span class="number">5.0</span>, <span class="string">"Slightly Stoopid"</span>: <span class="number">4.5</span>, <span class="string">"The Strokes"</span>: <span class="number">4.0</span>, <span class="string">"Vampire Weekend"</span>: <span class="number">4.0</span>&#125;,</div><div class="line">         <span class="string">"Sam"</span>: &#123;<span class="string">"Blues Traveler"</span>: <span class="number">5.0</span>, <span class="string">"Broken Bells"</span>: <span class="number">2.0</span>, <span class="string">"Norah Jones"</span>: <span class="number">3.0</span>, <span class="string">"Phoenix"</span>: <span class="number">5.0</span>, <span class="string">"Slightly Stoopid"</span>: <span class="number">4.0</span>, <span class="string">"The Strokes"</span>: <span class="number">5.0</span>&#125;,</div><div class="line">         <span class="string">"Veronica"</span>: &#123;<span class="string">"Blues Traveler"</span>: <span class="number">3.0</span>, <span class="string">"Norah Jones"</span>: <span class="number">5.0</span>, <span class="string">"Phoenix"</span>: <span class="number">4.0</span>, <span class="string">"Slightly Stoopid"</span>: <span class="number">2.5</span>, <span class="string">"The Strokes"</span>: <span class="number">3.0</span>&#125;</div><div class="line">        &#125;</div><div class="line"></div><div class="line"><span class="comment"># print users['Veronica']</span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">manhattan</span><span class="params">(rating1, rating2)</span>:</span></div><div class="line">    <span class="string">"""Computes the Manhattan distance. Both rating1 and rating2 are dictionaries</span></div><div class="line">       of the form &#123;'The Strokes': 3.0, 'Slightly Stoopid': 2.5&#125;"""</div><div class="line">    distance = <span class="number">0</span></div><div class="line">    commonRatings = <span class="keyword">False</span></div><div class="line">    <span class="keyword">for</span> key <span class="keyword">in</span> rating1:</div><div class="line">        <span class="keyword">if</span> key <span class="keyword">in</span> rating2:</div><div class="line">            distance += abs(rating1[key] - rating2[key])</div><div class="line">            commonRatings = <span class="keyword">True</span></div><div class="line">    <span class="keyword">if</span> commonRatings:</div><div class="line">        <span class="keyword">return</span> distance</div><div class="line">    <span class="keyword">else</span>:</div><div class="line">        <span class="keyword">return</span> <span class="number">-1</span> <span class="comment">#Indicates no ratings in common</span></div><div class="line"></div><div class="line"><span class="comment"># print manhattan(users['Hailey'],users['Veronica'])</span></div><div class="line"></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">computeNearestNeighbor</span><span class="params">(username,users)</span>:</span></div><div class="line">    <span class="string">"""creates a sorted list of users based on their distance to username"""</span></div><div class="line">    distances=[]</div><div class="line">    <span class="keyword">for</span> user <span class="keyword">in</span> users:</div><div class="line">        <span class="keyword">if</span> user!= username:</div><div class="line">            distance = manhattan(users[user],users[username])</div><div class="line">            distances.append((distance,user))</div><div class="line"></div><div class="line">    <span class="comment"># sort based on distance -- closest first</span></div><div class="line">    distances.sort()</div><div class="line">    <span class="keyword">return</span> distances</div><div class="line"></div><div class="line"><span class="comment">#print computeNearestNeighbor('Hailey',users)</span></div><div class="line"></div><div class="line"></div><div class="line"><span class="string">"""[(2.0, 'Veronica'), (4.0, 'Chan'), (4.0, 'Sam'), (4.5, 'Dan'), (5.0, 'Angelica'), (5.5, 'Bill'), (7.5, 'Jordyn')]</span></div><div class="line">假设想给Hailey 做推荐 我们会找到她最近的邻居 这里是 Veronica</div><div class="line">"""</div><div class="line"></div><div class="line"><span class="string">''' 推荐函数：  例如Hailey她最近的邻居 这里是 Veronica</span></div><div class="line">Hailey没有对Phoenix乐队进行评级 但是Veronica评了四星 因此假设Hailey也对Phoenix乐队</div><div class="line">感兴趣。</div><div class="line">'''</div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">recommend</span><span class="params">(username, users)</span>:</span></div><div class="line">    <span class="string">"""Give list of recommendations"""</span></div><div class="line">    <span class="comment"># first find nearest neighbor</span></div><div class="line">    nearest = computeNearestNeighbor(username, users)[<span class="number">0</span>][<span class="number">1</span>] <span class="comment">#Veronica</span></div><div class="line"></div><div class="line">    recommendations = []</div><div class="line">    <span class="comment"># now find bands neighbor rated that user didn't</span></div><div class="line">    neighborRatings = users[nearest] <span class="comment"># print users['Veronica'] :&#123;'The Strokes': 3.0, 'Slightly Stoopid': 2.5, 'Norah Jones': 5.0, 'Phoenix': 4.0, 'Blues Traveler': 3.0&#125;</span></div><div class="line"></div><div class="line">    userRatings = users[username]</div><div class="line">    <span class="keyword">for</span> artist <span class="keyword">in</span> neighborRatings:</div><div class="line">        <span class="keyword">if</span> <span class="keyword">not</span> artist <span class="keyword">in</span> userRatings:</div><div class="line">            recommendations.append((artist, neighborRatings[artist]))</div><div class="line">    <span class="comment">#print recommendations  没有排序[('Slightly Stoopid', 2.5), ('Phoenix', 4.0), ('Blues Traveler', 3.0)]</span></div><div class="line"></div><div class="line">    <span class="comment"># using the fn sorted for variety - sort is more efficient</span></div><div class="line">    <span class="keyword">return</span> sorted(recommendations, key=<span class="keyword">lambda</span> artistTuple: artistTuple[<span class="number">1</span>], reverse = <span class="keyword">True</span>)</div><div class="line"></div><div class="line"><span class="comment"># examples - uncomment to run</span></div><div class="line"></div><div class="line">print( recommend(<span class="string">'Hailey'</span>, users))</div><div class="line"><span class="comment">#print( recommend('Chan', users))</span></div></pre></td></tr></table></figure>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/3c5143dc57196c6a6aaff1cb26ca4c53.png" alt=""><br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/e45270ac0745bf49c218be2547198e92.png" alt=""></p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/7ea1d439e28d4224a39041461fb40f4e.png" alt=""></p>
+<h3 id="皮尔逊相关系数"><a href="#皮尔逊相关系数" class="headerlink" title="皮尔逊相关系数"></a>皮尔逊相关系数</h3><p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/d659c222f5546bbc1a38e0205e397efc.png" alt=""><br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/64266e70eec881cf7fdb8809cd5ba49d.png" alt=""><br>分数贬值 ：即不同用户使用不同的评级范围<br>Clara 最小值为4  范围在【4-5】之间<br>但是Robert则是【1-5】的范围<br>所以位于4这个数字来说  代表着不同的含义。<br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/e0e23efc6429eab9a52fd73c51cdaa14.png" alt=""><br>有图可以看出 两者为直线（直线表示完全一致）<br>一致性越好 直线的点越多</p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/0d01ad37cef26cde5a250335c389843e.png" alt=""><br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/552661d8f6783bbd6dd11837cde4c851.png" alt=""><br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/434ce3e8e61cce6b26df8f8d3bf3b3a6.png" alt=""></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">person</span><span class="params">(rating1,rating2)</span>:</span></div><div class="line">    sum_xy = <span class="number">0</span></div><div class="line">    sum_x = <span class="number">0</span></div><div class="line">    sum_y = <span class="number">0</span></div><div class="line">    sum_x2 = <span class="number">0</span></div><div class="line">    sum_y2 = <span class="number">0</span></div><div class="line">    n = <span class="number">0</span></div><div class="line">    <span class="keyword">for</span> key <span class="keyword">in</span> rating1:</div><div class="line">        <span class="keyword">if</span> key <span class="keyword">in</span> rating2:</div><div class="line">            n += <span class="number">1</span></div><div class="line">            x = rating1[key]</div><div class="line">            y = rating2[key]</div><div class="line">            sum_xy += x*y</div><div class="line">            sum_x += x</div><div class="line">            sum_y += y</div><div class="line">            sum_x2 += x**<span class="number">2</span></div><div class="line">            sum_y2 += y**<span class="number">2</span></div><div class="line">    <span class="comment"># 计算分母</span></div><div class="line">    denominator = sqrt(sum_x2 - pow(sum_x, <span class="number">2</span>) / n) * sqrt(sum_y2 - pow(sum_y, <span class="number">2</span>) / n)</div><div class="line">    <span class="keyword">if</span> denominator == <span class="number">0</span>:</div><div class="line">        <span class="keyword">return</span> <span class="number">0</span></div><div class="line">    <span class="keyword">else</span>:</div><div class="line">        <span class="keyword">return</span> (sum_xy - (sum_x * sum_y) / n) / denominator</div></pre></td></tr></table></figure>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/6095c51f64424f94a89b682556475ef8.png" alt=""></p>
+<h3 id="余弦相似度"><a href="#余弦相似度" class="headerlink" title="余弦相似度"></a>余弦相似度</h3><p>当数据是稀疏的时候，他们的公共部分多为零 我们计算相似性的时候不希望使用这些公共的零。<br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/16a405e58666c48df4f4b47d02829c70.png" alt=""><br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/808d80b0d5476cec2446d79819344d0f.png" alt=""><br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/e7e00d6fa79e8d6b07bec9df4007a1b8.png" alt=""></p>
+<h3 id="相似性的选择"><a href="#相似性的选择" class="headerlink" title="相似性的选择"></a>相似性的选择</h3><p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/e039776bedf3e2b2ba24f6b71048cc34.png" alt=""></p>
+<h3 id="k近邻"><a href="#k近邻" class="headerlink" title="k近邻"></a>k近邻</h3><p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/3af4ebb18091977ee0a36b92a33e9df7.png" alt=""></p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/14b6524fb1faa620d71f6afa11aa0227.png" alt=""><br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/fd3324831478b2cf3250b8a0399383cb.png" alt=""></p>
+<p>具体代码见下一篇博客</p>
+
+                <hr>
+                
+                <!-- 多说 Share start -->
+                <div class="ds-share"
+                     style="text-align: right"
+                     data-thread-key="2016/09/04/协同过滤/"
+                     data-title="协同过滤-相似性"
+                     data-url="http://yoursite.com/2016/09/04/协同过滤/"
+                     data-images=""
+                     data-content="摘要：
+
+协同过滤
+曼哈顿距离
+欧氏距离
+皮尔逊相关系数
+余弦相似度
+相似性的选择
+k近邻
+
+... | Haozhe&#39;s blog ">
+                    <div class="ds-share-inline">
+                        <ul class="ds-share-icons-16">
+                            <li data-toggle="ds-share-icons-more"><a class="ds-more" href="#">分享到：</a></li>
+                            <li><a class="ds-wechat flat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+                            <li><a class="ds-weibo flat" href="javascript:void(0);" data-service="weibo">微博</a></li>
+                            <li><a class="ds-douban flat" href="javascript:void(0);" data-service="douban">豆瓣</a></li>
+                        </ul>
+                        <div class="ds-share-icons-more">
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+                <!-- 多说 Share end-->
+                
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2016/09/04/Pycharm无法切换搜狗输入法/" data-toggle="tooltip" data-placement="top"
+                           title="Pycharm无法切换搜狗输入法">&larr; Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2016/09/03/k-近邻算法/" data-toggle="tooltip" data-placement="top"
+                           title="k-近邻算法">Next Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+                <!-- 多说评论框 start -->
+                <div class="comment">
+                    <div class="ds-thread"
+                         data-thread-key="2016/09/04/协同过滤/"
+                         data-title="协同过滤-相似性"
+                         data-url="http://yoursite.com/2016/09/04/协同过滤/">
+                    </div>
+                </div>
+                <!-- 多说评论框 end -->
+                
+
+                
+
+            </div>
+
+            <div class="hidden-xs col-sm-3 toc-col">
+                <div class="toc-wrap">
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#协同过滤"><span class="toc-text">协同过滤</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#如果寻找相似用户："><span class="toc-text">如果寻找相似用户：</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#曼哈顿距离"><span class="toc-text">曼哈顿距离</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#欧氏距离"><span class="toc-text">欧氏距离</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#一般化"><span class="toc-text">一般化</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#代码实例："><span class="toc-text">代码实例：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#皮尔逊相关系数"><span class="toc-text">皮尔逊相关系数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#余弦相似度"><span class="toc-text">余弦相似度</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#相似性的选择"><span class="toc-text">相似性的选择</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#k近邻"><span class="toc-text">k近邻</span></a></li></ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5 class="text-center">
+                        <a href="/tags/">FEATURED TAGS</a>
+                    </h5>
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#数据挖掘"
+                           title="数据挖掘">数据挖掘</a>
+                        
+                        <a class="tag" href="/tags/#A Programmer’s Guide to Data Mining"
+                           title="A Programmer’s Guide to Data Mining">A Programmer’s Guide to Data Mining</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <div style="margin-top: 20px;">
+                    <h5 class="text-center">FRIENDS</h5>
+                    <ul class="list-inline text-center">
+                        
+                        <li><a href="http://www.hankcs.com/">hankcs</a></li>
+                        
+                        <li><a href="http://www.lintcode.com/zh-cn/ladder/2/">lintcode</a></li>
+                        
+                        <li><a href="http://www.jiuzhang.com/solutions/">jiuzhang</a></li>
+                        
+                    </ul>
+                </div>
+                
+            </div>
+        </div>
+
+    </div>
+</article>
+
+
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    // dynamic User by Hux
+    var _user = 'xuehaozhe';
+
+    // duoshuo comment query.
+    var duoshuoQuery = {short_name: _user};
+    (function () {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';
+        ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0]
+        || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+</script>
+<!-- 多说公共JS代码 end -->
+
+
+
+
+
+<!-- Footer -->
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <br>
+                <ul class="list-inline text-center">
+                
+                
+                    <li>
+                        <a target="_blank" href="https://twitter.com/xuehaozhe">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/xuehaozhe0526">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="http://weibo.com/fendoujianchi">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/xuehanzhe0526">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Haozhe 2017
+                    <br>
+                    <span id="busuanzi_container_site_pv" style="font-size: 12px;">PV: <span id="busuanzi_value_site_pv"></span> Times</span>
+                    <br>
+                    Theme by <a href="https://haojen.github.io/">Haojen Ma</a>
+                </p>
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/blog.js"></script>
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://yoursite.com/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+
+
+<!-- swiftype -->
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','null','2.0.0');
+</script>
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<!--wechat title img-->
+<img class="wechat-title-img" src="http://7xrw7v.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160402220553.png">
+</body>
+
+</html>

@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="What hurts more,the pain of hard work or the pain of regret.">
+    <meta name="keyword" content="null">
+    <meta name="theme-color" content="#600090">
+    <meta name="msapplication-navbutton-color" content="#600090">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#600090">
+    <link rel="shortcut icon" href="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-person-128.png">
+    <link rel="alternate" type="application/atom+xml" title="Haozhe" href="/atom.xml">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
+    <title>
+        
+        统计量及抽样分布｜Haozhe&#39;s blog
+        
+    </title>
+
+    <link rel="canonical" href="http://yoursite.com/2016/08/29/统计量及抽样分布/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/blog-style.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+</head>
+
+<style>
+
+    header.intro-header {
+        background-image: url('http://7xrw7v.com1.z0.glb.clouddn.com/1485527729222.jpg')
+    }
+</style>
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="" class="animated fadeIn">
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost = "true" data-istags="false
+" data-ishome = "false" >
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand animated pulse" href="/">
+                <span class="brand-logo">
+                    Haozhe
+                </span>
+                's Blog
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <!-- /.navbar-collapse -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+					
+                    
+                        
+							
+                        <li>
+                            <a href="/tags/">tags</a>
+                        </li>
+							
+						
+                    
+					
+					
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+//    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+<!-- Main Content -->
+
+<!--only post-->
+
+
+<img class="wechat-title-img"
+     src="http://7xrw7v.com1.z0.glb.clouddn.com/148552521631.jpg#博文默认的图片">
+
+
+<style>
+    
+    header.intro-header {
+        background-image: url('http://7xrw7v.com1.z0.glb.clouddn.com/148552521631.jpg#博文默认的图片')
+    }
+
+    
+</style>
+
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <div class="post-heading">
+                    <h1>统计量及抽样分布</h1>
+                    
+                    <span class="meta">
+                         作者 Haozhe Xue
+                        <span>
+                          日期 2016-08-29
+                         </span>
+                    </span>
+                    <div class="tags text-center">
+                        
+                        <a class="tag" href="/tags/#数学"
+                           title="数学">数学</a>
+                        
+                        <a class="tag" href="/tags/#统计学"
+                           title="统计学">统计学</a>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="post-title-haojen">
+        <span>
+            统计量及抽样分布
+        </span>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <!-- Post Container -->
+            <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
+                <p>摘要：</p>
+<ul>
+<li>什么是统计量</li>
+<li>常用统计量</li>
+<li>抽样分布</li>
+<li>$\chi^2$分布</li>
+<li>Gamma函数</li>
+<li>t分布</li>
+<li>F分布</li>
+<li>样本均值的分布</li>
+<li>中心极限定理</li>
+<li>样本方差的分布</li>
+<li>样本比例的抽样分布</li>
+</ul>
+<a id="more"></a>
+<h3 id="什么是统计量"><a href="#什么是统计量" class="headerlink" title="什么是统计量"></a>什么是统计量</h3><blockquote>
+<p>从总体中抽取一个样本（$X_1$,$X_2$,…,$X_n$)后，并不能直接反应总体的有关性质和特征进行推断，我们应把这些分散在样本中我们关心的信息集中起来，针对不同的研究目的，构造不同的样本函数，这种函数在统计学中成为统计量。</p>
+</blockquote>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/5d9a71bbf079cdacdd0cbdc95d9af9d0.png" alt=""></p>
+<h4 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h4><p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/0456500f9ace849e2763acb82558d2cb.png" alt=""></p>
+<h3 id="常用统计量"><a href="#常用统计量" class="headerlink" title="常用统计量"></a>常用统计量</h3><p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/cd7a039573dc2d8141c8a3d46eff5003.png" alt=""><br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/e77bb5a5bee10ce909acc8b5d3f598ea.png" alt=""><br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/ccf7408018c67ffc6dcdfd48f34646c4.png" alt=""></p>
+<h3 id="次顺序统计量"><a href="#次顺序统计量" class="headerlink" title="次顺序统计量"></a>次顺序统计量</h3><p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/db6ee0a7bfb617919d77d29742295c7e.png" alt=""><br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/b752482a7aaf4b9c4fd62b24ae9c241d.png" alt=""></p>
+<h3 id="抽样分布"><a href="#抽样分布" class="headerlink" title="抽样分布"></a>抽样分布</h3><p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/f591645ab8d02efbf9b48fab7f4ea19f.png" alt=""></p>
+<h3 id="chi-2-分布"><a href="#chi-2-分布" class="headerlink" title="$\chi^2$分布"></a>$\chi^2$分布</h3><h4 id="Gamma函数"><a href="#Gamma函数" class="headerlink" title="Gamma函数"></a>Gamma函数</h4><p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/b833de201830d06da81c03667a013340.png" alt=""></p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/d780541d2b628b60a0c59e1b52571f17.png" alt=""></p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/95ddcac224aba3cffe8e564c14d6544a.png" alt=""><br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/26b74a93a5711968d060482d23f23456.png" alt=""><br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/974f2c2c767236fe4b6b5ee3b3a243c9.png" alt=""><br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/78883b9f0df918f81a4e1076e7715f75.png" alt=""></p>
+<h3 id="t分布"><a href="#t分布" class="headerlink" title="t分布"></a>t分布</h3><h2 id=""><a href="#" class="headerlink" title=""></a><img src="http://7xrw7v.com1.z0.glb.clouddn.com/37da8995769ed1255ea7537d1ef7c770.png" alt=""></h2><p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/caaf2ea5e073e54ab2a1d9c2d4f7eef0.png" alt=""></p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/fbaa207eb58d5615aa333428a37a51b9.png" alt=""></p>
+<p>n &gt;=30 时 ，t分布与标准正态分布非常接近。<br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/8728da419e2f33522ac74da3c0014501.png" alt=""></p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/6e72e38f94323c460877ab07f5342179.png" alt=""><br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/2400a5d6235c4f6cf608db7e304f909e.png" alt=""></p>
+<h3 id="F分布"><a href="#F分布" class="headerlink" title="F分布"></a>F分布</h3><p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/85608cc4f5e423db222718b6b48d41e4.png" alt=""></p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/cfc8407944060ed05c8b2a301a4cd42c.png" alt=""></p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/a990ba26488a84db90e7dc5566543465.png" alt=""></p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/e779346e454567497e3cedde016f3186.png" alt=""></p>
+<h3 id="样本均值的分布"><a href="#样本均值的分布" class="headerlink" title="样本均值的分布"></a>样本均值的分布</h3><p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/173f9329458f34361cc6278ddff146a2.png" alt=""></p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/00b90e094dd3925a55cd3fb0581c47fd.png" alt=""></p>
+<h3 id="总体不是正态分布的-样本均值分布"><a href="#总体不是正态分布的-样本均值分布" class="headerlink" title="总体不是正态分布的 样本均值分布"></a>总体不是正态分布的 样本均值分布</h3><p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/79ffaa7a32118bba64a06e5b48c3a661.png" alt=""></p>
+<p>###两个样本平均值之差的分布<br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/cdd251bd9a53d6a6154a0e71b25414e5.png" alt=""><br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/477e79541cec411730126b1241437116.png" alt=""></p>
+<h3 id="中心极限定理"><a href="#中心极限定理" class="headerlink" title="中心极限定理"></a>中心极限定理</h3><p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/417e2dd5285aa757733a0fade5e044a9.png" alt=""><br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/002dc4ba4f060408ae16ca9bde462a77.png" alt=""></p>
+<h3 id="样本方差的分布"><a href="#样本方差的分布" class="headerlink" title="样本方差的分布"></a>样本方差的分布</h3><p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/d18753bb29a52a741f4d4c75015250eb.png" alt=""></p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/8fe31db195e3c13c63df668024006dbc.png" alt=""><br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/2e71e1d8272c95c2967aea547ed82d6c.png" alt=""></p>
+<h3 id="补充：样本比例的抽样分布"><a href="#补充：样本比例的抽样分布" class="headerlink" title="补充：样本比例的抽样分布"></a>补充：样本比例的抽样分布</h3><p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/e6457ae6f75ac8d74c4bd5e87a238f2a.png" alt=""><br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/842b7c67b36906f2e4678835964b369a.png" alt=""></p>
+<h4 id="例子-1"><a href="#例子-1" class="headerlink" title="例子"></a>例子</h4><p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/f68dfbeca77c447dfd70c083c94b3048.png" alt=""><br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/c2dfad8c6c73fd82b4def7b3b75cd2d1.png" alt=""><br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/8c1e5741ceaad880c15cfeacd28de00d.png" alt=""></p>
+
+                <hr>
+                
+                <!-- 多说 Share start -->
+                <div class="ds-share"
+                     style="text-align: right"
+                     data-thread-key="2016/08/29/统计量及抽样分布/"
+                     data-title="统计量及抽样分布"
+                     data-url="http://yoursite.com/2016/08/29/统计量及抽样分布/"
+                     data-images=""
+                     data-content="摘要：
+
+什么是统计量
+常用统计量
+抽样分布
+$\chi^2$分布
+Gamma函数
+t分布
+F... | Haozhe&#39;s blog ">
+                    <div class="ds-share-inline">
+                        <ul class="ds-share-icons-16">
+                            <li data-toggle="ds-share-icons-more"><a class="ds-more" href="#">分享到：</a></li>
+                            <li><a class="ds-wechat flat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+                            <li><a class="ds-weibo flat" href="javascript:void(0);" data-service="weibo">微博</a></li>
+                            <li><a class="ds-douban flat" href="javascript:void(0);" data-service="douban">豆瓣</a></li>
+                        </ul>
+                        <div class="ds-share-icons-more">
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+                <!-- 多说 Share end-->
+                
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2016/08/30/参数估计/" data-toggle="tooltip" data-placement="top"
+                           title="参数估计">&larr; Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2016/08/29/概率分布/" data-toggle="tooltip" data-placement="top"
+                           title="概率分布">Next Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+                <!-- 多说评论框 start -->
+                <div class="comment">
+                    <div class="ds-thread"
+                         data-thread-key="2016/08/29/统计量及抽样分布/"
+                         data-title="统计量及抽样分布"
+                         data-url="http://yoursite.com/2016/08/29/统计量及抽样分布/">
+                    </div>
+                </div>
+                <!-- 多说评论框 end -->
+                
+
+                
+
+            </div>
+
+            <div class="hidden-xs col-sm-3 toc-col">
+                <div class="toc-wrap">
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#什么是统计量"><span class="toc-text">什么是统计量</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#例子"><span class="toc-text">例子</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#常用统计量"><span class="toc-text">常用统计量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#次顺序统计量"><span class="toc-text">次顺序统计量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#抽样分布"><span class="toc-text">抽样分布</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#chi-2-分布"><span class="toc-text">$\chi^2$分布</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Gamma函数"><span class="toc-text">Gamma函数</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#t分布"><span class="toc-text">t分布</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#"><span class="toc-text"></span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#F分布"><span class="toc-text">F分布</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#样本均值的分布"><span class="toc-text">样本均值的分布</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#总体不是正态分布的-样本均值分布"><span class="toc-text">总体不是正态分布的 样本均值分布</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#中心极限定理"><span class="toc-text">中心极限定理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#样本方差的分布"><span class="toc-text">样本方差的分布</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#补充：样本比例的抽样分布"><span class="toc-text">补充：样本比例的抽样分布</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#例子-1"><span class="toc-text">例子</span></a></li></ol></li></ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5 class="text-center">
+                        <a href="/tags/">FEATURED TAGS</a>
+                    </h5>
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#数学"
+                           title="数学">数学</a>
+                        
+                        <a class="tag" href="/tags/#统计学"
+                           title="统计学">统计学</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <div style="margin-top: 20px;">
+                    <h5 class="text-center">FRIENDS</h5>
+                    <ul class="list-inline text-center">
+                        
+                        <li><a href="http://www.hankcs.com/">hankcs</a></li>
+                        
+                        <li><a href="http://www.lintcode.com/zh-cn/ladder/2/">lintcode</a></li>
+                        
+                        <li><a href="http://www.jiuzhang.com/solutions/">jiuzhang</a></li>
+                        
+                    </ul>
+                </div>
+                
+            </div>
+        </div>
+
+    </div>
+</article>
+
+
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    // dynamic User by Hux
+    var _user = 'xuehaozhe';
+
+    // duoshuo comment query.
+    var duoshuoQuery = {short_name: _user};
+    (function () {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';
+        ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0]
+        || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+</script>
+<!-- 多说公共JS代码 end -->
+
+
+
+
+
+<!-- Footer -->
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <br>
+                <ul class="list-inline text-center">
+                
+                
+                    <li>
+                        <a target="_blank" href="https://twitter.com/xuehaozhe">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/xuehaozhe0526">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="http://weibo.com/fendoujianchi">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/xuehanzhe0526">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Haozhe 2017
+                    <br>
+                    <span id="busuanzi_container_site_pv" style="font-size: 12px;">PV: <span id="busuanzi_value_site_pv"></span> Times</span>
+                    <br>
+                    Theme by <a href="https://haojen.github.io/">Haojen Ma</a>
+                </p>
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/blog.js"></script>
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://yoursite.com/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+
+
+<!-- swiftype -->
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','null','2.0.0');
+</script>
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<!--wechat title img-->
+<img class="wechat-title-img" src="http://7xrw7v.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160402220553.png">
+</body>
+
+</html>

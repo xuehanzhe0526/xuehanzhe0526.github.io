@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="What hurts more,the pain of hard work or the pain of regret.">
+    <meta name="keyword" content="null">
+    <meta name="theme-color" content="#600090">
+    <meta name="msapplication-navbutton-color" content="#600090">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#600090">
+    <link rel="shortcut icon" href="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-person-128.png">
+    <link rel="alternate" type="application/atom+xml" title="Haozhe" href="/atom.xml">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
+    <title>
+        
+        python入门 (七)(转载)｜Haozhe&#39;s blog
+        
+    </title>
+
+    <link rel="canonical" href="http://yoursite.com/2016/01/14/Python入门7/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/blog-style.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+</head>
+
+<style>
+
+    header.intro-header {
+        background-image: url('http://7xrw7v.com1.z0.glb.clouddn.com/1485527729222.jpg')
+    }
+</style>
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="" class="animated fadeIn">
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost = "true" data-istags="false
+" data-ishome = "false" >
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand animated pulse" href="/">
+                <span class="brand-logo">
+                    Haozhe
+                </span>
+                's Blog
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <!-- /.navbar-collapse -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+					
+                    
+                        
+							
+                        <li>
+                            <a href="/tags/">tags</a>
+                        </li>
+							
+						
+                    
+					
+					
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+//    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+<!-- Main Content -->
+
+<!--only post-->
+
+
+<img class="wechat-title-img"
+     src="http://7xrw7v.com1.z0.glb.clouddn.com/148552521631.jpg#博文默认的图片">
+
+
+<style>
+    
+    header.intro-header {
+        background-image: url('http://7xrw7v.com1.z0.glb.clouddn.com/148552521631.jpg#博文默认的图片')
+    }
+
+    
+</style>
+
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <div class="post-heading">
+                    <h1>python入门 (七)(转载)</h1>
+                    
+                    <span class="meta">
+                         作者 Haozhe Xue
+                        <span>
+                          日期 2016-01-14
+                         </span>
+                    </span>
+                    <div class="tags text-center">
+                        
+                        <a class="tag" href="/tags/#Python"
+                           title="Python">Python</a>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="post-title-haojen">
+        <span>
+            python入门 (七)(转载)
+        </span>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <!-- Post Container -->
+            <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
+                <p>摘要：</p>
+<ul>
+<li>迭代</li>
+<li>什么是迭代</li>
+<li>索引迭代</li>
+<li>迭代dict的value</li>
+<li>迭代dict的key和value</li>
+</ul>
+<a id="more"></a>
+<h4 id="1、什么是迭代"><a href="#1、什么是迭代" class="headerlink" title="1、什么是迭代"></a>1、什么是迭代</h4><p>在Python中，如果给定一个list或tuple，我们可以通过for循环来遍历这个list或tuple，这种遍历我们成为迭代（Iteration）。</p>
+<p>在Python中，迭代是通过 <code>for ... in</code>来完成的，而很多语言比如C或者Java，迭代list是通过下标完成的，比如Java代码：<br><figure class="highlight java"><table><tr><td class="code"><pre><div class="line"><span class="keyword">for</span> (i=<span class="number">0</span>; i&lt;list.length; i++) &#123;</div><div class="line">    n = list[i];</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>可以看出，Python的for循环抽象程度要高于Java的for循环。</p>
+<p><strong>因为 Python 的 for循环不仅可以用在list或tuple上，还可以作用在其他任何可迭代对象上。</strong></p>
+<p>因此，迭代操作就是对于一个集合，无论该集合是有序还是无序，我们用 for 循环总是可以依次取出集合的每一个元素。</p>
+<blockquote>
+<p>注意: 集合是指包含一组元素的数据结构，我们已经介绍的包括：</p>
+<ol>
+<li>有序集合：list，tuple，str和unicode；</li>
+<li>无序集合：set</li>
+<li>无序集合并且具有 key-value 对：dict</li>
+</ol>
+</blockquote>
+<p>而迭代是一个动词，它指的是一种操作，在Python中，就是 for 循环。</p>
+<p><code>任务</code><br>请用for循环迭代数列 1-100 并打印出7的倍数。<br><figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>, <span class="number">101</span>):</div><div class="line">    <span class="keyword">if</span> i % <span class="number">7</span> == <span class="number">0</span>:</div><div class="line">        <span class="keyword">print</span> i</div></pre></td></tr></table></figure></p>
+<h4 id="2、索引迭代"><a href="#2、索引迭代" class="headerlink" title="2、索引迭代"></a>2、索引迭代</h4><p>Python中，<strong>迭代永远是取出元素本身，而非元素的索引。</strong></p>
+<p>对于有序集合，元素确实是有索引的。有的时候，我们确实想在 for 循环中拿到索引，怎么办？</p>
+<p>方法是使用<code>enumerate()</code>函数：<br><figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="meta">&gt;&gt;&gt; </span>L = [<span class="string">'Adam'</span>, <span class="string">'Lisa'</span>, <span class="string">'Bart'</span>, <span class="string">'Paul'</span>]</div><div class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">for</span> index, name <span class="keyword">in</span> enumerate(L):</div><div class="line"><span class="meta">... </span>    <span class="keyword">print</span> index, <span class="string">'-'</span>, name</div><div class="line">...</div><div class="line"><span class="number">0</span> - Adam</div><div class="line"><span class="number">1</span> - Lisa</div><div class="line"><span class="number">2</span> - Bart</div><div class="line"><span class="number">3</span> - Paul</div></pre></td></tr></table></figure></p>
+<p>使用 enumerate() 函数，我们可以在for循环中同时绑定索引index和元素name。但是，这不是 enumerate() 的特殊语法。实际上，enumerate() 函数把：<br><figure class="highlight python"><table><tr><td class="code"><pre><div class="line">[<span class="string">'Adam'</span>, <span class="string">'Lisa'</span>, <span class="string">'Bart'</span>, <span class="string">'Paul'</span>]</div></pre></td></tr></table></figure></p>
+<p>变成了类似：<br><figure class="highlight python"><table><tr><td class="code"><pre><div class="line">[(<span class="number">0</span>, <span class="string">'Adam'</span>), (<span class="number">1</span>, <span class="string">'Lisa'</span>), (<span class="number">2</span>, <span class="string">'Bart'</span>), (<span class="number">3</span>, <span class="string">'Paul'</span>)]</div></pre></td></tr></table></figure></p>
+<p>因此，迭代的每一个元素实际上是一个tuple：<br><figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="keyword">for</span> t <span class="keyword">in</span> enumerate(L):</div><div class="line">    index = t[<span class="number">0</span>]</div><div class="line">    name = t[<span class="number">1</span>]</div><div class="line">    <span class="keyword">print</span> index, <span class="string">'-'</span>, name</div></pre></td></tr></table></figure></p>
+<p>如果我们知道每个tuple元素都包含两个元素，for循环又可以进一步简写为：<br><figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="keyword">for</span> index, name <span class="keyword">in</span> enumerate(L):</div><div class="line">    <span class="keyword">print</span> index, <span class="string">'-'</span>, name</div></pre></td></tr></table></figure></p>
+<p>这样不但代码更简单，而且还少了两条赋值语句。</p>
+<p><strong>可见，索引迭代也不是真的按索引访问，而是由 enumerate() 函数自动把每个元素变成 (index, element) 这样的tuple，再迭代，就同时获得了索引和元素本身。</strong></p>
+<p><strong>任务</strong><br>zip()函数可以把两个 list 变成一个 list：<br><figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="meta">&gt;&gt;&gt; </span>zip([<span class="number">10</span>, <span class="number">20</span>, <span class="number">30</span>], [<span class="string">'A'</span>, <span class="string">'B'</span>, <span class="string">'C'</span>])</div><div class="line">[(<span class="number">10</span>, <span class="string">'A'</span>), (<span class="number">20</span>, <span class="string">'B'</span>), (<span class="number">30</span>, <span class="string">'C'</span>)]</div></pre></td></tr></table></figure></p>
+<p>在迭代 [‘Adam’, ‘Lisa’, ‘Bart’, ‘Paul’] 时，如果我们想打印出名次 - 名字（名次从1开始)，请考虑如何在迭代中打印出来。</p>
+<p><strong>提示</strong>：考虑使用zip()函数和range()函数<br>range(1, ?) 可以创建出起始为 1 的数列。<br><figure class="highlight python"><table><tr><td class="code"><pre><div class="line">L = [<span class="string">'Adam'</span>, <span class="string">'Lisa'</span>, <span class="string">'Bart'</span>, <span class="string">'Paul'</span>]</div><div class="line"><span class="keyword">for</span> index, name <span class="keyword">in</span> zip(range(<span class="number">1</span>, len(L)+<span class="number">1</span>), L):</div><div class="line">    <span class="keyword">print</span> index, <span class="string">'-'</span>, name</div></pre></td></tr></table></figure></p>
+<h4 id="3、迭代dict的value"><a href="#3、迭代dict的value" class="headerlink" title="3、迭代dict的value"></a>3、迭代dict的value</h4><p>我们已经了解了<strong>dict对象</strong>本身就是可迭代对象，用 for 循环直接迭代 dict，可以每次拿到dict的一个key。</p>
+<p>如果我们希望迭代 dict 对象的value，应该怎么做？</p>
+<p>dict 对象有一个 <strong>values()</strong> 方法，<code>这个方法把dict转换成一个包含所有value的list</code>，这样，我们迭代的就是 dict的每一个 value：<br><figure class="highlight python"><table><tr><td class="code"><pre><div class="line">d = &#123; <span class="string">'Adam'</span>: <span class="number">95</span>, <span class="string">'Lisa'</span>: <span class="number">85</span>, <span class="string">'Bart'</span>: <span class="number">59</span> &#125;</div><div class="line"><span class="keyword">print</span> d.values()</div><div class="line"><span class="comment"># [85, 95, 59]</span></div><div class="line"><span class="keyword">for</span> v <span class="keyword">in</span> d.values():</div><div class="line">    <span class="keyword">print</span> v</div><div class="line"><span class="comment"># 85</span></div><div class="line"><span class="comment"># 95</span></div><div class="line"><span class="comment"># 59</span></div></pre></td></tr></table></figure></p>
+<p>dict除了values()方法外，还有一个 <strong>itervalues()</strong> 方法，用 itervalues() 方法替代 values() 方法，迭代效果完全一样：<br><figure class="highlight python"><table><tr><td class="code"><pre><div class="line">d = &#123; <span class="string">'Adam'</span>: <span class="number">95</span>, <span class="string">'Lisa'</span>: <span class="number">85</span>, <span class="string">'Bart'</span>: <span class="number">59</span> &#125;</div><div class="line"><span class="keyword">print</span> d.itervalues()</div><div class="line"><span class="comment"># &lt;dictionary-valueiterator object at 0x106adbb50&gt;</span></div><div class="line"><span class="keyword">for</span> v <span class="keyword">in</span> d.itervalues():</div><div class="line">    <span class="keyword">print</span> v</div><div class="line"><span class="comment"># 85</span></div><div class="line"><span class="comment"># 95</span></div><div class="line"><span class="comment"># 59</span></div></pre></td></tr></table></figure></p>
+<p>那这两个方法有何不同之处呢？</p>
+<ol>
+<li><p>values() 方法实际上把一个 dict 转换成了包含 value 的list。</p>
+</li>
+<li><p>但是 itervalues() 方法不会转换，它会在迭代过程中依次从 dict 中取出 value，所以 itervalues() 方法比 values() 方法节省了生成 list 所需的内存。</p>
+</li>
+<li>打印 itervalues() 发现它返回一个 <dictionary-valueiterator> 对象，这说明在Python中，f<strong>or 循环可作用的迭代对象远不止 list，tuple，str，unicode，dict等，</strong>任何可迭代对象都可以作用于for循环，而内部如何迭代我们通常并不用关心。</dictionary-valueiterator></li>
+</ol>
+<p><code>迭代是一种抽象的数据操作，它不对迭代对象内部的数据有任何要求。</code></p>
+<p><strong>任务</strong>:<br>给定一个dict：<br><figure class="highlight python"><table><tr><td class="code"><pre><div class="line">d = &#123; <span class="string">'Adam'</span>: <span class="number">95</span>, <span class="string">'Lisa'</span>: <span class="number">85</span>, <span class="string">'Bart'</span>: <span class="number">59</span>, <span class="string">'Paul'</span>: <span class="number">74</span> &#125;</div></pre></td></tr></table></figure></p>
+<p>请计算所有同学的平均分。</p>
+<p>提示：由于分数存储在dict的value，因此，需要迭代 values() 或 itervalues()。<br><figure class="highlight python"><table><tr><td class="code"><pre><div class="line">d = &#123; <span class="string">'Adam'</span>: <span class="number">95</span>, <span class="string">'Lisa'</span>: <span class="number">85</span>, <span class="string">'Bart'</span>: <span class="number">59</span>, <span class="string">'Paul'</span>: <span class="number">74</span> &#125;</div><div class="line">sum = <span class="number">0.0</span></div><div class="line"><span class="keyword">for</span> v <span class="keyword">in</span> d.itervalues():</div><div class="line">    sum = sum + v</div><div class="line"><span class="keyword">print</span> sum / len(d)</div></pre></td></tr></table></figure></p>
+<h4 id="4、迭代dict的key和value"><a href="#4、迭代dict的key和value" class="headerlink" title="4、迭代dict的key和value"></a>4、迭代dict的key和value</h4><p>我们了解了如何迭代 dict 的key和value，那么，在一个 for 循环中，能否<code>同时</code>迭代 key和value？答案是肯定的。</p>
+<p>首先，我们看看 dict 对象的 <strong>items()</strong> 方法返回的值：<br><figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="meta">&gt;&gt;&gt; </span>d = &#123; <span class="string">'Adam'</span>: <span class="number">95</span>, <span class="string">'Lisa'</span>: <span class="number">85</span>, <span class="string">'Bart'</span>: <span class="number">59</span> &#125;</div><div class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">print</span> d.items()</div><div class="line">[(<span class="string">'Lisa'</span>, <span class="number">85</span>), (<span class="string">'Adam'</span>, <span class="number">95</span>), (<span class="string">'Bart'</span>, <span class="number">59</span>)]</div></pre></td></tr></table></figure></p>
+<p>可以看到，items() 方法把dict对象转换成了<strong>包含tuple的list</strong>，我们对这个list进行迭代，可以同时获得key和value：<br><figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">for</span> key, value <span class="keyword">in</span> d.items():</div><div class="line"><span class="meta">... </span>    <span class="keyword">print</span> key, <span class="string">':'</span>, value</div><div class="line">...</div><div class="line">Lisa : <span class="number">85</span></div><div class="line">Adam : <span class="number">95</span></div><div class="line">Bart : <span class="number">59</span></div></pre></td></tr></table></figure></p>
+<p>和 values() 有一个 itervalues() 类似， items() 也有一个对应的 iteritems()，iteritems() 不把dict转换成list，而是在迭代过程中不断给出 tuple，所以， <strong>iteritems()</strong> 不占用额外的内存。</p>
+<p><strong>任务</strong><br>请根据dict：</p>
+<blockquote>
+<p>d = { ‘Adam’: 95, ‘Lisa’: 85, ‘Bart’: 59, ‘Paul’: 74 }</p>
+</blockquote>
+<p>打印出 name : score，最后再打印出平均分 average : score。</p>
+<p>思路：需要同时对 name 和 score 进行迭代。<br><figure class="highlight python"><table><tr><td class="code"><pre><div class="line">d = &#123; <span class="string">'Adam'</span>: <span class="number">95</span>, <span class="string">'Lisa'</span>: <span class="number">85</span>, <span class="string">'Bart'</span>: <span class="number">59</span>, <span class="string">'Paul'</span>: <span class="number">74</span> &#125;</div><div class="line">sum = <span class="number">0.0</span></div><div class="line"><span class="keyword">for</span> k, v <span class="keyword">in</span> d.iteritems():</div><div class="line">    sum = sum + v</div><div class="line">    <span class="keyword">print</span> k, <span class="string">':'</span>, v</div><div class="line"><span class="keyword">print</span> <span class="string">'average'</span>, <span class="string">':'</span>, sum / len(d)</div></pre></td></tr></table></figure></p>
+
+                <hr>
+                
+                <!-- 多说 Share start -->
+                <div class="ds-share"
+                     style="text-align: right"
+                     data-thread-key="2016/01/14/Python入门7/"
+                     data-title="python入门 (七)(转载)"
+                     data-url="http://yoursite.com/2016/01/14/Python入门7/"
+                     data-images=""
+                     data-content="摘要：
+
+迭代
+什么是迭代
+索引迭代
+迭代dict的value
+迭代dict的key和valu... | Haozhe&#39;s blog ">
+                    <div class="ds-share-inline">
+                        <ul class="ds-share-icons-16">
+                            <li data-toggle="ds-share-icons-more"><a class="ds-more" href="#">分享到：</a></li>
+                            <li><a class="ds-wechat flat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+                            <li><a class="ds-weibo flat" href="javascript:void(0);" data-service="weibo">微博</a></li>
+                            <li><a class="ds-douban flat" href="javascript:void(0);" data-service="douban">豆瓣</a></li>
+                        </ul>
+                        <div class="ds-share-icons-more">
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+                <!-- 多说 Share end-->
+                
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2016/01/15/Python入门8/" data-toggle="tooltip" data-placement="top"
+                           title="python入门 (八)(转载)">&larr; Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2016/01/13/python入门6/" data-toggle="tooltip" data-placement="top"
+                           title="python入门 (六)(转载)">Next Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+                <!-- 多说评论框 start -->
+                <div class="comment">
+                    <div class="ds-thread"
+                         data-thread-key="2016/01/14/Python入门7/"
+                         data-title="python入门 (七)(转载)"
+                         data-url="http://yoursite.com/2016/01/14/Python入门7/">
+                    </div>
+                </div>
+                <!-- 多说评论框 end -->
+                
+
+                
+
+            </div>
+
+            <div class="hidden-xs col-sm-3 toc-col">
+                <div class="toc-wrap">
+                    <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#1、什么是迭代"><span class="toc-text">1、什么是迭代</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2、索引迭代"><span class="toc-text">2、索引迭代</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3、迭代dict的value"><span class="toc-text">3、迭代dict的value</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4、迭代dict的key和value"><span class="toc-text">4、迭代dict的key和value</span></a></li></ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5 class="text-center">
+                        <a href="/tags/">FEATURED TAGS</a>
+                    </h5>
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#Python"
+                           title="Python">Python</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <div style="margin-top: 20px;">
+                    <h5 class="text-center">FRIENDS</h5>
+                    <ul class="list-inline text-center">
+                        
+                        <li><a href="http://www.hankcs.com/">hankcs</a></li>
+                        
+                        <li><a href="http://www.lintcode.com/zh-cn/ladder/2/">lintcode</a></li>
+                        
+                        <li><a href="http://www.jiuzhang.com/solutions/">jiuzhang</a></li>
+                        
+                    </ul>
+                </div>
+                
+            </div>
+        </div>
+
+    </div>
+</article>
+
+
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    // dynamic User by Hux
+    var _user = 'xuehaozhe';
+
+    // duoshuo comment query.
+    var duoshuoQuery = {short_name: _user};
+    (function () {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';
+        ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0]
+        || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+</script>
+<!-- 多说公共JS代码 end -->
+
+
+
+
+
+<!-- Footer -->
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <br>
+                <ul class="list-inline text-center">
+                
+                
+                    <li>
+                        <a target="_blank" href="https://twitter.com/xuehaozhe">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/xuehaozhe0526">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="http://weibo.com/fendoujianchi">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/xuehanzhe0526">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Haozhe 2017
+                    <br>
+                    <span id="busuanzi_container_site_pv" style="font-size: 12px;">PV: <span id="busuanzi_value_site_pv"></span> Times</span>
+                    <br>
+                    Theme by <a href="https://haojen.github.io/">Haojen Ma</a>
+                </p>
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/blog.js"></script>
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://yoursite.com/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+
+
+<!-- swiftype -->
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','null','2.0.0');
+</script>
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<!--wechat title img-->
+<img class="wechat-title-img" src="http://7xrw7v.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160402220553.png">
+</body>
+
+</html>

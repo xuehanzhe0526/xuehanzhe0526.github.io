@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="What hurts more,the pain of hard work or the pain of regret.">
+    <meta name="keyword" content="null">
+    <meta name="theme-color" content="#600090">
+    <meta name="msapplication-navbutton-color" content="#600090">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#600090">
+    <link rel="shortcut icon" href="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-person-128.png">
+    <link rel="alternate" type="application/atom+xml" title="Haozhe" href="/atom.xml">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
+    <title>
+        
+        filter、自定义函数、返回函数｜Haozhe&#39;s blog
+        
+    </title>
+
+    <link rel="canonical" href="http://yoursite.com/2016/06/18/python进阶2/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/blog-style.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+</head>
+
+<style>
+
+    header.intro-header {
+        background-image: url('http://7xrw7v.com1.z0.glb.clouddn.com/1485527729222.jpg')
+    }
+</style>
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="" class="animated fadeIn">
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost = "true" data-istags="false
+" data-ishome = "false" >
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand animated pulse" href="/">
+                <span class="brand-logo">
+                    Haozhe
+                </span>
+                's Blog
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <!-- /.navbar-collapse -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+					
+                    
+                        
+							
+                        <li>
+                            <a href="/tags/">tags</a>
+                        </li>
+							
+						
+                    
+					
+					
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+//    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+<!-- Main Content -->
+
+<!--only post-->
+
+
+<img class="wechat-title-img"
+     src="http://7xrw7v.com1.z0.glb.clouddn.com/148552521631.jpg#博文默认的图片">
+
+
+<style>
+    
+    header.intro-header {
+        background-image: url('http://7xrw7v.com1.z0.glb.clouddn.com/148552521631.jpg#博文默认的图片')
+    }
+
+    
+</style>
+
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <div class="post-heading">
+                    <h1>filter、自定义函数、返回函数</h1>
+                    
+                    <span class="meta">
+                         作者 Haozhe Xue
+                        <span>
+                          日期 2016-06-18
+                         </span>
+                    </span>
+                    <div class="tags text-center">
+                        
+                        <a class="tag" href="/tags/#Python进阶"
+                           title="Python进阶">Python进阶</a>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="post-title-haojen">
+        <span>
+            filter、自定义函数、返回函数
+        </span>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <!-- Post Container -->
+            <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
+                <p>摘要：</p>
+<ul>
+<li>filter()函数</li>
+<li>自定义排序函数</li>
+<li>返回函数</li>
+</ul>
+<a id="more"></a>
+<h3 id="1、filter-函数"><a href="#1、filter-函数" class="headerlink" title="1、filter()函数"></a>1、filter()函数</h3><p>filter()函数接收一个函数 f 和一个list，这个函数 f 的作用是对每个元素进行判断，返回 True或 False，<strong>filter()根据判断结果自动过滤掉不符合条件的元素，返回由符合条件元素组成的新list。</strong></p>
+<p>例如，要从一个list [1, 4, 6, 7, 9, 12, 17]中删除偶数，保留奇数，首先，要编写一个判断奇数的函数：<br><figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">is_odd</span><span class="params">(x)</span>:</span></div><div class="line">    <span class="keyword">return</span> x % <span class="number">2</span> == <span class="number">1</span></div><div class="line"><span class="comment">#然后，利用filter()过滤掉偶数：</span></div><div class="line">filter(is_odd, [<span class="number">1</span>, <span class="number">4</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">9</span>, <span class="number">12</span>, <span class="number">17</span>])</div><div class="line">结果：[<span class="number">1</span>, <span class="number">7</span>, <span class="number">9</span>, <span class="number">17</span>]</div></pre></td></tr></table></figure></p>
+<p>利用filter()，可以完成很多有用的功能，例如，删除 None 或者空字符串：<br><figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">is_not_empty</span><span class="params">(s)</span>:</span></div><div class="line">    <span class="keyword">return</span> s <span class="keyword">and</span> len(s.strip()) &gt; <span class="number">0</span></div><div class="line">filter(is_not_empty, [<span class="string">'test'</span>, <span class="keyword">None</span>, <span class="string">''</span>, <span class="string">'str'</span>, <span class="string">'  '</span>, <span class="string">'END'</span>])</div></pre></td></tr></table></figure></p>
+<p>结果：[‘test’, ‘str’, ‘END’]</p>
+<p><strong>注意:</strong> s.strip(rm) 删除 s 字符串中开头、结尾处的 rm 序列的字符。</p>
+<p>当rm为空时，默认删除空白符（包括’\n’, ‘\r’, ‘\t’, ‘ ‘)，如下：<br><figure class="highlight python"><table><tr><td class="code"><pre><div class="line">a = <span class="string">'     123'</span></div><div class="line">a.strip()</div><div class="line">结果： <span class="string">'123'</span></div><div class="line"></div><div class="line">a=<span class="string">'\t\t123\r\n'</span></div><div class="line">a.strip()</div><div class="line">结果：<span class="string">'123'</span></div></pre></td></tr></table></figure></p>
+<h4 id="1-1-任务"><a href="#1-1-任务" class="headerlink" title="1.1 任务"></a>1.1 任务</h4><p>请利用filter()过滤出1~100中平方根是整数的数，即结果应该是：<br>[1, 4, 9, 16, 25, 36, 49, 64, 81, 100]<br>提示：<br>filter() 接收的函数必须判断出一个数的平方根是否是整数，而 <strong>math.sqrt()</strong>返回结果是<strong>浮点数。</strong><br><figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="keyword">import</span> math</div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">is_sqr</span><span class="params">(x)</span>:</span></div><div class="line">    r = int(math.sqrt(x))</div><div class="line">    <span class="keyword">return</span> r*r==x</div><div class="line"><span class="keyword">print</span> filter(is_sqr, range(<span class="number">1</span>, <span class="number">101</span>))</div></pre></td></tr></table></figure></p>
+<h3 id="2、自定义排序函数"><a href="#2、自定义排序函数" class="headerlink" title="2、自定义排序函数"></a>2、自定义排序函数</h3><p>Python内置的 sorted()函数可对list进行排序：<br><figure class="highlight python"><table><tr><td class="code"><pre><div class="line">&gt;&gt;&gt;sorted([<span class="number">36</span>, <span class="number">5</span>, <span class="number">12</span>, <span class="number">9</span>, <span class="number">21</span>])</div><div class="line"></div><div class="line">[<span class="number">5</span>, <span class="number">9</span>, <span class="number">12</span>, <span class="number">21</span>, <span class="number">36</span>]</div></pre></td></tr></table></figure></p>
+<p>但 sorted()也是一个高阶函数，它可以接收一个<strong>比较函数</strong>来实现自定义排序.</p>
+<p><code>比较函数的定义</code>是，传入两个待比较的元素 x, y，如果 x 应该排在 y 的前面，返回 -1，如果 x 应该排在 y 的后面，返回 1。如果 x 和 y 相等，返回 0。</p>
+<p>如果我们要实现<strong>倒序排序</strong>，只需要编写一个reversed_cmp函数：<br><figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">reversed_cmp</span><span class="params">(x, y)</span>:</span></div><div class="line">    <span class="keyword">if</span> x &gt; y:</div><div class="line">        <span class="keyword">return</span> <span class="number">-1</span></div><div class="line">    <span class="keyword">if</span> x &lt; y:</div><div class="line">        <span class="keyword">return</span> <span class="number">1</span></div><div class="line">    <span class="keyword">return</span> <span class="number">0</span></div></pre></td></tr></table></figure></p>
+<p>这样，调用 sorted() 并传入 reversed_cmp 就可以实现倒序排序：<br><figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="meta">&gt;&gt;&gt; </span>sorted([<span class="number">36</span>, <span class="number">5</span>, <span class="number">12</span>, <span class="number">9</span>, <span class="number">21</span>], reversed_cmp)</div><div class="line">[<span class="number">36</span>, <span class="number">21</span>, <span class="number">12</span>, <span class="number">9</span>, <span class="number">5</span>]</div></pre></td></tr></table></figure></p>
+<p>sorted()也可以对字符串进行排序，字符串默认按照ASCII大小来比较：<br><figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="meta">&gt;&gt;&gt; </span>sorted([<span class="string">'bob'</span>, <span class="string">'about'</span>, <span class="string">'Zoo'</span>, <span class="string">'Credit'</span>])</div><div class="line">[<span class="string">'Credit'</span>, <span class="string">'Zoo'</span>, <span class="string">'about'</span>, <span class="string">'bob'</span>]</div></pre></td></tr></table></figure></p>
+<p>‘Zoo’排在’about’之前是因为’Z’的ASCII码比’a’小。</p>
+<h4 id="2-1-任务"><a href="#2-1-任务" class="headerlink" title="2.1 任务"></a>2.1 任务</h4><p>对字符串排序时，有时候忽略大小写排序更符合习惯。请利用sorted()高阶函数，实现忽略大小写排序的算法。</p>
+<ul>
+<li>输入：[‘bob’, ‘about’, ‘Zoo’, ‘Credit’]</li>
+<li>输出：[‘about’, ‘bob’, ‘Credit’, ‘Zoo’]</li>
+</ul>
+<p><strong>提示：</strong>对于比较函数cmp_ignore_case(s1, s2)，要忽略大小写比较，就是先把两个字符串都变成大写（或者都变成小写），再比较。<br><figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">cmp_ignore_case</span><span class="params">(s1, s2)</span>:</span></div><div class="line">    u1 = s1.upper()</div><div class="line">    u2 = s2.upper()</div><div class="line">    <span class="keyword">if</span> u1 &lt; u2:</div><div class="line">        <span class="keyword">return</span> <span class="number">-1</span></div><div class="line">    <span class="keyword">if</span> u1 &gt; u2:</div><div class="line">        <span class="keyword">return</span> <span class="number">1</span></div><div class="line">    <span class="keyword">return</span> <span class="number">0</span></div><div class="line"><span class="keyword">print</span> sorted([<span class="string">'bob'</span>, <span class="string">'about'</span>, <span class="string">'Zoo'</span>, <span class="string">'Credit'</span>], cmp_ignore_case)</div></pre></td></tr></table></figure></p>
+<h3 id="3、返回函数"><a href="#3、返回函数" class="headerlink" title="3、返回函数"></a>3、返回函数</h3><p>Python的函数不但可以返回int、str、list、dict等数据类型，还可以返回函数！</p>
+<p>例如，定义一个函数 f()，我们让它返回一个函数 g，可以这样写：<br><figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">f</span><span class="params">()</span>:</span></div><div class="line">    <span class="keyword">print</span> <span class="string">'call f()...'</span></div><div class="line">    <span class="comment"># 定义函数g:</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">g</span><span class="params">()</span>:</span></div><div class="line">        <span class="keyword">print</span> <span class="string">'call g()...'</span></div><div class="line">    <span class="comment"># 返回函数g:</span></div><div class="line">    <span class="keyword">return</span> g</div></pre></td></tr></table></figure></p>
+<p>上面的函数定义，我们在函数 f 内部又定义了一个函数 g。由于函数 g 也是一个对象，函数名 g 就是指向函数 g 的变量，所以，最外层函数 f 可以返回变量 g，也就是函数 g 本身。</p>
+<p>调用函数 f，我们会得到 f 返回的一个函数：<br><figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="meta">&gt;&gt;&gt; </span>x = f()   <span class="comment"># 调用f()</span></div><div class="line">call f()...</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>x   <span class="comment"># 变量x是f()返回的函数：</span></div><div class="line">&lt;function g at <span class="number">0x1037bf320</span>&gt;</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>x()   <span class="comment"># x指向函数，因此可以调用</span></div><div class="line">call g()...   <span class="comment"># 调用x()就是执行g()函数定义的代码</span></div></pre></td></tr></table></figure></p>
+<p>请注意区分返回函数和返回值：<br><figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">myabs</span><span class="params">()</span>:</span></div><div class="line">    <span class="keyword">return</span> abs   <span class="comment"># 返回函数</span></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">myabs2</span><span class="params">(x)</span>:</span></div><div class="line">    <span class="keyword">return</span> abs(x)   <span class="comment"># 返回函数调用的结果，返回值是一个数值</span></div></pre></td></tr></table></figure></p>
+<p><strong>返回函数可以把一些计算延迟执行。</strong><br>例如，如果定义一个<code>普通的求和函数</code>：<br><figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">calc_sum</span><span class="params">(lst)</span>:</span></div><div class="line">    <span class="keyword">return</span> sum(lst)</div></pre></td></tr></table></figure></p>
+<p>调用calc_sum()函数时，将<strong>立刻</strong>计算并得到结果：<br><figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="meta">&gt;&gt;&gt; </span>calc_sum([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>])</div><div class="line"><span class="number">10</span></div></pre></td></tr></table></figure></p>
+<p>但是，如果返回一个函数，就可以“<strong>延迟计算</strong>”：<br><figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">calc_sum</span><span class="params">(lst)</span>:</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">lazy_sum</span><span class="params">()</span>:</span></div><div class="line">        <span class="keyword">return</span> sum(lst)</div><div class="line">    <span class="keyword">return</span> lazy_sum</div></pre></td></tr></table></figure></p>
+<p><code># 调用calc_sum()并没有计算出结果，而是返回函数:</code><br><figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="meta">&gt;&gt;&gt; </span>f = calc_sum([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>])</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>f</div><div class="line">&lt;function lazy_sum at <span class="number">0x1037bfaa0</span>&gt;</div></pre></td></tr></table></figure></p>
+<p><code># 对返回的函数进行调用时，才计算出结果:</code><br><figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="meta">&gt;&gt;&gt; </span>f()</div><div class="line"><span class="number">10</span></div></pre></td></tr></table></figure></p>
+<h4 id="3-1-任务"><a href="#3-1-任务" class="headerlink" title="3.1 任务"></a>3.1 任务</h4><p>请编写一个函数calc_prod(lst)，它接收一个list，返回一个函数，返回函数可以计算参数的乘积。<br><figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">calc_prod</span><span class="params">(lst)</span>:</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">lazy_prod</span><span class="params">()</span>:</span></div><div class="line">        <span class="function"><span class="keyword">def</span> <span class="title">f</span><span class="params">(x, y)</span>:</span></div><div class="line">            <span class="keyword">return</span> x * y</div><div class="line">        <span class="keyword">return</span> reduce(f, lst, <span class="number">1</span>)</div><div class="line">    <span class="keyword">return</span> lazy_prod</div><div class="line">f = calc_prod([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>])</div><div class="line"><span class="keyword">print</span> f()</div></pre></td></tr></table></figure></p>
+
+                <hr>
+                
+                <!-- 多说 Share start -->
+                <div class="ds-share"
+                     style="text-align: right"
+                     data-thread-key="2016/06/18/python进阶2/"
+                     data-title="filter、自定义函数、返回函数"
+                     data-url="http://yoursite.com/2016/06/18/python进阶2/"
+                     data-images=""
+                     data-content="摘要：
+
+filter()函数
+自定义排序函数
+返回函数
+
+
+1、filter()函数filt... | Haozhe&#39;s blog ">
+                    <div class="ds-share-inline">
+                        <ul class="ds-share-icons-16">
+                            <li data-toggle="ds-share-icons-more"><a class="ds-more" href="#">分享到：</a></li>
+                            <li><a class="ds-wechat flat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+                            <li><a class="ds-weibo flat" href="javascript:void(0);" data-service="weibo">微博</a></li>
+                            <li><a class="ds-douban flat" href="javascript:void(0);" data-service="douban">豆瓣</a></li>
+                        </ul>
+                        <div class="ds-share-icons-more">
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+                <!-- 多说 Share end-->
+                
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2016/07/10/hadoop配置文件/" data-toggle="tooltip" data-placement="top"
+                           title="hadoop配置文件">&larr; Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2016/06/13/kindle/" data-toggle="tooltip" data-placement="top"
+                           title="利用ifttt、Dropbox、Gmail把文件推送到你的Kindle上">Next Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+                <!-- 多说评论框 start -->
+                <div class="comment">
+                    <div class="ds-thread"
+                         data-thread-key="2016/06/18/python进阶2/"
+                         data-title="filter、自定义函数、返回函数"
+                         data-url="http://yoursite.com/2016/06/18/python进阶2/">
+                    </div>
+                </div>
+                <!-- 多说评论框 end -->
+                
+
+                
+
+            </div>
+
+            <div class="hidden-xs col-sm-3 toc-col">
+                <div class="toc-wrap">
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、filter-函数"><span class="toc-text">1、filter()函数</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-1-任务"><span class="toc-text">1.1 任务</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、自定义排序函数"><span class="toc-text">2、自定义排序函数</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-任务"><span class="toc-text">2.1 任务</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3、返回函数"><span class="toc-text">3、返回函数</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1-任务"><span class="toc-text">3.1 任务</span></a></li></ol></li></ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5 class="text-center">
+                        <a href="/tags/">FEATURED TAGS</a>
+                    </h5>
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#Python进阶"
+                           title="Python进阶">Python进阶</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <div style="margin-top: 20px;">
+                    <h5 class="text-center">FRIENDS</h5>
+                    <ul class="list-inline text-center">
+                        
+                        <li><a href="http://www.hankcs.com/">hankcs</a></li>
+                        
+                        <li><a href="http://www.lintcode.com/zh-cn/ladder/2/">lintcode</a></li>
+                        
+                        <li><a href="http://www.jiuzhang.com/solutions/">jiuzhang</a></li>
+                        
+                    </ul>
+                </div>
+                
+            </div>
+        </div>
+
+    </div>
+</article>
+
+
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    // dynamic User by Hux
+    var _user = 'xuehaozhe';
+
+    // duoshuo comment query.
+    var duoshuoQuery = {short_name: _user};
+    (function () {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';
+        ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0]
+        || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+</script>
+<!-- 多说公共JS代码 end -->
+
+
+
+
+
+<!-- Footer -->
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <br>
+                <ul class="list-inline text-center">
+                
+                
+                    <li>
+                        <a target="_blank" href="https://twitter.com/xuehaozhe">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/xuehaozhe0526">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="http://weibo.com/fendoujianchi">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/xuehanzhe0526">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Haozhe 2017
+                    <br>
+                    <span id="busuanzi_container_site_pv" style="font-size: 12px;">PV: <span id="busuanzi_value_site_pv"></span> Times</span>
+                    <br>
+                    Theme by <a href="https://haojen.github.io/">Haojen Ma</a>
+                </p>
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/blog.js"></script>
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://yoursite.com/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+
+
+<!-- swiftype -->
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','null','2.0.0');
+</script>
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<!--wechat title img-->
+<img class="wechat-title-img" src="http://7xrw7v.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160402220553.png">
+</body>
+
+</html>

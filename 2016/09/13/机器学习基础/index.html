@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="What hurts more,the pain of hard work or the pain of regret.">
+    <meta name="keyword" content="null">
+    <meta name="theme-color" content="#600090">
+    <meta name="msapplication-navbutton-color" content="#600090">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#600090">
+    <link rel="shortcut icon" href="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-person-128.png">
+    <link rel="alternate" type="application/atom+xml" title="Haozhe" href="/atom.xml">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
+    <title>
+        
+        机器学习基础｜Haozhe&#39;s blog
+        
+    </title>
+
+    <link rel="canonical" href="http://yoursite.com/2016/09/13/机器学习基础/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/blog-style.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+</head>
+
+<style>
+
+    header.intro-header {
+        background-image: url('http://7xrw7v.com1.z0.glb.clouddn.com/1485527729222.jpg')
+    }
+</style>
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="" class="animated fadeIn">
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost = "true" data-istags="false
+" data-ishome = "false" >
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand animated pulse" href="/">
+                <span class="brand-logo">
+                    Haozhe
+                </span>
+                's Blog
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <!-- /.navbar-collapse -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+					
+                    
+                        
+							
+                        <li>
+                            <a href="/tags/">tags</a>
+                        </li>
+							
+						
+                    
+					
+					
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+//    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+<!-- Main Content -->
+
+<!--only post-->
+
+
+<img class="wechat-title-img"
+     src="http://7xrw7v.com1.z0.glb.clouddn.com/148552521631.jpg#博文默认的图片">
+
+
+<style>
+    
+    header.intro-header {
+        background-image: url('http://7xrw7v.com1.z0.glb.clouddn.com/148552521631.jpg#博文默认的图片')
+    }
+
+    
+</style>
+
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <div class="post-heading">
+                    <h1>机器学习基础</h1>
+                    
+                    <span class="meta">
+                         作者 Haozhe Xue
+                        <span>
+                          日期 2016-09-13
+                         </span>
+                    </span>
+                    <div class="tags text-center">
+                        
+                        <a class="tag" href="/tags/#Mastering Machine Learning with scikit-learn"
+                           title="Mastering Machine Learning with scikit-learn">Mastering Machine Learning with scikit-learn</a>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="post-title-haojen">
+        <span>
+            机器学习基础
+        </span>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <!-- Post Container -->
+            <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
+                <p>摘要：</p>
+<ul>
+<li>交叉验证（cross-validation ）</li>
+<li>效果评估，偏差，方差</li>
+</ul>
+<a id="more"></a>
+<p>发现一本很不错的书《Mastering Machine Learning with scikit-learn》可惜是英文，不过也是一个学英语的机会。同时，已经有人对此进行了翻译工作。<br>写这博客也是参考以下链接，主要目的就是学习英语。<br><a href="http://muxuezi.github.io/posts/1-the-fundamentals-of-machine-learning.html" target="_blank" rel="external">参见：绿萝间</a></p>
+<hr>
+<h3 id="交叉验证（cross-validation-）"><a href="#交叉验证（cross-validation-）" class="headerlink" title="交叉验证（cross-validation ）"></a>交叉验证（cross-validation ）</h3><p>Many supervised training sets are prepared manually, or by semi-automated<br>processes. Creating a large collection of supervised data can be costly in some<br>domains. Fortunately, several datasets are bundled with scikit-learn, allowing<br>developers to focus on experimenting with models instead. During development,<br>and particularly when training data is scarce, a practice called cross-validation can<br>be used to train and validate an algorithm on the same data. In cross-validation,<br>the training data is partitioned. The algorithm is trained using all but one of the<br>partitions, and tested on the remaining partition. The partitions are then rotated<br>several times so that the algorithm is trained and evaluated on all of the data. The<br>following diagram depicts cross-validation with five partitions or folds:<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">许多监督学习的训练集都是手工准备的，或者半自动处理。建一个海量监督数据集需要耗费许多资源。</div><div class="line">好在scikit-learn有些数据集，可以让开发者直接验证自己的模型。</div><div class="line">在开发阶段，尤其是训练集不够的时候，交叉验证（cross-validation ）的方法可以用相同的数据对算法进行多次训练和检验。</div><div class="line">在交叉验证中，训练数据是分成N块的。算法用N-1块进行训练，再用最后一块进行测试。</div><div class="line">每块都被算法轮流处理若干次，保证算法可以在训练和评估所有数据。下图就是5块数据的交叉验证方法：</div></pre></td></tr></table></figure></p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/28c276b55a8fc77a92be66180430acff.png" alt=""><br>The original dataset is partitioned into five subsets of equal size, labeled A through E.<br>Initially, the model is trained on partitions B through E, and tested on partition A.<br>In the next iteration, the model is trained on partitions A, C, D, and E, and tested on<br>partition B. The partitions are rotated until models have been trained and tested on<br>all of the partitions. Cross-validation provides a more accurate estimate of the model’s<br>performance than testing a single partition of the data.<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">数据集被等分成5块，从A标到E。开始的时候，模型用B到E进行训练，在A上测试。</div><div class="line">下一轮，在A，C，D和E上训练，用B进行测试。依次循环，直到每一块都测试过。</div><div class="line">交叉验证为模型的效果评估提供了比只有一个数据集更准确的方法。</div></pre></td></tr></table></figure></p>
+<h3 id="效果评估，偏差，方差"><a href="#效果评估，偏差，方差" class="headerlink" title="效果评估，偏差，方差"></a>效果评估，偏差，方差</h3><p>许多度量方法可以用于评估一个程序是否学会了有效处理任务。</p>
+<h4 id="监督学习问题中"><a href="#监督学习问题中" class="headerlink" title="监督学习问题中"></a>监督学习问题中</h4><p>有两种基本的预测误差：模型的偏差（bias）和方差（variance）。</p>
+<blockquote>
+<p>高方差的模型是过度拟合了训练集数据，而一个模型有高偏差的时候，其实是拟合不够的表现。</p>
+</blockquote>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/7f96313db08a892ca1ce08d6c4f767e3.png" alt=""></p>
+<p>在理想情况下，模型具有低偏差和低方差，但是二者具有背反特征，即要降低一个指标的时候，另一个指标就会增加。这就是著名的偏差-方差均衡(Bias-Variance Trade-off)。</p>
+<h4 id="无监督学习问题"><a href="#无监督学习问题" class="headerlink" title="无监督学习问题"></a>无监督学习问题</h4><p>用系统在真实世界中发生错误的代价来表示效果评估方法。</p>
+<p>有一个对肿瘤数据进行观察的机器学习系统分类任务，需要预测肿瘤是恶性的（malignant）还是良性的（benign）。</p>
+<blockquote>
+<p>准确度，或者是正确分类的比例，就是对程序效果评价的直观度量方法。准确度能够评价程序效果，不过它不能区分出，误把良性肿瘤分为恶性肿瘤，和误把恶性肿瘤分为良性肿瘤的效果差异。</p>
+</blockquote>
+<p>当系统正确地识别出一个恶性肿瘤，这个预测叫真阳性(True positive)；</p>
+<p>如果把一个良性肿瘤分成了一个恶性肿瘤，叫假阳性(False positive）；</p>
+<p>正确地识别出一个良性肿瘤叫真阴性(True negative)；</p>
+<p>把一个恶性肿瘤分成了一个良性肿瘤，叫假阴性(False negative）。</p>
+<h5 id="准确率（accuracy），精确率（precision）和召回率（recall）"><a href="#准确率（accuracy），精确率（precision）和召回率（recall）" class="headerlink" title="准确率（accuracy），精确率（precision）和召回率（recall）"></a>准确率（accuracy），精确率（precision）和召回率（recall）</h5><p>准度率计算公式如下，TP是真阳性统计结果，TN是真阴性统计结果，FP是假阳性统计结果，FN是假阴性统计结果：</p>
+<p>$ACC = \frac {TP+TN} {TP+TN+FP+FN}$</p>
+<p>精确率是被判断为恶性肿瘤中，真正为恶性肿瘤统计结果所占比例：<br>$P = \frac {TP} {TP+FP}$</p>
+<p>召回率是指真正为恶性肿瘤被分类系统判断出来的比例：</p>
+<p>$R = \frac {TP} {TP+FN}$</p>
+<ul>
+<li><p>精确率是评估被系统判断为恶性肿瘤中的肿瘤里面，确实为恶性肿瘤的比例。</p>
+</li>
+<li><p>而召回率是评估真实的恶性肿瘤被系统正确判断出来的比例。</p>
+</li>
+</ul>
+
+                <hr>
+                
+                <!-- 多说 Share start -->
+                <div class="ds-share"
+                     style="text-align: right"
+                     data-thread-key="2016/09/13/机器学习基础/"
+                     data-title="机器学习基础"
+                     data-url="http://yoursite.com/2016/09/13/机器学习基础/"
+                     data-images=""
+                     data-content="摘要：
+
+交叉验证（cross-validation ）
+效果评估，偏差，方差
+
+
+发现一本很... | Haozhe&#39;s blog ">
+                    <div class="ds-share-inline">
+                        <ul class="ds-share-icons-16">
+                            <li data-toggle="ds-share-icons-more"><a class="ds-more" href="#">分享到：</a></li>
+                            <li><a class="ds-wechat flat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+                            <li><a class="ds-weibo flat" href="javascript:void(0);" data-service="weibo">微博</a></li>
+                            <li><a class="ds-douban flat" href="javascript:void(0);" data-service="douban">豆瓣</a></li>
+                        </ul>
+                        <div class="ds-share-icons-more">
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+                <!-- 多说 Share end-->
+                
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2016/09/15/python教程1/" data-toggle="tooltip" data-placement="top"
+                           title="python:Files, Loops, and Conditional Logic">&larr; Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2016/09/09/matplotlib中文乱发问题/" data-toggle="tooltip" data-placement="top"
+                           title="matplotlib中文乱码问题">Next Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+                <!-- 多说评论框 start -->
+                <div class="comment">
+                    <div class="ds-thread"
+                         data-thread-key="2016/09/13/机器学习基础/"
+                         data-title="机器学习基础"
+                         data-url="http://yoursite.com/2016/09/13/机器学习基础/">
+                    </div>
+                </div>
+                <!-- 多说评论框 end -->
+                
+
+                
+
+            </div>
+
+            <div class="hidden-xs col-sm-3 toc-col">
+                <div class="toc-wrap">
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#交叉验证（cross-validation-）"><span class="toc-text">交叉验证（cross-validation ）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#效果评估，偏差，方差"><span class="toc-text">效果评估，偏差，方差</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#监督学习问题中"><span class="toc-text">监督学习问题中</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#无监督学习问题"><span class="toc-text">无监督学习问题</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#准确率（accuracy），精确率（precision）和召回率（recall）"><span class="toc-text">准确率（accuracy），精确率（precision）和召回率（recall）</span></a></li></ol></li></ol></li></ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5 class="text-center">
+                        <a href="/tags/">FEATURED TAGS</a>
+                    </h5>
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#Mastering Machine Learning with scikit-learn"
+                           title="Mastering Machine Learning with scikit-learn">Mastering Machine Learning with scikit-learn</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <div style="margin-top: 20px;">
+                    <h5 class="text-center">FRIENDS</h5>
+                    <ul class="list-inline text-center">
+                        
+                        <li><a href="http://www.hankcs.com/">hankcs</a></li>
+                        
+                        <li><a href="http://www.lintcode.com/zh-cn/ladder/2/">lintcode</a></li>
+                        
+                        <li><a href="http://www.jiuzhang.com/solutions/">jiuzhang</a></li>
+                        
+                    </ul>
+                </div>
+                
+            </div>
+        </div>
+
+    </div>
+</article>
+
+
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    // dynamic User by Hux
+    var _user = 'xuehaozhe';
+
+    // duoshuo comment query.
+    var duoshuoQuery = {short_name: _user};
+    (function () {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';
+        ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0]
+        || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+</script>
+<!-- 多说公共JS代码 end -->
+
+
+
+
+
+<!-- Footer -->
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <br>
+                <ul class="list-inline text-center">
+                
+                
+                    <li>
+                        <a target="_blank" href="https://twitter.com/xuehaozhe">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/xuehaozhe0526">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="http://weibo.com/fendoujianchi">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/xuehanzhe0526">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Haozhe 2017
+                    <br>
+                    <span id="busuanzi_container_site_pv" style="font-size: 12px;">PV: <span id="busuanzi_value_site_pv"></span> Times</span>
+                    <br>
+                    Theme by <a href="https://haojen.github.io/">Haojen Ma</a>
+                </p>
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/blog.js"></script>
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://yoursite.com/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+
+
+<!-- swiftype -->
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','null','2.0.0');
+</script>
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<!--wechat title img-->
+<img class="wechat-title-img" src="http://7xrw7v.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160402220553.png">
+</body>
+
+</html>

@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="What hurts more,the pain of hard work or the pain of regret.">
+    <meta name="keyword" content="null">
+    <meta name="theme-color" content="#600090">
+    <meta name="msapplication-navbutton-color" content="#600090">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#600090">
+    <link rel="shortcut icon" href="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-person-128.png">
+    <link rel="alternate" type="application/atom+xml" title="Haozhe" href="/atom.xml">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
+    <title>
+        
+        Variable scopes｜Haozhe&#39;s blog
+        
+    </title>
+
+    <link rel="canonical" href="http://yoursite.com/2016/09/25/变量作用域/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/blog-style.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+</head>
+
+<style>
+
+    header.intro-header {
+        background-image: url('http://7xrw7v.com1.z0.glb.clouddn.com/1485527729222.jpg')
+    }
+</style>
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="" class="animated fadeIn">
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost = "true" data-istags="false
+" data-ishome = "false" >
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand animated pulse" href="/">
+                <span class="brand-logo">
+                    Haozhe
+                </span>
+                's Blog
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <!-- /.navbar-collapse -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+					
+                    
+                        
+							
+                        <li>
+                            <a href="/tags/">tags</a>
+                        </li>
+							
+						
+                    
+					
+					
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+//    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+<!-- Main Content -->
+
+<!--only post-->
+
+
+<img class="wechat-title-img"
+     src="http://7xrw7v.com1.z0.glb.clouddn.com/148552521631.jpg#博文默认的图片">
+
+
+<style>
+    
+    header.intro-header {
+        background-image: url('http://7xrw7v.com1.z0.glb.clouddn.com/148552521631.jpg#博文默认的图片')
+    }
+
+    
+</style>
+
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <div class="post-heading">
+                    <h1>Variable scopes</h1>
+                    
+                    <span class="meta">
+                         作者 Haozhe Xue
+                        <span>
+                          日期 2016-09-25
+                         </span>
+                    </span>
+                    <div class="tags text-center">
+                        
+                        <a class="tag" href="/tags/#dataquest"
+                           title="dataquest">dataquest</a>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="post-title-haojen">
+        <span>
+            Variable scopes
+        </span>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <!-- Post Container -->
+            <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
+                <p>摘要：</p>
+<ul>
+<li>Built-In Functions</li>
+<li>Scopes</li>
+<li>Scope Inheritance</li>
+<li>Global Variables</li>
+<li>Inheritance Rules</li>
+</ul>
+<a id="more"></a>
+<h3 id="The-Dataset"><a href="#The-Dataset" class="headerlink" title="The Dataset"></a>The Dataset</h3><p>使用的数据集为：<br>美国学生贷款违约数据集</p>
+<p>主要的几列：<br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/f322658ed956a27b732da395f20e9b43.png" alt=""></p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/dc2e9490991dad53c11921c3ed597311.png" alt=""></p>
+<h3 id="Built-In-Functions"><a href="#Built-In-Functions" class="headerlink" title="Built-In Functions"></a>Built-In Functions</h3><p>在python中  有些函数是默认的 可以直接使用 并不需要导入 Built-In Functions（内值函数）。</p>
+<p>常见的有：<br><code>sum(), len(), float(), min(), and max()</code><br><a href="https://docs.python.org/3/library/functions.html" target="_blank" rel="external">更多的内置函数</a></p>
+<p>使用：<br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/8fe7dc1c6fac26356e3510d3c6ebdcaf.png" alt=""></p>
+<h3 id="Scopes"><a href="#Scopes" class="headerlink" title="Scopes"></a>Scopes</h3><p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/53b8a0e01542894231018fb3a83fc1ad.png" alt=""></p>
+<p>一个全局范围global scope, 一个局部范围local scope<br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/53cff4abb4a1c104b26147b8a689783b.png" alt=""></p>
+<ul>
+<li>There’s only one global scope, but each function creates its own local scope.</li>
+</ul>
+<h3 id="Scope-Isolation"><a href="#Scope-Isolation" class="headerlink" title="Scope Isolation"></a>Scope Isolation</h3><figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">add</span><span class="params">(a,b)</span>:</span></div><div class="line">    total = a + b</div><div class="line">    <span class="keyword">return</span> total</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">subtract</span><span class="params">(a,b)</span>:</span></div><div class="line">    total = a - b</div><div class="line">    <span class="keyword">return</span> total</div><div class="line"></div><div class="line">print(add(<span class="number">1</span>,<span class="number">5</span>))</div><div class="line">print(subtract(<span class="number">1</span>,<span class="number">5</span>))</div></pre></td></tr></table></figure>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/8e3693e45a9c7020b6c8328d2b9ecac6.png" alt=""></p>
+<p>两个独立作用域 ，虽然他们的名字是一样的。当一个函数被调用后，它的本地变量<code>total</code>就已经释放了。</p>
+<h3 id="Scope-Inheritance"><a href="#Scope-Inheritance" class="headerlink" title="Scope Inheritance"></a>Scope Inheritance</h3><figure class="highlight python"><table><tr><td class="code"><pre><div class="line">total = <span class="number">50</span></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">find_average</span><span class="params">(column)</span>:</span></div><div class="line">    length = len(column)</div><div class="line">    <span class="keyword">return</span> total / length</div></pre></td></tr></table></figure>
+<p>当使用一个变量，然而在本地没有定义python编译器会接着查找 global scope<br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/fec75367f25e37bf5be95008bc43f59f.png" alt=""></p>
+<h3 id="Inheritance-Limits"><a href="#Inheritance-Limits" class="headerlink" title="Inheritance Limits"></a>Inheritance Limits</h3><p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/bfe764c6284eabad081b92841c76d91a.png" alt=""></p>
+<p>我们可以在局部范围去访问一个 global scope，但是在局部范围不能去改变 global scope的值，否则就会报错。</p>
+<h3 id="Built-In-Inheritance"><a href="#Built-In-Inheritance" class="headerlink" title="Built-In Inheritance"></a>Built-In Inheritance</h3><figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">total</span><span class="params">(a)</span>:</span></div><div class="line">    <span class="keyword">return</span> sum(a)</div></pre></td></tr></table></figure>
+<p>如果局部变量 并没有定义 在local scope，python解释器将会在全局范围（ global scope）中寻找，若没有，它会查看是否为内置函数。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line">sum = <span class="number">10</span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">total</span><span class="params">(a)</span>:</span></div><div class="line">    <span class="keyword">return</span> sum(a)</div><div class="line"></div><div class="line">print(total([<span class="number">1</span>,<span class="number">2</span>]))</div></pre></td></tr></table></figure>
+<p>以上代码会报错<br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/f8eb970dc00e2f36eafe6f5da16d542a.png" alt=""></p>
+<p>因为全局变量<code>sum</code>是integer 并不能被当做函数来使用。</p>
+<h3 id="Global-Variables"><a href="#Global-Variables" class="headerlink" title="Global Variables"></a>Global Variables</h3><p><code>global keyword.</code></p>
+<ul>
+<li>Global variables are variables that are available across <code>all scopes</code>. We can access and change the value of a global variable inside any global scope or local scope.</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="keyword">global</span> total <span class="comment">#单独一行</span></div><div class="line">total = <span class="number">10</span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">add_to_total</span><span class="params">(a)</span>:</span></div><div class="line">    total = total + a</div><div class="line"></div><div class="line">add_to_total(<span class="number">20</span>)</div><div class="line">print(total) <span class="comment">#30</span></div></pre></td></tr></table></figure>
+<p>即使全局变量定义在 local scopes:<br><figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">test_function</span><span class="params">()</span>:</span></div><div class="line">    <span class="keyword">global</span> a</div><div class="line">    a = <span class="number">10</span></div><div class="line"></div><div class="line">test_function()</div><div class="line">print(a)  <span class="comment">#10</span></div></pre></td></tr></table></figure></p>
+<h3 id="Inheritance-Rules"><a href="#Inheritance-Rules" class="headerlink" title="Inheritance Rules"></a>Inheritance Rules</h3><p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/c4b80fd6525dd09e8625c9cfc65e8cbb.png" alt=""></p>
+<ul>
+<li>LEGBE,<code>Local, Enclosing, Global, Built-ins, Error</code></li>
+</ul>
+
+                <hr>
+                
+                <!-- 多说 Share start -->
+                <div class="ds-share"
+                     style="text-align: right"
+                     data-thread-key="2016/09/25/变量作用域/"
+                     data-title="Variable scopes"
+                     data-url="http://yoursite.com/2016/09/25/变量作用域/"
+                     data-images=""
+                     data-content="摘要：
+
+Built-In Functions
+Scopes
+Scope Inheritanc... | Haozhe&#39;s blog ">
+                    <div class="ds-share-inline">
+                        <ul class="ds-share-icons-16">
+                            <li data-toggle="ds-share-icons-more"><a class="ds-more" href="#">分享到：</a></li>
+                            <li><a class="ds-wechat flat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+                            <li><a class="ds-weibo flat" href="javascript:void(0);" data-service="weibo">微博</a></li>
+                            <li><a class="ds-douban flat" href="javascript:void(0);" data-service="douban">豆瓣</a></li>
+                        </ul>
+                        <div class="ds-share-icons-more">
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+                <!-- 多说 Share end-->
+                
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2016/09/25/正则表达式/" data-toggle="tooltip" data-placement="top"
+                           title="正则表达式Regular Expressions">&larr; Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2016/09/25/挑战模块/" data-toggle="tooltip" data-placement="top"
+                           title="挑战：模块、类、错误处理、列表解析">Next Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+                <!-- 多说评论框 start -->
+                <div class="comment">
+                    <div class="ds-thread"
+                         data-thread-key="2016/09/25/变量作用域/"
+                         data-title="Variable scopes"
+                         data-url="http://yoursite.com/2016/09/25/变量作用域/">
+                    </div>
+                </div>
+                <!-- 多说评论框 end -->
+                
+
+                
+
+            </div>
+
+            <div class="hidden-xs col-sm-3 toc-col">
+                <div class="toc-wrap">
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#The-Dataset"><span class="toc-text">The Dataset</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Built-In-Functions"><span class="toc-text">Built-In Functions</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Scopes"><span class="toc-text">Scopes</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Scope-Isolation"><span class="toc-text">Scope Isolation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Scope-Inheritance"><span class="toc-text">Scope Inheritance</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Inheritance-Limits"><span class="toc-text">Inheritance Limits</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Built-In-Inheritance"><span class="toc-text">Built-In Inheritance</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Global-Variables"><span class="toc-text">Global Variables</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Inheritance-Rules"><span class="toc-text">Inheritance Rules</span></a></li></ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5 class="text-center">
+                        <a href="/tags/">FEATURED TAGS</a>
+                    </h5>
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#dataquest"
+                           title="dataquest">dataquest</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <div style="margin-top: 20px;">
+                    <h5 class="text-center">FRIENDS</h5>
+                    <ul class="list-inline text-center">
+                        
+                        <li><a href="http://www.hankcs.com/">hankcs</a></li>
+                        
+                        <li><a href="http://www.lintcode.com/zh-cn/ladder/2/">lintcode</a></li>
+                        
+                        <li><a href="http://www.jiuzhang.com/solutions/">jiuzhang</a></li>
+                        
+                    </ul>
+                </div>
+                
+            </div>
+        </div>
+
+    </div>
+</article>
+
+
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    // dynamic User by Hux
+    var _user = 'xuehaozhe';
+
+    // duoshuo comment query.
+    var duoshuoQuery = {short_name: _user};
+    (function () {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';
+        ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0]
+        || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+</script>
+<!-- 多说公共JS代码 end -->
+
+
+
+
+
+<!-- Footer -->
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <br>
+                <ul class="list-inline text-center">
+                
+                
+                    <li>
+                        <a target="_blank" href="https://twitter.com/xuehaozhe">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/xuehaozhe0526">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="http://weibo.com/fendoujianchi">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/xuehanzhe0526">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Haozhe 2017
+                    <br>
+                    <span id="busuanzi_container_site_pv" style="font-size: 12px;">PV: <span id="busuanzi_value_site_pv"></span> Times</span>
+                    <br>
+                    Theme by <a href="https://haojen.github.io/">Haojen Ma</a>
+                </p>
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/blog.js"></script>
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://yoursite.com/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+
+
+<!-- swiftype -->
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','null','2.0.0');
+</script>
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<!--wechat title img-->
+<img class="wechat-title-img" src="http://7xrw7v.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160402220553.png">
+</body>
+
+</html>

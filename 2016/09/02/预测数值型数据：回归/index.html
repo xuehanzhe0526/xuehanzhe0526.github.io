@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="What hurts more,the pain of hard work or the pain of regret.">
+    <meta name="keyword" content="null">
+    <meta name="theme-color" content="#600090">
+    <meta name="msapplication-navbutton-color" content="#600090">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#600090">
+    <link rel="shortcut icon" href="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-person-128.png">
+    <link rel="alternate" type="application/atom+xml" title="Haozhe" href="/atom.xml">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
+    <title>
+        
+        预测数值型数据：回归｜Haozhe&#39;s blog
+        
+    </title>
+
+    <link rel="canonical" href="http://yoursite.com/2016/09/02/预测数值型数据：回归/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/blog-style.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+</head>
+
+<style>
+
+    header.intro-header {
+        background-image: url('http://7xrw7v.com1.z0.glb.clouddn.com/1485527729222.jpg')
+    }
+</style>
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="" class="animated fadeIn">
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost = "true" data-istags="false
+" data-ishome = "false" >
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand animated pulse" href="/">
+                <span class="brand-logo">
+                    Haozhe
+                </span>
+                's Blog
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <!-- /.navbar-collapse -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+					
+                    
+                        
+							
+                        <li>
+                            <a href="/tags/">tags</a>
+                        </li>
+							
+						
+                    
+					
+					
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+//    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+<!-- Main Content -->
+
+<!--only post-->
+
+
+<img class="wechat-title-img"
+     src="http://7xrw7v.com1.z0.glb.clouddn.com/148552521631.jpg#博文默认的图片">
+
+
+<style>
+    
+    header.intro-header {
+        background-image: url('http://7xrw7v.com1.z0.glb.clouddn.com/148552521631.jpg#博文默认的图片')
+    }
+
+    
+</style>
+
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <div class="post-heading">
+                    <h1>预测数值型数据：回归</h1>
+                    
+                    <span class="meta">
+                         作者 Haozhe Xue
+                        <span>
+                          日期 2016-09-02
+                         </span>
+                    </span>
+                    <div class="tags text-center">
+                        
+                        <a class="tag" href="/tags/#机器学习"
+                           title="机器学习">机器学习</a>
+                        
+                        <a class="tag" href="/tags/#数据挖掘"
+                           title="数据挖掘">数据挖掘</a>
+                        
+                        <a class="tag" href="/tags/#机器学习实战"
+                           title="机器学习实战">机器学习实战</a>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="post-title-haojen">
+        <span>
+            预测数值型数据：回归
+        </span>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <!-- Post Container -->
+            <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
+                <p>摘要：</p>
+<ul>
+<li>回归的一般方法</li>
+<li>普通最小二乘法”（ordinary least squares）</li>
+<li>局部加权线性回归</li>
+</ul>
+<a id="more"></a>
+<h3 id="回归的一般方法"><a href="#回归的一般方法" class="headerlink" title="回归的一般方法"></a>回归的一般方法</h3><p>收集数据：采用任意方法收集数据。<br>准备数据：回归需要数值型数据，标称型数据将被转成二值型数据。<br>分析数据：绘出数据的可视化二维图将有助于对数据做出理解和分析，在采用缩减法求得新回归系数之后，可以将新拟合线绘在图上作为对比。<br>训练算法：找到回归系数。<br>测试算法：使用R2或者预测值和数据的拟合度，来分析模型的效果。<br>使用算法：使用回归，可以在给定输入的时候预测出一个数值，这是对分类方法的提升，因为这样可以预测连续型数据而不仅仅是离散的类别标签。</p>
+<h3 id="普通最小二乘法”（ordinary-least-squares）"><a href="#普通最小二乘法”（ordinary-least-squares）" class="headerlink" title="普通最小二乘法”（ordinary least squares）"></a>普通最小二乘法”（ordinary least squares）</h3><p>假定输入数据存放在矩阵X中，而回归系数存放在向量w中。那么对于给定的数据X1，预测结果将会通过 <img src="http://7xrw7v.com1.z0.glb.clouddn.com/148692c30c555a5f1f12eef7458747ff.png" alt="">给出.</p>
+<p>怎样才能找到w呢？</p>
+<p>一个常用的方法就是找出使误差最小的w<br>误差是指预测y值和真实y值之间的差值，使用该误差的简单累加将使得正差值和负差值相互抵消，所以我们采用平方误差。<br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/a137ba2b8561bdef762c0069e7a71a18.png" alt=""><br>矩阵形式：<br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/2c05224d2b3e70404afd4ed35a39207c.png" alt=""><br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/39b5a1f4e097b9425fb0bc3409428411.png" alt=""></p>
+<p>令其等于零，解出w如下：<br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/fad80b34b333d43da51945f982803fd5.png" alt=""><br>这是当前可以估计出的w的最优解。估计出的w可能并不是数据中的真实w值，所以这里使用了一个“帽”符号来表示它仅是w的一个最佳估计。</p>
+<p>上面式子中<img src="http://7xrw7v.com1.z0.glb.clouddn.com/ab1055d7df788e1c21056fcc8773758e.png" alt=""> ，也就是需要对矩阵求逆，因此这个方程只在逆矩阵存在的时候适用。然而，矩阵的逆可能并不存在，因此必须要在代码中对此作出判断。</p>
+<h3 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h3><p>从ex0.txt得到的样例数据<br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/b0bfb45008deec3d3b80dce114f9d361.png" alt=""></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="comment"># -*- coding: utf-8 -*-</span></div><div class="line"><span class="string">"""</span></div><div class="line">Created on Sat Sep  3 20:21:51 2016</div><div class="line"></div><div class="line">@author: xuehaozhe</div><div class="line">"""</div><div class="line"><span class="keyword">from</span> numpy <span class="keyword">import</span> *</div><div class="line"><span class="keyword">from</span> sklearn <span class="keyword">import</span> linear_model</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">loadDataSet</span><span class="params">(fileName)</span>:</span></div><div class="line">    numFeat  = len(open(fileName).readline().split(<span class="string">"\t"</span>))<span class="number">-1</span><span class="comment">#-1是因为最后一列为目标值，前面为特征值</span></div><div class="line">    dataMat  = []</div><div class="line">    labelMat = []</div><div class="line">    fr = open(fileName)</div><div class="line">    <span class="keyword">for</span> line <span class="keyword">in</span> fr.readlines():</div><div class="line">        lineArr = []</div><div class="line">        curLine = line.strip().split(<span class="string">"\t"</span>)</div><div class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(numFeat):</div><div class="line">            lineArr.append(float(curLine[i]))</div><div class="line">        dataMat.append(lineArr)                 <span class="comment">#准备好数据矩阵</span></div><div class="line">        labelMat.append(float(curLine[<span class="number">-1</span>]))     <span class="comment">#准备好目标向量</span></div><div class="line">    <span class="keyword">return</span> dataMat, labelMat</div><div class="line"></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">standRegres</span><span class="params">(xArr,yArr)</span>:</span></div><div class="line">    xMat = mat(xArr)</div><div class="line">    <span class="comment"># 原始文件为m*n的矩阵，那么特征矩阵dataMat为m*(n-1)维，labelMat为m*1维，</span></div><div class="line">    yMat = mat(yArr).T</div><div class="line">    xTx = xMat.T*xMat</div><div class="line">    <span class="comment"># linalg.det()来计算行列式。</span></div><div class="line">    <span class="keyword">if</span> linalg.det(xTx) == <span class="number">0</span>:</div><div class="line">        <span class="keyword">print</span> <span class="string">'This matrix is singular , cannot do inverse'</span></div><div class="line">        ws = linalg.pinv(xTx) * (xMat.T * yMat)  <span class="comment"># 用伪逆来代替逆</span></div><div class="line">        <span class="keyword">return</span> ws</div><div class="line">    <span class="comment">#.I操作符实现了矩阵求逆的运算</span></div><div class="line">    ws = xTx.I*(xMat.T*yMat)</div><div class="line">    <span class="keyword">return</span> ws</div><div class="line"></div><div class="line">xArr, yArr = loadDataSet(<span class="string">"ex0.txt"</span>)</div><div class="line">ws   = standRegres(xArr, yArr)<span class="comment">#回归系数</span></div><div class="line"><span class="keyword">print</span> <span class="string">"最小二乘法得到的回归系数：\n"</span>,ws</div><div class="line"></div><div class="line">xMat = mat(xArr)</div><div class="line">yMat = mat(yArr)</div><div class="line">yHat = xMat*ws          <span class="comment">#预测值</span></div><div class="line"></div><div class="line"><span class="comment"># ===============绘制数据集散点图和最佳拟合直线图=======</span></div><div class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</div><div class="line"></div><div class="line">fig = plt.figure()</div><div class="line">ax = fig.add_subplot(<span class="number">111</span>)</div><div class="line">ax.scatter(xMat[:, <span class="number">1</span>].flatten().A[<span class="number">0</span>], yMat.T[:, <span class="number">0</span>].flatten().A[<span class="number">0</span>])</div><div class="line">xCopy = xMat.copy()</div><div class="line">yHat = xCopy * ws</div><div class="line">ax.plot(xCopy[:, <span class="number">1</span>], yHat)</div><div class="line">plt.show()</div><div class="line"></div><div class="line"><span class="comment"># ====================皮尔逊相关系数计算两个向量的相关性===</span></div><div class="line">yHat = xMat * ws</div><div class="line"><span class="keyword">print</span> <span class="string">"皮尔逊相关系数计算预测值和真实值之间的相关性：\n"</span>, corrcoef(yHat.T, yMat)</div><div class="line"><span class="comment"># ================sklearn里面的线性回归================</span></div><div class="line"></div><div class="line">clf = linear_model.LinearRegression(fit_intercept=<span class="keyword">False</span>)</div><div class="line">clf.fit(xArr, yArr)</div><div class="line"><span class="keyword">print</span> <span class="string">"sklearn 里面线性回归训练得到的回归系数：\n"</span>, clf.coef_</div></pre></td></tr></table></figure>
+<p>运行结果：<br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/63d203b2879b0918757150bd9dd69135.png" alt=""></p>
+<p>/home/xuehaozhe/anaconda2/bin/python “/home/xuehaozhe/PycharmProjects/python ML/regression/regression.py”</p>
+<p>最小二乘法得到的回归系数：<br>[[ 3.00774324]<br> [ 1.69532264]]<br>皮尔逊相关系数计算预测值和真实值之间的相关性：<br>[[ 1.          0.98647356]<br> [ 0.98647356  1.        ]]<br>sklearn 里面线性回归训练得到的回归系数：<br>[ 3.00774324  1.69532264]</p>
+<p>可以看出sklearn里面预测的和计算的回归系数是一样的。</p>
+<h3 id="局部加权线性回归"><a href="#局部加权线性回归" class="headerlink" title="局部加权线性回归"></a>局部加权线性回归</h3><p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/51a4392b1e23ca837643680aa69e987e.png" alt=""><br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/04a29c9823ac8760f2ade5801265695d.png" alt=""><br>每个点的权重图（假定我们正预测的点是x = 0.5），最上面的图是原始数据集，第二个图显示了当k = 0.5时，大部分的数据都用于训练回归模型；而最下面的图显示当k = 0.01时，仅有很少的局部点被用于训练回归模型</p>
+
+                <hr>
+                
+                <!-- 多说 Share start -->
+                <div class="ds-share"
+                     style="text-align: right"
+                     data-thread-key="2016/09/02/预测数值型数据：回归/"
+                     data-title="预测数值型数据：回归"
+                     data-url="http://yoursite.com/2016/09/02/预测数值型数据：回归/"
+                     data-images=""
+                     data-content="摘要：
+
+回归的一般方法
+普通最小二乘法”（ordinary least squares）
+局... | Haozhe&#39;s blog ">
+                    <div class="ds-share-inline">
+                        <ul class="ds-share-icons-16">
+                            <li data-toggle="ds-share-icons-more"><a class="ds-more" href="#">分享到：</a></li>
+                            <li><a class="ds-wechat flat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+                            <li><a class="ds-weibo flat" href="javascript:void(0);" data-service="weibo">微博</a></li>
+                            <li><a class="ds-douban flat" href="javascript:void(0);" data-service="douban">豆瓣</a></li>
+                        </ul>
+                        <div class="ds-share-icons-more">
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+                <!-- 多说 Share end-->
+                
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2016/09/02/回归算法/" data-toggle="tooltip" data-placement="top"
+                           title="回归算法">&larr; Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2016/08/30/参数估计/" data-toggle="tooltip" data-placement="top"
+                           title="参数估计">Next Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+                <!-- 多说评论框 start -->
+                <div class="comment">
+                    <div class="ds-thread"
+                         data-thread-key="2016/09/02/预测数值型数据：回归/"
+                         data-title="预测数值型数据：回归"
+                         data-url="http://yoursite.com/2016/09/02/预测数值型数据：回归/">
+                    </div>
+                </div>
+                <!-- 多说评论框 end -->
+                
+
+                
+
+            </div>
+
+            <div class="hidden-xs col-sm-3 toc-col">
+                <div class="toc-wrap">
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#回归的一般方法"><span class="toc-text">回归的一般方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#普通最小二乘法”（ordinary-least-squares）"><span class="toc-text">普通最小二乘法”（ordinary least squares）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#例子"><span class="toc-text">例子</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#局部加权线性回归"><span class="toc-text">局部加权线性回归</span></a></li></ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5 class="text-center">
+                        <a href="/tags/">FEATURED TAGS</a>
+                    </h5>
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#机器学习"
+                           title="机器学习">机器学习</a>
+                        
+                        <a class="tag" href="/tags/#数据挖掘"
+                           title="数据挖掘">数据挖掘</a>
+                        
+                        <a class="tag" href="/tags/#机器学习实战"
+                           title="机器学习实战">机器学习实战</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <div style="margin-top: 20px;">
+                    <h5 class="text-center">FRIENDS</h5>
+                    <ul class="list-inline text-center">
+                        
+                        <li><a href="http://www.hankcs.com/">hankcs</a></li>
+                        
+                        <li><a href="http://www.lintcode.com/zh-cn/ladder/2/">lintcode</a></li>
+                        
+                        <li><a href="http://www.jiuzhang.com/solutions/">jiuzhang</a></li>
+                        
+                    </ul>
+                </div>
+                
+            </div>
+        </div>
+
+    </div>
+</article>
+
+
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    // dynamic User by Hux
+    var _user = 'xuehaozhe';
+
+    // duoshuo comment query.
+    var duoshuoQuery = {short_name: _user};
+    (function () {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';
+        ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0]
+        || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+</script>
+<!-- 多说公共JS代码 end -->
+
+
+
+
+
+<!-- Footer -->
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <br>
+                <ul class="list-inline text-center">
+                
+                
+                    <li>
+                        <a target="_blank" href="https://twitter.com/xuehaozhe">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/xuehaozhe0526">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="http://weibo.com/fendoujianchi">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/xuehanzhe0526">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Haozhe 2017
+                    <br>
+                    <span id="busuanzi_container_site_pv" style="font-size: 12px;">PV: <span id="busuanzi_value_site_pv"></span> Times</span>
+                    <br>
+                    Theme by <a href="https://haojen.github.io/">Haojen Ma</a>
+                </p>
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/blog.js"></script>
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://yoursite.com/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+
+
+<!-- swiftype -->
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','null','2.0.0');
+</script>
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<!--wechat title img-->
+<img class="wechat-title-img" src="http://7xrw7v.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160402220553.png">
+</body>
+
+</html>

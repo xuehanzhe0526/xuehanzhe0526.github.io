@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="What hurts more,the pain of hard work or the pain of regret.">
+    <meta name="keyword" content="null">
+    <meta name="theme-color" content="#600090">
+    <meta name="msapplication-navbutton-color" content="#600090">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#600090">
+    <link rel="shortcut icon" href="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-person-128.png">
+    <link rel="alternate" type="application/atom+xml" title="Haozhe" href="/atom.xml">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
+    <title>
+        
+        Guided Project:Customizing Data Visualizations｜Haozhe&#39;s blog
+        
+    </title>
+
+    <link rel="canonical" href="http://yoursite.com/2016/10/10/项目2/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/blog-style.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+</head>
+
+<style>
+
+    header.intro-header {
+        background-image: url('http://7xrw7v.com1.z0.glb.clouddn.com/1485527729222.jpg')
+    }
+</style>
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="" class="animated fadeIn">
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost = "true" data-istags="false
+" data-ishome = "false" >
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand animated pulse" href="/">
+                <span class="brand-logo">
+                    Haozhe
+                </span>
+                's Blog
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <!-- /.navbar-collapse -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+					
+                    
+                        
+							
+                        <li>
+                            <a href="/tags/">tags</a>
+                        </li>
+							
+						
+                    
+					
+					
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+//    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+<!-- Main Content -->
+
+<!--only post-->
+
+
+<img class="wechat-title-img"
+     src="http://7xrw7v.com1.z0.glb.clouddn.com/148552521631.jpg#博文默认的图片">
+
+
+<style>
+    
+    header.intro-header {
+        background-image: url('http://7xrw7v.com1.z0.glb.clouddn.com/148552521631.jpg#博文默认的图片')
+    }
+
+    
+</style>
+
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <div class="post-heading">
+                    <h1>Guided Project:Customizing Data Visualizations</h1>
+                    
+                    <span class="meta">
+                         作者 Haozhe Xue
+                        <span>
+                          日期 2016-10-10
+                         </span>
+                    </span>
+                    <div class="tags text-center">
+                        
+                        <a class="tag" href="/tags/#dataquest"
+                           title="dataquest">dataquest</a>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="post-title-haojen">
+        <span>
+            Guided Project:Customizing Data Visualizations
+        </span>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <!-- Post Container -->
+            <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
+                <p>摘要：</p>
+<p>画图的具体实例</p>
+<p>一般情况下 ，使用 pandas和 Seaborn<br><a id="more"></a></p>
+<h3 id="数据"><a href="#数据" class="headerlink" title="数据"></a>数据</h3><p><a href="https://github.com/fivethirtyeight/data/tree/master/college-majors" target="_blank" rel="external">数据下载</a></p>
+<p><code>recent college graduates.   recent-grads.csv</code><br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/e4b794b42ea9ca8c7c0d5d989141948a.png" alt=""></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line">%matplotlib inline</div><div class="line"></div><div class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</div><div class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</div><div class="line"></div><div class="line">recent_grads = pd.read_csv(<span class="string">'recent-grads.csv'</span>)</div><div class="line"></div><div class="line"><span class="keyword">print</span> (recent_grads.head())</div></pre></td></tr></table></figure>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/5065ba7ae9695b1608ee30b62c7c446f.png" alt=""></p>
+<p><code>recent_grads.describe()</code></p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/8bfc743ddb07dada34d34b862f9ba365.png" alt=""></p>
+<p>查看是否有缺失值<br><code>dropna()</code></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="keyword">print</span> recent_grads.shape[<span class="number">0</span>]  <span class="comment">#173</span></div><div class="line"><span class="keyword">print</span> recent_grads.dropna().shape[<span class="number">0</span>] <span class="comment">#172</span></div><div class="line"></div><div class="line"><span class="comment">## 可以发现 数据存在缺失值 的行数为1</span></div><div class="line"></div><div class="line"><span class="comment">## 将缺失值丢掉 将新返回的 DataFrame 还赋值给recent_grads</span></div><div class="line">recent_grads = recent_grads.dropna()</div></pre></td></tr></table></figure>
+<h3 id="Scatter-Matrix-Part-1"><a href="#Scatter-Matrix-Part-1" class="headerlink" title="Scatter Matrix, Part 1"></a>Scatter Matrix, Part 1</h3><p>Both Pandas and Seaborn have high-level functions to create a scatter matrix</p>
+<h4 id="Seaborn"><a href="#Seaborn" class="headerlink" title="Seaborn"></a>Seaborn</h4><figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="keyword">import</span> seaborn <span class="keyword">as</span> sns</div><div class="line"></div><div class="line">sns.pairplot(recent_grads[[<span class="string">"ShareWomen"</span>,<span class="string">"Unemployment_rate"</span>]])</div><div class="line">sns.plt.show()</div></pre></td></tr></table></figure>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/d0a08344652442469548aee6db49ea9b.png" alt=""></p>
+<h4 id="pandas"><a href="#pandas" class="headerlink" title="pandas"></a>pandas</h4><figure class="highlight python"><table><tr><td class="code"><pre><div class="line"></div><div class="line"><span class="comment">## scatter_matrix()   Scatter plot that Pandas generates</span></div><div class="line"><span class="keyword">from</span> pandas.tools.plotting <span class="keyword">import</span> scatter_matrix</div><div class="line">scatter_matrix(recent_grads[[<span class="string">"ShareWomen"</span>,<span class="string">"Unemployment_rate"</span>]])</div></pre></td></tr></table></figure>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/830ff6224fea4b92f28c33706e932708.png" alt=""></p>
+<p>原始图</p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/9187db488167fd6cac943754eef3a7c3.png" alt=""></p>
+<h4 id="customizing"><a href="#customizing" class="headerlink" title="customizing"></a>customizing</h4><figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</div><div class="line"></div><div class="line">fig_rg  = plt.figure(figsize=(<span class="number">8</span>,<span class="number">8</span>))</div><div class="line"></div><div class="line">ax1_rg = fig_rg.add_subplot(<span class="number">2</span>,<span class="number">2</span>,<span class="number">1</span>)</div><div class="line">ax2_rg = fig_rg.add_subplot(<span class="number">2</span>,<span class="number">2</span>,<span class="number">2</span>)</div><div class="line">ax3_rg = fig_rg.add_subplot(<span class="number">2</span>,<span class="number">2</span>,<span class="number">3</span>)</div><div class="line">ax4_rg = fig_rg.add_subplot(<span class="number">2</span>,<span class="number">2</span>,<span class="number">4</span>)</div><div class="line"></div><div class="line"><span class="comment"># Top left plot</span></div><div class="line">ax1_rg.hist(recent_grads[<span class="string">"ShareWomen"</span>])</div><div class="line"></div><div class="line"><span class="comment"># Top right plot</span></div><div class="line">ax2_rg.scatter(recent_grads[<span class="string">"Unemployment_rate"</span>], recent_grads[<span class="string">"ShareWomen"</span>])</div><div class="line"></div><div class="line"><span class="comment"># Bottom left plot</span></div><div class="line">ax3_rg.scatter(recent_grads[<span class="string">"ShareWomen"</span>], recent_grads[<span class="string">"Unemployment_rate"</span>])</div><div class="line"></div><div class="line"><span class="comment"># Bottom right plot</span></div><div class="line">ax4_rg.hist(recent_grads[<span class="string">"Unemployment_rate"</span>])</div><div class="line"></div><div class="line"></div><div class="line">plt.show()</div></pre></td></tr></table></figure>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/0594d033d1683be9e297d5b3d60c1486.png" alt=""></p>
+<h3 id="Scatter-Matrix-Part-2，3"><a href="#Scatter-Matrix-Part-2，3" class="headerlink" title="Scatter Matrix, Part 2，3"></a>Scatter Matrix, Part 2，3</h3><p><code>get_xaxis() and get_yaxis()</code>返回一个a subplot’s XAxis instance and YAxis instance.</p>
+<p>在图上 左边y轴 放上标签 <code>ax1_rg.get_yaxis().tick_left()</code></p>
+<p><code># Remove space between sub plots.
+plt.subplots_adjust(wspace=0, hspace=0)</code></p>
+<p>调整画布刻度</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="comment"># First, we need to create a Figure instance and create 4 axes, corresponding to each subplot.</span></div><div class="line">fig_rg = plt.figure(figsize=(<span class="number">8</span>,<span class="number">6</span>))</div><div class="line">ax1_rg = fig_rg.add_subplot(<span class="number">2</span>,<span class="number">2</span>,<span class="number">1</span>)</div><div class="line">ax2_rg = fig_rg.add_subplot(<span class="number">2</span>,<span class="number">2</span>,<span class="number">2</span>)</div><div class="line">ax3_rg = fig_rg.add_subplot(<span class="number">2</span>,<span class="number">2</span>,<span class="number">3</span>)</div><div class="line">ax4_rg = fig_rg.add_subplot(<span class="number">2</span>,<span class="number">2</span>,<span class="number">4</span>)</div><div class="line"></div><div class="line"><span class="comment"># Top left plot</span></div><div class="line">ax1_rg.hist(recent_grads[<span class="string">"ShareWomen"</span>])</div><div class="line"><span class="comment"># Top right plot</span></div><div class="line">ax2_rg.scatter(recent_grads[<span class="string">"Unemployment_rate"</span>], recent_grads[<span class="string">"ShareWomen"</span>])</div><div class="line"><span class="comment"># Bottom left plot</span></div><div class="line">ax3_rg.scatter(recent_grads[<span class="string">"ShareWomen"</span>], recent_grads[<span class="string">"Unemployment_rate"</span>])</div><div class="line"><span class="comment"># Bottom right plot</span></div><div class="line">ax4_rg.hist(recent_grads[<span class="string">"Unemployment_rate"</span>])</div><div class="line"></div><div class="line"><span class="comment"># Top left plot</span></div><div class="line">ax1_rg.set_ylabel(<span class="string">"ShareWomen"</span>)</div><div class="line">ax1_rg.get_xaxis().tick_top()</div><div class="line">ax1_rg.get_xaxis().set_visible(<span class="keyword">False</span>)</div><div class="line">ax1_rg.get_yaxis().tick_left()</div><div class="line">ax1_rg.set_ylim(<span class="number">0</span>,<span class="number">30</span>)</div><div class="line">ax1_rg.set_yticklabels([<span class="number">0</span>, <span class="number">5</span>, <span class="number">10</span>, <span class="number">15</span>, <span class="number">20</span>, <span class="number">25</span>, <span class="number">30</span>])</div><div class="line"></div><div class="line"><span class="comment"># Top right plot</span></div><div class="line">ax2_rg.get_yaxis().set_visible(<span class="keyword">False</span>)</div><div class="line">ax2_rg.get_xaxis().set_visible(<span class="keyword">False</span>)</div><div class="line">ax2_rg.set_xlim(<span class="number">0.0</span>, <span class="number">0.20</span>)</div><div class="line"></div><div class="line"><span class="comment"># Bottom left plot</span></div><div class="line">ax3_rg.set_xlabel(<span class="string">"ShareWomen"</span>)</div><div class="line">ax3_rg.set_ylabel(<span class="string">"Unemployment_rate"</span>)</div><div class="line">ax3_rg.get_xaxis().tick_bottom()</div><div class="line">ax3_rg.get_yaxis().tick_left()</div><div class="line">ax3_rg.set_ylim(<span class="number">0.00</span>, <span class="number">0.20</span>)</div><div class="line">ax3_rg.set_yticklabels([<span class="number">0.00</span>, <span class="number">0.05</span>, <span class="number">0.10</span>, <span class="number">0.15</span>])</div><div class="line">ax3_rg.set_xlim(<span class="number">0.0</span>, <span class="number">1.0</span>)</div><div class="line">ax3_rg.set_xticklabels([<span class="number">0.0</span>, <span class="number">0.2</span>, <span class="number">0.4</span>, <span class="number">0.6</span>, <span class="number">0.8</span>], rotation=<span class="number">90</span>)</div><div class="line"></div><div class="line"><span class="comment"># Bottom right plot</span></div><div class="line">ax4_rg.set_xlabel(<span class="string">"Unemployment_rate"</span>)</div><div class="line">ax4_rg.get_yaxis().set_visible(<span class="keyword">False</span>)</div><div class="line">ax4_rg.get_xaxis().tick_bottom()</div><div class="line">ax4_rg.set_xlim(<span class="number">0.0</span>, <span class="number">0.20</span>)</div><div class="line">ax4_rg.set_xticklabels([<span class="number">0.00</span>, <span class="number">0.05</span>, <span class="number">0.10</span>, <span class="number">0.15</span>, <span class="number">0.20</span>], rotation=<span class="number">90</span>)</div><div class="line"></div><div class="line"><span class="comment"># Remove space between sub plots.</span></div><div class="line">plt.subplots_adjust(wspace=<span class="number">0</span>, hspace=<span class="number">0</span>)</div><div class="line"></div><div class="line">plt.show()</div></pre></td></tr></table></figure>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/98982a139c3f87defdea7a7bab407953.png" alt=""></p>
+<h3 id="Grouped-Bar-Plot-Part-1"><a href="#Grouped-Bar-Plot-Part-1" class="headerlink" title="Grouped Bar Plot, Part 1"></a>Grouped Bar Plot, Part 1</h3><p>画出各个艺术类专业的  男女比例图</p>
+<h4 id="pandas-1"><a href="#pandas-1" class="headerlink" title="pandas"></a>pandas</h4><figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="comment"># Pandas generated grouped bar plot</span></div><div class="line"><span class="comment"># 男性所占比重</span></div><div class="line">recent_grads[<span class="string">"ShareMen"</span>] = recent_grads[<span class="string">"Men"</span>] / recent_grads[<span class="string">"Total"</span>]</div><div class="line"></div><div class="line">arts = recent_grads[recent_grads[<span class="string">"Major_category"</span>] == <span class="string">"Arts"</span>]</div><div class="line"></div><div class="line">arts[[<span class="string">"ShareMen"</span>, <span class="string">"ShareWomen"</span>]].plot(kind=<span class="string">"bar"</span>)</div></pre></td></tr></table></figure>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/abfd6c98cb42416508fb1d623c1a94dc.png" alt=""></p>
+<p>可以发现 X轴  为数值(以索引为x)</p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/3de878e12305927842ffaef97a678c29.png" alt=""></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="comment"># Pandas generated grouped bar plot</span></div><div class="line"><span class="comment"># 男性所占比重</span></div><div class="line">recent_grads[<span class="string">"ShareMen"</span>] = recent_grads[<span class="string">"Men"</span>] / recent_grads[<span class="string">"Total"</span>]</div><div class="line"></div><div class="line">arts = recent_grads[recent_grads[<span class="string">"Major_category"</span>] == <span class="string">"Arts"</span>]</div><div class="line"></div><div class="line"><span class="comment">## 设置索引 以专业为索引  但不去掉那一列  在原始数据做修改</span></div><div class="line">arts.set_index(<span class="string">"Major"</span>, inplace=<span class="keyword">True</span>,drop=<span class="keyword">False</span>)</div><div class="line"></div><div class="line">arts[[<span class="string">"ShareMen"</span>, <span class="string">"ShareWomen"</span>]].plot(kind=<span class="string">"bar"</span>)</div></pre></td></tr></table></figure>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/684b2452ef13ad0c43398fffac136934.png" alt=""></p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/45e8a1287cf77b1397f09d6bea4305a9.png" alt=""></p>
+<h4 id="customizing-1"><a href="#customizing-1" class="headerlink" title="customizing"></a>customizing</h4><figure class="highlight python"><table><tr><td class="code"><pre><div class="line"></div><div class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</div><div class="line">recent_grads[<span class="string">"ShareMen"</span>] = recent_grads[<span class="string">"Men"</span>] / recent_grads[<span class="string">"Total"</span>]</div><div class="line"></div><div class="line"><span class="comment"># Create figure instance and subplot</span></div><div class="line">fig_rg2 = plt.figure(figsize=(<span class="number">6</span>,<span class="number">5</span>))</div><div class="line">ax1_rg2 = fig_rg2.add_subplot(<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>)</div><div class="line"></div><div class="line">major_names = arts[<span class="string">"Major"</span>].tolist()</div><div class="line"></div><div class="line">locs = np.arange(len(major_names))</div><div class="line"><span class="comment">## array([0, 1, 2, 3, 4, 5, 6, 7])</span></div><div class="line"></div><div class="line">width = <span class="number">0.35</span></div><div class="line"></div><div class="line">men_proportions = arts[<span class="string">"ShareMen"</span>].tolist()</div><div class="line">bar_1 = ax1_rg2.bar(locs, men_proportions, width)</div><div class="line"></div><div class="line"></div><div class="line">plt.show()</div></pre></td></tr></table></figure>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/1793bdc4a2cd1f132b27ebee3a0154a3.png" alt=""></p>
+<p>上图X轴为数字  </p>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</div><div class="line">recent_grads[<span class="string">"ShareMen"</span>] = recent_grads[<span class="string">"Men"</span>] / recent_grads[<span class="string">"Total"</span>]</div><div class="line"></div><div class="line"><span class="comment"># Create figure instance and subplot</span></div><div class="line">fig_rg2 = plt.figure(figsize=(<span class="number">6</span>,<span class="number">5</span>))</div><div class="line">ax1_rg2 = fig_rg2.add_subplot(<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>)</div><div class="line"></div><div class="line">major_names = arts[<span class="string">"Major"</span>].tolist()</div><div class="line"></div><div class="line">locs = np.arange(len(major_names))</div><div class="line"><span class="comment">## array([0, 1, 2, 3, 4, 5, 6, 7])</span></div><div class="line"></div><div class="line">width = <span class="number">0.55</span></div><div class="line"></div><div class="line">men_proportions = arts[<span class="string">"ShareMen"</span>].tolist()</div><div class="line"></div><div class="line"><span class="comment"># 接收的为数字</span></div><div class="line">bar_1 = ax1_rg2.bar(locs, men_proportions, width)</div><div class="line"></div><div class="line"><span class="comment">## X轴转换为专业的名字</span></div><div class="line">ax1_rg2.set_xticklabels(major_names, rotation=<span class="number">90</span>)</div><div class="line"></div><div class="line">plt.show()</div></pre></td></tr></table></figure>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/ccac85ff6410a4617a5c3b8263f108d0.png" alt=""></p>
+<h3 id="Grouped-Bar-Plot-Part-2"><a href="#Grouped-Bar-Plot-Part-2" class="headerlink" title="Grouped Bar Plot, Part 2"></a>Grouped Bar Plot, Part 2</h3><p>画出图例 以及  图背后的 网格<br><code>plt.legend((bar_1, bar_2), (&quot;ShareMen&quot;, &quot;ShareWomen&quot;), loc=&quot;upper left&quot;)
+plt.grid()</code></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line">recent_grads[<span class="string">"ShareMen"</span>] = recent_grads[<span class="string">"Men"</span>] / recent_grads[<span class="string">"Total"</span>]</div><div class="line">fig = plt.figure(figsize=(<span class="number">8</span>,<span class="number">8</span>))</div><div class="line">ax = fig.add_subplot(<span class="number">111</span>)</div><div class="line"></div><div class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</div><div class="line">locs = np.arange(<span class="number">0</span>,len(arts[<span class="string">"Major"</span>].unique()))</div><div class="line">bar_1 = ax.bar(left=locs, height=arts[<span class="string">"ShareMen"</span>].tolist(), width=<span class="number">0.35</span>)</div><div class="line">ax.set_xticklabels(arts[<span class="string">"Major"</span>].unique().tolist(), rotation=<span class="number">90</span>)</div><div class="line"></div><div class="line">offset_locs = locs+<span class="number">0.35</span></div><div class="line"><span class="comment">## 上一行代码 是为了 设置bar_2的x轴左边 因为只接收数值型数据</span></div><div class="line">bar_2 = ax.bar(left=offset_locs, height=arts[<span class="string">"ShareWomen"</span>].tolist(), width=<span class="number">0.35</span>, color=<span class="string">"green"</span>)</div><div class="line">ax.set_xticks(offset_locs)</div><div class="line"></div><div class="line"></div><div class="line">plt.legend((bar_1, bar_2), (<span class="string">"ShareMen"</span>, <span class="string">"ShareWomen"</span>), loc=<span class="string">"upper left"</span>)</div><div class="line">plt.grid()</div></pre></td></tr></table></figure>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/304a9b70f8627a91c8e7b1a0ce63200a.png" alt=""></p>
+<h3 id="练习"><a href="#练习" class="headerlink" title="练习"></a>练习</h3><h4 id="Pandas-stacked-box-plot"><a href="#Pandas-stacked-box-plot" class="headerlink" title="Pandas stacked box plot"></a>Pandas stacked box plot</h4><p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/abeefd265c362100f8674a8699f5b974.png" alt=""><br><code>arts.loc[:,(&quot;ShareMen&quot;,&quot;ShareWomen&quot;)].plot.bar(stacked=True)</code></p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/f9fa37e3cba2541a77881e6016ac0c02.png" alt=""></p>
+
+                <hr>
+                
+                <!-- 多说 Share start -->
+                <div class="ds-share"
+                     style="text-align: right"
+                     data-thread-key="2016/10/10/项目2/"
+                     data-title="Guided Project:Customizing Data Visualizations"
+                     data-url="http://yoursite.com/2016/10/10/项目2/"
+                     data-images=""
+                     data-content="摘要：
+画图的具体实例
+一般情况下 ，使用 pandas和 Seaborn
+数据数据下载
+re... | Haozhe&#39;s blog ">
+                    <div class="ds-share-inline">
+                        <ul class="ds-share-icons-16">
+                            <li data-toggle="ds-share-icons-more"><a class="ds-more" href="#">分享到：</a></li>
+                            <li><a class="ds-wechat flat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+                            <li><a class="ds-weibo flat" href="javascript:void(0);" data-service="weibo">微博</a></li>
+                            <li><a class="ds-douban flat" href="javascript:void(0);" data-service="douban">豆瓣</a></li>
+                        </ul>
+                        <div class="ds-share-icons-more">
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+                <!-- 多说 Share end-->
+                
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2016/10/11/项目3/" data-toggle="tooltip" data-placement="top"
+                           title="Guided Project:Police killings">&larr; Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2016/10/09/项目1/" data-toggle="tooltip" data-placement="top"
+                           title="Guided Project:Visualizing Pixar's Roller Coaster">Next Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+                <!-- 多说评论框 start -->
+                <div class="comment">
+                    <div class="ds-thread"
+                         data-thread-key="2016/10/10/项目2/"
+                         data-title="Guided Project:Customizing Data Visualizations"
+                         data-url="http://yoursite.com/2016/10/10/项目2/">
+                    </div>
+                </div>
+                <!-- 多说评论框 end -->
+                
+
+                
+
+            </div>
+
+            <div class="hidden-xs col-sm-3 toc-col">
+                <div class="toc-wrap">
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#数据"><span class="toc-text">数据</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Scatter-Matrix-Part-1"><span class="toc-text">Scatter Matrix, Part 1</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Seaborn"><span class="toc-text">Seaborn</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#pandas"><span class="toc-text">pandas</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#customizing"><span class="toc-text">customizing</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Scatter-Matrix-Part-2，3"><span class="toc-text">Scatter Matrix, Part 2，3</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Grouped-Bar-Plot-Part-1"><span class="toc-text">Grouped Bar Plot, Part 1</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#pandas-1"><span class="toc-text">pandas</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#customizing-1"><span class="toc-text">customizing</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Grouped-Bar-Plot-Part-2"><span class="toc-text">Grouped Bar Plot, Part 2</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#练习"><span class="toc-text">练习</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Pandas-stacked-box-plot"><span class="toc-text">Pandas stacked box plot</span></a></li></ol></li></ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5 class="text-center">
+                        <a href="/tags/">FEATURED TAGS</a>
+                    </h5>
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#dataquest"
+                           title="dataquest">dataquest</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <div style="margin-top: 20px;">
+                    <h5 class="text-center">FRIENDS</h5>
+                    <ul class="list-inline text-center">
+                        
+                        <li><a href="http://www.hankcs.com/">hankcs</a></li>
+                        
+                        <li><a href="http://www.lintcode.com/zh-cn/ladder/2/">lintcode</a></li>
+                        
+                        <li><a href="http://www.jiuzhang.com/solutions/">jiuzhang</a></li>
+                        
+                    </ul>
+                </div>
+                
+            </div>
+        </div>
+
+    </div>
+</article>
+
+
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    // dynamic User by Hux
+    var _user = 'xuehaozhe';
+
+    // duoshuo comment query.
+    var duoshuoQuery = {short_name: _user};
+    (function () {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';
+        ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0]
+        || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+</script>
+<!-- 多说公共JS代码 end -->
+
+
+
+
+
+<!-- Footer -->
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <br>
+                <ul class="list-inline text-center">
+                
+                
+                    <li>
+                        <a target="_blank" href="https://twitter.com/xuehaozhe">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/xuehaozhe0526">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="http://weibo.com/fendoujianchi">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/xuehanzhe0526">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Haozhe 2017
+                    <br>
+                    <span id="busuanzi_container_site_pv" style="font-size: 12px;">PV: <span id="busuanzi_value_site_pv"></span> Times</span>
+                    <br>
+                    Theme by <a href="https://haojen.github.io/">Haojen Ma</a>
+                </p>
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/blog.js"></script>
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://yoursite.com/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+
+
+<!-- swiftype -->
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','null','2.0.0');
+</script>
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<!--wechat title img-->
+<img class="wechat-title-img" src="http://7xrw7v.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160402220553.png">
+</body>
+
+</html>

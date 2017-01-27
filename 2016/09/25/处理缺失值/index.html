@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="What hurts more,the pain of hard work or the pain of regret.">
+    <meta name="keyword" content="null">
+    <meta name="theme-color" content="#600090">
+    <meta name="msapplication-navbutton-color" content="#600090">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#600090">
+    <link rel="shortcut icon" href="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-person-128.png">
+    <link rel="alternate" type="application/atom+xml" title="Haozhe" href="/atom.xml">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
+    <title>
+        
+        Working with missing data｜Haozhe&#39;s blog
+        
+    </title>
+
+    <link rel="canonical" href="http://yoursite.com/2016/09/25/处理缺失值/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/blog-style.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+</head>
+
+<style>
+
+    header.intro-header {
+        background-image: url('http://7xrw7v.com1.z0.glb.clouddn.com/1485527729222.jpg')
+    }
+</style>
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="" class="animated fadeIn">
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost = "true" data-istags="false
+" data-ishome = "false" >
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand animated pulse" href="/">
+                <span class="brand-logo">
+                    Haozhe
+                </span>
+                's Blog
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <!-- /.navbar-collapse -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+					
+                    
+                        
+							
+                        <li>
+                            <a href="/tags/">tags</a>
+                        </li>
+							
+						
+                    
+					
+					
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+//    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+<!-- Main Content -->
+
+<!--only post-->
+
+
+<img class="wechat-title-img"
+     src="http://7xrw7v.com1.z0.glb.clouddn.com/148552521631.jpg#博文默认的图片">
+
+
+<style>
+    
+    header.intro-header {
+        background-image: url('http://7xrw7v.com1.z0.glb.clouddn.com/148552521631.jpg#博文默认的图片')
+    }
+
+    
+</style>
+
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <div class="post-heading">
+                    <h1>Working with missing data</h1>
+                    
+                    <span class="meta">
+                         作者 Haozhe Xue
+                        <span>
+                          日期 2016-09-25
+                         </span>
+                    </span>
+                    <div class="tags text-center">
+                        
+                        <a class="tag" href="/tags/#dataquest"
+                           title="dataquest">dataquest</a>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="post-title-haojen">
+        <span>
+            Working with missing data
+        </span>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <!-- Post Container -->
+            <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
+                <p>摘要：</p>
+<ul>
+<li>Drop Missing Values</li>
+<li>iloc 按位置</li>
+<li>loc 按index</li>
+<li>重建索引</li>
+<li>Use The Apply Function</li>
+</ul>
+<a id="more"></a>
+<p><a href="https://github.com/xuehanzhe0526/code/blob/master/python%E7%A8%8B%E5%BA%8F.ipynb" target="_blank" rel="external">代码下载</a><br><a href="https://github.com/xuehanzhe0526/data/blob/master/titanic3.xls" target="_blank" rel="external">数据集下载</a></p>
+<p>具体代码：见底部</p>
+<h3 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h3><p>这节将对 <a href=""> Titanic</a>幸存者数据集进行清洗和分析。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line">pclass,survived,name,sex,age,sibsp,parch,ticket,fare,cabin,embarked,boat,body,home.dest</div><div class="line"><span class="number">1</span>,<span class="number">1</span>,<span class="string">"Allen, Miss. Elisabeth Walton"</span>,female,<span class="number">29</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">24160</span>,<span class="number">211.3375</span>,B5,S,<span class="number">2</span>,,<span class="string">"St Louis, MO"</span></div><div class="line"><span class="number">1</span>,<span class="number">1</span>,<span class="string">"Allison, Master. Hudson Trevor"</span>,male,<span class="number">0.9167</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">113781</span>,<span class="number">151.5500</span>,C22 C26,S,<span class="number">11</span>,,<span class="string">"Montreal, PQ / Chesterville, ON"</span></div><div class="line"><span class="number">1</span>,<span class="number">0</span>,<span class="string">"Allison, Miss. Helen Loraine"</span>,female,<span class="number">2</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">113781</span>,<span class="number">151.5500</span>,C22 C26,S,,,<span class="string">"Montreal, PQ / Chesterville, ON"</span></div></pre></td></tr></table></figure>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/744a107039f01f3b3b4a14fa72ef195a.png" alt=""></p>
+<p><code>age and sex</code>列 存在缺失值 missing values.</p>
+<p>有些列是相互的，如 一个乘客 有<code>boat</code>说明他幸存了，如果<code>body</code>有值 说明没有幸存。</p>
+<h3 id="Finding-The-Missing-Data"><a href="#Finding-The-Missing-Data" class="headerlink" title="Finding The Missing Data"></a>Finding The Missing Data</h3><p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/eb1b785f8f918ef1f6ce0074d8b0b0b2.png" alt=""></p>
+<p><code>isnull function</code></p>
+<p><code>age_null is a boolean vector, and has &quot;True&quot; where age is NaN, and &quot;False&quot; where it isn&#39;t</code><br><figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="comment"># Using the as keyword assigns the import to a different name, so we can reference it more easily</span></div><div class="line"><span class="comment"># In this case, instead of having to type pandas all the time, we can just type pd</span></div><div class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</div><div class="line"></div><div class="line"><span class="comment"># Read in the survival data</span></div><div class="line">f = <span class="string">"titanic_survival.csv"</span></div><div class="line">titanic_survival = pd.read_csv(f)</div><div class="line"></div><div class="line"><span class="comment"># Print out the age column</span></div><div class="line">print(titanic_survival[<span class="string">"age"</span>])</div><div class="line"></div><div class="line"><span class="comment"># We can use the isnull function to find which values in a column are missing</span></div><div class="line">age_null = pd.isnull(titanic_survival[<span class="string">"age"</span>])</div><div class="line"></div><div class="line"><span class="comment"># age_null is a boolean vector, and has "True" where age is NaN, and "False" where it isn't</span></div><div class="line"></div><div class="line">age_null_true = age_null[age_null == <span class="keyword">True</span>]</div><div class="line"></div><div class="line">age_null_count = len(age_null_true)</div></pre></td></tr></table></figure></p>
+<h3 id="求年龄的均值"><a href="#求年龄的均值" class="headerlink" title="求年龄的均值"></a>求年龄的均值</h3><figure class="highlight python"><table><tr><td class="code"><pre><div class="line"></div><div class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</div><div class="line">mean_age = sum(titanic_survival[<span class="string">"age"</span>]) / len(titanic_survival[<span class="string">"age"</span>])</div><div class="line"></div><div class="line"><span class="comment"># Unfortunately, mean_age is NaN.  This is because any calculations we do with a null value also result in a null value.</span></div><div class="line"><span class="comment"># This makes sense when you think about it -- how can you add a null value to a known value?</span></div><div class="line">print(mean_age)</div><div class="line"></div><div class="line"><span class="comment"># What we have to do instead is filter the missing values out before we compute the mean.</span></div><div class="line">age_null = pd.isnull(titanic_survival[<span class="string">"age"</span>])</div><div class="line"></div><div class="line">good_ages = titanic_survival[<span class="string">"age"</span>][age_null == <span class="keyword">False</span>]</div><div class="line">correct_mean_age = sum(good_ages) / len(good_ages)</div></pre></td></tr></table></figure>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/44c01ac3a1057bc3e5222ea53a90f9ad.png" alt=""></p>
+<h3 id="更简单的方法"><a href="#更简单的方法" class="headerlink" title="更简单的方法"></a>更简单的方法</h3><p><code>.mean()</code>Pandas 会自动的过滤缺失值<br><figure class="highlight python"><table><tr><td class="code"><pre><div class="line"></div><div class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</div><div class="line"></div><div class="line"><span class="comment"># This is the same value that we computed in the last screen, but it's much simpler.</span></div><div class="line"><span class="comment"># The ease of using the .mean() method is great, but it's important to understand how the underlying data looks.</span></div><div class="line">correct_mean_age = titanic_survival[<span class="string">"age"</span>].mean()</div></pre></td></tr></table></figure></p>
+<h3 id="Computing-Summary-Statistics"><a href="#Computing-Summary-Statistics" class="headerlink" title="Computing Summary Statistics"></a>Computing Summary Statistics</h3><p><code>pclass column</code><br> first class (1), second class (2), or third class (3)</p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/d50228619d66a1cc9d20ed5f0b9b3e16.png" alt=""></p>
+<p>查看船的等级 船票的平均值<br><figure class="highlight python"><table><tr><td class="code"><pre><div class="line">passenger_classes = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]</div><div class="line">fares_by_class = &#123;&#125;</div><div class="line"><span class="keyword">for</span> pclass <span class="keyword">in</span> passenger_classes:</div><div class="line">    pclass_rows = titanic_survival[titanic_survival[<span class="string">"pclass"</span>] == pclass]</div><div class="line">    pclass_fares = pclass_rows[<span class="string">"fare"</span>]</div><div class="line">    fare_for_class = pclass_fares.mean()</div><div class="line">    fares_by_class[pclass] = fare_for_class</div></pre></td></tr></table></figure></p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/e262abd96867318c891a1c16f0590952.png" alt=""></p>
+<h3 id="Making-Pivot-Tables"><a href="#Making-Pivot-Tables" class="headerlink" title="Making Pivot Tables"></a>Making Pivot Tables</h3><p>计算每个船舱等级乘客的生存概率 ，使用<a href="http://pandas.pydata.org/pandas-docs/stable/generated/pandas.pivot_table.html" target="_blank" rel="external">Dataframe method pivot_table</a></p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/0da7a8c9fa63b3aa83a4d2f0c8f74d42.png" alt=""></p>
+<p>简单的方法：<br><code>fares_by_class = titanic_survival.pivot_table(index = &quot;pclass&quot;, values = &quot;fare&quot;,aggfunc=np.mean)</code></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</div><div class="line"></div><div class="line"><span class="comment"># Let's compute the survival change from 0-1 for people in each class</span></div><div class="line"><span class="comment"># The closer to one, the higher the chance people in that passenger class survived</span></div><div class="line"><span class="comment"># The "survived" column contains a 1 if the passenger survived, and a 0 if not</span></div><div class="line"><span class="comment"># The pivot_table method on a pandas dataframe will let us do this</span></div><div class="line"><span class="comment"># index specifies which column to subset data based on (in this case, we want to compute the survival percentage for each class)</span></div><div class="line"><span class="comment"># values specifies which column to subset based on the index</span></div><div class="line"><span class="comment"># The aggfunc specifies what to do with the subsets</span></div><div class="line"><span class="comment"># In this case, we split survived into 3 vectors, one for each passenger class, and take the mean of each</span></div><div class="line">passenger_survival = titanic_survival.pivot_table(index=<span class="string">"pclass"</span>, values=<span class="string">"survived"</span>, aggfunc=np.mean)</div><div class="line"></div><div class="line"><span class="comment"># First class passengers had a much higher survival chance</span></div><div class="line">print(passenger_survival)</div></pre></td></tr></table></figure>
+<p><code>passenger_age = titanic_survival.pivot_table(index = &quot;pclass&quot;, values = &quot;age&quot;,aggfunc=np.mean)</code><br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/4d36f59e14f320f832c19605f9aaf02b.png" alt=""></p>
+<h3 id="More-Complex-Pivot-Tables"><a href="#More-Complex-Pivot-Tables" class="headerlink" title="More Complex Pivot Tables"></a>More Complex Pivot Tables</h3><figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</div><div class="line"></div><div class="line"><span class="comment"># This will compute the mean survival chance and the mean age for each passenger class</span></div><div class="line">passenger_survival = titanic_survival.pivot_table(index=<span class="string">"pclass"</span>, values=[<span class="string">"age"</span>, <span class="string">"survived"</span>], aggfunc=np.mean)</div><div class="line">print(passenger_survival)</div></pre></td></tr></table></figure>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/29c9d477ce5667e435199a4c7bb7eb92.png" alt=""></p>
+<h3 id="Drop-Missing-Values"><a href="#Drop-Missing-Values" class="headerlink" title="Drop Missing Values"></a>Drop Missing Values</h3><p>Pandas dataframes中 使用<br><code>dropna method</code><br>移除任何行包含的缺失值</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</div><div class="line"></div><div class="line"><span class="comment"># Drop all rows that have missing values</span></div><div class="line">new_titanic_survival = titanic_survival.dropna()</div><div class="line"></div><div class="line"><span class="comment"># It looks like we have an empty dataframe now.</span></div><div class="line"><span class="comment"># This is because every row has at least one missing value.</span></div><div class="line">print(new_titanic_survival)</div><div class="line"></div><div class="line"><span class="comment"># We can also use the axis argument to drop columns that have missing values</span></div><div class="line">new_titanic_survival = titanic_survival.dropna(axis=<span class="number">1</span>)</div><div class="line">print(new_titanic_survival)</div><div class="line"></div><div class="line"><span class="comment"># We can use the subset argument to only drop rows if certain columns have missing values.</span></div><div class="line"><span class="comment"># This drops all rows where "age" or "sex" is missing.</span></div><div class="line">new_titanic_survival = titanic_survival.dropna(subset=[<span class="string">"age"</span>, <span class="string">"sex"</span>])</div></pre></td></tr></table></figure>
+<h3 id="Row-Indices"><a href="#Row-Indices" class="headerlink" title="Row Indices"></a>Row Indices</h3><p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/6836059eff82cc022f4f8c9e5d77fdea.png" alt=""></p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/131240417095cca99dbc430c6fbcc014.png" alt=""></p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/fda7171afab9209dbcee267f1fafee04.png" alt=""></p>
+<h3 id="Column-Indices"><a href="#Column-Indices" class="headerlink" title="Column Indices"></a>Column Indices</h3><p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/81cb47d5ffce257a016d7843615d26f4.png" alt=""></p>
+<h3 id="Reindex-Rows"><a href="#Reindex-Rows" class="headerlink" title="Reindex Rows"></a>Reindex Rows</h3><p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/208830e060e3b8a5d818f757d3b51779.png" alt=""></p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/7613ccb81bedd5dc51b599638444f059.png" alt=""></p>
+<h3 id="Use-The-Apply-Function"><a href="#Use-The-Apply-Function" class="headerlink" title="Use The Apply Function"></a>Use The Apply Function</h3><p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/93f90ba4a3c78b22f866fbc7e27702be.png" alt=""><br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/8eda230f12edc8f49e80b223a1ae7b40.png" alt=""></p>
+<h3 id="Applying-A-Function-To-A-Row"><a href="#Applying-A-Function-To-A-Row" class="headerlink" title="Applying A Function To A Row"></a>Applying A Function To A Row</h3><p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/eed55e8443f6091e94e4d6a1a86b2bfc.png" alt=""></p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/7cab025256f96dea906420282e4eb769.png" alt=""></p>
+<h3 id="Computing-Survival-Percentage-By-Age-Group"><a href="#Computing-Survival-Percentage-By-Age-Group" class="headerlink" title="Computing Survival Percentage By Age Group"></a>Computing Survival Percentage By Age Group</h3><p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/e103ed6f775692c76f70e22ccdbea13a.png" alt=""><br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/8a65a96a8874814af19b4c492dc90a49.png" alt=""></p>
+<iframe src="http://nbviewer.jupyter.org/github/xuehanzhe0526/code/blob/master/python%E7%A8%8B%E5%BA%8F.ipynb" width="1000" height="1000"></iframe>
+
+                <hr>
+                
+                <!-- 多说 Share start -->
+                <div class="ds-share"
+                     style="text-align: right"
+                     data-thread-key="2016/09/25/处理缺失值/"
+                     data-title="Working with missing data"
+                     data-url="http://yoursite.com/2016/09/25/处理缺失值/"
+                     data-images=""
+                     data-content="摘要：
+
+Drop Missing Values
+iloc 按位置
+loc 按index
+重建... | Haozhe&#39;s blog ">
+                    <div class="ds-share-inline">
+                        <ul class="ds-share-icons-16">
+                            <li data-toggle="ds-share-icons-more"><a class="ds-more" href="#">分享到：</a></li>
+                            <li><a class="ds-wechat flat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+                            <li><a class="ds-weibo flat" href="javascript:void(0);" data-service="weibo">微博</a></li>
+                            <li><a class="ds-douban flat" href="javascript:void(0);" data-service="douban">豆瓣</a></li>
+                        </ul>
+                        <div class="ds-share-icons-more">
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+                <!-- 多说 Share end-->
+                
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2016/09/26/从github下载单个文件/" data-toggle="tooltip" data-placement="top"
+                           title="从github下载单个文件">&larr; Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2016/09/25/python时间/" data-toggle="tooltip" data-placement="top"
+                           title="Dates In Python">Next Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+                <!-- 多说评论框 start -->
+                <div class="comment">
+                    <div class="ds-thread"
+                         data-thread-key="2016/09/25/处理缺失值/"
+                         data-title="Working with missing data"
+                         data-url="http://yoursite.com/2016/09/25/处理缺失值/">
+                    </div>
+                </div>
+                <!-- 多说评论框 end -->
+                
+
+                
+
+            </div>
+
+            <div class="hidden-xs col-sm-3 toc-col">
+                <div class="toc-wrap">
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Introduction"><span class="toc-text">Introduction</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Finding-The-Missing-Data"><span class="toc-text">Finding The Missing Data</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#求年龄的均值"><span class="toc-text">求年龄的均值</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#更简单的方法"><span class="toc-text">更简单的方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Computing-Summary-Statistics"><span class="toc-text">Computing Summary Statistics</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Making-Pivot-Tables"><span class="toc-text">Making Pivot Tables</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#More-Complex-Pivot-Tables"><span class="toc-text">More Complex Pivot Tables</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Drop-Missing-Values"><span class="toc-text">Drop Missing Values</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Row-Indices"><span class="toc-text">Row Indices</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Column-Indices"><span class="toc-text">Column Indices</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Reindex-Rows"><span class="toc-text">Reindex Rows</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Use-The-Apply-Function"><span class="toc-text">Use The Apply Function</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Applying-A-Function-To-A-Row"><span class="toc-text">Applying A Function To A Row</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Computing-Survival-Percentage-By-Age-Group"><span class="toc-text">Computing Survival Percentage By Age Group</span></a></li></ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5 class="text-center">
+                        <a href="/tags/">FEATURED TAGS</a>
+                    </h5>
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#dataquest"
+                           title="dataquest">dataquest</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <div style="margin-top: 20px;">
+                    <h5 class="text-center">FRIENDS</h5>
+                    <ul class="list-inline text-center">
+                        
+                        <li><a href="http://www.hankcs.com/">hankcs</a></li>
+                        
+                        <li><a href="http://www.lintcode.com/zh-cn/ladder/2/">lintcode</a></li>
+                        
+                        <li><a href="http://www.jiuzhang.com/solutions/">jiuzhang</a></li>
+                        
+                    </ul>
+                </div>
+                
+            </div>
+        </div>
+
+    </div>
+</article>
+
+
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    // dynamic User by Hux
+    var _user = 'xuehaozhe';
+
+    // duoshuo comment query.
+    var duoshuoQuery = {short_name: _user};
+    (function () {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';
+        ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0]
+        || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+</script>
+<!-- 多说公共JS代码 end -->
+
+
+
+
+
+<!-- Footer -->
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <br>
+                <ul class="list-inline text-center">
+                
+                
+                    <li>
+                        <a target="_blank" href="https://twitter.com/xuehaozhe">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/xuehaozhe0526">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="http://weibo.com/fendoujianchi">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/xuehanzhe0526">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Haozhe 2017
+                    <br>
+                    <span id="busuanzi_container_site_pv" style="font-size: 12px;">PV: <span id="busuanzi_value_site_pv"></span> Times</span>
+                    <br>
+                    Theme by <a href="https://haojen.github.io/">Haojen Ma</a>
+                </p>
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/blog.js"></script>
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://yoursite.com/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+
+
+<!-- swiftype -->
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','null','2.0.0');
+</script>
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<!--wechat title img-->
+<img class="wechat-title-img" src="http://7xrw7v.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160402220553.png">
+</body>
+
+</html>

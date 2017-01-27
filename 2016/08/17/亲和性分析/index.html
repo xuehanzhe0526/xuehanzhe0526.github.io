@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="What hurts more,the pain of hard work or the pain of regret.">
+    <meta name="keyword" content="null">
+    <meta name="theme-color" content="#600090">
+    <meta name="msapplication-navbutton-color" content="#600090">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#600090">
+    <link rel="shortcut icon" href="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-person-128.png">
+    <link rel="alternate" type="application/atom+xml" title="Haozhe" href="/atom.xml">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
+    <title>
+        
+        亲和性分析｜Haozhe&#39;s blog
+        
+    </title>
+
+    <link rel="canonical" href="http://yoursite.com/2016/08/17/亲和性分析/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/blog-style.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+</head>
+
+<style>
+
+    header.intro-header {
+        background-image: url('http://7xrw7v.com1.z0.glb.clouddn.com/1485527729222.jpg')
+    }
+</style>
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="" class="animated fadeIn">
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost = "true" data-istags="false
+" data-ishome = "false" >
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand animated pulse" href="/">
+                <span class="brand-logo">
+                    Haozhe
+                </span>
+                's Blog
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <!-- /.navbar-collapse -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+					
+                    
+                        
+							
+                        <li>
+                            <a href="/tags/">tags</a>
+                        </li>
+							
+						
+                    
+					
+					
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+//    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+<!-- Main Content -->
+
+<!--only post-->
+
+
+<img class="wechat-title-img"
+     src="http://7xrw7v.com1.z0.glb.clouddn.com/148552521631.jpg#博文默认的图片">
+
+
+<style>
+    
+    header.intro-header {
+        background-image: url('http://7xrw7v.com1.z0.glb.clouddn.com/148552521631.jpg#博文默认的图片')
+    }
+
+    
+</style>
+
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <div class="post-heading">
+                    <h1>亲和性分析</h1>
+                    
+                    <span class="meta">
+                         作者 Haozhe Xue
+                        <span>
+                          日期 2016-08-17
+                         </span>
+                    </span>
+                    <div class="tags text-center">
+                        
+                        <a class="tag" href="/tags/#数据挖掘入门与实战"
+                           title="数据挖掘入门与实战">数据挖掘入门与实战</a>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="post-title-haojen">
+        <span>
+            亲和性分析
+        </span>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <!-- Post Container -->
+            <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
+                <p>摘要：</p>
+<ul>
+<li>介绍</li>
+<li>代码实现</li>
+<li>数据和代码链接</li>
+</ul>
+<a id="more"></a>
+<h3 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h3><h4 id="什么是亲和性分析"><a href="#什么是亲和性分析" class="headerlink" title="什么是亲和性分析"></a>什么是亲和性分析</h4><blockquote>
+<p>根据样本之间的相似度，确定它们关系的亲疏</p>
+</blockquote>
+<p>一个人买了商品X，那么他很有可能购买商品Y。</p>
+<h4 id="什么是规则"><a href="#什么是规则" class="headerlink" title="什么是规则"></a>什么是规则</h4><p>if（前提条件） that（结论）</p>
+<h4 id="规则优良的衡量方法：支持度support、置信度confidence"><a href="#规则优良的衡量方法：支持度support、置信度confidence" class="headerlink" title="规则优良的衡量方法：支持度support、置信度confidence"></a>规则优良的衡量方法：支持度support、置信度confidence</h4><p>支持度：数据集中规则应验的次数<br>置信度：衡量规则准确率如何，计算方法：当前规则出现的次数 除以 条件（if）相同的规则数量。</p>
+<h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><h4 id="导入future特征（for-2-x）"><a href="#导入future特征（for-2-x）" class="headerlink" title="导入future特征（for 2.x）"></a>导入future特征（for 2.x）</h4><figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="keyword">from</span> __future__ <span class="keyword">import</span> print_function</div><div class="line"><span class="keyword">from</span> __future__ <span class="keyword">import</span> division</div></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</div><div class="line">dataset_filename = <span class="string">"affinity_dataset.txt"</span></div><div class="line">X = np.loadtxt(dataset_filename)</div><div class="line">n_samples, n_features = X.shape</div><div class="line">print(<span class="string">"This dataset has &#123;0&#125; samples and &#123;1&#125; features"</span>.format(n_samples, n_features))</div></pre></td></tr></table></figure>
+<blockquote>
+<p>This dataset has 100 samples and 5 features</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="comment"># The names of the features, for your reference.</span></div><div class="line">features = [<span class="string">"bread"</span>, <span class="string">"milk"</span>, <span class="string">"cheese"</span>, <span class="string">"apples"</span>, <span class="string">"bananas"</span>]</div></pre></td></tr></table></figure>
+<h4 id="求顾客购买了苹果，他们会购买香蕉的置信度和支持度。"><a href="#求顾客购买了苹果，他们会购买香蕉的置信度和支持度。" class="headerlink" title="求顾客购买了苹果，他们会购买香蕉的置信度和支持度。"></a>求顾客购买了苹果，他们会购买香蕉的置信度和支持度。</h4><figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="comment"># First, how many rows contain our premise: that a person is buying apples（前提）</span></div><div class="line">num_apple_purchases = <span class="number">0</span></div><div class="line"><span class="keyword">for</span> sample <span class="keyword">in</span> X:</div><div class="line">    <span class="keyword">if</span> sample[<span class="number">3</span>] == <span class="number">1</span>:  <span class="comment"># This person bought Apples</span></div><div class="line">        num_apple_purchases += <span class="number">1</span></div><div class="line">print(<span class="string">"&#123;0&#125; people bought Apples"</span>.format(num_apple_purchases))</div></pre></td></tr></table></figure>
+<blockquote>
+<p>36 people bought Apples</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="comment"># How many of the cases that a person bought Apples involved the people purchasing Bananas too?</span></div><div class="line"><span class="comment"># Record both cases where the rule is valid and is invalid.</span></div><div class="line">rule_valid = <span class="number">0</span></div><div class="line">rule_invalid = <span class="number">0</span></div><div class="line"><span class="keyword">for</span> sample <span class="keyword">in</span> X:</div><div class="line">    <span class="keyword">if</span> sample[<span class="number">3</span>] == <span class="number">1</span>:  <span class="comment"># This person bought Apples</span></div><div class="line">        <span class="keyword">if</span> sample[<span class="number">4</span>] == <span class="number">1</span>:</div><div class="line">            <span class="comment"># This person bought both Apples and Bananas</span></div><div class="line">            rule_valid += <span class="number">1</span></div><div class="line">        <span class="keyword">else</span>:</div><div class="line">            <span class="comment"># This person bought Apples, but not Bananas</span></div><div class="line">            rule_invalid += <span class="number">1</span></div><div class="line">print(<span class="string">"&#123;0&#125; cases of the rule being valid were discovered"</span>.format(rule_valid))</div><div class="line">print(<span class="string">"&#123;0&#125; cases of the rule being invalid were discovered"</span>.format(rule_invalid))</div></pre></td></tr></table></figure>
+<blockquote>
+<p>21 cases of the rule being valid were discovered<br>15 cases of the rule being invalid were discovered</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="comment"># Now we have all the information needed to compute Support and Confidence</span></div><div class="line">support = rule_valid  <span class="comment"># The Support is the number of times the rule is discovered.</span></div><div class="line">confidence = rule_valid / num_apple_purchases</div><div class="line">print(<span class="string">"The support is &#123;0&#125; and the confidence is &#123;1:.3f&#125;."</span>.format(support, confidence))</div><div class="line"><span class="comment"># Confidence can be thought of as a percentage using the following:</span></div><div class="line">print(<span class="string">"As a percentage, that is &#123;0:.1f&#125;%."</span>.format(<span class="number">100</span> * confidence))</div></pre></td></tr></table></figure>
+<blockquote>
+<p>The support is 21 and the confidence is 0.583.<br>As a percentage, that is 58.3%.</p>
+</blockquote>
+<h4 id="统计数据集所有规则的相关数据"><a href="#统计数据集所有规则的相关数据" class="headerlink" title="统计数据集所有规则的相关数据"></a>统计数据集所有规则的相关数据</h4><figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="keyword">from</span> collections <span class="keyword">import</span> defaultdict <span class="comment">#如果查找的键不存在 返回一个默认值</span></div><div class="line"><span class="comment"># Now compute for all possible rules</span></div><div class="line">valid_rules = defaultdict(int)</div><div class="line">invalid_rules = defaultdict(int)</div><div class="line">num_occurences = defaultdict(int)</div><div class="line"></div><div class="line"><span class="keyword">for</span> sample <span class="keyword">in</span> X:</div><div class="line">    <span class="keyword">for</span> premise <span class="keyword">in</span> range(n_features):</div><div class="line">        <span class="keyword">if</span> sample[premise] == <span class="number">0</span>: <span class="keyword">continue</span> <span class="comment">#检验个体是否满足条件</span></div><div class="line">        <span class="comment"># Record that the premise was bought in another transaction</span></div><div class="line">        num_occurences[premise] += <span class="number">1</span>  <span class="comment"># 如果满足（值为1）该条件出现的次数+1</span></div><div class="line">        <span class="keyword">for</span> conclusion <span class="keyword">in</span> range(n_features):</div><div class="line">            <span class="keyword">if</span> premise == conclusion:  <span class="comment"># It makes little sense to measure if X -&gt; X. 即如果买了苹果（if） ，（that）他们也买了苹果</span></div><div class="line">                <span class="keyword">continue</span></div><div class="line">            <span class="keyword">if</span> sample[conclusion] == <span class="number">1</span>:</div><div class="line">                <span class="comment"># This person also bought the conclusion item</span></div><div class="line">                valid_rules[(premise, conclusion)] += <span class="number">1</span></div><div class="line">            <span class="keyword">else</span>:</div><div class="line">                <span class="comment"># This person bought the premise, but not the conclusion</span></div><div class="line">                invalid_rules[(premise, conclusion)] += <span class="number">1</span></div><div class="line">support = valid_rules</div><div class="line">confidence = defaultdict(float)</div><div class="line"><span class="keyword">for</span> premise, conclusion <span class="keyword">in</span> valid_rules.keys():</div><div class="line">    confidence[(premise, conclusion)] = valid_rules[(premise, conclusion)] / num_occurences[premise]</div></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="keyword">for</span> premise, conclusion <span class="keyword">in</span> confidence:</div><div class="line">    premise_name = features[premise]</div><div class="line">    conclusion_name = features[conclusion]</div><div class="line">    print(<span class="string">"Rule: If a person buys &#123;0&#125; they will also buy &#123;1&#125;"</span>.format(premise_name, conclusion_name))</div><div class="line">    print(<span class="string">" - Confidence: &#123;0:.3f&#125;"</span>.format(confidence[(premise, conclusion)]))</div><div class="line">    print(<span class="string">" - Support: &#123;0&#125;"</span>.format(support[(premise, conclusion)]))</div><div class="line">    print(<span class="string">""</span>)</div></pre></td></tr></table></figure>
+<p> Rule: If a person buys bread they will also buy milk</p>
+<ul>
+<li>Confidence: 0.519</li>
+<li>Support: 14</li>
+</ul>
+<p>Rule: If a person buys milk they will also buy cheese</p>
+<ul>
+<li>Confidence: 0.152</li>
+<li>Support: 7</li>
+</ul>
+<p>Rule: If a person buys apples they will also buy cheese</p>
+<ul>
+<li>Confidence: 0.694</li>
+<li>Support: 25</li>
+</ul>
+<p>Rule: If a person buys milk they will also buy apples</p>
+<ul>
+<li>Confidence: 0.196</li>
+<li>Support: 9</li>
+</ul>
+<p>Rule: If a person buys bread they will also buy apples</p>
+<ul>
+<li>Confidence: 0.185</li>
+<li>Support: 5</li>
+</ul>
+<p>Rule: If a person buys apples they will also buy bread</p>
+<ul>
+<li>Confidence: 0.139</li>
+<li>Support: 5</li>
+</ul>
+<p>Rule: If a person buys apples they will also buy bananas</p>
+<ul>
+<li>Confidence: 0.583</li>
+<li>Support: 21</li>
+</ul>
+<p>Rule: If a person buys apples they will also buy milk</p>
+<ul>
+<li>Confidence: 0.250</li>
+<li>Support: 9</li>
+</ul>
+<p>Rule: If a person buys milk they will also buy bananas</p>
+<ul>
+<li>Confidence: 0.413</li>
+<li>Support: 19</li>
+</ul>
+<p>Rule: If a person buys cheese they will also buy bananas</p>
+<ul>
+<li>Confidence: 0.659</li>
+<li>Support: 27</li>
+</ul>
+<p>Rule: If a person buys cheese they will also buy bread</p>
+<ul>
+<li>Confidence: 0.098</li>
+<li>Support: 4</li>
+</ul>
+<p>Rule: If a person buys cheese they will also buy apples</p>
+<ul>
+<li>Confidence: 0.610</li>
+<li>Support: 25</li>
+</ul>
+<p>Rule: If a person buys cheese they will also buy milk</p>
+<ul>
+<li>Confidence: 0.171</li>
+<li>Support: 7</li>
+</ul>
+<p>Rule: If a person buys bananas they will also buy apples</p>
+<ul>
+<li>Confidence: 0.356</li>
+<li>Support: 21</li>
+</ul>
+<p>Rule: If a person buys bread they will also buy bananas</p>
+<ul>
+<li>Confidence: 0.630</li>
+<li>Support: 17</li>
+</ul>
+<p>Rule: If a person buys bananas they will also buy cheese</p>
+<ul>
+<li>Confidence: 0.458</li>
+<li>Support: 27</li>
+</ul>
+<p>Rule: If a person buys milk they will also buy bread</p>
+<ul>
+<li>Confidence: 0.304</li>
+<li>Support: 14</li>
+</ul>
+<p>Rule: If a person buys bananas they will also buy milk</p>
+<ul>
+<li>Confidence: 0.322</li>
+<li>Support: 19</li>
+</ul>
+<p>Rule: If a person buys bread they will also buy cheese</p>
+<ul>
+<li>Confidence: 0.148</li>
+<li>Support: 4</li>
+</ul>
+<p>Rule: If a person buys bananas they will also buy bread</p>
+<ul>
+<li>Confidence: 0.288</li>
+<li>Support: 17</li>
+</ul>
+<h4 id="验证"><a href="#验证" class="headerlink" title="验证"></a>验证</h4><figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">print_rule</span><span class="params">(premise, conclusion, support, confidence, features)</span>:</span></div><div class="line">    premise_name = features[premise]</div><div class="line">    conclusion_name = features[conclusion]</div><div class="line">    print(<span class="string">"Rule: If a person buys &#123;0&#125; they will also buy &#123;1&#125;"</span>.format(premise_name, conclusion_name))</div><div class="line">    print(<span class="string">" - Confidence: &#123;0:.3f&#125;"</span>.format(confidence[(premise, conclusion)]))</div><div class="line">    print(<span class="string">" - Support: &#123;0&#125;"</span>.format(support[(premise, conclusion)]))</div><div class="line">    print(<span class="string">""</span>)</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">#买了牛奶也买了苹果</span></div><div class="line">premise = <span class="number">1</span></div><div class="line">conclusion = <span class="number">3</span></div><div class="line">print_rule(premise, conclusion, support, confidence, features)</div></pre></td></tr></table></figure>
+<blockquote>
+<p>Rule: If a person buys milk they will also buy apples</p>
+<ul>
+<li>Confidence: 0.196</li>
+<li>Support: 9</li>
+</ul>
+</blockquote>
+<h4 id="排序找到最佳规则"><a href="#排序找到最佳规则" class="headerlink" title="排序找到最佳规则"></a>排序找到最佳规则</h4><p>为了找到最佳 需要根据支出度和置信度 对规则排序<br>Sort by support<br><figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="keyword">from</span> pprint <span class="keyword">import</span> pprint <span class="comment">###pprint模块 提供了打印出任何python数据结构类和方法。</span></div><div class="line">pprint(list(support.items()))<span class="comment">#字典的items()返回包含字典所有元素的列表</span></div></pre></td></tr></table></figure></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="keyword">from</span> operator <span class="keyword">import</span> itemgetter <span class="comment">#itemgetter（）这样可以对嵌套列表进行排序</span></div><div class="line">sorted_support = sorted(support.items(), key=itemgetter(<span class="number">1</span>), reverse=<span class="keyword">True</span>) <span class="comment">#itemgetter(1) 以字典各元素的值（支持度）为排序依据 ；降序排列</span></div><div class="line"></div><div class="line"><span class="keyword">for</span> index <span class="keyword">in</span> range(<span class="number">5</span>):</div><div class="line">    print(<span class="string">"Rule #&#123;0&#125;"</span>.format(index + <span class="number">1</span>))</div><div class="line">    (premise, conclusion) = sorted_support[index][<span class="number">0</span>]</div><div class="line">    print_rule(premise, conclusion, support, confidence, features)</div></pre></td></tr></table></figure>
+<p>Rule #1<br>Rule: If a person buys bananas they will also buy cheese</p>
+<ul>
+<li>Confidence: 0.458</li>
+<li>Support: 27</li>
+</ul>
+<p>Rule #2<br>Rule: If a person buys cheese they will also buy bananas</p>
+<ul>
+<li>Confidence: 0.659</li>
+<li>Support: 27</li>
+</ul>
+<p>Rule #3<br>Rule: If a person buys apples they will also buy cheese</p>
+<ul>
+<li>Confidence: 0.694</li>
+<li>Support: 25</li>
+</ul>
+<p>Rule #4<br>Rule: If a person buys cheese they will also buy apples</p>
+<ul>
+<li>Confidence: 0.610</li>
+<li>Support: 25</li>
+</ul>
+<p>Rule #5<br>Rule: If a person buys bananas they will also buy apples</p>
+<ul>
+<li>Confidence: 0.356</li>
+<li>Support: 21</li>
+</ul>
+<p>同理 输出置信度最高的规则</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line">sorted_confidence = sorted(confidence.items(), key=itemgetter(<span class="number">1</span>), reverse=<span class="keyword">True</span>)</div><div class="line"></div><div class="line"><span class="keyword">for</span> index <span class="keyword">in</span> range(<span class="number">5</span>):</div><div class="line">    print(<span class="string">"Rule #&#123;0&#125;"</span>.format(index + <span class="number">1</span>))</div><div class="line">    (premise, conclusion) = sorted_confidence[index][<span class="number">0</span>]</div><div class="line">    print_rule(premise, conclusion, support, confidence, features)</div></pre></td></tr></table></figure>
+<p>Rule #1<br>Rule: If a person buys apples they will also buy cheese</p>
+<ul>
+<li>Confidence: 0.694</li>
+<li>Support: 25</li>
+</ul>
+<p>Rule #2<br>Rule: If a person buys cheese they will also buy bananas</p>
+<ul>
+<li>Confidence: 0.659</li>
+<li>Support: 27</li>
+</ul>
+<p>Rule #3<br>Rule: If a person buys bread they will also buy bananas</p>
+<ul>
+<li>Confidence: 0.630</li>
+<li>Support: 17</li>
+</ul>
+<p>Rule #4<br>Rule: If a person buys cheese they will also buy apples</p>
+<ul>
+<li>Confidence: 0.610</li>
+<li>Support: 25</li>
+</ul>
+<p>Rule #5<br>Rule: If a person buys apples they will also buy bananas</p>
+<ul>
+<li>Confidence: 0.583</li>
+<li>Support: 21</li>
+</ul>
+<h3 id="数据和代码链接"><a href="#数据和代码链接" class="headerlink" title="数据和代码链接"></a>数据和代码链接</h3><p>数据：<a href="https://github.com/xuehanzhe0526/markdown/blob/master/affinity_dataset.txt" target="_blank" rel="external">https://github.com/xuehanzhe0526/markdown/blob/master/affinity_dataset.txt</a><br>代码：<br><a href="https://github.com/xuehanzhe0526/markdown/blob/master/ch1_affinity.ipynb" target="_blank" rel="external">https://github.com/xuehanzhe0526/markdown/blob/master/ch1_affinity.ipynb</a></p>
+
+                <hr>
+                
+                <!-- 多说 Share start -->
+                <div class="ds-share"
+                     style="text-align: right"
+                     data-thread-key="2016/08/17/亲和性分析/"
+                     data-title="亲和性分析"
+                     data-url="http://yoursite.com/2016/08/17/亲和性分析/"
+                     data-images=""
+                     data-content="摘要：
+
+介绍
+代码实现
+数据和代码链接
+
+
+介绍什么是亲和性分析
+根据样本之间的相似度，确定... | Haozhe&#39;s blog ">
+                    <div class="ds-share-inline">
+                        <ul class="ds-share-icons-16">
+                            <li data-toggle="ds-share-icons-more"><a class="ds-more" href="#">分享到：</a></li>
+                            <li><a class="ds-wechat flat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+                            <li><a class="ds-weibo flat" href="javascript:void(0);" data-service="weibo">微博</a></li>
+                            <li><a class="ds-douban flat" href="javascript:void(0);" data-service="douban">豆瓣</a></li>
+                        </ul>
+                        <div class="ds-share-icons-more">
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+                <!-- 多说 Share end-->
+                
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2016/08/18/如何正确的科学上网（转载）/" data-toggle="tooltip" data-placement="top"
+                           title="如何正确的科学上网（转载）">&larr; Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2016/08/16/urllib/" data-toggle="tooltip" data-placement="top"
+                           title="python urllib模块详解及实例">Next Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+                <!-- 多说评论框 start -->
+                <div class="comment">
+                    <div class="ds-thread"
+                         data-thread-key="2016/08/17/亲和性分析/"
+                         data-title="亲和性分析"
+                         data-url="http://yoursite.com/2016/08/17/亲和性分析/">
+                    </div>
+                </div>
+                <!-- 多说评论框 end -->
+                
+
+                
+
+            </div>
+
+            <div class="hidden-xs col-sm-3 toc-col">
+                <div class="toc-wrap">
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#介绍"><span class="toc-text">介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#什么是亲和性分析"><span class="toc-text">什么是亲和性分析</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#什么是规则"><span class="toc-text">什么是规则</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#规则优良的衡量方法：支持度support、置信度confidence"><span class="toc-text">规则优良的衡量方法：支持度support、置信度confidence</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#代码实现"><span class="toc-text">代码实现</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#导入future特征（for-2-x）"><span class="toc-text">导入future特征（for 2.x）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#求顾客购买了苹果，他们会购买香蕉的置信度和支持度。"><span class="toc-text">求顾客购买了苹果，他们会购买香蕉的置信度和支持度。</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#统计数据集所有规则的相关数据"><span class="toc-text">统计数据集所有规则的相关数据</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#验证"><span class="toc-text">验证</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#排序找到最佳规则"><span class="toc-text">排序找到最佳规则</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#数据和代码链接"><span class="toc-text">数据和代码链接</span></a></li></ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5 class="text-center">
+                        <a href="/tags/">FEATURED TAGS</a>
+                    </h5>
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#数据挖掘入门与实战"
+                           title="数据挖掘入门与实战">数据挖掘入门与实战</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <div style="margin-top: 20px;">
+                    <h5 class="text-center">FRIENDS</h5>
+                    <ul class="list-inline text-center">
+                        
+                        <li><a href="http://www.hankcs.com/">hankcs</a></li>
+                        
+                        <li><a href="http://www.lintcode.com/zh-cn/ladder/2/">lintcode</a></li>
+                        
+                        <li><a href="http://www.jiuzhang.com/solutions/">jiuzhang</a></li>
+                        
+                    </ul>
+                </div>
+                
+            </div>
+        </div>
+
+    </div>
+</article>
+
+
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    // dynamic User by Hux
+    var _user = 'xuehaozhe';
+
+    // duoshuo comment query.
+    var duoshuoQuery = {short_name: _user};
+    (function () {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';
+        ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0]
+        || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+</script>
+<!-- 多说公共JS代码 end -->
+
+
+
+
+
+<!-- Footer -->
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <br>
+                <ul class="list-inline text-center">
+                
+                
+                    <li>
+                        <a target="_blank" href="https://twitter.com/xuehaozhe">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/xuehaozhe0526">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="http://weibo.com/fendoujianchi">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/xuehanzhe0526">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Haozhe 2017
+                    <br>
+                    <span id="busuanzi_container_site_pv" style="font-size: 12px;">PV: <span id="busuanzi_value_site_pv"></span> Times</span>
+                    <br>
+                    Theme by <a href="https://haojen.github.io/">Haojen Ma</a>
+                </p>
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/blog.js"></script>
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://yoursite.com/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+
+
+<!-- swiftype -->
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','null','2.0.0');
+</script>
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<!--wechat title img-->
+<img class="wechat-title-img" src="http://7xrw7v.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160402220553.png">
+</body>
+
+</html>

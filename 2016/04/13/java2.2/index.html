@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="What hurts more,the pain of hard work or the pain of regret.">
+    <meta name="keyword" content="null">
+    <meta name="theme-color" content="#600090">
+    <meta name="msapplication-navbutton-color" content="#600090">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#600090">
+    <link rel="shortcut icon" href="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-person-128.png">
+    <link rel="alternate" type="application/atom+xml" title="Haozhe" href="/atom.xml">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
+    <title>
+        
+        java入门（二）String类的获取功能｜Haozhe&#39;s blog
+        
+    </title>
+
+    <link rel="canonical" href="http://yoursite.com/2016/04/13/java2.2/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/blog-style.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+</head>
+
+<style>
+
+    header.intro-header {
+        background-image: url('http://7xrw7v.com1.z0.glb.clouddn.com/1485527729222.jpg')
+    }
+</style>
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="" class="animated fadeIn">
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost = "true" data-istags="false
+" data-ishome = "false" >
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand animated pulse" href="/">
+                <span class="brand-logo">
+                    Haozhe
+                </span>
+                's Blog
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <!-- /.navbar-collapse -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+					
+                    
+                        
+							
+                        <li>
+                            <a href="/tags/">tags</a>
+                        </li>
+							
+						
+                    
+					
+					
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+//    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+<!-- Main Content -->
+
+<!--only post-->
+
+
+<img class="wechat-title-img"
+     src="http://7xrw7v.com1.z0.glb.clouddn.com/148552521631.jpg#博文默认的图片">
+
+
+<style>
+    
+    header.intro-header {
+        background-image: url('http://7xrw7v.com1.z0.glb.clouddn.com/148552521631.jpg#博文默认的图片')
+    }
+
+    
+</style>
+
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <div class="post-heading">
+                    <h1>java入门（二）String类的获取功能</h1>
+                    
+                    <span class="meta">
+                         作者 Haozhe Xue
+                        <span>
+                          日期 2016-04-13
+                         </span>
+                    </span>
+                    <div class="tags text-center">
+                        
+                        <a class="tag" href="/tags/#JAVA"
+                           title="JAVA">JAVA</a>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="post-title-haojen">
+        <span>
+            java入门（二）String类的获取功能
+        </span>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <!-- Post Container -->
+            <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
+                <p>摘要：</p>
+<ul>
+<li>String类的获取功能</li>
+<li>字符串的遍历</li>
+<li>统计大写,小写及数字字符的个数案例</li>
+</ul>
+<a id="more"></a>
+<h3 id="1、String类的获取功能"><a href="#1、String类的获取功能" class="headerlink" title="1、String类的获取功能"></a>1、String类的获取功能</h3><p> String类的获取功能</p>
+<blockquote>
+<p>int length():获取字符串的长度。<br> char charAt(int index):获取指定索引位置的字符<br> int indexOf(int ch):返回指定字符在此字符串中第一次出现处的索引。<br><code>为什么这里是int类型，而不是char类型?
+ 原因是：&#39;a&#39;和97其实都可以代表&#39;a&#39;</code><br> int indexOf(String str):返回指定字符串在此字符串中第一次出现处的索引。<br> int indexOf(int ch,int fromIndex):返回指定字符在此字符串中从指定位置后第一次出现处的索引。<br> int indexOf(String str,int fromIndex):返回指定字符串在此字符串中从指定位置后第一次出现处的索引。<br> String substring(int start):从指定位置开始截取字符串,默认到末尾。<br> String substring(int start,int end):从指定位置开始到指定位置结束截取字符串。</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StringDemo</span> </span>&#123;</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">		<span class="comment">// 定义一个字符串对象</span></div><div class="line">		String s = <span class="string">"helloworld"</span>;</div><div class="line"></div><div class="line">		<span class="comment">// int length():获取字符串的长度。</span></div><div class="line">		System.out.println(<span class="string">"s.length:"</span> + s.length());  <span class="comment">//s.length:10</span></div><div class="line">		System.out.println(<span class="string">"----------------------"</span>);</div><div class="line"></div><div class="line">		<span class="comment">// char charAt(int index):获取指定索引位置的字符</span></div><div class="line">		System.out.println(<span class="string">"charAt:"</span> + s.charAt(<span class="number">7</span>));  <span class="comment">//charAt:r</span></div><div class="line">		System.out.println(<span class="string">"----------------------"</span>);</div><div class="line"></div><div class="line">		<span class="comment">// int indexOf(int ch):返回指定字符在此字符串中第一次出现处的索引。</span></div><div class="line">		System.out.println(<span class="string">"indexOf:"</span> + s.indexOf(<span class="string">'l'</span>)); <span class="comment">// 此处是小写的 l 不是数字1 </span></div><div class="line">		System.out.println(<span class="string">"----------------------"</span>);   <span class="comment">//indexOf:2</span></div><div class="line"></div><div class="line">		<span class="comment">// int indexOf(String str):返回指定字符串在此字符串中第一次出现处的索引。</span></div><div class="line">		System.out.println(<span class="string">"indexOf:"</span> + s.indexOf(<span class="string">"owo"</span>));</div><div class="line">		System.out.println(<span class="string">"----------------------"</span>); <span class="comment">//indexOf:4</span></div><div class="line"></div><div class="line">		<span class="comment">// int indexOf(int ch,int fromIndex):返回指定字符在此字符串中从指定位置后第一次出现处的索引。</span></div><div class="line">		System.out.println(<span class="string">"indexOf:"</span> + s.indexOf(<span class="string">'l'</span>, <span class="number">4</span>));  <span class="comment">//indexOf:8</span></div><div class="line">		System.out.println(<span class="string">"indexOf:"</span> + s.indexOf(<span class="string">'k'</span>, <span class="number">4</span>)); <span class="comment">// -1</span></div><div class="line">		System.out.println(<span class="string">"indexOf:"</span> + s.indexOf(<span class="string">'l'</span>, <span class="number">40</span>)); <span class="comment">// -1</span></div><div class="line">		System.out.println(<span class="string">"----------------------"</span>);</div><div class="line"></div><div class="line">		<span class="comment">// 自己练习：int indexOf(String str,int</span></div><div class="line">		<span class="comment">// fromIndex):返回指定字符串在此字符串中从指定位置后第一次出现处的索引。</span></div><div class="line"></div><div class="line">		<span class="comment">// String substring(int start):从指定位置开始截取字符串,默认到末尾。包含start这个索引</span></div><div class="line">		System.out.println(<span class="string">"substring:"</span> + s.substring(<span class="number">5</span>)); <span class="comment">//substring:world</span></div><div class="line">		System.out.println(<span class="string">"substring:"</span> + s.substring(<span class="number">0</span>)); <span class="comment">//substring:helloworld</span></div><div class="line">		System.out.println(<span class="string">"----------------------"</span>);</div><div class="line"></div><div class="line">		<span class="comment">// String substring(int start,int end):从指定位置开始到指定位置结束截取字符串。包括start索引但是不包end索引</span></div><div class="line">		System.out.println(<span class="string">"substring:"</span> + s.substring(<span class="number">3</span>, <span class="number">8</span>)); <span class="comment">//substring:lowor</span></div><div class="line">		System.out.println(<span class="string">"substring:"</span> + s.substring(<span class="number">0</span>, s.length())); <span class="comment">//substring:helloworld</span></div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="2、字符串的遍历"><a href="#2、字符串的遍历" class="headerlink" title="2、字符串的遍历"></a>2、字符串的遍历</h3><p>需求：遍历获取字符串中的每一个字符</p>
+<p>分析：</p>
+<ul>
+<li>A:如何能够拿到每一个字符呢?<br>  char charAt(int index):获取指定索引位置的字符</li>
+<li>B:我怎么知道字符到底有多少个呢?<br>int length()<figure class="highlight java"><table><tr><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StringTest</span> </span>&#123;</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">		<span class="comment">// 定义字符串</span></div><div class="line">		String s = <span class="string">"helloworld"</span>;</div><div class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> x = <span class="number">0</span>; x &lt; s.length(); x++) &#123;</div><div class="line">			<span class="comment">// char ch = s.charAt(x);</span></div><div class="line">			<span class="comment">// System.out.println(ch);</span></div><div class="line">			<span class="comment">// 仅仅是输出，我就直接输出了</span></div><div class="line">			System.out.println(s.charAt(x));</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="3、统计大写-小写及数字字符的个数案例"><a href="#3、统计大写-小写及数字字符的个数案例" class="headerlink" title="3、统计大写,小写及数字字符的个数案例"></a>3、统计大写,小写及数字字符的个数案例</h3><p> <strong>需求：</strong><br> 统计一个字符串中大写字母字符，小写字母字符，数字字符出现的次数。(不考虑其他字符)</p>
+<p><strong>举例：</strong><br>          “Hello123World”</p>
+<p> <strong>结果：</strong><br>大写字符：2个<br>小写字符：8个<br>数字字符：3个</p>
+<p><strong>分析：</strong></p>
+<p>前提：字符串要存在</p>
+<p>A:定义三个统计变量<br>bigCount=0<br>smallCount=0<br>numberCount=0</p>
+<p>B:遍历字符串，得到每一个字符。<br>length()和charAt()结合</p>
+<p>C:判断该字符到底是属于那种类型的<br>大：bigCount++<br>小：smallCount++<br>数字：numberCount++</p>
+<p><strong>这道题目的难点就是如何判断某个字符是大的，还是小的，还是数字的。</strong><br>    ASCII码表：<br>     0    48<br>    A    65<br>    a    97<br>    虽然，我们按照数字的这种比较是可以的，但是想多了，有比这还简单的<br><figure class="highlight java"><table><tr><td class="code"><pre><div class="line"><span class="keyword">char</span> ch = s.charAt(x);</div><div class="line"></div><div class="line"><span class="keyword">if</span>(ch&gt;=<span class="string">'0'</span> &amp;&amp; ch&lt;=<span class="string">'9'</span>) numberCount++</div><div class="line"><span class="keyword">if</span>(ch&gt;=<span class="string">'a'</span> &amp;&amp; ch&lt;=<span class="string">'z'</span>) smallCount++</div><div class="line"><span class="keyword">if</span>(ch&gt;=<span class="string">'A'</span> &amp;&amp; ch&lt;=<span class="string">'Z'</span>) bigCount++</div></pre></td></tr></table></figure></p>
+<p>D:输出结果。<br><figure class="highlight java"><table><tr><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StringTest2</span> </span>&#123;</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">		<span class="comment">//定义一个字符串</span></div><div class="line">		String s = <span class="string">"Hello123World"</span>;</div><div class="line">		</div><div class="line">		<span class="comment">//定义三个统计变量</span></div><div class="line">		<span class="keyword">int</span> bigCount = <span class="number">0</span>;</div><div class="line">		<span class="keyword">int</span> smallCount = <span class="number">0</span>;</div><div class="line">		<span class="keyword">int</span> numberCount = <span class="number">0</span>;</div><div class="line">		</div><div class="line">		<span class="comment">//遍历字符串，得到每一个字符。</span></div><div class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> x=<span class="number">0</span>; x&lt;s.length(); x++)&#123;</div><div class="line">			<span class="keyword">char</span> ch = s.charAt(x);</div><div class="line">			</div><div class="line">			<span class="comment">//判断该字符到底是属于那种类型的</span></div><div class="line">			<span class="keyword">if</span>(ch&gt;=<span class="string">'a'</span> &amp;&amp; ch&lt;=<span class="string">'z'</span>)&#123;</div><div class="line">				smallCount++;</div><div class="line">			&#125;<span class="keyword">else</span> <span class="keyword">if</span>(ch&gt;=<span class="string">'A'</span> &amp;&amp; ch&lt;=<span class="string">'Z'</span>)&#123;</div><div class="line">				bigCount++;</div><div class="line">			&#125;<span class="keyword">else</span> <span class="keyword">if</span>(ch&gt;=<span class="string">'0'</span> &amp;&amp; ch&lt;=<span class="string">'9'</span>)&#123;</div><div class="line">				numberCount++;</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line">		</div><div class="line">		<span class="comment">//输出结果。</span></div><div class="line">		System.out.println(<span class="string">"大写字母"</span>+bigCount+<span class="string">"个"</span>);</div><div class="line">		System.out.println(<span class="string">"小写字母"</span>+smallCount+<span class="string">"个"</span>);</div><div class="line">		System.out.println(<span class="string">"数字"</span>+numberCount+<span class="string">"个"</span>);</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">大写字母<span class="number">2</span>个</div><div class="line">小写字母<span class="number">8</span>个</div><div class="line">数字<span class="number">3</span>个</div></pre></td></tr></table></figure></p>
+
+                <hr>
+                
+                <!-- 多说 Share start -->
+                <div class="ds-share"
+                     style="text-align: right"
+                     data-thread-key="2016/04/13/java2.2/"
+                     data-title="java入门（二）String类的获取功能"
+                     data-url="http://yoursite.com/2016/04/13/java2.2/"
+                     data-images=""
+                     data-content="摘要：
+
+String类的获取功能
+字符串的遍历
+统计大写,小写及数字字符的个数案例
+
+
+1、... | Haozhe&#39;s blog ">
+                    <div class="ds-share-inline">
+                        <ul class="ds-share-icons-16">
+                            <li data-toggle="ds-share-icons-more"><a class="ds-more" href="#">分享到：</a></li>
+                            <li><a class="ds-wechat flat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+                            <li><a class="ds-weibo flat" href="javascript:void(0);" data-service="weibo">微博</a></li>
+                            <li><a class="ds-douban flat" href="javascript:void(0);" data-service="douban">豆瓣</a></li>
+                        </ul>
+                        <div class="ds-share-icons-more">
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+                <!-- 多说 Share end-->
+                
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2016/04/13/java2.3/" data-toggle="tooltip" data-placement="top"
+                           title="java入门（二）String类的转换功能">&larr; Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2016/04/13/java1/" data-toggle="tooltip" data-placement="top"
+                           title="java入门 (一) Scanner类">Next Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+                <!-- 多说评论框 start -->
+                <div class="comment">
+                    <div class="ds-thread"
+                         data-thread-key="2016/04/13/java2.2/"
+                         data-title="java入门（二）String类的获取功能"
+                         data-url="http://yoursite.com/2016/04/13/java2.2/">
+                    </div>
+                </div>
+                <!-- 多说评论框 end -->
+                
+
+                
+
+            </div>
+
+            <div class="hidden-xs col-sm-3 toc-col">
+                <div class="toc-wrap">
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、String类的获取功能"><span class="toc-text">1、String类的获取功能</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、字符串的遍历"><span class="toc-text">2、字符串的遍历</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3、统计大写-小写及数字字符的个数案例"><span class="toc-text">3、统计大写,小写及数字字符的个数案例</span></a></li></ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5 class="text-center">
+                        <a href="/tags/">FEATURED TAGS</a>
+                    </h5>
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#JAVA"
+                           title="JAVA">JAVA</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <div style="margin-top: 20px;">
+                    <h5 class="text-center">FRIENDS</h5>
+                    <ul class="list-inline text-center">
+                        
+                        <li><a href="http://www.hankcs.com/">hankcs</a></li>
+                        
+                        <li><a href="http://www.lintcode.com/zh-cn/ladder/2/">lintcode</a></li>
+                        
+                        <li><a href="http://www.jiuzhang.com/solutions/">jiuzhang</a></li>
+                        
+                    </ul>
+                </div>
+                
+            </div>
+        </div>
+
+    </div>
+</article>
+
+
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    // dynamic User by Hux
+    var _user = 'xuehaozhe';
+
+    // duoshuo comment query.
+    var duoshuoQuery = {short_name: _user};
+    (function () {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';
+        ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0]
+        || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+</script>
+<!-- 多说公共JS代码 end -->
+
+
+
+
+
+<!-- Footer -->
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <br>
+                <ul class="list-inline text-center">
+                
+                
+                    <li>
+                        <a target="_blank" href="https://twitter.com/xuehaozhe">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/xuehaozhe0526">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="http://weibo.com/fendoujianchi">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/xuehanzhe0526">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Haozhe 2017
+                    <br>
+                    <span id="busuanzi_container_site_pv" style="font-size: 12px;">PV: <span id="busuanzi_value_site_pv"></span> Times</span>
+                    <br>
+                    Theme by <a href="https://haojen.github.io/">Haojen Ma</a>
+                </p>
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/blog.js"></script>
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://yoursite.com/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+
+
+<!-- swiftype -->
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','null','2.0.0');
+</script>
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<!--wechat title img-->
+<img class="wechat-title-img" src="http://7xrw7v.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160402220553.png">
+</body>
+
+</html>

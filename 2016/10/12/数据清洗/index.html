@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="What hurts more,the pain of hard work or the pain of regret.">
+    <meta name="keyword" content="null">
+    <meta name="theme-color" content="#600090">
+    <meta name="msapplication-navbutton-color" content="#600090">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#600090">
+    <link rel="shortcut icon" href="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-person-128.png">
+    <link rel="alternate" type="application/atom+xml" title="Haozhe" href="/atom.xml">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
+    <title>
+        
+        Data Cleaning Walkthrough:Cleaning The Data｜Haozhe&#39;s blog
+        
+    </title>
+
+    <link rel="canonical" href="http://yoursite.com/2016/10/12/数据清洗/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/blog-style.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+</head>
+
+<style>
+
+    header.intro-header {
+        background-image: url('http://7xrw7v.com1.z0.glb.clouddn.com/1485527729222.jpg')
+    }
+</style>
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="" class="animated fadeIn">
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost = "true" data-istags="false
+" data-ishome = "false" >
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand animated pulse" href="/">
+                <span class="brand-logo">
+                    Haozhe
+                </span>
+                's Blog
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <!-- /.navbar-collapse -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+					
+                    
+                        
+							
+                        <li>
+                            <a href="/tags/">tags</a>
+                        </li>
+							
+						
+                    
+					
+					
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+//    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+<!-- Main Content -->
+
+<!--only post-->
+
+
+<img class="wechat-title-img"
+     src="http://7xrw7v.com1.z0.glb.clouddn.com/148552521631.jpg#博文默认的图片">
+
+
+<style>
+    
+    header.intro-header {
+        background-image: url('http://7xrw7v.com1.z0.glb.clouddn.com/148552521631.jpg#博文默认的图片')
+    }
+
+    
+</style>
+
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <div class="post-heading">
+                    <h1>Data Cleaning Walkthrough:Cleaning The Data</h1>
+                    
+                    <span class="meta">
+                         作者 Haozhe Xue
+                        <span>
+                          日期 2016-10-12
+                         </span>
+                    </span>
+                    <div class="tags text-center">
+                        
+                        <a class="tag" href="/tags/#dataquest"
+                           title="dataquest">dataquest</a>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="post-title-haojen">
+        <span>
+            Data Cleaning Walkthrough:Cleaning The Data
+        </span>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <!-- Post Container -->
+            <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
+                <p>摘要：</p>
+<ul>
+<li>Cleaning The Data</li>
+</ul>
+<a id="more"></a>
+<p><code>using data about New York City public schools</code><br><code>https://data.cityofnewyork.us/data?cat=education</code></p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/c5028219ff12533854fc0b4ee490295a.png" alt=""></p>
+<p>数据集没有给出　人口因素　demographic factors</p>
+<p>我们现在关心的是 <code>what correlates with SAT score</code></p>
+<h3 id="Reading-In-The-Data"><a href="#Reading-In-The-Data" class="headerlink" title="Reading In The Data"></a>Reading In The Data</h3><p>新建一个项目文件夹<br><code>schools folder</code><br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/5c50cfc7917af87d7b3238ab541a2ebe.png" alt=""></p>
+<p>将每个数据的Dataframes　存到字典中　　<br><figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</div><div class="line"></div><div class="line">data_files = [</div><div class="line">    <span class="string">"ap_2010.csv"</span>,</div><div class="line">    <span class="string">"class_size.csv"</span>,</div><div class="line">    <span class="string">"demographics.csv"</span>,</div><div class="line">    <span class="string">"graduation.csv"</span>,</div><div class="line">    <span class="string">"hs_directory.csv"</span>,</div><div class="line">    <span class="string">"sat_results.csv"</span></div><div class="line">]</div><div class="line"></div><div class="line">data = &#123;&#125;</div><div class="line"></div><div class="line"><span class="keyword">for</span> f <span class="keyword">in</span> data_files:</div><div class="line">    d = pd.read_csv(<span class="string">"schools/&#123;0&#125;"</span>.format(f))</div><div class="line">    key_name = f.replace(<span class="string">".csv"</span>,<span class="string">""</span>)</div><div class="line">    data[key_name] = d</div></pre></td></tr></table></figure></p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/74da91b9c1477f9be4c2715d1298862e.png" alt=""></p>
+<h3 id="Exploring-The-SAT-Data"><a href="#Exploring-The-SAT-Data" class="headerlink" title="Exploring The SAT Data"></a>Exploring The SAT Data</h3><p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/ef95384d6b7dee6544d31226580529a1.png" alt=""></p>
+<p>DBN　代表　 每个学校的唯一ＩＤ　</p>
+<p>要把<code>SAT Critical Reading Avg., Score SAT Math Avg. Score, and SAT Writing Avg. Score</code>合并到一列</p>
+<h4 id="Combining-The-SAT-Scores"><a href="#Combining-The-SAT-Scores" class="headerlink" title="Combining The SAT Scores"></a>Combining The SAT Scores</h4><p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/5da148712b706e38456b484f552b6429.png" alt=""></p>
+<p><code>to_numeric function</code></p>
+<ul>
+<li>注意的是 当调用这个函数时,要用到一个重要的参数<code>errors=&quot;coerce&quot;</code>作用(It’s important to pass the keyword argument errors=”coerce” when we call to_numeric, so that any invalid strings that can’t be converted to numbers are instead treated as missing values.)</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line">cols = [<span class="string">'SAT Math Avg. Score'</span>, <span class="string">'SAT Critical Reading Avg. Score'</span>, <span class="string">'SAT Writing Avg. Score'</span>]</div><div class="line"><span class="keyword">for</span> c <span class="keyword">in</span> cols:</div><div class="line">    data[<span class="string">"sat_results"</span>][c] = pd.to_numeric(data[<span class="string">"sat_results"</span>][c], errors=<span class="string">"coerce"</span>)</div><div class="line"></div><div class="line">data[<span class="string">'sat_results'</span>][<span class="string">'sat_score'</span>] = data[<span class="string">'sat_results'</span>][cols[<span class="number">0</span>]] + data[<span class="string">'sat_results'</span>][cols[<span class="number">1</span>]] + data[<span class="string">'sat_results'</span>][cols[<span class="number">2</span>]]</div><div class="line">print(data[<span class="string">'sat_results'</span>][<span class="string">'sat_score'</span>].head())</div></pre></td></tr></table></figure>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/3615299bdfdca88a8080b21f2c163a24.png" alt=""></p>
+<h4 id="打印每个数据的前五行"><a href="#打印每个数据的前五行" class="headerlink" title="打印每个数据的前五行"></a>打印每个数据的前五行</h4><figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="keyword">for</span> k <span class="keyword">in</span> data:</div><div class="line">    print(data[k].head())</div></pre></td></tr></table></figure>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/2ba3c334151957b92f56f01080cdbb39.png" alt=""></p>
+<p>每个数据集 有存在 或者可以通过信息 去建立 <code>DBN column,</code></p>
+<p>通过这个列 我们可以合并数据集</p>
+<p>这个列 必须是唯一的</p>
+<h4 id="处理两个-txt文件"><a href="#处理两个-txt文件" class="headerlink" title="处理两个 txt文件"></a>处理两个 txt文件</h4><p><code>survey_all.txt and survey_d75.txt</code></p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/447f929d13c0a6c87041eda60f04e75b.png" alt=""></p>
+<p>数据集 以  tab delimited ,encoded with Windows-1252<br>( The most common encodings are UTF-8 and ASCII)</p>
+<p>把两个Dataframe合并成 一个 Dataframe<br>用到 <code>concat function</code> .</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="comment"># axis=0 按列</span></div><div class="line">z = pd.concat([x,y], axis=<span class="number">0</span>)</div></pre></td></tr></table></figure>
+<p><code>delimiter=&quot;\t&quot;,encoding=&quot;windows-1252&quot;</code><br><figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</div><div class="line">all_survey = pd.read_csv(<span class="string">"schools/survey_all.txt"</span>,delimiter=<span class="string">"\t"</span>,encoding=<span class="string">"windows-1252"</span>)</div><div class="line"></div><div class="line">d75_survey = pd.read_csv(<span class="string">"schools/survey_d75.txt"</span>,delimiter=<span class="string">"\t"</span>,encoding=<span class="string">"windows-1252"</span>)</div><div class="line"></div><div class="line">survey = pd.concat([all_survey,d75_survey],axis = <span class="number">0</span>)</div><div class="line"></div><div class="line">print(survey.head())</div></pre></td></tr></table></figure></p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/7a320fe79c0ee999095cf8cf7081aa77.png" alt=""></p>
+<p>上面有 2000多列  大部分的列 是我们不需要的</p>
+<p>存在 dbn 列  我们需要 转变 为 DBN 列<br>处理方法<br><code>survey[&quot;new_column&quot;] = survey[&quot;old_column&quot;]</code></p>
+<p>需要的以下的列:<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">[&quot;dbn&quot;, &quot;rr_s&quot;, &quot;rr_t&quot;, &quot;rr_p&quot;, &quot;N_s&quot;, &quot;N_t&quot;, &quot;N_p&quot;, &quot;saf_p_11&quot;, &quot;com_p_11&quot;, &quot;eng_p_11&quot;, &quot;aca_p_11&quot;, &quot;saf_t_11&quot;, &quot;com_t_11&quot;, &quot;eng_t_11&quot;, &quot;aca_t_11&quot;, &quot;saf_s_11&quot;, &quot;com_s_11&quot;, &quot;eng_s_11&quot;, &quot;aca_s_11&quot;, &quot;saf_tot_11&quot;, &quot;com_tot_11&quot;, &quot;eng_tot_11&quot;, &quot;aca_tot_11&quot;,]</div></pre></td></tr></table></figure></p>
+<p>处理如下:<br><code>.loc[:,survey_fields]</code><br><figure class="highlight python"><table><tr><td class="code"><pre><div class="line">survey[<span class="string">"DBN"</span>]=survey[<span class="string">"dbn"</span>]</div><div class="line"></div><div class="line">survey_fields = [</div><div class="line">    <span class="string">"DBN"</span>,</div><div class="line">    <span class="string">"rr_s"</span>,</div><div class="line">    <span class="string">"rr_t"</span>,</div><div class="line">    <span class="string">"rr_p"</span>,</div><div class="line">    <span class="string">"N_s"</span>,</div><div class="line">    <span class="string">"N_t"</span>,</div><div class="line">    <span class="string">"N_p"</span>,</div><div class="line">    <span class="string">"saf_p_11"</span>,</div><div class="line">    <span class="string">"com_p_11"</span>,</div><div class="line">    <span class="string">"eng_p_11"</span>,</div><div class="line">    <span class="string">"aca_p_11"</span>,</div><div class="line">    <span class="string">"saf_t_11"</span>,</div><div class="line">    <span class="string">"com_t_11"</span>,</div><div class="line">    <span class="string">"eng_t_11"</span>,</div><div class="line">    <span class="string">"aca_t_11"</span>,</div><div class="line">    <span class="string">"saf_s_11"</span>,</div><div class="line">    <span class="string">"com_s_11"</span>,</div><div class="line">    <span class="string">"eng_s_11"</span>,</div><div class="line">    <span class="string">"aca_s_11"</span>,</div><div class="line">    <span class="string">"saf_tot_11"</span>,</div><div class="line">    <span class="string">"com_tot_11"</span>,</div><div class="line">    <span class="string">"eng_tot_11"</span>,</div><div class="line">    <span class="string">"aca_tot_11"</span>,</div><div class="line">]</div><div class="line">survey = survey.loc[:,survey_fields]</div><div class="line">data[<span class="string">"survey"</span>] = survey</div><div class="line"></div><div class="line">print(survey.head())</div></pre></td></tr></table></figure></p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/5776922d0928c284cce0980dd4212195.png" alt=""></p>
+<h3 id="Inserting-DBN-Fields"><a href="#Inserting-DBN-Fields" class="headerlink" title="Inserting DBN Fields"></a>Inserting DBN Fields</h3><p>我们发现 并不是 每个数据集 都有 <code>DBN column</code></p>
+<p><code>class_size and hs_directory</code>就不存在这个列</p>
+<p>(hs_directory, it has a dbn column )</p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/d0a31d5e5b232335bbf506dce40906fc.png" alt=""></p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/6b141dffedb8b2e685154531d3b03553.png" alt=""></p>
+<p>由此可以发现:<br><code>DBN</code>是 CSD and SCHOOL CODE 两列的组合</p>
+<p>但是 CSD 要做以下变换</p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/5e1770632a596bfae068f2820642a265.png" alt=""></p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/23ad670814a0ac77afeb3a5c69aa20d8.png" alt=""></p>
+<p><code>dataframe[&quot;new_column&quot;] = dataframe[&quot;column_one&quot;] + dataframe[&quot;column_two&quot;]</code></p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/7c4e3c322677645d83a5e22e6943569a.png" alt=""></p>
+<p>代码处理:</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line">data[<span class="string">"hs_directory"</span>][<span class="string">"DBN"</span>] = data[<span class="string">"hs_directory"</span>][<span class="string">"dbn"</span>]</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">pad_csd</span><span class="params">(num)</span>:</span></div><div class="line">    string_representation = str(num)</div><div class="line">    <span class="keyword">if</span> len(string_representation) &gt; <span class="number">1</span>:</div><div class="line">        <span class="keyword">return</span> string_representation</div><div class="line">    <span class="keyword">else</span>:</div><div class="line">        <span class="keyword">return</span> <span class="string">"0"</span> + string_representation</div><div class="line"></div><div class="line">data[<span class="string">"class_size"</span>][<span class="string">"padded_csd"</span>] = data[<span class="string">"class_size"</span>][<span class="string">"CSD"</span>].apply(pad_csd)</div><div class="line">data[<span class="string">"class_size"</span>][<span class="string">"DBN"</span>] = data[<span class="string">"class_size"</span>][<span class="string">"padded_csd"</span>] + data[<span class="string">"class_size"</span>][<span class="string">"SCHOOL CODE"</span>]</div><div class="line">print(data[<span class="string">"class_size"</span>].head())</div></pre></td></tr></table></figure>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/b36e5b999fab5c9153d514c9ebf01530.png" alt=""></p>
+<h3 id="Parsing-Coordinates-For-Each-School"><a href="#Parsing-Coordinates-For-Each-School" class="headerlink" title="Parsing Coordinates For Each School"></a>Parsing Coordinates For Each School</h3><p>解析每个学校的坐标:</p>
+<p>在数据集 <code>Location 1 in the hs_directory dataset.</code></p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/537f7e02df94893463b51724514c4006.png" alt=""></p>
+<p>形式:<br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/a14349e40fc72eee5ed5eda6c49acdae.png" alt=""><br>提取维度和经度( latitude, 40.8276026690005, and the longitude, -73.90447525699966)</p>
+<p>使用正则表达式:<br><figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="keyword">import</span> re</div><div class="line">re.findall(<span class="string">"\(.+, .+\)"</span>, <span class="string">"1110 Boston Road\nBronx, NY 10456\n(40.8276026690005, -73.90447525699966)"</span>)</div></pre></td></tr></table></figure></p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/6e81d75d47ea1c23f4100a720b3b92a2.png" alt=""></p>
+<p>需要更进一步 提取每一个坐标  </p>
+<p>提取维度<br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/e858315edeec0ce198e82ffc6ffa2847.png" alt=""></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="keyword">import</span> re</div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">find_lat</span><span class="params">(loc)</span>:</span></div><div class="line">    coords = re.findall(<span class="string">"\(.+, .+\)"</span>, loc)</div><div class="line">    lat = coords[<span class="number">0</span>].split(<span class="string">","</span>)[<span class="number">0</span>].replace(<span class="string">"("</span>, <span class="string">""</span>)</div><div class="line">    <span class="keyword">return</span> lat</div><div class="line"></div><div class="line">data[<span class="string">"hs_directory"</span>][<span class="string">"lat"</span>] = data[<span class="string">"hs_directory"</span>][<span class="string">"Location 1"</span>].apply(find_lat)</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"><span class="keyword">import</span> re</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">find_lon</span><span class="params">(loc)</span>:</span></div><div class="line">    coords = re.findall(<span class="string">"\(.+, .+\)"</span>, loc)</div><div class="line">    lon = coords[<span class="number">0</span>].split(<span class="string">","</span>)[<span class="number">1</span>].replace(<span class="string">")"</span>, <span class="string">""</span>).strip()</div><div class="line">    <span class="keyword">return</span> lon</div><div class="line"></div><div class="line">data[<span class="string">"hs_directory"</span>][<span class="string">"lon"</span>] = data[<span class="string">"hs_directory"</span>][<span class="string">"Location 1"</span>].apply(find_lon)</div><div class="line"></div><div class="line">data[<span class="string">"hs_directory"</span>][<span class="string">"lat"</span>] = pd.to_numeric(data[<span class="string">"hs_directory"</span>][<span class="string">"lat"</span>], errors=<span class="string">"coerce"</span>)</div><div class="line">data[<span class="string">"hs_directory"</span>][<span class="string">"lon"</span>] = pd.to_numeric(data[<span class="string">"hs_directory"</span>][<span class="string">"lon"</span>], errors=<span class="string">"coerce"</span>)</div><div class="line"></div><div class="line"><span class="comment">#s.strip(rm) 删除s字符串中开头、结尾处，位于 rm删除序列的字符</span></div><div class="line"><span class="comment">#当rm为空时，默认删除空白符（包括'\n', '\r',  '\t',  ' ')</span></div><div class="line"></div><div class="line">print(data[<span class="string">"hs_directory"</span>].head())</div></pre></td></tr></table></figure>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/c8d3f5d82b1d2ccc5d1d2a2df3c447c2.png" alt=""></p>
+<h3 id="Condensing-The-Data"><a href="#Condensing-The-Data" class="headerlink" title="Condensing The Data"></a>Condensing The Data</h3><p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/eb1a384769ed41016df2076083c7f869.png" alt=""></p>
+<p>从上面可以发现 当合并 两个数据集时 <code>class_size</code>的DBN column不是唯一的 .</p>
+<p>现在要做的工作是 将<code>class_size, graduation, and demographics</code>数据进行压缩 使得这个列<code>DBN</code>是唯一的</p>
+<h4 id="Condensing-Class-Size"><a href="#Condensing-Class-Size" class="headerlink" title="Condensing Class Size"></a>Condensing Class Size</h4><p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/603a680e8ce4cc0207f7757dcb90d084.png" alt=""></p>
+<p><code>If we look at the unique values for GRADE, we get the following:</code></p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/3358243dbd64cfced2a7ef87d9af381e.png" alt=""></p>
+<p>因为我们正在处理的是高中的数据 所以只选择<code>09-12</code>:</p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/d443e657bd0b23fa06a114d96e647174.png" alt=""></p>
+<p>这里只选择 <code>GEN ED</code><br>普通教育general education</p>
+<p>做以下处理:</p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/21f30d8fa6186191bdcc0dc1749422e2.png" alt=""></p>
+<p>可以发现 <code>DBN</code>仍然不是唯一的</p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/6185ee698f68df2ac3113b14aeb3e38f.png" alt=""></p>
+<h5 id="groupby-method"><a href="#groupby-method" class="headerlink" title="groupby method"></a><code>groupby method</code></h5><p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/14d14dd921f622f154fad09b0ea062df.png" alt=""></p>
+<blockquote>
+<p>We would split it into 4 separate groups, one with the DBN 01M292, one with the DBN 01M332, one with the DBN 01M378, and one with the DBN 01M448 using the groupby method:</p>
+</blockquote>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/a53be40e34cad509e46653c74dcd4f16.png" alt=""></p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/772c75d8d9c3059526619d11dea60fa4.png" alt=""></p>
+<blockquote>
+<p>Then, we can compute the averages for the AVERAGE CLASS SIZE column in each of the 4 groups using the agg method:</p>
+</blockquote>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/fe3a641501a14850580e8898ce303efb.png" alt=""></p>
+<p>具体实现:<br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/d12e6146943b6be829e1b78406a90f24.png" alt=""></p>
+<p>可以发现 现在 index 已经发生变化  </p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/8ac3f4c1c05ae6f374a458bbc49e776e.png" alt=""></p>
+<p><code>reset_index(inplace=True)</code><br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/2fba71291e58b1e3955cfa877bf090ba.png" alt=""></p>
+<p><code>data[&quot;class_size&quot;] = class_size</code></p>
+<p>到此 我们已经将该列 变为 唯一值了</p>
+<h4 id="Condensing-Demographics"><a href="#Condensing-Demographics" class="headerlink" title="Condensing Demographics"></a>Condensing Demographics</h4><p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/e6c85599913ea77472f4c35df08e1f17.png" alt=""></p>
+<p><code>unique is schoolyear</code><br>这里 只选择 schoolyear is 20112012</p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/242cc4372bf5546428a6fed0e2811087.png" alt=""></p>
+<h4 id="Condensing-Graduation"><a href="#Condensing-Graduation" class="headerlink" title="Condensing Graduation"></a>Condensing Graduation</h4><p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/ae8719bd971f6d53736ad92078c9b210.png" alt=""></p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/73f22a0676795793f353aa2b9f011530.png" alt=""></p>
+<h4 id="Converting-AP-Test-Scores"><a href="#Converting-AP-Test-Scores" class="headerlink" title="Converting AP Test Scores"></a>Converting AP Test Scores</h4><p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/200820517ccde265adddec5910986238.png" alt=""></p>
+<p>convert the AP exam scores 转变数据集 到 numeric values<br><code>to_numeric</code><br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/bc9d665fc6e5b65ebad7171e56b351b5.png" alt=""></p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/7ef60092b971b5388c829727ad556d2f.png" alt=""></p>
+<h3 id="Types-Of-Joins"><a href="#Types-Of-Joins" class="headerlink" title="Types Of Joins"></a>Types Of Joins</h3><p> merge our data</p>
+<h4 id="merge-strategy"><a href="#merge-strategy" class="headerlink" title="merge strategy"></a><code>merge strategy</code></h4><p><code>merge function,</code></p>
+<p>left, right, inner, and outer</p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/5d0f1cc71ebd769a4fc86d978a3df58d.png" alt=""></p>
+<h5 id="inner-merge"><a href="#inner-merge" class="headerlink" title="inner merge"></a>inner merge</h5><p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/7b9944357f79df662227332484490351.png" alt=""></p>
+<h5 id="left-merge"><a href="#left-merge" class="headerlink" title="left merge"></a>left merge</h5><p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/cfaa655e05155c30990f907e3cc2a95c.png" alt=""></p>
+<h4 id="right-merge"><a href="#right-merge" class="headerlink" title="right merge"></a>right merge</h4><p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/62b3544ff49fb90faf130283cfcd3052.png" alt=""></p>
+<h4 id="outer-merge"><a href="#outer-merge" class="headerlink" title="outer merge"></a>outer merge</h4><p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/c6a07d21b62c776e89624a0168b223e8.png" alt=""></p>
+<p>可以发现 每个 each merge strategy 都有他的优势,选择不同的 策略是非常重要的 .</p>
+<p>因为 我们现在关心的是 <code>what correlates with SAT score</code></p>
+<p>对于数据<code>sat_results</code>我们要尽可能多的保留行,同时最小化其空值.</p>
+<p>所以 对于不同的数据集 使用不同的策略,一些数据集 <code>DBN</code>的值是缺失的 ,所以<code>left join</code>是适合的,这样我们就不会失去太多的行,同时也不会像<code>outer</code>那样有太多的缺失值.</p>
+<p>而一些数据 有几乎相同DBN values as sat_results,这种情况下<code>inner join</code>是ok的</p>
+<h3 id="Performing-The-Left-Joins"><a href="#Performing-The-Left-Joins" class="headerlink" title="Performing The Left Joins"></a>Performing The Left Joins</h3><p>Both the ap_2010 and the graduation datasets 这两个数据有很多的 missing DBN values ,使用<code>Left Joins</code></p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/c571af3268bab57e344e44b388f4ed98.png" alt=""></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line">combined = combined.merge(data[<span class="string">"ap_2010"</span>], on=<span class="string">"DBN"</span>, how=<span class="string">"left"</span>)</div><div class="line">combined = combined.merge(data[<span class="string">"graduation"</span>], on=<span class="string">"DBN"</span>, how=<span class="string">"left"</span>)</div><div class="line"></div><div class="line">print(combined.shape) <span class="comment">#(479, 33)</span></div></pre></td></tr></table></figure>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/1f69c10c2f99e08c26135e21b336872a.png" alt=""></p>
+<h3 id="Performing-The-Inner-Joins"><a href="#Performing-The-Inner-Joins" class="headerlink" title="Performing The Inner Joins"></a>Performing The Inner Joins</h3><p><code>we still have class_size, demographics, survey, and hs_directory</code> 因为这些数据包含的信息是非常有用的 而且有很少的缺失值(missing DBN values,) 所以选择<code>Inner Joins</code></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line">to_merge = [<span class="string">"class_size"</span>, <span class="string">"demographics"</span>, <span class="string">"survey"</span>, <span class="string">"hs_directory"</span>]</div><div class="line"></div><div class="line"><span class="keyword">for</span> m <span class="keyword">in</span> to_merge:</div><div class="line">    combined = combined.merge(data[m], on=<span class="string">"DBN"</span>, how=<span class="string">"inner"</span>)</div><div class="line"></div><div class="line">print(combined.shape) <span class="comment">#(363, 159)</span></div></pre></td></tr></table></figure>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/504b5f9ae10f0358f5b9db609daeffd7.png" alt=""></p>
+<h3 id="Filling-In-Missing-Values"><a href="#Filling-In-Missing-Values" class="headerlink" title="Filling In Missing Values"></a>Filling In Missing Values</h3><p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/366f1815f78554f4f515de9ea1218f87.png" alt=""></p>
+<p>可以发现 我们损失了 116 rows(This is because the DBN values that existed in sat_results couldn’t be found in the other datasets.)</p>
+<p>同时发现 上面的数据 有很多的缺失值</p>
+<h4 id="handle-missing-data"><a href="#handle-missing-data" class="headerlink" title="handle missing data"></a>handle missing data</h4><p>这里 用平均值去填充缺失值<br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/07c90a98345492b4ff4234b0d71769ce.png" alt=""></p>
+<p><code>fillna method</code></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line">means = df.mean()</div><div class="line">df = df.fillna(means)</div></pre></td></tr></table></figure>
+<p>如果这列数据,全部是 null or NaN values,上面的Pandas 方法无效 ,这里用 value 0 代替</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line">combined = combined.fillna(combined.mean())</div><div class="line">combined = combined.fillna(<span class="number">0</span>)</div></pre></td></tr></table></figure>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/36d811d515e24558d4ea932960ab0bde.png" alt=""></p>
+<h3 id="Adding-A-School-District-Column"><a href="#Adding-A-School-District-Column" class="headerlink" title="Adding A School District Column"></a>Adding A School District Column</h3><blockquote>
+<p>We’ve finished cleaning and combining our data!</p>
+</blockquote>
+<p>school district 是<code>DBN</code>的前两个字母 ,获取方法</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_first_two_chars</span><span class="params">(dbn)</span>:</span></div><div class="line">    <span class="keyword">return</span> dbn[<span class="number">0</span>:<span class="number">2</span>]</div><div class="line"></div><div class="line">combined[<span class="string">"school_dist"</span>] = combined[<span class="string">"DBN"</span>].apply(get_first_two_chars)</div><div class="line">print(combined[<span class="string">"school_dist"</span>].head())</div></pre></td></tr></table></figure>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/31f13b7aaa6c65161a2aa2d1884d959c.png" alt=""></p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/83591222d5ec518fb6937455744a79bf.png" alt=""></p>
+
+                <hr>
+                
+                <!-- 多说 Share start -->
+                <div class="ds-share"
+                     style="text-align: right"
+                     data-thread-key="2016/10/12/数据清洗/"
+                     data-title="Data Cleaning Walkthrough:Cleaning The Data"
+                     data-url="http://yoursite.com/2016/10/12/数据清洗/"
+                     data-images=""
+                     data-content="摘要：
+
+Cleaning The Data
+
+
+using data about New Y... | Haozhe&#39;s blog ">
+                    <div class="ds-share-inline">
+                        <ul class="ds-share-icons-16">
+                            <li data-toggle="ds-share-icons-more"><a class="ds-more" href="#">分享到：</a></li>
+                            <li><a class="ds-wechat flat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+                            <li><a class="ds-weibo flat" href="javascript:void(0);" data-service="weibo">微博</a></li>
+                            <li><a class="ds-douban flat" href="javascript:void(0);" data-service="douban">豆瓣</a></li>
+                        </ul>
+                        <div class="ds-share-icons-more">
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+                <!-- 多说 Share end-->
+                
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2016/10/13/介绍Git/" data-toggle="tooltip" data-placement="top"
+                           title="介绍Git">&larr; Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2016/10/11/项目3/" data-toggle="tooltip" data-placement="top"
+                           title="Guided Project:Police killings">Next Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+                <!-- 多说评论框 start -->
+                <div class="comment">
+                    <div class="ds-thread"
+                         data-thread-key="2016/10/12/数据清洗/"
+                         data-title="Data Cleaning Walkthrough:Cleaning The Data"
+                         data-url="http://yoursite.com/2016/10/12/数据清洗/">
+                    </div>
+                </div>
+                <!-- 多说评论框 end -->
+                
+
+                
+
+            </div>
+
+            <div class="hidden-xs col-sm-3 toc-col">
+                <div class="toc-wrap">
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Reading-In-The-Data"><span class="toc-text">Reading In The Data</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Exploring-The-SAT-Data"><span class="toc-text">Exploring The SAT Data</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Combining-The-SAT-Scores"><span class="toc-text">Combining The SAT Scores</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#打印每个数据的前五行"><span class="toc-text">打印每个数据的前五行</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#处理两个-txt文件"><span class="toc-text">处理两个 txt文件</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Inserting-DBN-Fields"><span class="toc-text">Inserting DBN Fields</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Parsing-Coordinates-For-Each-School"><span class="toc-text">Parsing Coordinates For Each School</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Condensing-The-Data"><span class="toc-text">Condensing The Data</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Condensing-Class-Size"><span class="toc-text">Condensing Class Size</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#groupby-method"><span class="toc-text">groupby method</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Condensing-Demographics"><span class="toc-text">Condensing Demographics</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Condensing-Graduation"><span class="toc-text">Condensing Graduation</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Converting-AP-Test-Scores"><span class="toc-text">Converting AP Test Scores</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Types-Of-Joins"><span class="toc-text">Types Of Joins</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#merge-strategy"><span class="toc-text">merge strategy</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#inner-merge"><span class="toc-text">inner merge</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#left-merge"><span class="toc-text">left merge</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#right-merge"><span class="toc-text">right merge</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#outer-merge"><span class="toc-text">outer merge</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Performing-The-Left-Joins"><span class="toc-text">Performing The Left Joins</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Performing-The-Inner-Joins"><span class="toc-text">Performing The Inner Joins</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Filling-In-Missing-Values"><span class="toc-text">Filling In Missing Values</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#handle-missing-data"><span class="toc-text">handle missing data</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Adding-A-School-District-Column"><span class="toc-text">Adding A School District Column</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#总结"><span class="toc-text">总结</span></a></li></ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5 class="text-center">
+                        <a href="/tags/">FEATURED TAGS</a>
+                    </h5>
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#dataquest"
+                           title="dataquest">dataquest</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <div style="margin-top: 20px;">
+                    <h5 class="text-center">FRIENDS</h5>
+                    <ul class="list-inline text-center">
+                        
+                        <li><a href="http://www.hankcs.com/">hankcs</a></li>
+                        
+                        <li><a href="http://www.lintcode.com/zh-cn/ladder/2/">lintcode</a></li>
+                        
+                        <li><a href="http://www.jiuzhang.com/solutions/">jiuzhang</a></li>
+                        
+                    </ul>
+                </div>
+                
+            </div>
+        </div>
+
+    </div>
+</article>
+
+
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    // dynamic User by Hux
+    var _user = 'xuehaozhe';
+
+    // duoshuo comment query.
+    var duoshuoQuery = {short_name: _user};
+    (function () {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';
+        ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0]
+        || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+</script>
+<!-- 多说公共JS代码 end -->
+
+
+
+
+
+<!-- Footer -->
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <br>
+                <ul class="list-inline text-center">
+                
+                
+                    <li>
+                        <a target="_blank" href="https://twitter.com/xuehaozhe">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/xuehaozhe0526">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="http://weibo.com/fendoujianchi">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/xuehanzhe0526">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Haozhe 2017
+                    <br>
+                    <span id="busuanzi_container_site_pv" style="font-size: 12px;">PV: <span id="busuanzi_value_site_pv"></span> Times</span>
+                    <br>
+                    Theme by <a href="https://haojen.github.io/">Haojen Ma</a>
+                </p>
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/blog.js"></script>
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://yoursite.com/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+
+
+<!-- swiftype -->
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','null','2.0.0');
+</script>
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<!--wechat title img-->
+<img class="wechat-title-img" src="http://7xrw7v.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160402220553.png">
+</body>
+
+</html>

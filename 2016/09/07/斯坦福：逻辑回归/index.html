@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="What hurts more,the pain of hard work or the pain of regret.">
+    <meta name="keyword" content="null">
+    <meta name="theme-color" content="#600090">
+    <meta name="msapplication-navbutton-color" content="#600090">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#600090">
+    <link rel="shortcut icon" href="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-person-128.png">
+    <link rel="alternate" type="application/atom+xml" title="Haozhe" href="/atom.xml">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
+    <title>
+        
+        斯坦福机器学习：逻辑回归｜Haozhe&#39;s blog
+        
+    </title>
+
+    <link rel="canonical" href="http://yoursite.com/2016/09/07/斯坦福：逻辑回归/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/blog-style.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+</head>
+
+<style>
+
+    header.intro-header {
+        background-image: url('http://7xrw7v.com1.z0.glb.clouddn.com/1485527729222.jpg')
+    }
+</style>
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="" class="animated fadeIn">
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost = "true" data-istags="false
+" data-ishome = "false" >
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand animated pulse" href="/">
+                <span class="brand-logo">
+                    Haozhe
+                </span>
+                's Blog
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <!-- /.navbar-collapse -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+					
+                    
+                        
+							
+                        <li>
+                            <a href="/tags/">tags</a>
+                        </li>
+							
+						
+                    
+					
+					
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+//    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+<!-- Main Content -->
+
+<!--only post-->
+
+
+<img class="wechat-title-img"
+     src="http://7xrw7v.com1.z0.glb.clouddn.com/148552521631.jpg#博文默认的图片">
+
+
+<style>
+    
+    header.intro-header {
+        background-image: url('http://7xrw7v.com1.z0.glb.clouddn.com/148552521631.jpg#博文默认的图片')
+    }
+
+    
+</style>
+
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <div class="post-heading">
+                    <h1>斯坦福机器学习：逻辑回归</h1>
+                    
+                    <span class="meta">
+                         作者 Haozhe Xue
+                        <span>
+                          日期 2016-09-07
+                         </span>
+                    </span>
+                    <div class="tags text-center">
+                        
+                        <a class="tag" href="/tags/#斯坦福机器学习"
+                           title="斯坦福机器学习">斯坦福机器学习</a>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="post-title-haojen">
+        <span>
+            斯坦福机器学习：逻辑回归
+        </span>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <!-- Post Container -->
+            <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
+                <p>摘要：</p>
+<ul>
+<li>分 类 问 题</li>
+<li>逻辑回归</li>
+<li>判 定 边 界</li>
+<li>多 类 分 类</li>
+<li>逻辑回归 补充<a id="more"></a>
+</li>
+</ul>
+<h3 id="分-类-问-题"><a href="#分-类-问-题" class="headerlink" title="分 类 问 题"></a>分 类 问 题</h3><p>在分类问题中,我们尝试预测的是结果是否属于某一个类(例如正确或错误)。</p>
+<p>分类问题的例子有:判断一封电子邮件是否是垃圾邮件;判断一次金融交易是否是欺诈等等。</p>
+<p>我们从<code>二元的分类</code>问题开始讨论。</p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/bdca28fab30e1b8682067c33e7fa3381.png" alt=""></p>
+<h3 id="分-类-问-题-建-模"><a href="#分-类-问-题-建-模" class="headerlink" title="分 类 问 题 建 模"></a>分 类 问 题 建 模</h3><p>回顾在一开始提到的乳腺癌分类问题,我们可以用线性回归的方法求出适合数据的一条直线:<br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/1fa0e1cd23f05323bda9f670bff391f9.png" alt=""><br>根据线性回归模型我们只能预测连续的值,然而对于分类问题,我们需要输出 0 或 1,我们可以预测:</p>
+<p> 当 h θ 大于等于 0.5 时,预测 y=1</p>
+<p> 当 h θ 小于 0.5 时,预测 y=0</p>
+<p>对于上图所示的数据,这样的一个线性模型似乎能很好地完成分类任务。</p>
+<p>假使我们又观测到一个非常大尺寸的恶性肿瘤,将其作为实例加入到我们的训练集中来,这将使得我们获得一条新的直线。<br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/d08c3a9029ac4071bfd061ecee475dd7.png" alt=""></p>
+<p>这时,再使用 0.5 作为阀值来预测肿瘤是良性还是恶性便不合适了。可以看出,线性回归模型,<br>因为其预测的值可以超越[0,1]的范围,并不适合解决这样的问题。</p>
+<h3 id="逻辑回归的引入"><a href="#逻辑回归的引入" class="headerlink" title="逻辑回归的引入"></a>逻辑回归的引入</h3><p>我们引入一个新的模型,逻辑回归,该模型的输出变量范围始终在 0 和 1 之间。</p>
+<p>逻辑回归模型的假设是:$h_θ (x)=g(θ^T X)$</p>
+<p> X 代表特征向量</p>
+<p> g 代表逻辑函数(logistic function)是一个常用的逻辑函数为 S 形函数(Sigmoid function),公式为:</p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/355af1da2102d79aeaa7f01a4f972218.png" alt=""></p>
+<p>该函数的图像为:</p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/09224878b2815b01e9c3bfcb0b2da1a2.png" alt=""></p>
+<h4 id="逻辑回归模型"><a href="#逻辑回归模型" class="headerlink" title="逻辑回归模型"></a>逻辑回归模型</h4><p>合起来,我们得到逻辑回归模型的假设:<br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/11423ec1524f60ee271f6c09c82b3407.png" alt=""></p>
+<p>对模型的理解:<br>$h_θ (x)$的作用是,对于给定的输入变量,根据选择的参数计算输出变量y=1 的可能性 (estimated probablity)即<br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/2932d871bd2e283d59b7616c14f572d8.png" alt=""></p>
+<p>例如,如果对于给定的 x,通过已经确定的参数计算得出 h θ (x)=0.7,则表示有百分之 70 的几<br>率 y 为正向类,相应地 y 为负向类的几率为 1-0.7=0.3。</p>
+<h3 id="判-定-边-界-DECISION-BOUNDARY"><a href="#判-定-边-界-DECISION-BOUNDARY" class="headerlink" title="判 定 边 界 ( DECISION BOUNDARY)"></a>判 定 边 界 ( DECISION BOUNDARY)</h3><p>在逻辑回归中,我们预测:</p>
+<p> 当 h θ 大于等于 0.5 时,预测 y=1</p>
+<p> 当 h θ 小于 0.5 时,预测 y=0</p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/09224878b2815b01e9c3bfcb0b2da1a2.png" alt=""><br>有图可知：</p>
+<p> z=0 时 g(z)=0.5</p>
+<p> z&gt;0 时 g(z)&gt;0.5</p>
+<p> z&lt;0 时 g(z)&lt;0.5</p>
+<p>又 $z=θ^T X$,即:</p>
+<p> $z=θ^T X$大于等于 0 时,预测 y=1</p>
+<p> $z=θ^T X$小于 0 时,预测 y=0</p>
+<h4 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h4><p>现在假设我们有一个模型:<br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/3b2fdbe458071c5f38f96cf98a656d47.png" alt="">并且参数θ是向量[-3 1 1]。</p>
+<p>则当$-3+x_1 +x_2$大于等于 0,即 $x_1 +x_2$ 大于等于 3 时,模型将预测 y=1。</p>
+<p>我们可以绘制直线 $x_1 +x_2=3$ ,这条线便是我们模型的分界线,将预测为 1 的区域和预测为 0 的区域分隔开。<br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/8dbd67067e784c489ae38ea47829f4ac.png" alt=""></p>
+<p>假使我们的数据呈现这样的分布情况,怎样的模型才能适合呢?<br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/48dddfdd991c947fe3d5480bb870922d.png" alt=""><br>因为需要用曲线才能分隔 y=0 的区域和 y=1 的区域,我们需要二次方特征:<br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/04cda95ab202c4c26752c137a6e9e0e5.png" alt=""></p>
+<p>假设参数是[-1 0 0 1 1],则我们得到的判定边界恰好是圆点在原点且半径为 1 的圆形。<br>我们可以用非常复杂的模型来适应非常复杂形状的判定边界。</p>
+<h3 id="代-价-函-数"><a href="#代-价-函-数" class="headerlink" title="代 价 函 数"></a>代 价 函 数</h3><p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/c84c719cdaeba922e67ac986f64dafa5.png" alt=""></p>
+<blockquote>
+<p>对于线性回归模型,我们定义的代价函数是所有模型误差的平方和。</p>
+</blockquote>
+<p>理论上来说,我们也可以对逻辑回归模型沿用这个定义,但是问题在于,当我们将<img src="http://7xrw7v.com1.z0.glb.clouddn.com/11423ec1524f60ee271f6c09c82b3407.png" alt="">带入到这样定义了<br>的代价函数中时,我们得到的代价函数将是一个非凸函数(non-convex function)。<br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/d8fecc194cc86cffb865fdd964ff0d15.png" alt=""><br>这意味着我们的代价函数有许多局部最小值,这将影响梯度下降算法寻找全局最小值.</p>
+<p>由线性回归的代价函数：<br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/2c45855c8dd07dacd1d9b3f5432b8e83.png" alt=""><br>因此我们重新定义逻辑回归的代价函数:<br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/684c3c2cc80bb10d5c860dc97189ba99.png" alt=""></p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/11423ec1524f60ee271f6c09c82b3407.png" alt=""></p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/6997dbae194fb695a602b0a0b3c2b146.png" alt=""></p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/f94c981a1a9821a56b8af8bd826a4771.png" alt=""><br>这样构建的 $Cost(h_θ (x),y)$函数的特点是：</p>
+<p>当实际的 y=1 且 $h<em>θ$ 也为 1 时误差为 0<br>当 y=1 但 $h</em>θ$ 不为1 时误差随着 h θ 的变小而变大</p>
+<p>当实际的 y=0 且 $h<em>θ$  也为 0 时代价为 0<br>当 y=0 但 $h</em>θ$ 不为 0 时误差随着 h θ 的变大而变大。</p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/8d9d41e5a09cfc53faa6f6ca3f1e9de0.png" alt=""></p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/e1029a36961b4de678784eac0267cda2.png" alt=""></p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/577f54cceade5355078352a428ddbdd3.png" alt=""></p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/352536e3f176c3d156b1a19dbda84ccb.png" alt=""><br>注:虽然得到的梯度下降算法表面上看上去与线性回归的梯度下降算法一样,但是这里的 $h_θ<br>(x)=g(θ^TX)$与线性回归中不同,所以实际上是不一样的。另外,在运行梯度下降算法之前,进<br>行特征缩放依旧是非常必要的。</p>
+<p>除了梯度下降算法以外还有一些常被用来令代价函数最小的算法,这些算法更加复杂和优越,<br>而且通常不需要人工选择学习率,通常比梯度下降算法要更加快速。这些算法有:共轭梯度<br>(Conjugate Gradient),局部优化法(Broyden fletcher goldfarb shann,BFGS)和有限内存<br>局部优化法(LBFGS)</p>
+<h3 id="多-类-分-类-MULTICLASS-CLASSIFICATION"><a href="#多-类-分-类-MULTICLASS-CLASSIFICATION" class="headerlink" title="多 类 分 类 ( MULTICLASS CLASSIFICATION)"></a>多 类 分 类 ( MULTICLASS CLASSIFICATION)</h3><p>我们的训练集中有多个类(&gt;2),我们无法仅仅用一个二元变量(0 或 1)<br>来做判断依据。例如我们要预测天气情况分四种类型:晴天、多云、下雨或下雪。</p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/3255c7959faaa21de9866611e1a62710.png" alt=""></p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/5eeb0e21c47d7c7f94687cefb710210b.png" alt=""><br>最后,在我们需要做预测时,我们将所有的分类机都运行一遍,然后对每一个输入变量,都选<br>择最高可能性的输出变量。</p>
+<h3 id="逻辑回归-补充："><a href="#逻辑回归-补充：" class="headerlink" title="逻辑回归 补充："></a>逻辑回归 补充：</h3><p>下面我们说说梯度下降，梯度下降算法是调整参数θ使得代价函数J(θ)取得最小值的最基本方法之一。从直观上理解，就是我们在碗状结构的凸函数上取一个初始值，然后挪动这个值一步步靠近最低点的过程，如下图所示：<br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/485f7ee3649ba331bd99e51eb9a021a0.png" alt=""></p>
+<p> 我们先简化一下逻辑回归的代价函数：<br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/b4dd3a81e669a6b4fa06e8ef1c9772fb.png" alt=""><br>从数学上理解，我们为了找到最小值点，就应该朝着下降速度最快的方向(导函数/偏导方向)迈进，每次迈进一小步，再看看此时的下降最快方向是哪，再朝着这个方向迈进，直至最低点。</p>
+<p>用迭代公式表示出来的最小化J(θ)的梯度下降算法如下：<br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/fca383e877b362786eed47c59a0f7f88.png" alt=""><br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/8815952861c6ebb0e1c533df686a7c65.png" alt=""></p>
+<p>参见：寒小阳 &amp;&amp; 龙心尘：<a href="http://blog.csdn.net/han_xiaoyang/article/details/49123419。" target="_blank" rel="external">http://blog.csdn.net/han_xiaoyang/article/details/49123419。</a>     </p>
+
+                <hr>
+                
+                <!-- 多说 Share start -->
+                <div class="ds-share"
+                     style="text-align: right"
+                     data-thread-key="2016/09/07/斯坦福：逻辑回归/"
+                     data-title="斯坦福机器学习：逻辑回归"
+                     data-url="http://yoursite.com/2016/09/07/斯坦福：逻辑回归/"
+                     data-images=""
+                     data-content="摘要：
+
+分 类 问 题
+逻辑回归
+判 定 边 界
+多 类 分 类
+逻辑回归 补充
+
+
+分 类... | Haozhe&#39;s blog ">
+                    <div class="ds-share-inline">
+                        <ul class="ds-share-icons-16">
+                            <li data-toggle="ds-share-icons-more"><a class="ds-more" href="#">分享到：</a></li>
+                            <li><a class="ds-wechat flat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+                            <li><a class="ds-weibo flat" href="javascript:void(0);" data-service="weibo">微博</a></li>
+                            <li><a class="ds-douban flat" href="javascript:void(0);" data-service="douban">豆瓣</a></li>
+                        </ul>
+                        <div class="ds-share-icons-more">
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+                <!-- 多说 Share end-->
+                
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2016/09/07/线性回归代码实现/" data-toggle="tooltip" data-placement="top"
+                           title="线性回归代码实现">&larr; Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2016/09/05/斯坦福机器学习-回归/" data-toggle="tooltip" data-placement="top"
+                           title="斯坦福机器学习-线性回归">Next Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+                <!-- 多说评论框 start -->
+                <div class="comment">
+                    <div class="ds-thread"
+                         data-thread-key="2016/09/07/斯坦福：逻辑回归/"
+                         data-title="斯坦福机器学习：逻辑回归"
+                         data-url="http://yoursite.com/2016/09/07/斯坦福：逻辑回归/">
+                    </div>
+                </div>
+                <!-- 多说评论框 end -->
+                
+
+                
+
+            </div>
+
+            <div class="hidden-xs col-sm-3 toc-col">
+                <div class="toc-wrap">
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#分-类-问-题"><span class="toc-text">分 类 问 题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#分-类-问-题-建-模"><span class="toc-text">分 类 问 题 建 模</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#逻辑回归的引入"><span class="toc-text">逻辑回归的引入</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#逻辑回归模型"><span class="toc-text">逻辑回归模型</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#判-定-边-界-DECISION-BOUNDARY"><span class="toc-text">判 定 边 界 ( DECISION BOUNDARY)</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#例子"><span class="toc-text">例子</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#代-价-函-数"><span class="toc-text">代 价 函 数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#多-类-分-类-MULTICLASS-CLASSIFICATION"><span class="toc-text">多 类 分 类 ( MULTICLASS CLASSIFICATION)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#逻辑回归-补充："><span class="toc-text">逻辑回归 补充：</span></a></li></ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5 class="text-center">
+                        <a href="/tags/">FEATURED TAGS</a>
+                    </h5>
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#斯坦福机器学习"
+                           title="斯坦福机器学习">斯坦福机器学习</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <div style="margin-top: 20px;">
+                    <h5 class="text-center">FRIENDS</h5>
+                    <ul class="list-inline text-center">
+                        
+                        <li><a href="http://www.hankcs.com/">hankcs</a></li>
+                        
+                        <li><a href="http://www.lintcode.com/zh-cn/ladder/2/">lintcode</a></li>
+                        
+                        <li><a href="http://www.jiuzhang.com/solutions/">jiuzhang</a></li>
+                        
+                    </ul>
+                </div>
+                
+            </div>
+        </div>
+
+    </div>
+</article>
+
+
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    // dynamic User by Hux
+    var _user = 'xuehaozhe';
+
+    // duoshuo comment query.
+    var duoshuoQuery = {short_name: _user};
+    (function () {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';
+        ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0]
+        || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+</script>
+<!-- 多说公共JS代码 end -->
+
+
+
+
+
+<!-- Footer -->
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <br>
+                <ul class="list-inline text-center">
+                
+                
+                    <li>
+                        <a target="_blank" href="https://twitter.com/xuehaozhe">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/xuehaozhe0526">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="http://weibo.com/fendoujianchi">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/xuehanzhe0526">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Haozhe 2017
+                    <br>
+                    <span id="busuanzi_container_site_pv" style="font-size: 12px;">PV: <span id="busuanzi_value_site_pv"></span> Times</span>
+                    <br>
+                    Theme by <a href="https://haojen.github.io/">Haojen Ma</a>
+                </p>
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/blog.js"></script>
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://yoursite.com/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+
+
+<!-- swiftype -->
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','null','2.0.0');
+</script>
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<!--wechat title img-->
+<img class="wechat-title-img" src="http://7xrw7v.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160402220553.png">
+</body>
+
+</html>

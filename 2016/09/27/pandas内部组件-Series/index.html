@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="What hurts more,the pain of hard work or the pain of regret.">
+    <meta name="keyword" content="null">
+    <meta name="theme-color" content="#600090">
+    <meta name="msapplication-navbutton-color" content="#600090">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#600090">
+    <link rel="shortcut icon" href="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-person-128.png">
+    <link rel="alternate" type="application/atom+xml" title="Haozhe" href="/atom.xml">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
+    <title>
+        
+        pandas内部组件-Series｜Haozhe&#39;s blog
+        
+    </title>
+
+    <link rel="canonical" href="http://yoursite.com/2016/09/27/pandas内部组件-Series/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/blog-style.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+</head>
+
+<style>
+
+    header.intro-header {
+        background-image: url('http://7xrw7v.com1.z0.glb.clouddn.com/1485527729222.jpg')
+    }
+</style>
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="" class="animated fadeIn">
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost = "true" data-istags="false
+" data-ishome = "false" >
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand animated pulse" href="/">
+                <span class="brand-logo">
+                    Haozhe
+                </span>
+                's Blog
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <!-- /.navbar-collapse -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+					
+                    
+                        
+							
+                        <li>
+                            <a href="/tags/">tags</a>
+                        </li>
+							
+						
+                    
+					
+					
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+//    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+<!-- Main Content -->
+
+<!--only post-->
+
+
+<img class="wechat-title-img"
+     src="http://7xrw7v.com1.z0.glb.clouddn.com/148552521631.jpg#博文默认的图片">
+
+
+<style>
+    
+    header.intro-header {
+        background-image: url('http://7xrw7v.com1.z0.glb.clouddn.com/148552521631.jpg#博文默认的图片')
+    }
+
+    
+</style>
+
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <div class="post-heading">
+                    <h1>pandas内部组件-Series</h1>
+                    
+                    <span class="meta">
+                         作者 Haozhe Xue
+                        <span>
+                          日期 2016-09-27
+                         </span>
+                    </span>
+                    <div class="tags text-center">
+                        
+                        <a class="tag" href="/tags/#dataquest"
+                           title="dataquest">dataquest</a>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="post-title-haojen">
+        <span>
+            pandas内部组件-Series
+        </span>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <!-- Post Container -->
+            <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
+                <p>摘要：</p>
+<ul>
+<li>Data Structures</li>
+<li>Series</li>
+</ul>
+<a id="more"></a>
+<h3 id="Data-Structures"><a href="#Data-Structures" class="headerlink" title="Data Structures"></a>Data Structures</h3><p>三个主要的数据结构 在 pandas：<br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/49c2c4707bb908ee95980a60b507826e.png" alt=""></p>
+<p>Series：使用Numpy arrays 进行更快的计算，但是也有自己的特点，比如 numpy数组使用的是一个 数值型index； Series对象可以使用其他index类型，像 string index。同时 Series对象允许使用mixed data types，对于缺失值使用的是NaN。</p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/9c011cd7a5df2e9e84c82cd49f36ae4f.png" alt=""></p>
+<p>使用的数据集 <code>fandango_score_comparison.csv</code>关于电影评分的数据集。下载<a href="https://github.com/fivethirtyeight/data/tree/master/fandango" target="_blank" rel="external">链接</a></p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/dbde154a128fb159ffa34a094f7680eb.png" alt=""></p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/fd0a5c4b78214b96bcbad98729419bb7.png" alt=""></p>
+<h3 id="Integer-Index"><a href="#Integer-Index" class="headerlink" title="Integer Index"></a>Integer Index</h3><ul>
+<li>DataFrames 使用 Series objects 去代表一个列。</li>
+<li>Series object in a DataFrame 使用的 index 默认为整数 数据类型（Each value in the Series has a unique integer index）</li>
+</ul>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/8ea3bc3c6867f13499f0a9e4d25cdde3.png" alt=""></p>
+<h3 id="Custom-Index"><a href="#Custom-Index" class="headerlink" title="Custom Index"></a>Custom Index</h3><p>我们需要 给定 一个电影 名字 找到 对应的 评论的 分数<br>we need to find a way to move away from using an integer index corresponding to the row number and instead use a string index corresponding to the film name<br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/9d20b118a9c851c83f0a73f6c5c15e79.png" alt=""></p>
+<h3 id="Reindexing"><a href="#Reindexing" class="headerlink" title="Reindexing"></a>Reindexing</h3><p><code>reindex() method</code> 这个方法接收一个 字符串list</p>
+<p>我们使用这个方法 对series_custom 电影的名字 按照字母进行排序<br><figure class="highlight python"><table><tr><td class="code"><pre><div class="line">original_index = series_custom.index.tolist()</div><div class="line">sorted_index = sorted(original_index)</div><div class="line">sorted_by_index = series_custom.reindex(sorted_index)</div></pre></td></tr></table></figure></p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/3c5a3df3f73240eb0f086f2404502c0a.png" alt=""></p>
+<ul>
+<li>首先使用<code>tolist()</code> 返回当前index的一个list列表</li>
+<li>对产生的list 使用<code>sorted()</code>进行按照字母排序</li>
+<li>使用<code>reindex()</code>重置对应的值</li>
+</ul>
+<p>原始数据：<br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/045d391bd03285a0102fcff9102c0498.png" alt=""></p>
+<p>获取其 index</p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/3e224dd556cdc36905216ab6dc9830f1.png" alt=""></p>
+<p>转换为 list</p>
+<p><code>original_index = series_custom.index.tolist()</code></p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/96732f3715d4afaf41e8bfcaa2ae5b73.png" alt=""></p>
+<p>排序<br><code>sorted_index = sorted(original_index)</code><br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/6a3cd8184a9dc306b0e4768f0e611df2.png" alt=""></p>
+<p><code>sorted_by_index = series_custom.reindex(sorted_index)</code></p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/6e2eb6c770f11e1a43433edde6f2ff1e.png" alt=""></p>
+<h3 id="Sorting"><a href="#Sorting" class="headerlink" title="Sorting"></a>Sorting</h3><p><code>sort_index() method,</code></p>
+<p>返回一个基于 index 的排序series</p>
+<p><code>sort_values() method</code></p>
+<p>返回一个基于 values 的排序series<br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/3cb2589ad192a2a0d3fbd8d32883d690.png" alt=""></p>
+<h3 id="Vectorized-Operations"><a href="#Vectorized-Operations" class="headerlink" title="Vectorized Operations"></a>Vectorized Operations</h3><p><code>arithmetic operators (+, -, *, and /)</code></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"></div><div class="line"><span class="comment"># Add each value with each other</span></div><div class="line">np.add(series_custom, series_custom)</div><div class="line"><span class="comment"># Apply sine function to each value</span></div><div class="line">np.sin(series_custom)</div><div class="line"><span class="comment"># Return the highest value (will return a single value not a Series)</span></div><div class="line">np.max(series_custom)</div></pre></td></tr></table></figure>
+<p>标准化<code>series_custom</code></p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/6389658b30300fe0023857c3a40bbad8.png" alt=""></p>
+<p><code>series_normalized = (series_custom/20)</code></p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/69296028e96c8c57655291bf9321c41a.png" alt=""></p>
+<h3 id="Comparing-And-Filtering"><a href="#Comparing-And-Filtering" class="headerlink" title="Comparing And Filtering"></a>Comparing And Filtering</h3><p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/ea50f4ce5d78f756030e0d7ed6671630.png" alt=""></p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/f19a0224c713eedbba21af95aac3cd84.png" alt=""></p>
+<h3 id="data-alignment-数据对齐"><a href="#data-alignment-数据对齐" class="headerlink" title="data alignment 数据对齐"></a>data alignment 数据对齐</h3><ul>
+<li><p>Series objects align along indices and DataFrame objects align along both indices and columns.</p>
+<p>对于两个不同的 Series objects 我们可以使用 <code>standard Python arithmetic operators (+, -, *, and /)</code>去对两个series所对应的值进行运算。</p>
+</li>
+</ul>
+<p>求 <code>the Rotten Tomatoes&#39; critics average rating and the Rotten Tomatoes&#39; average user rating.</code>两者的均值。</p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/a2f9e789c07bb36274316e21aa2da009.png" alt=""></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line">rt_critics = Series(fandango[<span class="string">'RottenTomatoes'</span>].values, index=fandango[<span class="string">'FILM'</span>])</div><div class="line">rt_users = Series(fandango[<span class="string">'RottenTomatoes_User'</span>].values, index=fandango[<span class="string">'FILM'</span>])</div></pre></td></tr></table></figure>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/08ae243a9f2548c0875054df1c3877d3.png" alt=""></p>
+
+                <hr>
+                
+                <!-- 多说 Share start -->
+                <div class="ds-share"
+                     style="text-align: right"
+                     data-thread-key="2016/09/27/pandas内部组件-Series/"
+                     data-title="pandas内部组件-Series"
+                     data-url="http://yoursite.com/2016/09/27/pandas内部组件-Series/"
+                     data-images=""
+                     data-content="摘要：
+
+Data Structures
+Series
+
+
+Data Structures三个... | Haozhe&#39;s blog ">
+                    <div class="ds-share-inline">
+                        <ul class="ds-share-icons-16">
+                            <li data-toggle="ds-share-icons-more"><a class="ds-more" href="#">分享到：</a></li>
+                            <li><a class="ds-wechat flat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+                            <li><a class="ds-weibo flat" href="javascript:void(0);" data-service="weibo">微博</a></li>
+                            <li><a class="ds-douban flat" href="javascript:void(0);" data-service="douban">豆瓣</a></li>
+                        </ul>
+                        <div class="ds-share-icons-more">
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+                <!-- 多说 Share end-->
+                
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2016/10/08/pandas内部组件-DataFrames/" data-toggle="tooltip" data-placement="top"
+                           title="pandas内部组件-DataFrames">&larr; Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2016/09/26/数据概述/" data-toggle="tooltip" data-placement="top"
+                           title="Challenge:Summarizing data">Next Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+                <!-- 多说评论框 start -->
+                <div class="comment">
+                    <div class="ds-thread"
+                         data-thread-key="2016/09/27/pandas内部组件-Series/"
+                         data-title="pandas内部组件-Series"
+                         data-url="http://yoursite.com/2016/09/27/pandas内部组件-Series/">
+                    </div>
+                </div>
+                <!-- 多说评论框 end -->
+                
+
+                
+
+            </div>
+
+            <div class="hidden-xs col-sm-3 toc-col">
+                <div class="toc-wrap">
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Data-Structures"><span class="toc-text">Data Structures</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Integer-Index"><span class="toc-text">Integer Index</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Custom-Index"><span class="toc-text">Custom Index</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Reindexing"><span class="toc-text">Reindexing</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Sorting"><span class="toc-text">Sorting</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Vectorized-Operations"><span class="toc-text">Vectorized Operations</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Comparing-And-Filtering"><span class="toc-text">Comparing And Filtering</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#data-alignment-数据对齐"><span class="toc-text">data alignment 数据对齐</span></a></li></ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5 class="text-center">
+                        <a href="/tags/">FEATURED TAGS</a>
+                    </h5>
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#dataquest"
+                           title="dataquest">dataquest</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <div style="margin-top: 20px;">
+                    <h5 class="text-center">FRIENDS</h5>
+                    <ul class="list-inline text-center">
+                        
+                        <li><a href="http://www.hankcs.com/">hankcs</a></li>
+                        
+                        <li><a href="http://www.lintcode.com/zh-cn/ladder/2/">lintcode</a></li>
+                        
+                        <li><a href="http://www.jiuzhang.com/solutions/">jiuzhang</a></li>
+                        
+                    </ul>
+                </div>
+                
+            </div>
+        </div>
+
+    </div>
+</article>
+
+
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    // dynamic User by Hux
+    var _user = 'xuehaozhe';
+
+    // duoshuo comment query.
+    var duoshuoQuery = {short_name: _user};
+    (function () {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';
+        ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0]
+        || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+</script>
+<!-- 多说公共JS代码 end -->
+
+
+
+
+
+<!-- Footer -->
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <br>
+                <ul class="list-inline text-center">
+                
+                
+                    <li>
+                        <a target="_blank" href="https://twitter.com/xuehaozhe">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/xuehaozhe0526">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="http://weibo.com/fendoujianchi">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/xuehanzhe0526">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Haozhe 2017
+                    <br>
+                    <span id="busuanzi_container_site_pv" style="font-size: 12px;">PV: <span id="busuanzi_value_site_pv"></span> Times</span>
+                    <br>
+                    Theme by <a href="https://haojen.github.io/">Haojen Ma</a>
+                </p>
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/blog.js"></script>
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://yoursite.com/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+
+
+<!-- swiftype -->
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','null','2.0.0');
+</script>
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<!--wechat title img-->
+<img class="wechat-title-img" src="http://7xrw7v.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160402220553.png">
+</body>
+
+</html>

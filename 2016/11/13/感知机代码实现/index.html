@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="What hurts more,the pain of hard work or the pain of regret.">
+    <meta name="keyword" content="null">
+    <meta name="theme-color" content="#600090">
+    <meta name="msapplication-navbutton-color" content="#600090">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#600090">
+    <link rel="shortcut icon" href="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-person-128.png">
+    <link rel="alternate" type="application/atom+xml" title="Haozhe" href="/atom.xml">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
+    <title>
+        
+        感知机代码实现｜Haozhe&#39;s blog
+        
+    </title>
+
+    <link rel="canonical" href="http://yoursite.com/2016/11/13/感知机代码实现/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/blog-style.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+</head>
+
+<style>
+
+    header.intro-header {
+        background-image: url('http://7xrw7v.com1.z0.glb.clouddn.com/1485527729222.jpg')
+    }
+</style>
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="" class="animated fadeIn">
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost = "true" data-istags="false
+" data-ishome = "false" >
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand animated pulse" href="/">
+                <span class="brand-logo">
+                    Haozhe
+                </span>
+                's Blog
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <!-- /.navbar-collapse -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+					
+                    
+                        
+							
+                        <li>
+                            <a href="/tags/">tags</a>
+                        </li>
+							
+						
+                    
+					
+					
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+//    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+<!-- Main Content -->
+
+<!--only post-->
+
+
+<img class="wechat-title-img"
+     src="http://7xrw7v.com1.z0.glb.clouddn.com/148552521631.jpg#博文默认的图片">
+
+
+<style>
+    
+    header.intro-header {
+        background-image: url('http://7xrw7v.com1.z0.glb.clouddn.com/148552521631.jpg#博文默认的图片')
+    }
+
+    
+</style>
+
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <div class="post-heading">
+                    <h1>感知机代码实现</h1>
+                    
+                    <span class="meta">
+                         作者 Haozhe Xue
+                        <span>
+                          日期 2016-11-13
+                         </span>
+                    </span>
+                    <div class="tags text-center">
+                        
+                        <a class="tag" href="/tags/#统计学习方法"
+                           title="统计学习方法">统计学习方法</a>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="post-title-haojen">
+        <span>
+            感知机代码实现
+        </span>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <!-- Post Container -->
+            <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
+                <p>摘要：</p>
+<ul>
+<li>算法</li>
+<li>例子</li>
+<li>代码</li>
+</ul>
+<a id="more"></a>
+<h3 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h3><p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/3c65580566ac6c2e0640f9704aa2c027.png" alt=""></p>
+<h3 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h3><p>如图所示的训练数据集，其正实例点是$x1＝(3,3)^T$，$x2＝(4,3)^T$，负实例点是$x3＝(1,1)^T$，试用感知机学习算法的原始形式求感知机模型$f(x)＝sign(w·x+b)$。这里，$w＝(w(1),w(2))^T，x＝(x(1),x(2))^T$。</p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/c2b33e2482b9be6feb670d2485f00874.png" alt=""></p>
+<p>构建最优化问题：<br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/40115524db529930fb66e02356887c62.png" alt=""><br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/1abc017408475893c1b5c9f39aba27f2.png" alt=""><br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/9eb867c13378c039fb5bc67e115ce539.png" alt=""><br>这是在计算中误分类点先后取x1,x3,x3,x3,x1,x3,x3得到的分离超平面和感知机模型。</p>
+<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="keyword">import</span> copy</div><div class="line"><span class="keyword">from</span> matplotlib <span class="keyword">import</span> pyplot <span class="keyword">as</span> plt</div><div class="line"><span class="keyword">from</span> matplotlib <span class="keyword">import</span> animation</div><div class="line"></div><div class="line">training_set = [[(<span class="number">3</span>, <span class="number">3</span>), <span class="number">1</span>], [(<span class="number">4</span>, <span class="number">3</span>), <span class="number">1</span>], [(<span class="number">1</span>, <span class="number">1</span>), <span class="number">-1</span>]]</div><div class="line">w = [<span class="number">0</span>, <span class="number">0</span>]</div><div class="line">b = <span class="number">0</span></div><div class="line">history = []</div><div class="line"></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">update</span><span class="params">(item)</span>:</span></div><div class="line">    <span class="string">"""</span></div><div class="line">    update parameters using stochastic gradient descent</div><div class="line">    :param item: an item which is classified into wrong class</div><div class="line">    :return: nothing</div><div class="line">    """</div><div class="line">    <span class="keyword">global</span> w, b, history</div><div class="line">    w[<span class="number">0</span>] += <span class="number">1</span> * item[<span class="number">1</span>] * item[<span class="number">0</span>][<span class="number">0</span>]</div><div class="line">    w[<span class="number">1</span>] += <span class="number">1</span> * item[<span class="number">1</span>] * item[<span class="number">0</span>][<span class="number">1</span>]</div><div class="line">    b += <span class="number">1</span> * item[<span class="number">1</span>]</div><div class="line">    <span class="keyword">print</span> w, b</div><div class="line">    history.append([copy.copy(w), b])</div><div class="line">    <span class="comment"># you can uncomment this line to check the process of stochastic gradient descent</span></div><div class="line"></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">cal</span><span class="params">(item)</span>:</span></div><div class="line">    <span class="string">"""</span></div><div class="line">    calculate the functional distance between 'item' an the dicision surface. output yi(w*xi+b).</div><div class="line">    :param item:</div><div class="line">    :return:</div><div class="line">    """</div><div class="line">    res = <span class="number">0</span></div><div class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(len(item[<span class="number">0</span>])):</div><div class="line">        res += item[<span class="number">0</span>][i] * w[i]</div><div class="line">    res += b</div><div class="line">    res *= item[<span class="number">1</span>]</div><div class="line">    <span class="keyword">return</span> res</div><div class="line"></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">check</span><span class="params">()</span>:</span></div><div class="line">    <span class="string">"""</span></div><div class="line">    check if the hyperplane can classify the examples correctly</div><div class="line">    :return: true if it can</div><div class="line">    """</div><div class="line">    flag = <span class="keyword">False</span></div><div class="line">    <span class="keyword">for</span> item <span class="keyword">in</span> training_set:</div><div class="line">        <span class="keyword">if</span> cal(item) &lt;= <span class="number">0</span>:</div><div class="line">            flag = <span class="keyword">True</span></div><div class="line">            update(item)</div><div class="line">    <span class="comment"># draw a graph to show the process</span></div><div class="line">    <span class="keyword">if</span> <span class="keyword">not</span> flag:</div><div class="line">        <span class="keyword">print</span> <span class="string">"RESULT: w: "</span> + str(w) + <span class="string">" b: "</span> + str(b)</div><div class="line">    <span class="keyword">return</span> flag</div><div class="line"></div><div class="line"></div><div class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</div><div class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1000</span>):</div><div class="line">        <span class="keyword">if</span> <span class="keyword">not</span> check(): <span class="keyword">break</span></div><div class="line"></div><div class="line">    <span class="comment"># first set up the figure, the axis, and the plot element we want to animate</span></div><div class="line">    fig = plt.figure()</div><div class="line">    ax = plt.axes(xlim=(<span class="number">0</span>, <span class="number">2</span>), ylim=(<span class="number">-2</span>, <span class="number">2</span>))</div><div class="line">    line, = ax.plot([], [], <span class="string">'g'</span>, lw=<span class="number">2</span>)</div><div class="line">    label = ax.text([], [], <span class="string">''</span>)</div><div class="line"></div><div class="line">    <span class="comment"># initialization function: plot the background of each frame</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">init</span><span class="params">()</span>:</span></div><div class="line">        line.set_data([], [])</div><div class="line">        x, y, x_, y_ = [], [], [], []</div><div class="line">        <span class="keyword">for</span> p <span class="keyword">in</span> training_set:</div><div class="line">            <span class="keyword">if</span> p[<span class="number">1</span>] &gt; <span class="number">0</span>:</div><div class="line">                x.append(p[<span class="number">0</span>][<span class="number">0</span>])</div><div class="line">                y.append(p[<span class="number">0</span>][<span class="number">1</span>])</div><div class="line">            <span class="keyword">else</span>:</div><div class="line">                x_.append(p[<span class="number">0</span>][<span class="number">0</span>])</div><div class="line">                y_.append(p[<span class="number">0</span>][<span class="number">1</span>])</div><div class="line"></div><div class="line">        plt.plot(x, y, <span class="string">'bo'</span>, x_, y_, <span class="string">'rx'</span>)</div><div class="line">        plt.axis([<span class="number">-6</span>, <span class="number">6</span>, <span class="number">-6</span>, <span class="number">6</span>])</div><div class="line">        plt.grid(<span class="keyword">True</span>)</div><div class="line">        plt.xlabel(<span class="string">'x'</span>)</div><div class="line">        plt.ylabel(<span class="string">'y'</span>)</div><div class="line">        plt.title(<span class="string">'Perceptron Algorithm (www.hankcs.com)'</span>)</div><div class="line">        <span class="keyword">return</span> line, label</div><div class="line"></div><div class="line"></div><div class="line">    <span class="comment"># animation function.  this is called sequentially</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">animate</span><span class="params">(i)</span>:</span></div><div class="line">        <span class="keyword">global</span> history, ax, line, label</div><div class="line"></div><div class="line">        w = history[i][<span class="number">0</span>]</div><div class="line">        b = history[i][<span class="number">1</span>]</div><div class="line">        <span class="keyword">if</span> w[<span class="number">1</span>] == <span class="number">0</span>: <span class="keyword">return</span> line, label</div><div class="line">        x1 = <span class="number">-7</span></div><div class="line">        y1 = -(b + w[<span class="number">0</span>] * x1) / w[<span class="number">1</span>]</div><div class="line">        x2 = <span class="number">7</span></div><div class="line">        y2 = -(b + w[<span class="number">0</span>] * x2) / w[<span class="number">1</span>]</div><div class="line">        line.set_data([x1, x2], [y1, y2])</div><div class="line">        x1 = <span class="number">0</span></div><div class="line">        y1 = -(b + w[<span class="number">0</span>] * x1) / w[<span class="number">1</span>]</div><div class="line">        label.set_text(history[i])</div><div class="line">        label.set_position([x1, y1])</div><div class="line">        <span class="keyword">return</span> line, label</div><div class="line"></div><div class="line">    <span class="comment"># call the animator.  blit=true means only re-draw the parts that have changed.</span></div><div class="line">    <span class="keyword">print</span> history</div><div class="line">    anim = animation.FuncAnimation(fig, animate, init_func=init, frames=len(history), interval=<span class="number">1000</span>, repeat=<span class="keyword">True</span>,</div><div class="line">                                   blit=<span class="keyword">True</span>)</div><div class="line">    plt.show()</div><div class="line">    anim.save(<span class="string">'perceptron.gif'</span>, fps=<span class="number">2</span>, writer=<span class="string">'imagemagick'</span>)</div></pre></td></tr></table></figure>
+<p><img src="http://ww4.sinaimg.cn/large/6cbb8645jw1eos0e7lygfg20m80goacl.gif" alt=""></p>
+<h3 id="对偶形式-算法"><a href="#对偶形式-算法" class="headerlink" title="对偶形式 算法"></a>对偶形式 算法</h3><p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/d17c3ba499107ca918784b124abbd192.png" alt=""></p>
+<h3 id="例子-1"><a href="#例子-1" class="headerlink" title="例子"></a>例子</h3><p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/1dd26b53f973486847868d3ea62c1e0c.png" alt=""></p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/413136356e437aaa01878c84a9c06110.png" alt=""></p>
+<h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><figure class="highlight python"><table><tr><td class="code"><pre><div class="line"></div><div class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</div><div class="line"><span class="keyword">from</span> matplotlib <span class="keyword">import</span> pyplot <span class="keyword">as</span> plt</div><div class="line"><span class="keyword">from</span> matplotlib <span class="keyword">import</span> animation</div><div class="line"></div><div class="line"><span class="comment"># An example in that book, the training set and parameters' sizes are fixed</span></div><div class="line">training_set = np.array([[[<span class="number">3</span>, <span class="number">3</span>], <span class="number">1</span>], [[<span class="number">4</span>, <span class="number">3</span>], <span class="number">1</span>], [[<span class="number">1</span>, <span class="number">1</span>], <span class="number">-1</span>]])</div><div class="line"></div><div class="line">a = np.zeros(len(training_set), np.float)</div><div class="line">b = <span class="number">0.0</span></div><div class="line">Gram = <span class="keyword">None</span></div><div class="line">y = np.array(training_set[:, <span class="number">1</span>])</div><div class="line">x = np.empty((len(training_set), <span class="number">2</span>), np.float)</div><div class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(len(training_set)):</div><div class="line">    x[i] = training_set[i][<span class="number">0</span>]</div><div class="line">history = []</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">cal_gram</span><span class="params">()</span>:</span></div><div class="line">    <span class="string">"""</span></div><div class="line">    calculate the Gram matrix</div><div class="line">    :return:</div><div class="line">    """</div><div class="line">    g = np.empty((len(training_set), len(training_set)), np.int)</div><div class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(len(training_set)):</div><div class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> range(len(training_set)):</div><div class="line">            g[i][j] = np.dot(training_set[i][<span class="number">0</span>], training_set[j][<span class="number">0</span>])</div><div class="line">    <span class="keyword">return</span> g</div><div class="line"></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">update</span><span class="params">(i)</span>:</span></div><div class="line">    <span class="string">"""</span></div><div class="line">    update parameters using stochastic gradient descent</div><div class="line">    :param i:</div><div class="line">    :return:</div><div class="line">    """</div><div class="line">    <span class="keyword">global</span> a, b</div><div class="line">    a[i] += <span class="number">1</span></div><div class="line">    b = b + y[i]</div><div class="line">    history.append([np.dot(a * y, x), b])</div><div class="line">    <span class="comment"># print a, b # you can uncomment this line to check the process of stochastic gradient descent</span></div><div class="line"></div><div class="line"></div><div class="line"><span class="comment"># calculate the judge condition</span></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">cal</span><span class="params">(i)</span>:</span></div><div class="line">    <span class="keyword">global</span> a, b, x, y</div><div class="line"></div><div class="line">    res = np.dot(a * y, Gram[i])</div><div class="line">    res = (res + b) * y[i]</div><div class="line">    <span class="keyword">return</span> res</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment"># check if the hyperplane can classify the examples correctly</span></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">check</span><span class="params">()</span>:</span></div><div class="line">    <span class="keyword">global</span> a, b, x, y</div><div class="line">    flag = <span class="keyword">False</span></div><div class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(len(training_set)):</div><div class="line">        <span class="keyword">if</span> cal(i) &lt;= <span class="number">0</span>:</div><div class="line">            flag = <span class="keyword">True</span></div><div class="line">            update(i)</div><div class="line">    <span class="keyword">if</span> <span class="keyword">not</span> flag:</div><div class="line"></div><div class="line">        w = np.dot(a * y, x)</div><div class="line">        <span class="keyword">print</span> <span class="string">"RESULT: w: "</span> + str(w) + <span class="string">" b: "</span> + str(b)</div><div class="line">        <span class="keyword">return</span> <span class="keyword">False</span></div><div class="line">    <span class="keyword">return</span> <span class="keyword">True</span></div><div class="line"></div><div class="line"></div><div class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</div><div class="line">    Gram = cal_gram()  <span class="comment"># initialize the Gram matrix</span></div><div class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1000</span>):</div><div class="line">        <span class="keyword">if</span> <span class="keyword">not</span> check(): <span class="keyword">break</span></div><div class="line"></div><div class="line">    <span class="comment"># draw an animation to show how it works, the data comes from history</span></div><div class="line">    <span class="comment"># first set up the figure, the axis, and the plot element we want to animate</span></div><div class="line">    fig = plt.figure()</div><div class="line">    ax = plt.axes(xlim=(<span class="number">0</span>, <span class="number">2</span>), ylim=(<span class="number">-2</span>, <span class="number">2</span>))</div><div class="line">    line, = ax.plot([], [], <span class="string">'g'</span>, lw=<span class="number">2</span>)</div><div class="line">    label = ax.text([], [], <span class="string">''</span>)</div><div class="line"></div><div class="line">    <span class="comment"># initialization function: plot the background of each frame</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">init</span><span class="params">()</span>:</span></div><div class="line">        line.set_data([], [])</div><div class="line">        x, y, x_, y_ = [], [], [], []</div><div class="line">        <span class="keyword">for</span> p <span class="keyword">in</span> training_set:</div><div class="line">            <span class="keyword">if</span> p[<span class="number">1</span>] &gt; <span class="number">0</span>:</div><div class="line">                x.append(p[<span class="number">0</span>][<span class="number">0</span>])</div><div class="line">                y.append(p[<span class="number">0</span>][<span class="number">1</span>])</div><div class="line">            <span class="keyword">else</span>:</div><div class="line">                x_.append(p[<span class="number">0</span>][<span class="number">0</span>])</div><div class="line">                y_.append(p[<span class="number">0</span>][<span class="number">1</span>])</div><div class="line"></div><div class="line">        plt.plot(x, y, <span class="string">'bo'</span>, x_, y_, <span class="string">'rx'</span>)</div><div class="line">        plt.axis([<span class="number">-6</span>, <span class="number">6</span>, <span class="number">-6</span>, <span class="number">6</span>])</div><div class="line">        plt.grid(<span class="keyword">True</span>)</div><div class="line">        plt.xlabel(<span class="string">'x'</span>)</div><div class="line">        plt.ylabel(<span class="string">'y'</span>)</div><div class="line">        plt.title(<span class="string">'Perceptron Algorithm 2 (www.hankcs.com)'</span>)</div><div class="line">        <span class="keyword">return</span> line, label</div><div class="line"></div><div class="line"></div><div class="line">    <span class="comment"># animation function.  this is called sequentially</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">animate</span><span class="params">(i)</span>:</span></div><div class="line">        <span class="keyword">global</span> history, ax, line, label</div><div class="line"></div><div class="line">        w = history[i][<span class="number">0</span>]</div><div class="line">        b = history[i][<span class="number">1</span>]</div><div class="line">        <span class="keyword">if</span> w[<span class="number">1</span>] == <span class="number">0</span>: <span class="keyword">return</span> line, label</div><div class="line">        x1 = <span class="number">-7.0</span></div><div class="line">        y1 = -(b + w[<span class="number">0</span>] * x1) / w[<span class="number">1</span>]</div><div class="line">        x2 = <span class="number">7.0</span></div><div class="line">        y2 = -(b + w[<span class="number">0</span>] * x2) / w[<span class="number">1</span>]</div><div class="line">        line.set_data([x1, x2], [y1, y2])</div><div class="line">        x1 = <span class="number">0.0</span></div><div class="line">        y1 = -(b + w[<span class="number">0</span>] * x1) / w[<span class="number">1</span>]</div><div class="line">        label.set_text(str(history[i][<span class="number">0</span>]) + <span class="string">' '</span> + str(b))</div><div class="line">        label.set_position([x1, y1])</div><div class="line">        <span class="keyword">return</span> line, label</div><div class="line"></div><div class="line">    <span class="comment"># call the animator.  blit=true means only re-draw the parts that have changed.</span></div><div class="line">    anim = animation.FuncAnimation(fig, animate, init_func=init, frames=len(history), interval=<span class="number">1000</span>, repeat=<span class="keyword">True</span>,</div><div class="line">                                   blit=<span class="keyword">True</span>)</div><div class="line">    plt.show()</div><div class="line">    <span class="comment"># anim.save('perceptron2.gif', fps=2, writer='imagemagick')</span></div></pre></td></tr></table></figure>
+<p><img src="http://ww4.sinaimg.cn/large/6cbb8645jw1eosug2djxfg20mn0h3acy.gif" alt=""></p>
+<h3 id="参考-码农场-http-www-hankcs-com-ml-the-perceptron-html"><a href="#参考-码农场-http-www-hankcs-com-ml-the-perceptron-html" class="headerlink" title="参考:码农场 http://www.hankcs.com/ml/the-perceptron.html"></a>参考:码农场 <a href="http://www.hankcs.com/ml/the-perceptron.html" target="_blank" rel="external">http://www.hankcs.com/ml/the-perceptron.html</a></h3>
+                <hr>
+                
+                <!-- 多说 Share start -->
+                <div class="ds-share"
+                     style="text-align: right"
+                     data-thread-key="2016/11/13/感知机代码实现/"
+                     data-title="感知机代码实现"
+                     data-url="http://yoursite.com/2016/11/13/感知机代码实现/"
+                     data-images=""
+                     data-content="摘要：
+
+算法
+例子
+代码
+
+
+算法
+例子如图所示的训练数据集，其正实例点是$x1＝(3,3)... | Haozhe&#39;s blog ">
+                    <div class="ds-share-inline">
+                        <ul class="ds-share-icons-16">
+                            <li data-toggle="ds-share-icons-more"><a class="ds-more" href="#">分享到：</a></li>
+                            <li><a class="ds-wechat flat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+                            <li><a class="ds-weibo flat" href="javascript:void(0);" data-service="weibo">微博</a></li>
+                            <li><a class="ds-douban flat" href="javascript:void(0);" data-service="douban">豆瓣</a></li>
+                        </ul>
+                        <div class="ds-share-icons-more">
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+                <!-- 多说 Share end-->
+                
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2016/11/14/Python基础及其数学库的使用/" data-toggle="tooltip" data-placement="top"
+                           title="Python基础及其数学库的使用">&larr; Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2016/11/12/税务数据分析/" data-toggle="tooltip" data-placement="top"
+                           title="税务数据分析(1)">Next Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+                <!-- 多说评论框 start -->
+                <div class="comment">
+                    <div class="ds-thread"
+                         data-thread-key="2016/11/13/感知机代码实现/"
+                         data-title="感知机代码实现"
+                         data-url="http://yoursite.com/2016/11/13/感知机代码实现/">
+                    </div>
+                </div>
+                <!-- 多说评论框 end -->
+                
+
+                
+
+            </div>
+
+            <div class="hidden-xs col-sm-3 toc-col">
+                <div class="toc-wrap">
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#算法"><span class="toc-text">算法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#例子"><span class="toc-text">例子</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#代码"><span class="toc-text">代码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#对偶形式-算法"><span class="toc-text">对偶形式 算法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#例子-1"><span class="toc-text">例子</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#代码实现"><span class="toc-text">代码实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参考-码农场-http-www-hankcs-com-ml-the-perceptron-html"><span class="toc-text">参考:码农场 http://www.hankcs.com/ml/the-perceptron.html</span></a></li></ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5 class="text-center">
+                        <a href="/tags/">FEATURED TAGS</a>
+                    </h5>
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#统计学习方法"
+                           title="统计学习方法">统计学习方法</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <div style="margin-top: 20px;">
+                    <h5 class="text-center">FRIENDS</h5>
+                    <ul class="list-inline text-center">
+                        
+                        <li><a href="http://www.hankcs.com/">hankcs</a></li>
+                        
+                        <li><a href="http://www.lintcode.com/zh-cn/ladder/2/">lintcode</a></li>
+                        
+                        <li><a href="http://www.jiuzhang.com/solutions/">jiuzhang</a></li>
+                        
+                    </ul>
+                </div>
+                
+            </div>
+        </div>
+
+    </div>
+</article>
+
+
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    // dynamic User by Hux
+    var _user = 'xuehaozhe';
+
+    // duoshuo comment query.
+    var duoshuoQuery = {short_name: _user};
+    (function () {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';
+        ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0]
+        || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+</script>
+<!-- 多说公共JS代码 end -->
+
+
+
+
+
+<!-- Footer -->
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <br>
+                <ul class="list-inline text-center">
+                
+                
+                    <li>
+                        <a target="_blank" href="https://twitter.com/xuehaozhe">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/xuehaozhe0526">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="http://weibo.com/fendoujianchi">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/xuehanzhe0526">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Haozhe 2017
+                    <br>
+                    <span id="busuanzi_container_site_pv" style="font-size: 12px;">PV: <span id="busuanzi_value_site_pv"></span> Times</span>
+                    <br>
+                    Theme by <a href="https://haojen.github.io/">Haojen Ma</a>
+                </p>
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/blog.js"></script>
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://yoursite.com/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+
+
+<!-- swiftype -->
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','null','2.0.0');
+</script>
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<!--wechat title img-->
+<img class="wechat-title-img" src="http://7xrw7v.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160402220553.png">
+</body>
+
+</html>

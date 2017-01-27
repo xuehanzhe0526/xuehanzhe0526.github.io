@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="What hurts more,the pain of hard work or the pain of regret.">
+    <meta name="keyword" content="null">
+    <meta name="theme-color" content="#600090">
+    <meta name="msapplication-navbutton-color" content="#600090">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#600090">
+    <link rel="shortcut icon" href="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-person-128.png">
+    <link rel="alternate" type="application/atom+xml" title="Haozhe" href="/atom.xml">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
+    <title>
+        
+        数据分析：python数据结构｜Haozhe&#39;s blog
+        
+    </title>
+
+    <link rel="canonical" href="http://yoursite.com/2016/12/09/数据分析：python数据结构/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/blog-style.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+</head>
+
+<style>
+
+    header.intro-header {
+        background-image: url('http://7xrw7v.com1.z0.glb.clouddn.com/1485527729222.jpg')
+    }
+</style>
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="" class="animated fadeIn">
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost = "true" data-istags="false
+" data-ishome = "false" >
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand animated pulse" href="/">
+                <span class="brand-logo">
+                    Haozhe
+                </span>
+                's Blog
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <!-- /.navbar-collapse -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+					
+                    
+                        
+							
+                        <li>
+                            <a href="/tags/">tags</a>
+                        </li>
+							
+						
+                    
+					
+					
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+//    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+<!-- Main Content -->
+
+<!--only post-->
+
+
+<img class="wechat-title-img"
+     src="http://7xrw7v.com1.z0.glb.clouddn.com/148552521631.jpg#博文默认的图片">
+
+
+<style>
+    
+    header.intro-header {
+        background-image: url('http://7xrw7v.com1.z0.glb.clouddn.com/148552521631.jpg#博文默认的图片')
+    }
+
+    
+</style>
+
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <div class="post-heading">
+                    <h1>数据分析：python数据结构</h1>
+                    
+                    <span class="meta">
+                         作者 Haozhe Xue
+                        <span>
+                          日期 2016-12-09
+                         </span>
+                    </span>
+                    <div class="tags text-center">
+                        
+                        <a class="tag" href="/tags/#基于Kaggle案例Python数据分析"
+                           title="基于Kaggle案例Python数据分析">基于Kaggle案例Python数据分析</a>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="post-title-haojen">
+        <span>
+            数据分析：python数据结构
+        </span>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <!-- Post Container -->
+            <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
+                <p>摘要：</p>
+<ul>
+<li>数据分析基本步骤</li>
+<li>Python语言基础回顾</li>
+<li>Python数据结构讲解</li>
+<li>Python高级特性</li>
+<li>Python高阶函数<a id="more"></a>
+</li>
+</ul>
+<p>###数据分析<br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/public/16-12-6/18816655.jpg" alt=""></p>
+<h3 id="基本步骤"><a href="#基本步骤" class="headerlink" title="基本步骤"></a>基本步骤</h3><p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/public/16-12-6/72352241.jpg" alt=""></p>
+<h3 id="Python-2-Python-3-编码"><a href="#Python-2-Python-3-编码" class="headerlink" title="Python 2 Python 3 编码"></a>Python 2 Python 3 编码</h3><p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/public/16-12-6/91636003.jpg" alt=""></p>
+<h3 id="IPython基础"><a href="#IPython基础" class="headerlink" title="IPython基础"></a>IPython基础</h3><p><strong>? 和 ??</strong><br>• Python对象+ (?)<br>显示该对象的基本信息<br>• Python对象+ (??)<br>如果是函数,会显示源码<br>• 注:python对象可为变量、函数等。<br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/public/16-12-6/71682369.jpg" alt=""></p>
+<p><strong>IPython魔术命令</strong><br>• %timeit<br>多次执行一条语句,并返回平均时间,%%timeit-&gt;多条语句<br>• %time<br>返回执行一条语句的时间,%%time-&gt;多条语句<br>• %reset<br>删除当前空间的全部变量<br>• %run *.py<br>在IPython中执行Python脚本<br>• 魔术命令+(?)显示文档<br>如:%time?<br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/public/16-12-6/9528078.jpg" alt=""></p>
+<h3 id="Python基础"><a href="#Python基础" class="headerlink" title="Python基础"></a>Python基础</h3><p>字符串和元组是不可变的</p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/public/16-12-6/48663308.jpg" alt=""></p>
+<p>类型转换<br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/public/16-12-6/21297565.jpg" alt=""></p>
+<h4 id="时间和日期"><a href="#时间和日期" class="headerlink" title="时间和日期"></a>时间和日期</h4><p>datatime模块<br><figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="keyword">from</span> datetime <span class="keyword">import</span> datetime</div><div class="line">dt = datetime(<span class="number">2016</span>, <span class="number">12</span>, <span class="number">3</span>, <span class="number">15</span>, <span class="number">0</span>, <span class="number">0</span>)</div><div class="line"><span class="keyword">print</span> dt.month, dt.day</div><div class="line"></div><div class="line"><span class="comment">## 12 3</span></div></pre></td></tr></table></figure></p>
+<p>strftime将datetime类型格式化为字符串<br><figure class="highlight python"><table><tr><td class="code"><pre><div class="line">dt.strftime(<span class="string">'%Y/%m/%d %H:%M'</span>)</div><div class="line"><span class="string">'2016/12/03 15:00'</span></div><div class="line">dt.strftime(<span class="string">'%d/%m/%Y %H:%M'</span>)</div><div class="line"><span class="string">'03/12/2016 15:00'</span></div></pre></td></tr></table></figure></p>
+<p>strptime将字符串解析为datetime类型</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line">datetime.strptime(<span class="string">'20161203'</span>, <span class="string">'%Y%m%d'</span>)</div><div class="line">datetime.datetime(<span class="number">2016</span>, <span class="number">12</span>, <span class="number">3</span>, <span class="number">0</span>, <span class="number">0</span>)</div></pre></td></tr></table></figure>
+<p>pass用于占位<br> Python中不允许空代码块</p>
+<h4 id="异常"><a href="#异常" class="headerlink" title="异常"></a>异常</h4><p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/public/16-12-6/47728348.jpg" alt=""></p>
+<h4 id="range-和-xrange"><a href="#range-和-xrange" class="headerlink" title="range 和 xrange"></a>range 和 xrange</h4><p> 生成整数列表<br> xrange比range效率高,但是xrange不会预先生成列表,而是一个迭代器</p>
+<h4 id="关于Python中的引用"><a href="#关于Python中的引用" class="headerlink" title="关于Python中的引用"></a>关于Python中的引用</h4><p>• 变量复制、传参是值传递<br>• 列表、字典的复制、传参是传引用<br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/public/16-12-6/6821023.jpg" alt=""><br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/public/16-12-6/13862043.jpg" alt=""></p>
+<h4 id="浅拷贝-copy-和深拷贝-deepcopy"><a href="#浅拷贝-copy-和深拷贝-deepcopy" class="headerlink" title="浅拷贝(copy)和深拷贝(deepcopy)"></a>浅拷贝(copy)和深拷贝(deepcopy)</h4><p>• 浅拷贝效果:[:]切片操作,copy()。只拷贝父对象,不拷贝对象的内部<br>子对象<br>• 深拷贝:同时拷贝父对象及子对象<br><figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="keyword">import</span> copy</div><div class="line"></div><div class="line">a = [[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>], [<span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>]]</div><div class="line">b = a</div><div class="line">c = copy.copy(a)</div><div class="line">d = copy.deepcopy(a)</div><div class="line"></div><div class="line"><span class="keyword">print</span> <span class="string">'a-id:'</span>, id(a)</div><div class="line"><span class="keyword">print</span> <span class="string">'b-id:'</span>,id(b)</div><div class="line"><span class="keyword">print</span> <span class="string">'c-id:'</span>,id(c)</div><div class="line"><span class="keyword">print</span> <span class="string">'d-id:'</span>,id(d)</div><div class="line"></div><div class="line">a.append(<span class="number">15</span>)</div><div class="line">a[<span class="number">1</span>][<span class="number">2</span>] = <span class="number">10</span></div><div class="line"></div><div class="line"><span class="keyword">print</span> <span class="string">'processed...'</span></div><div class="line"><span class="keyword">print</span> a</div><div class="line"><span class="keyword">print</span> b</div><div class="line"><span class="keyword">print</span> c</div><div class="line"><span class="keyword">print</span> d</div><div class="line"></div><div class="line">----</div><div class="line">a-id: <span class="number">66053768</span></div><div class="line">b-id: <span class="number">66053768</span></div><div class="line">c-id: <span class="number">66621832</span></div><div class="line">d-id: <span class="number">66112456</span></div><div class="line">processed...</div><div class="line">[[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>], [<span class="number">4</span>, <span class="number">5</span>, <span class="number">10</span>], <span class="number">15</span>]</div><div class="line">[[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>], [<span class="number">4</span>, <span class="number">5</span>, <span class="number">10</span>], <span class="number">15</span>]</div><div class="line">[[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>], [<span class="number">4</span>, <span class="number">5</span>, <span class="number">10</span>]]</div><div class="line">[[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>], [<span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>]]</div></pre></td></tr></table></figure></p>
+<h3 id="Python数据结构"><a href="#Python数据结构" class="headerlink" title="Python数据结构"></a>Python数据结构</h3><h4 id="元组-tuple"><a href="#元组-tuple" class="headerlink" title="元组 tuple"></a>元组 tuple</h4><p>• 一维、定长、不可变的对象序列<br>• 创建元组 ()<br>• 转换为元组,list-&gt;tuple, string-&gt;tuple<br>• 访问元组<br>• 合并元组 +<br>• 拆包：<br> 函数同时返回多个值<br> 元组列表迭代<br>• 常用方法 count：<br> 返回指定值得次数</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="comment">#创建元组</span></div><div class="line">tup1 = <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span></div><div class="line"><span class="keyword">print</span> tup1</div><div class="line"><span class="comment">#(1, 2, 3)</span></div><div class="line"></div><div class="line"><span class="comment"># 嵌套元组</span></div><div class="line">tup2 = (<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>), (<span class="number">4</span>, <span class="number">5</span>)</div><div class="line"><span class="keyword">print</span> tup2</div><div class="line"><span class="comment">#((1, 2, 3), (4, 5))</span></div><div class="line"></div><div class="line"><span class="comment"># 转换为元组，list-&gt;tuple, string-&gt;tuple</span></div><div class="line">l = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]</div><div class="line"><span class="keyword">print</span> tuple(l)</div><div class="line"><span class="comment">#(1, 2, 3)</span></div><div class="line"></div><div class="line">str = <span class="string">'Hello ChinaHadoop'</span></div><div class="line"><span class="keyword">print</span> tuple(str)</div><div class="line"><span class="comment">#('H', 'e', 'l', 'l', 'o', ' ', 'C', 'h', 'i', 'n', 'a', 'H', 'a', 'd', 'o', 'o', 'p')</span></div><div class="line"></div><div class="line"><span class="comment">#访问元组</span></div><div class="line">tup3 = tuple(str)</div><div class="line"><span class="keyword">print</span> tup3[<span class="number">4</span>]</div><div class="line"><span class="comment"># o</span></div><div class="line"></div><div class="line"><span class="comment">#合并元组</span></div><div class="line">tup1 + tup2</div><div class="line"><span class="comment">#(1, 2, 3, (1, 2, 3), (4, 5))</span></div><div class="line"></div><div class="line"><span class="comment">#拆包</span></div><div class="line">tup1 = <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span></div><div class="line">a, b, c = tup1</div><div class="line"><span class="keyword">print</span> b</div><div class="line"><span class="comment">#2</span></div><div class="line"><span class="comment"># 函数返回多个值</span></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">return_multiple</span><span class="params">()</span>:</span></div><div class="line">    t = (<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>)</div><div class="line">    <span class="keyword">return</span> t</div><div class="line"></div><div class="line">a, _, c = return_multiple()</div><div class="line"><span class="keyword">print</span> c <span class="comment">#3</span></div><div class="line"></div><div class="line"><span class="comment"># 元组列表迭代</span></div><div class="line">tuple_lst = [(<span class="number">1</span>, <span class="number">2</span>), (<span class="number">3</span>, <span class="number">4</span>), (<span class="number">5</span>, <span class="number">6</span>)]</div><div class="line"><span class="keyword">for</span> x, y <span class="keyword">in</span> tuple_lst:</div><div class="line">    <span class="keyword">print</span> x+y</div><div class="line"></div><div class="line"><span class="number">3</span></div><div class="line"><span class="number">7</span></div><div class="line"><span class="number">11</span></div><div class="line"></div><div class="line"><span class="comment">#count 方法</span></div><div class="line"><span class="keyword">print</span> tuple(str)</div><div class="line"><span class="comment">#('H', 'e', 'l', 'l', 'o', ' ', 'C', 'h', 'i', 'n', 'a', 'H', 'a', 'd', 'o', 'o', 'p')</span></div><div class="line">tup3 = tuple(str)</div><div class="line">tup3.count(<span class="string">'o'</span>)</div><div class="line"><span class="comment">#3</span></div></pre></td></tr></table></figure>
+<h4 id="列表-list"><a href="#列表-list" class="headerlink" title="列表 list"></a>列表 list</h4><p>• 变长,可变<br>• 创建列表 []<br>• 转换为列表,tuple-&gt;list<br>• 添加、移除元素,append, insert, pop, remove<br>• 合并列表 +, extend<br>• 排序操作 sort (注:就地排序,无需创建新对象)<br>• 切片操作 [start_idx : stop_idx : step]<br>注:结果不包含stop_idx的元素</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="comment">### 创建列表</span></div><div class="line">lst_1 = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="string">'a'</span>, <span class="string">'b'</span>, (<span class="number">4</span>, <span class="number">5</span>)]</div><div class="line"><span class="keyword">print</span> lst_1</div><div class="line"><span class="comment">#[1, 2, 3, 'a', 'b', (4, 5)]</span></div><div class="line"></div><div class="line">lst_2 = range(<span class="number">1</span>, <span class="number">9</span>)</div><div class="line"><span class="keyword">print</span> lst_2</div><div class="line"><span class="comment">#[1, 2, 3, 4, 5, 6, 7, 8]</span></div><div class="line"></div><div class="line"><span class="comment">###转换为列表, tuple-&gt;list</span></div><div class="line">lst_3 = list(tup3)</div><div class="line"><span class="keyword">print</span> lst_3</div><div class="line"><span class="comment">#['H', 'e', 'l', 'l', 'o', ' ', 'C', 'h', 'i', 'n', 'a', 'H', 'a', 'd', 'o', 'o', 'p']</span></div><div class="line"></div><div class="line"><span class="comment">### 添加、移除元素</span></div><div class="line">lst_4 = range(<span class="number">10</span>)</div><div class="line"></div><div class="line"><span class="comment"># 末尾添加</span></div><div class="line">lst_4.append(<span class="number">11</span>)</div><div class="line"><span class="keyword">print</span> lst_4</div><div class="line"><span class="comment">#[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 11]</span></div><div class="line"></div><div class="line"><span class="comment"># 指定位置插入</span></div><div class="line">lst_4.insert(<span class="number">5</span>, <span class="number">12</span>)</div><div class="line"><span class="keyword">print</span> lst_4</div><div class="line"><span class="comment">#[0, 1, 2, 3, 4, 12, 5, 6, 7, 8, 9, 11]</span></div><div class="line"></div><div class="line"><span class="comment"># 删除指定位置的元素并返回</span></div><div class="line">item = lst_4.pop(<span class="number">6</span>)</div><div class="line"><span class="keyword">print</span> item</div><div class="line"><span class="keyword">print</span> lst_4</div><div class="line"><span class="comment">#5</span></div><div class="line"><span class="comment">#[0, 1, 2, 3, 4, 12, 6, 7, 8, 9, 11]</span></div><div class="line"></div><div class="line"><span class="comment"># 删除指定的值，注意12在这里是“值”不是“位置”</span></div><div class="line">lst_4.remove(<span class="number">12</span>)</div><div class="line"><span class="keyword">print</span> lst_4</div><div class="line"><span class="comment">#[0, 1, 2, 3, 4, 6, 7, 8, 9, 11]</span></div><div class="line"></div><div class="line"><span class="comment">###合并列表</span></div><div class="line">lst_3 = lst_1 + lst_2</div><div class="line"><span class="keyword">print</span> lst_3</div><div class="line"><span class="comment">#[1, 2, 3, 'a', 'b', (4, 5), 1, 2, 3, 4, 5, 6, 7, 8]</span></div><div class="line"></div><div class="line">lst_1.extend(lst_2)</div><div class="line"><span class="keyword">print</span> lst_1</div><div class="line"><span class="comment">#[1, 2, 3, 'a', 'b', (4, 5), 1, 2, 3, 4, 5, 6, 7, 8]</span></div><div class="line"></div><div class="line"><span class="comment">###排序操作</span></div><div class="line"><span class="keyword">import</span> random</div><div class="line">lst_5 = range(<span class="number">10</span>)</div><div class="line">random.shuffle(lst_5)</div><div class="line"><span class="keyword">print</span> lst_5</div><div class="line"><span class="comment">#[7, 8, 5, 3, 2, 0, 4, 6, 9, 1]</span></div><div class="line">lst_5.sort()</div><div class="line"><span class="keyword">print</span> lst_5</div><div class="line"><span class="comment">#[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]</span></div><div class="line"></div><div class="line">lst_6 = [<span class="string">'Welcome'</span>, <span class="string">'to'</span>, <span class="string">'Python'</span>, <span class="string">'Data'</span>, <span class="string">'Analysis'</span>, <span class="string">'Course'</span>]</div><div class="line">lst_6.sort()</div><div class="line"><span class="keyword">print</span> lst_6</div><div class="line"><span class="comment">#['Analysis', 'Course', 'Data', 'Python', 'Welcome', 'to']</span></div><div class="line"></div><div class="line">lst_6.sort(key = len, reverse=<span class="keyword">True</span>)</div><div class="line"><span class="keyword">print</span> lst_6</div><div class="line"><span class="comment">#['Analysis', 'Welcome', 'Course', 'Python', 'Data', 'to']</span></div><div class="line"></div><div class="line"><span class="keyword">print</span> lst_5</div><div class="line"><span class="keyword">print</span> lst_5[<span class="number">1</span>:<span class="number">5</span>]</div><div class="line"><span class="keyword">print</span> lst_5[<span class="number">5</span>:]</div><div class="line"><span class="keyword">print</span> lst_5[:<span class="number">5</span>]</div><div class="line"><span class="keyword">print</span> lst_5[<span class="number">-5</span>:]</div><div class="line"><span class="keyword">print</span> lst_5[<span class="number">-5</span>:<span class="number">-2</span>]</div><div class="line"><span class="keyword">print</span> lst_5[::<span class="number">2</span>]</div><div class="line"><span class="keyword">print</span> lst_5[::<span class="number">-1</span>]</div><div class="line">-------</div><div class="line">[<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>]</div><div class="line">[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>]</div><div class="line">[<span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>]</div><div class="line">[<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>]</div><div class="line">[<span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>]</div><div class="line">[<span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>]</div><div class="line">[<span class="number">0</span>, <span class="number">2</span>, <span class="number">4</span>, <span class="number">6</span>, <span class="number">8</span>]</div><div class="line">[<span class="number">9</span>, <span class="number">8</span>, <span class="number">7</span>, <span class="number">6</span>, <span class="number">5</span>, <span class="number">4</span>, <span class="number">3</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">0</span>]</div><div class="line">-------</div></pre></td></tr></table></figure>
+<h4 id="常用序列函数"><a href="#常用序列函数" class="headerlink" title="常用序列函数"></a>常用序列函数</h4><p> enumerate,for循环时记录索引,逐个返回元组(i, item)<br> sorted 返回新的有序列表, 区别:list中的sort()是就地排序<br> zip “压缩”将多个序列的对应位置的元素组成元组<br> zip(*元组列表) “解压缩”,zip的逆操作<br> reversed 逆序迭代,可配合list返回逆序列表<br><figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="comment">#enumerate</span></div><div class="line">lst_6 = [<span class="string">'Welcome'</span>, <span class="string">'to'</span>, <span class="string">'Python'</span>, <span class="string">'Data'</span>, <span class="string">'Analysis'</span>, <span class="string">'Course'</span>] <span class="comment"># (0, 'Welcome')</span></div><div class="line"><span class="keyword">for</span> i, item <span class="keyword">in</span> enumerate(lst_6):</div><div class="line">    <span class="keyword">print</span> <span class="string">'%i-%s'</span> %(i, item)</div><div class="line"></div><div class="line">---</div><div class="line"><span class="number">0</span>-Welcome</div><div class="line"><span class="number">1</span>-to</div><div class="line"><span class="number">2</span>-Python</div><div class="line"><span class="number">3</span>-Data</div><div class="line"><span class="number">4</span>-Analysis</div><div class="line"><span class="number">5</span>-Course</div><div class="line">---</div><div class="line"></div><div class="line">str_dict = dict((i, item) <span class="keyword">for</span> i, item <span class="keyword">in</span> enumerate(lst_6))</div><div class="line"><span class="keyword">print</span> str_dict</div><div class="line"><span class="comment">#&#123;0: 'Welcome', 1: 'to', 2: 'Python', 3: 'Data', 4: 'Analysis', 5: 'Course'&#125;</span></div><div class="line"></div><div class="line"><span class="comment">#sorted</span></div><div class="line"><span class="keyword">import</span> random</div><div class="line">lst_5 = range(<span class="number">10</span>)</div><div class="line">random.shuffle(lst_5)</div><div class="line"><span class="keyword">print</span> lst_5</div><div class="line"><span class="comment">#[6, 2, 7, 0, 1, 4, 8, 5, 3, 9]</span></div><div class="line"></div><div class="line"><span class="comment">#sorted</span></div><div class="line">lst_5_sorted = sorted(lst_5)</div><div class="line"><span class="keyword">print</span> lst_5 <span class="comment">#[6, 2, 7, 0, 1, 4, 8, 5, 3, 9]</span></div><div class="line"><span class="keyword">print</span> lst_5_sorted</div><div class="line"><span class="comment">#[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]</span></div><div class="line"></div><div class="line"><span class="comment">#zip 压缩  zip * 解压缩</span></div><div class="line">lst_6 = [<span class="string">'Welcome'</span>, <span class="string">'to'</span>, <span class="string">'Python'</span>, <span class="string">'Data'</span>, <span class="string">'Analysis'</span>, <span class="string">'Course'</span>]</div><div class="line">lst_7 = range(<span class="number">5</span>) <span class="comment">#[0, 1, 2, 3, 4]</span></div><div class="line">lst_8 = [<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>]</div><div class="line">zip_lst = zip(lst_6, lst_8, lst_7)</div><div class="line"><span class="keyword">print</span> zip_lst</div><div class="line"><span class="comment">#[('Welcome', 'a', 0), ('to', 'b', 1), ('Python', 'c', 2)]</span></div><div class="line"></div><div class="line">zip(*zip_lst)</div><div class="line"><span class="comment">#[('Welcome', 'to', 'Python'), ('a', 'b', 'c'), (0, 1, 2)]</span></div><div class="line"></div><div class="line"><span class="comment">#reversed 逆序迭代</span></div><div class="line">lst_6 = [<span class="string">'Welcome'</span>, <span class="string">'to'</span>, <span class="string">'Python'</span>, <span class="string">'Data'</span>, <span class="string">'Analysis'</span>, <span class="string">'Course'</span>]</div><div class="line">list(reversed(lst_6))</div><div class="line">[<span class="string">'Course'</span>, <span class="string">'Analysis'</span>, <span class="string">'Data'</span>, <span class="string">'Python'</span>, <span class="string">'to'</span>, <span class="string">'Welcome'</span>]</div></pre></td></tr></table></figure></p>
+<h4 id="字典-dict"><a href="#字典-dict" class="headerlink" title="字典 dict"></a>字典 dict</h4><p>• {key1:value1, key2:value2}<br>• 创建字典<br>• 插入元素<br>dict_variable[new_key] = new_value<br>•删除元素<br>del 或 pop<br>•获取键、值列表<br>keys(), values()<br>•合并字典<br>update()<br>• 通过多个列表创建字典<br>• 哪些可做“键”<br> 整数、浮点数、字符串或元组<br> 可“哈希”的对象, hash<br><figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="comment">#创建字典</span></div><div class="line">empty_dict = &#123;&#125;</div><div class="line">dict1 = &#123;<span class="string">'a'</span>: <span class="number">1</span>, <span class="number">2</span>: <span class="string">'b'</span>, <span class="string">'3'</span>: [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]&#125;</div><div class="line"><span class="keyword">print</span> empty_dict</div><div class="line"><span class="keyword">print</span> dict1</div><div class="line"><span class="comment">#&#123;&#125;</span></div><div class="line"><span class="comment">#&#123;'a': 1, 2: 'b', '3': [1, 2, 3]&#125;</span></div></pre></td></tr></table></figure></p>
+<h4 id="集合-set"><a href="#集合-set" class="headerlink" title="集合 set"></a>集合 set</h4><p>• 创建集合 {}<br>• 集合操作,交、并、差、异或<br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/public/16-12-8/71121182.jpg" alt=""><br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/public/16-12-8/29181824.jpg" alt=""></p>
+<h3 id="Python高级特性"><a href="#Python高级特性" class="headerlink" title="Python高级特性"></a>Python高级特性</h3><p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/public/16-12-8/30922110.jpg" alt=""></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line">%%timeit</div><div class="line"><span class="comment">#普通方法</span></div><div class="line">result1 = []</div><div class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">10000</span>):</div><div class="line">    <span class="keyword">if</span> i%<span class="number">2</span> == <span class="number">0</span>:</div><div class="line">        result1.append(i)</div><div class="line"><span class="comment">#1000 loops, best of 3: 854 µs per loop</span></div><div class="line"></div><div class="line">%%timeit</div><div class="line"><span class="comment">#列表推导式方法</span></div><div class="line">result2 = [i <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">10000</span>) <span class="keyword">if</span> i%<span class="number">2</span> == <span class="number">0</span>]</div><div class="line"><span class="comment">#1000 loops, best of 3: 627 µs per loop</span></div><div class="line"></div><div class="line">str_lst = [<span class="string">'Welcome'</span>, <span class="string">'to'</span>, <span class="string">'Python'</span>, <span class="string">'Data'</span>, <span class="string">'Analysis'</span>, <span class="string">'Course'</span>]</div><div class="line">result3 = [x.upper() <span class="keyword">for</span> x <span class="keyword">in</span> str_lst <span class="keyword">if</span> len(x) &gt; <span class="number">4</span>]</div><div class="line"><span class="keyword">print</span> result3</div><div class="line"><span class="comment">#['WELCOME', 'PYTHON', 'ANALYSIS', 'COURSE']</span></div><div class="line"></div><div class="line"><span class="comment">#字典推导式</span></div><div class="line">dict1 = &#123;key : value <span class="keyword">for</span> key, value <span class="keyword">in</span> enumerate(reversed(range(<span class="number">10</span>)))&#125;</div><div class="line"><span class="keyword">print</span> dict1</div><div class="line"><span class="comment">#&#123;0: 9, 1: 8, 2: 7, 3: 6, 4: 5, 5: 4, 6: 3, 7: 2, 8: 1, 9: 0&#125;</span></div><div class="line"></div><div class="line">set1 = &#123;i <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">10</span>)&#125;</div><div class="line"><span class="keyword">print</span> set1</div><div class="line"><span class="comment">#set([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])</span></div><div class="line"></div><div class="line"><span class="comment">#嵌套推导式</span></div><div class="line">lists = [range(<span class="number">10</span>), range(<span class="number">10</span>, <span class="number">20</span>)]</div><div class="line"><span class="keyword">print</span> lists</div><div class="line"><span class="comment">#[[0, 1, 2, 3, 4, 5, 6, 7, 8, 9], [10, 11, 12, 13, 14, 15, 16, 17, 18, 19]]</span></div><div class="line">evens = [item <span class="keyword">for</span> lst <span class="keyword">in</span> lists <span class="keyword">for</span> item <span class="keyword">in</span> lst <span class="keyword">if</span> item % <span class="number">2</span> == <span class="number">0</span>]</div><div class="line"><span class="keyword">print</span> evens</div><div class="line"><span class="comment">#[0, 2, 4, 6, 8, 10, 12, 14, 16, 18]</span></div></pre></td></tr></table></figure>
+<p>####函数列表<br>• Python中皆对象<br>• [fun1, fun2]<br><figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="comment"># 处理字符串</span></div><div class="line">str_lst = [<span class="string">'$1.123'</span>, <span class="string">' $1123.454'</span>, <span class="string">'$899.12312'</span>]</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">remove_space</span><span class="params">(str)</span>:</span></div><div class="line">    <span class="string">"""</span></div><div class="line">        remove space</div><div class="line">    """</div><div class="line">    str_no_space = str.replace(<span class="string">' '</span>, <span class="string">''</span>)</div><div class="line">    <span class="keyword">return</span> str_no_space</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">remove_dollar</span><span class="params">(str)</span>:</span></div><div class="line">    <span class="string">"""</span></div><div class="line">        remove $</div><div class="line">    """</div><div class="line">    <span class="keyword">if</span> <span class="string">'$'</span> <span class="keyword">in</span> str:</div><div class="line">        <span class="keyword">return</span> str.replace(<span class="string">'$'</span>, <span class="string">''</span>)</div><div class="line">    <span class="keyword">else</span>:</div><div class="line">        <span class="keyword">return</span> str</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">clean_str_lst</span><span class="params">(str_lst, operations)</span>:</span></div><div class="line">    <span class="string">"""</span></div><div class="line">        clean string list</div><div class="line">    """</div><div class="line">    result = []</div><div class="line">    <span class="keyword">for</span> item <span class="keyword">in</span> str_lst:</div><div class="line">        <span class="keyword">for</span> op <span class="keyword">in</span> operations:</div><div class="line">            item = op(item)</div><div class="line">        result.append(item)</div><div class="line">    <span class="keyword">return</span> result</div><div class="line"></div><div class="line">clean_operations = [remove_space, remove_dollar]</div><div class="line">result = clean_str_lst(str_lst, clean_operations)</div><div class="line"><span class="keyword">print</span> result</div><div class="line"><span class="comment">###['1.123', '1123.454', '899.12312']</span></div></pre></td></tr></table></figure></p>
+<h4 id="匿名函数-lambda"><a href="#匿名函数-lambda" class="headerlink" title="匿名函数 lambda"></a>匿名函数 lambda</h4><p>• 没有函数名<br>• 单条语句组成<br>• 语句执行的结果就是返回值<br>• 可用作sort的key函数<br><figure class="highlight python"><table><tr><td class="code"><pre><div class="line">f = <span class="keyword">lambda</span> x:x**<span class="number">2</span></div><div class="line">f(<span class="number">2</span>) <span class="comment">#4</span></div><div class="line"></div><div class="line">str_lst = [<span class="string">'Welcome'</span>, <span class="string">'to'</span>, <span class="string">'Python'</span>, <span class="string">'Data'</span>, <span class="string">'Analysis'</span>, <span class="string">'Course'</span>]</div><div class="line">str_lst.sort(key=<span class="keyword">lambda</span> x:len(x)) <span class="comment"># sort by length</span></div><div class="line"><span class="keyword">print</span> str_lst</div><div class="line"></div><div class="line">str_lst.sort(key=<span class="keyword">lambda</span> x:x[<span class="number">-1</span>]) <span class="comment"># sort by the last letter</span></div><div class="line"><span class="keyword">print</span> str_lst</div><div class="line"><span class="comment">#['to', 'Data', 'Python', 'Course', 'Welcome', 'Analysis']</span></div><div class="line"><span class="comment">#['Data', 'Course', 'Welcome', 'Python', 'to', 'Analysis']</span></div></pre></td></tr></table></figure></p>
+<h4 id="生成器-generator"><a href="#生成器-generator" class="headerlink" title="生成器 generator"></a>生成器 generator</h4><p>• 构造可迭代对象<br>• 每次返回一个值,直到下次调用时,再继续。区别:函数每次返回一个值<br>• yield<br><figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">gen_test</span><span class="params">()</span>:</span></div><div class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">3</span>):</div><div class="line">        <span class="keyword">yield</span> i</div><div class="line"></div><div class="line">gen = gen_test() <span class="comment">#此时不执行生成器</span></div><div class="line">type(gen)</div><div class="line"><span class="comment">#generator</span></div><div class="line"></div><div class="line"><span class="keyword">for</span> i <span class="keyword">in</span> gen: <span class="comment"># 直到迭代时才执行</span></div><div class="line">    <span class="keyword">print</span> i</div><div class="line"><span class="comment">#0</span></div><div class="line"><span class="comment">#1</span></div><div class="line"><span class="comment">#2</span></div></pre></td></tr></table></figure></p>
+<h3 id="Python高阶函数"><a href="#Python高阶函数" class="headerlink" title="Python高阶函数"></a>Python高阶函数</h3><p>函数式编程<br>• 函数本身可以赋值给变量。赋值后变量为函数<br>• 允许将函数本身作为参数传入另一个函数<br>• 允许返回一个函数<br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/public/16-12-8/97812245.jpg" alt=""></p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/public/16-12-8/58700309.jpg" alt=""></p>
+<p>map/reduce<br>• map(func, lst),将传入的函数变量func作用到lst变量的每个元素中,并将结果<br>组成新的列表返回<br>• reduce(func(x,y), lst),其中func必须有两个参数。每次func计算的结果继续<br>和序列的下一个元素做累积计算。<br> lst=[a1, a2, a3, …, an]<br> reduce(func(x,y), lst)<br>= func(func(func(a1, a2), a3), …, an)</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line">x_2 = [x**<span class="number">2</span> <span class="keyword">for</span> x <span class="keyword">in</span> range(<span class="number">10</span>)]</div><div class="line"><span class="keyword">print</span> x_2</div><div class="line"></div><div class="line">x_sqrt_lst = map(math.sqrt, x_2)</div><div class="line"><span class="keyword">print</span> x_sqrt_lst</div><div class="line"></div><div class="line">x_2_float_lst = map(float, x_2)</div><div class="line"><span class="keyword">print</span> x_2_float_lst</div><div class="line"></div><div class="line">x_2_str_lst = map(str, x_2)</div><div class="line"><span class="keyword">print</span> x_2_str_lst</div><div class="line"></div><div class="line">[<span class="number">0</span>, <span class="number">1</span>, <span class="number">4</span>, <span class="number">9</span>, <span class="number">16</span>, <span class="number">25</span>, <span class="number">36</span>, <span class="number">49</span>, <span class="number">64</span>, <span class="number">81</span>]</div><div class="line">[<span class="number">0.0</span>, <span class="number">1.0</span>, <span class="number">2.0</span>, <span class="number">3.0</span>, <span class="number">4.0</span>, <span class="number">5.0</span>, <span class="number">6.0</span>, <span class="number">7.0</span>, <span class="number">8.0</span>, <span class="number">9.0</span>]</div><div class="line">[<span class="number">0.0</span>, <span class="number">1.0</span>, <span class="number">4.0</span>, <span class="number">9.0</span>, <span class="number">16.0</span>, <span class="number">25.0</span>, <span class="number">36.0</span>, <span class="number">49.0</span>, <span class="number">64.0</span>, <span class="number">81.0</span>]</div><div class="line">[<span class="string">'0'</span>, <span class="string">'1'</span>, <span class="string">'4'</span>, <span class="string">'9'</span>, <span class="string">'16'</span>, <span class="string">'25'</span>, <span class="string">'36'</span>, <span class="string">'49'</span>, <span class="string">'64'</span>, <span class="string">'81'</span>]</div><div class="line"></div><div class="line"></div><div class="line">str_lst = map(str, range(<span class="number">5</span>)) <span class="comment"># ['0', '1', ...]</span></div><div class="line"><span class="keyword">print</span> str_lst</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">make_num</span><span class="params">(str1, str2)</span>:</span></div><div class="line">    <span class="keyword">return</span> int(str1) * <span class="number">10</span> + int(str2)</div><div class="line"></div><div class="line">result = reduce(make_num, str_lst)</div><div class="line"><span class="keyword">print</span> result</div><div class="line"><span class="comment">#['0', '1', '2', '3', '4']</span></div><div class="line"><span class="comment">#1234</span></div></pre></td></tr></table></figure>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/public/16-12-8/52478868.jpg" alt=""></p>
+<p>filter<br>• 筛选序列<br>• filter(func, lst),将func作用于lst的每个元素,然后根据返回值是<br>True或False判断是保留还是丢弃该元素。<br>map,reduce和filter中的函数变量均可以是匿名函数</p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/public/16-12-8/4212987.jpg" alt=""></p>
+<h4 id="map-reduce-filter-与匿名函数"><a href="#map-reduce-filter-与匿名函数" class="headerlink" title="map reduce filter 与匿名函数"></a>map reduce filter 与匿名函数</h4><p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/public/16-12-8/23734432.jpg" alt=""></p>
+
+                <hr>
+                
+                <!-- 多说 Share start -->
+                <div class="ds-share"
+                     style="text-align: right"
+                     data-thread-key="2016/12/09/数据分析：python数据结构/"
+                     data-title="数据分析：python数据结构"
+                     data-url="http://yoursite.com/2016/12/09/数据分析：python数据结构/"
+                     data-images=""
+                     data-content="摘要：
+
+数据分析基本步骤
+Python语言基础回顾
+Python数据结构讲解
+Python高... | Haozhe&#39;s blog ">
+                    <div class="ds-share-inline">
+                        <ul class="ds-share-icons-16">
+                            <li data-toggle="ds-share-icons-more"><a class="ds-more" href="#">分享到：</a></li>
+                            <li><a class="ds-wechat flat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+                            <li><a class="ds-weibo flat" href="javascript:void(0);" data-service="weibo">微博</a></li>
+                            <li><a class="ds-douban flat" href="javascript:void(0);" data-service="douban">豆瓣</a></li>
+                        </ul>
+                        <div class="ds-share-icons-more">
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+                <!-- 多说 Share end-->
+                
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2016/12/09/数据分析：科学计算及数据可视化入门/" data-toggle="tooltip" data-placement="top"
+                           title="数据分析：科学计算及数据可视化入门">&larr; Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2016/11/21/局部加权回归和逻辑回归/" data-toggle="tooltip" data-placement="top"
+                           title="局部加权回归和逻辑回归">Next Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+                <!-- 多说评论框 start -->
+                <div class="comment">
+                    <div class="ds-thread"
+                         data-thread-key="2016/12/09/数据分析：python数据结构/"
+                         data-title="数据分析：python数据结构"
+                         data-url="http://yoursite.com/2016/12/09/数据分析：python数据结构/">
+                    </div>
+                </div>
+                <!-- 多说评论框 end -->
+                
+
+                
+
+            </div>
+
+            <div class="hidden-xs col-sm-3 toc-col">
+                <div class="toc-wrap">
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#基本步骤"><span class="toc-text">基本步骤</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Python-2-Python-3-编码"><span class="toc-text">Python 2 Python 3 编码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#IPython基础"><span class="toc-text">IPython基础</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Python基础"><span class="toc-text">Python基础</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#时间和日期"><span class="toc-text">时间和日期</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#异常"><span class="toc-text">异常</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#range-和-xrange"><span class="toc-text">range 和 xrange</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#关于Python中的引用"><span class="toc-text">关于Python中的引用</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#浅拷贝-copy-和深拷贝-deepcopy"><span class="toc-text">浅拷贝(copy)和深拷贝(deepcopy)</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Python数据结构"><span class="toc-text">Python数据结构</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#元组-tuple"><span class="toc-text">元组 tuple</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#列表-list"><span class="toc-text">列表 list</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#常用序列函数"><span class="toc-text">常用序列函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#字典-dict"><span class="toc-text">字典 dict</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#集合-set"><span class="toc-text">集合 set</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Python高级特性"><span class="toc-text">Python高级特性</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#匿名函数-lambda"><span class="toc-text">匿名函数 lambda</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#生成器-generator"><span class="toc-text">生成器 generator</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Python高阶函数"><span class="toc-text">Python高阶函数</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#map-reduce-filter-与匿名函数"><span class="toc-text">map reduce filter 与匿名函数</span></a></li></ol></li></ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5 class="text-center">
+                        <a href="/tags/">FEATURED TAGS</a>
+                    </h5>
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#基于Kaggle案例Python数据分析"
+                           title="基于Kaggle案例Python数据分析">基于Kaggle案例Python数据分析</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <div style="margin-top: 20px;">
+                    <h5 class="text-center">FRIENDS</h5>
+                    <ul class="list-inline text-center">
+                        
+                        <li><a href="http://www.hankcs.com/">hankcs</a></li>
+                        
+                        <li><a href="http://www.lintcode.com/zh-cn/ladder/2/">lintcode</a></li>
+                        
+                        <li><a href="http://www.jiuzhang.com/solutions/">jiuzhang</a></li>
+                        
+                    </ul>
+                </div>
+                
+            </div>
+        </div>
+
+    </div>
+</article>
+
+
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    // dynamic User by Hux
+    var _user = 'xuehaozhe';
+
+    // duoshuo comment query.
+    var duoshuoQuery = {short_name: _user};
+    (function () {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';
+        ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0]
+        || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+</script>
+<!-- 多说公共JS代码 end -->
+
+
+
+
+
+<!-- Footer -->
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <br>
+                <ul class="list-inline text-center">
+                
+                
+                    <li>
+                        <a target="_blank" href="https://twitter.com/xuehaozhe">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/xuehaozhe0526">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="http://weibo.com/fendoujianchi">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/xuehanzhe0526">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Haozhe 2017
+                    <br>
+                    <span id="busuanzi_container_site_pv" style="font-size: 12px;">PV: <span id="busuanzi_value_site_pv"></span> Times</span>
+                    <br>
+                    Theme by <a href="https://haojen.github.io/">Haojen Ma</a>
+                </p>
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/blog.js"></script>
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://yoursite.com/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+
+
+<!-- swiftype -->
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','null','2.0.0');
+</script>
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<!--wechat title img-->
+<img class="wechat-title-img" src="http://7xrw7v.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160402220553.png">
+</body>
+
+</html>

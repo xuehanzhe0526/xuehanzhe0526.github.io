@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="What hurts more,the pain of hard work or the pain of regret.">
+    <meta name="keyword" content="null">
+    <meta name="theme-color" content="#600090">
+    <meta name="msapplication-navbutton-color" content="#600090">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#600090">
+    <link rel="shortcut icon" href="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-person-128.png">
+    <link rel="alternate" type="application/atom+xml" title="Haozhe" href="/atom.xml">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
+    <title>
+        
+        线性回归（python实现）｜Haozhe&#39;s blog
+        
+    </title>
+
+    <link rel="canonical" href="http://yoursite.com/2016/11/21/线性回归（python实现）/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/blog-style.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+</head>
+
+<style>
+
+    header.intro-header {
+        background-image: url('http://7xrw7v.com1.z0.glb.clouddn.com/1485527729222.jpg')
+    }
+</style>
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="" class="animated fadeIn">
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost = "true" data-istags="false
+" data-ishome = "false" >
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand animated pulse" href="/">
+                <span class="brand-logo">
+                    Haozhe
+                </span>
+                's Blog
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <!-- /.navbar-collapse -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+					
+                    
+                        
+							
+                        <li>
+                            <a href="/tags/">tags</a>
+                        </li>
+							
+						
+                    
+					
+					
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+//    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+<!-- Main Content -->
+
+<!--only post-->
+
+
+<img class="wechat-title-img"
+     src="http://7xrw7v.com1.z0.glb.clouddn.com/148552521631.jpg#博文默认的图片">
+
+
+<style>
+    
+    header.intro-header {
+        background-image: url('http://7xrw7v.com1.z0.glb.clouddn.com/148552521631.jpg#博文默认的图片')
+    }
+
+    
+</style>
+
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <div class="post-heading">
+                    <h1>线性回归（python实现）</h1>
+                    
+                    <span class="meta">
+                         作者 Haozhe Xue
+                        <span>
+                          日期 2016-11-21
+                         </span>
+                    </span>
+                    <div class="tags text-center">
+                        
+                        <a class="tag" href="/tags/#邹博机器学习"
+                           title="邹博机器学习">邹博机器学习</a>
+                        
+                        <a class="tag" href="/tags/#机器学习算法"
+                           title="机器学习算法">机器学习算法</a>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="post-title-haojen">
+        <span>
+            线性回归（python实现）
+        </span>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <!-- Post Container -->
+            <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
+                <p>摘要：</p>
+<ul>
+<li>线性回归</li>
+<li>最小二乘</li>
+<li>向量的导数</li>
+<li>交叉验证</li>
+<li>梯度下降算法</li>
+<li>案例及代码</li>
+</ul>
+<a id="more"></a>
+<h3 id="线性回归"><a href="#线性回归" class="headerlink" title="线性回归"></a>线性回归</h3><p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/b3e563c3330a96c2a24462f58a1c175c.png" alt=""></p>
+<h4 id="最小二乘"><a href="#最小二乘" class="headerlink" title="最小二乘"></a>最小二乘</h4><blockquote>
+<p>均方误差 是回归任务中 最常用的性能度量<br>基于均分误差（几何意义：欧式距离）最小化 来进行模型求解的方法成为“最小二乘法”<br>线性回归中 最小二乘法就是找到一条直线 使得所有的样本到直线上的欧式距离之和最小</p>
+</blockquote>
+<h4 id="使用极大似然估计解释最小二乘"><a href="#使用极大似然估计解释最小二乘" class="headerlink" title="使用极大似然估计解释最小二乘"></a>使用极大似然估计解释最小二乘</h4><p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/150cabed56c3d4e26219fe75e55d6636.png" alt=""></p>
+<h4 id="似然函数"><a href="#似然函数" class="headerlink" title="似然函数"></a>似然函数</h4><p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/c4515e6972b16097aafe1635b3103a47.png" alt=""></p>
+<h4 id="对数似然与最小二乘"><a href="#对数似然与最小二乘" class="headerlink" title="对数似然与最小二乘"></a>对数似然与最小二乘</h4><p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/09fd00f999a4238068592e50fa722016.png" alt=""></p>
+<h4 id="θ的解析式的求解过程"><a href="#θ的解析式的求解过程" class="headerlink" title="θ的解析式的求解过程"></a>θ的解析式的求解过程</h4><p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/e632d2ff01b16787ffd56b095bfea8d7.png" alt=""></p>
+<h5 id="向量的倒数"><a href="#向量的倒数" class="headerlink" title="向量的倒数"></a>向量的倒数</h5><p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/70c1c52339beb8611ef87f814e6ae9d3.png" alt=""><br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/c25bf674ce0ba84b694479c171203fa9.png" alt=""><br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/f88e94b455cc55661bbdf6ee7c5cc9d4.png" alt=""></p>
+<h4 id="最小二乘意义下的参数最优解"><a href="#最小二乘意义下的参数最优解" class="headerlink" title="最小二乘意义下的参数最优解"></a>最小二乘意义下的参数最优解</h4><p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/7b330fdbc6e74425b2775a2af9773884.png" alt=""></p>
+<h5 id="加入λ扰动后"><a href="#加入λ扰动后" class="headerlink" title="加入λ扰动后"></a>加入λ扰动后</h5><p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/7ff273cacf894eb1f2a538c81706c2d9.png" alt=""></p>
+<h5 id="线性回归的复杂度惩罚因子"><a href="#线性回归的复杂度惩罚因子" class="headerlink" title="线性回归的复杂度惩罚因子"></a>线性回归的复杂度惩罚因子</h5><p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/09bc836bc8fea4a0996804a102657cb0.png" alt=""></p>
+<h5 id="L1-norm如何处理梯度"><a href="#L1-norm如何处理梯度" class="headerlink" title="L1-norm如何处理梯度"></a>L1-norm如何处理梯度</h5><p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/12256eda1cf73580070ab599a4f8ac75.png" alt=""></p>
+<h3 id="交叉验证"><a href="#交叉验证" class="headerlink" title="交叉验证"></a>交叉验证</h3><p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/ac1498a486060ac41fe8de1a2b49c95f.png" alt=""></p>
+<h3 id="梯度下降算法"><a href="#梯度下降算法" class="headerlink" title="梯度下降算法"></a>梯度下降算法</h3><p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/be1e1504eb3e31f49acf04ab2dbfff32.png" alt=""></p>
+<h4 id="梯度方向"><a href="#梯度方向" class="headerlink" title="梯度方向"></a>梯度方向</h4><p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/5f96d1a4653dfaf83fdd7a8ffe78b883.png" alt=""></p>
+<h4 id="批量梯度下降算法"><a href="#批量梯度下降算法" class="headerlink" title="批量梯度下降算法"></a>批量梯度下降算法</h4><p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/2a0d9894442c38c14f940b68eafd177c.png" alt=""></p>
+<h4 id="随机梯度算法"><a href="#随机梯度算法" class="headerlink" title="随机梯度算法"></a>随机梯度算法</h4><p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/bf0132a1b9ee60eee3de1a4f602e172e.png" alt=""></p>
+<h4 id="折中-mini-batch"><a href="#折中-mini-batch" class="headerlink" title="折中:mini-batch"></a>折中:mini-batch</h4><p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/1f2a402af30452c41be15ac7ee37adad.png" alt=""></p>
+<h3 id="代码案例"><a href="#代码案例" class="headerlink" title="代码案例"></a>代码案例</h3><h4 id="数据集"><a href="#数据集" class="headerlink" title="数据集"></a>数据集</h4><p><code>8.Advertising.csv</code><br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/901c22e11dae04eb21232aef358f0b34.png" alt=""></p>
+<p>代码：<br><figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="comment">#!/usr/bin/python</span></div><div class="line"><span class="comment"># -*- coding:utf-8 -*-</span></div><div class="line"></div><div class="line"><span class="keyword">import</span> csv</div><div class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</div><div class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</div><div class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</div><div class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> train_test_split</div><div class="line"><span class="keyword">from</span> sklearn.linear_model <span class="keyword">import</span> LinearRegression</div><div class="line"></div><div class="line"></div><div class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</div><div class="line">    path = <span class="string">'8.Advertising.csv'</span></div><div class="line">    <span class="comment">### 读入数据</span></div><div class="line">    <span class="string">"""</span></div><div class="line">    第一种：手写读取数据</div><div class="line">    """</div><div class="line">    <span class="comment"># f = file(path)</span></div><div class="line">    <span class="comment"># x = []</span></div><div class="line">    <span class="comment"># y = []</span></div><div class="line">    <span class="comment"># for i, d in enumerate(f):</span></div><div class="line">    <span class="comment">#     if i == 0:</span></div><div class="line">    <span class="comment">#         continue #略过第一行数据</span></div><div class="line">    <span class="comment">#     d = d.strip()# 去掉数据每行的 换行或者tab空格等</span></div><div class="line">    <span class="comment">#     if not d:</span></div><div class="line">    <span class="comment">#         continue</span></div><div class="line">    <span class="comment">#     d = map(float,d.split(','))</span></div><div class="line">    <span class="comment">#     x.append(d[1:-1])</span></div><div class="line">    <span class="comment">#     y.append(d[-1])</span></div><div class="line">    <span class="comment"># # print x</span></div><div class="line">    <span class="comment"># # print y</span></div><div class="line">    <span class="comment"># x = np.array(x)</span></div><div class="line">    <span class="comment"># y = np.array(y)</span></div><div class="line">    <span class="comment"># print x</span></div><div class="line">    <span class="comment"># print y</span></div><div class="line"></div><div class="line">    <span class="string">"""</span></div><div class="line">    第二种：python自带库</div><div class="line">    import csv</div><div class="line">    """</div><div class="line">    <span class="comment"># f = file(path)</span></div><div class="line">    <span class="comment"># print f</span></div><div class="line">    <span class="comment"># d = csv.reader(f)</span></div><div class="line">    <span class="comment"># for line in d:</span></div><div class="line">    <span class="comment">#     print line</span></div><div class="line">    <span class="comment"># f.close()</span></div><div class="line"></div><div class="line">    <span class="string">"""</span></div><div class="line">    第三种： numpy 读入</div><div class="line">    """</div><div class="line">    <span class="comment"># p = np.loadtxt(path,delimiter=',', skiprows=1)</span></div><div class="line">    <span class="comment"># print p</span></div><div class="line"></div><div class="line">    <span class="string">"""</span></div><div class="line">    第四种：pandas 读入</div><div class="line">    """</div><div class="line">    data = pd.read_csv(path)</div><div class="line">    x = data[[<span class="string">'TV'</span>, <span class="string">'Radio'</span>, <span class="string">'Newspaper'</span>]]</div><div class="line">    <span class="comment"># x = data[['TV', 'Radio']]</span></div><div class="line">    y = data[<span class="string">'Sales'</span>]</div><div class="line">    <span class="comment"># print x</span></div><div class="line">    <span class="comment"># print y</span></div><div class="line">    <span class="string">"""</span></div><div class="line">            TV  Radio  Newspaper</div><div class="line">0    230.1   37.8       69.2</div><div class="line">1     44.5   39.3       45.1</div><div class="line">2     17.2   45.9       69.3</div><div class="line">3    151.5   41.3       58.5</div><div class="line"></div><div class="line">0      22.1</div><div class="line">1      10.4</div><div class="line">2       9.3</div><div class="line">3      18.5</div><div class="line">    """</div><div class="line"></div><div class="line">    <span class="comment">### 绘图</span></div><div class="line">    <span class="string">"""</span></div><div class="line">    第一种</div><div class="line">    """</div><div class="line">    <span class="comment"># plt.plot(data['TV'],y, 'ro', label = 'TV')</span></div><div class="line">    <span class="comment"># plt.plot(data['Radio'], y, 'g^', label='Radio')</span></div><div class="line">    <span class="comment"># plt.plot(data['Newspaper'], y, 'mv', label='Newspaer')</span></div><div class="line">    <span class="comment"># plt.legend(loc='lower right')</span></div><div class="line">    <span class="comment"># plt.grid()</span></div><div class="line">    <span class="comment"># plt.show()</span></div><div class="line"></div><div class="line">    <span class="string">"""</span></div><div class="line">    第二种</div><div class="line">    """</div><div class="line">    plt.figure(figsize=(<span class="number">9</span>,<span class="number">12</span>))</div><div class="line">    plt.subplot(<span class="number">311</span>)</div><div class="line">    plt.plot(data[<span class="string">'TV'</span>], y, <span class="string">'ro'</span>)</div><div class="line">    plt.title(<span class="string">'TV'</span>)</div><div class="line">    plt.grid()</div><div class="line">    plt.subplot(<span class="number">312</span>)</div><div class="line">    plt.plot(data[<span class="string">'Radio'</span>], y, <span class="string">'g^'</span>)</div><div class="line">    plt.title(<span class="string">'Radio'</span>)</div><div class="line">    plt.grid()</div><div class="line">    plt.subplot(<span class="number">313</span>)</div><div class="line">    plt.plot(data[<span class="string">'Newspaper'</span>], y, <span class="string">'b*'</span>)</div><div class="line">    plt.title(<span class="string">'Newspaper'</span>)</div><div class="line">    plt.grid()</div><div class="line">    plt.tight_layout()</div><div class="line">    plt.show()</div><div class="line"></div><div class="line">    <span class="string">"""</span></div><div class="line">    从图中可以发现 第三个特征 Newspaper 相关性较弱  所以我们可以考虑是否看下去掉这个特征</div><div class="line">    """</div><div class="line"></div><div class="line">    <span class="comment">## 将数据分为 训练集 和测试集</span></div><div class="line">    x_train, x_test, y_train, y_test = train_test_split(x,y, random_state= <span class="number">1</span>)</div><div class="line">    <span class="string">"""</span></div><div class="line">    random_state是随机数的种子。不同的种子会造成不同的随机采样结果。</div><div class="line">    """</div><div class="line">    <span class="comment">#print x_train, y_train</span></div><div class="line">    linreg = LinearRegression()</div><div class="line">    model = linreg.fit(x_train, y_train)</div><div class="line">    <span class="keyword">print</span> model</div><div class="line">    <span class="keyword">print</span> linreg.coef_ <span class="comment"># 系数</span></div><div class="line">    <span class="keyword">print</span> linreg.intercept_ <span class="comment">#截距</span></div><div class="line">    <span class="string">"""</span></div><div class="line">    LinearRegression(copy_X=True, fit_intercept=True, n_jobs=1, normalize=False)</div><div class="line">    [ 0.04656457  0.17915812  0.00345046]</div><div class="line">    2.87696662232</div><div class="line">    """</div><div class="line">    y_hat = linreg.predict(np.array(x_test)) <span class="comment"># 预测值</span></div><div class="line">    mse = np.average((y_hat - np.array(y_test)) ** <span class="number">2</span>) <span class="comment">##均方误差  Mean Squared Error</span></div><div class="line">    rmse = np.sqrt(mse) <span class="comment"># Root Mean Squared Error</span></div><div class="line">    <span class="keyword">print</span> mse, rmse</div><div class="line">    <span class="string">"""</span></div><div class="line">    1.97304562023</div><div class="line">    1.40465142303</div><div class="line">    """</div><div class="line"></div><div class="line">    <span class="comment">### 画出测试集 和预测值的图形</span></div><div class="line">    t = np.arange(len(x_test))</div><div class="line">    <span class="comment"># print t</span></div><div class="line">    <span class="string">"""</span></div><div class="line">    默认 25% 的数据 用于测试集</div><div class="line">    [ 0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24</div><div class="line">    25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49]</div><div class="line">    """</div><div class="line">    plt.plot(t, y_test,<span class="string">'r-'</span>, linewidth = <span class="number">2</span>, label=<span class="string">'Test'</span>)</div><div class="line">    plt.plot(t, y_hat, <span class="string">'g-'</span>, linewidth=<span class="number">2</span>, label=<span class="string">'Predict'</span>)</div><div class="line">    plt.legend(loc=<span class="string">'upper right'</span>)</div><div class="line">    plt.grid()</div><div class="line">    plt.show()</div></pre></td></tr></table></figure></p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/b3956ac49f261e6f36a71238e1f77af6.png" alt=""><br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/9f4356dafeef13b8e803ad4338b60048.png" alt=""></p>
+<h3 id="正则化后的代码（Lasso，Ridge）"><a href="#正则化后的代码（Lasso，Ridge）" class="headerlink" title="正则化后的代码（Lasso，Ridge）"></a>正则化后的代码（Lasso，Ridge）</h3><figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="comment">#!/usr/bin/python</span></div><div class="line"><span class="comment"># -*- coding:utf-8 -*-</span></div><div class="line"></div><div class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</div><div class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</div><div class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</div><div class="line"></div><div class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> train_test_split</div><div class="line"><span class="keyword">from</span> sklearn.linear_model <span class="keyword">import</span> Lasso, Ridge</div><div class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> GridSearchCV</div><div class="line"></div><div class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</div><div class="line"></div><div class="line">    <span class="comment">### pandas 读入数据</span></div><div class="line">    data = pd.read_csv(<span class="string">'8.Advertising.csv'</span>)</div><div class="line">    x = data[[<span class="string">'TV'</span>, <span class="string">'Radio'</span>, <span class="string">'Newspaper'</span>]]</div><div class="line">    <span class="comment"># x = data[['TV', 'Radio']]</span></div><div class="line">    y = data[<span class="string">'Sales'</span>]</div><div class="line">    <span class="comment"># print x</span></div><div class="line">    <span class="comment"># print y</span></div><div class="line"></div><div class="line">    x_train, x_test, y_train, y_test = train_test_split(x, y, random_state=<span class="number">1</span>)</div><div class="line">    model = Lasso()</div><div class="line">    model_1 = Ridge()</div><div class="line"></div><div class="line">    alpha_can = np.logspace(<span class="number">-3</span>,<span class="number">2</span>,<span class="number">10</span>)</div><div class="line">    <span class="comment">#print alpha_can</span></div><div class="line">    <span class="string">"""</span></div><div class="line">    入 参数的选择</div><div class="line">    [  1.00000000e-03   3.59381366e-03   1.29154967e-02   4.64158883e-02</div><div class="line">   1.66810054e-01   5.99484250e-01   2.15443469e+00   7.74263683e+00</div><div class="line">   2.78255940e+01   1.00000000e+02]</div><div class="line">    """</div><div class="line">    <span class="comment"># 交叉验证 （这里是5折）</span></div><div class="line">    lasso_mode1 = GridSearchCV(model,param_grid=&#123;<span class="string">'alpha'</span>:alpha_can&#125;,cv=<span class="number">5</span>)</div><div class="line">    ridge_mode1 = GridSearchCV(model_1, param_grid=&#123;<span class="string">'alpha'</span>: alpha_can&#125;, cv=<span class="number">5</span>)</div><div class="line"></div><div class="line">    lasso_mode1.fit(x_train, y_train)</div><div class="line">    ridge_mode1.fit(x_train, y_train)</div><div class="line"></div><div class="line">    <span class="keyword">print</span> <span class="string">u'lasso超参数：\n'</span>,lasso_mode1.best_params_</div><div class="line">    <span class="keyword">print</span> <span class="string">u'ridge超参数：\n'</span>, ridge_mode1.best_params_</div><div class="line">    <span class="string">"""</span></div><div class="line">    lasso超参数：</div><div class="line">    &#123;'alpha': 0.59948425031894093&#125;</div><div class="line">    ridge超参数：</div><div class="line">    &#123;'alpha': 0.001&#125;</div><div class="line">    """</div><div class="line"></div><div class="line">    y_hat = lasso_mode1.predict(np.array(x_test))</div><div class="line">    y_hat1 = ridge_mode1.predict(np.array(x_test))</div><div class="line"></div><div class="line">    <span class="keyword">print</span> <span class="string">u'lasso模型得分：\n'</span>,lasso_mode1.score(x_test,y_test)</div><div class="line">    <span class="keyword">print</span> <span class="string">u'ridge模型得分：\n'</span>, ridge_mode1.score(x_test, y_test)</div><div class="line">    <span class="string">"""</span></div><div class="line">    lasso模型得分：</div><div class="line">    0.914773478474</div><div class="line">    ridge模型得分：</div><div class="line">    0.915621357512</div><div class="line">    """</div><div class="line">    mse1 = np.average((y_hat - np.array(y_test)) ** <span class="number">2</span>)  <span class="comment">##均方误差  Mean Squared Error</span></div><div class="line">    rmse1 = np.sqrt(mse1)  <span class="comment"># Root Mean Squared Error</span></div><div class="line">    <span class="keyword">print</span> mse1, rmse1</div><div class="line"></div><div class="line">    mse2 = np.average((y_hat1 - np.array(y_test)) ** <span class="number">2</span>)  <span class="comment">##均方误差  Mean Squared Error</span></div><div class="line">    rmse2 = np.sqrt(mse2)  <span class="comment"># Root Mean Squared Error</span></div><div class="line">    <span class="keyword">print</span> mse2, rmse2</div><div class="line">    <span class="string">"""</span></div><div class="line">    1.99287186631 1.41169113701</div><div class="line">    1.97304571066 1.40465145522</div><div class="line">    """</div><div class="line"></div><div class="line">    t = np.arange(len(x_test))</div><div class="line">    plt.plot(t, y_test, <span class="string">'r-'</span>, linewidth=<span class="number">2</span>, label=<span class="string">'Test'</span>)</div><div class="line">    plt.plot(t, y_hat, <span class="string">'g-'</span>, linewidth=<span class="number">2</span>, label=<span class="string">'lasso Predict'</span>)</div><div class="line">    plt.legend(loc=<span class="string">'upper right'</span>)</div><div class="line">    plt.grid()</div><div class="line">    plt.show()</div><div class="line"></div><div class="line">    t = np.arange(len(x_test))</div><div class="line">    plt.plot(t, y_test, <span class="string">'r-'</span>, linewidth=<span class="number">2</span>, label=<span class="string">'Test'</span>)</div><div class="line">    plt.plot(t, y_hat1, <span class="string">'g-'</span>, linewidth=<span class="number">2</span>, label=<span class="string">'ridge Predict'</span>)</div><div class="line">    plt.legend(loc=<span class="string">'upper right'</span>)</div><div class="line">    plt.grid()</div><div class="line">    plt.show()</div></pre></td></tr></table></figure>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/4dd4d7217767c99dcf4f466a6969dd47.png" alt=""></p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/c7e5863c38233acfb612cba588b694af.png" alt=""></p>
+
+                <hr>
+                
+                <!-- 多说 Share start -->
+                <div class="ds-share"
+                     style="text-align: right"
+                     data-thread-key="2016/11/21/线性回归（python实现）/"
+                     data-title="线性回归（python实现）"
+                     data-url="http://yoursite.com/2016/11/21/线性回归（python实现）/"
+                     data-images=""
+                     data-content="摘要：
+
+线性回归
+最小二乘
+向量的导数
+交叉验证
+梯度下降算法
+案例及代码
+
+
+线性回归
+最... | Haozhe&#39;s blog ">
+                    <div class="ds-share-inline">
+                        <ul class="ds-share-icons-16">
+                            <li data-toggle="ds-share-icons-more"><a class="ds-more" href="#">分享到：</a></li>
+                            <li><a class="ds-wechat flat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+                            <li><a class="ds-weibo flat" href="javascript:void(0);" data-service="weibo">微博</a></li>
+                            <li><a class="ds-douban flat" href="javascript:void(0);" data-service="douban">豆瓣</a></li>
+                        </ul>
+                        <div class="ds-share-icons-more">
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+                <!-- 多说 Share end-->
+                
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2016/11/21/局部加权回归和逻辑回归/" data-toggle="tooltip" data-placement="top"
+                           title="局部加权回归和逻辑回归">&larr; Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2016/11/18/协同过滤案例/" data-toggle="tooltip" data-placement="top"
+                           title="协同过滤案例">Next Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+                <!-- 多说评论框 start -->
+                <div class="comment">
+                    <div class="ds-thread"
+                         data-thread-key="2016/11/21/线性回归（python实现）/"
+                         data-title="线性回归（python实现）"
+                         data-url="http://yoursite.com/2016/11/21/线性回归（python实现）/">
+                    </div>
+                </div>
+                <!-- 多说评论框 end -->
+                
+
+                
+
+            </div>
+
+            <div class="hidden-xs col-sm-3 toc-col">
+                <div class="toc-wrap">
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#线性回归"><span class="toc-text">线性回归</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#最小二乘"><span class="toc-text">最小二乘</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#使用极大似然估计解释最小二乘"><span class="toc-text">使用极大似然估计解释最小二乘</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#似然函数"><span class="toc-text">似然函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#对数似然与最小二乘"><span class="toc-text">对数似然与最小二乘</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#θ的解析式的求解过程"><span class="toc-text">θ的解析式的求解过程</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#向量的倒数"><span class="toc-text">向量的倒数</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#最小二乘意义下的参数最优解"><span class="toc-text">最小二乘意义下的参数最优解</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#加入λ扰动后"><span class="toc-text">加入λ扰动后</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#线性回归的复杂度惩罚因子"><span class="toc-text">线性回归的复杂度惩罚因子</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#L1-norm如何处理梯度"><span class="toc-text">L1-norm如何处理梯度</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#交叉验证"><span class="toc-text">交叉验证</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#梯度下降算法"><span class="toc-text">梯度下降算法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#梯度方向"><span class="toc-text">梯度方向</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#批量梯度下降算法"><span class="toc-text">批量梯度下降算法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#随机梯度算法"><span class="toc-text">随机梯度算法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#折中-mini-batch"><span class="toc-text">折中:mini-batch</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#代码案例"><span class="toc-text">代码案例</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#数据集"><span class="toc-text">数据集</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#正则化后的代码（Lasso，Ridge）"><span class="toc-text">正则化后的代码（Lasso，Ridge）</span></a></li></ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5 class="text-center">
+                        <a href="/tags/">FEATURED TAGS</a>
+                    </h5>
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#邹博机器学习"
+                           title="邹博机器学习">邹博机器学习</a>
+                        
+                        <a class="tag" href="/tags/#机器学习算法"
+                           title="机器学习算法">机器学习算法</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <div style="margin-top: 20px;">
+                    <h5 class="text-center">FRIENDS</h5>
+                    <ul class="list-inline text-center">
+                        
+                        <li><a href="http://www.hankcs.com/">hankcs</a></li>
+                        
+                        <li><a href="http://www.lintcode.com/zh-cn/ladder/2/">lintcode</a></li>
+                        
+                        <li><a href="http://www.jiuzhang.com/solutions/">jiuzhang</a></li>
+                        
+                    </ul>
+                </div>
+                
+            </div>
+        </div>
+
+    </div>
+</article>
+
+
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    // dynamic User by Hux
+    var _user = 'xuehaozhe';
+
+    // duoshuo comment query.
+    var duoshuoQuery = {short_name: _user};
+    (function () {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';
+        ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0]
+        || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+</script>
+<!-- 多说公共JS代码 end -->
+
+
+
+
+
+<!-- Footer -->
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <br>
+                <ul class="list-inline text-center">
+                
+                
+                    <li>
+                        <a target="_blank" href="https://twitter.com/xuehaozhe">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/xuehaozhe0526">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="http://weibo.com/fendoujianchi">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/xuehanzhe0526">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Haozhe 2017
+                    <br>
+                    <span id="busuanzi_container_site_pv" style="font-size: 12px;">PV: <span id="busuanzi_value_site_pv"></span> Times</span>
+                    <br>
+                    Theme by <a href="https://haojen.github.io/">Haojen Ma</a>
+                </p>
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/blog.js"></script>
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://yoursite.com/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+
+
+<!-- swiftype -->
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','null','2.0.0');
+</script>
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<!--wechat title img-->
+<img class="wechat-title-img" src="http://7xrw7v.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160402220553.png">
+</body>
+
+</html>

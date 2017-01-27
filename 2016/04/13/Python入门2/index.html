@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="What hurts more,the pain of hard work or the pain of regret.">
+    <meta name="keyword" content="null">
+    <meta name="theme-color" content="#600090">
+    <meta name="msapplication-navbutton-color" content="#600090">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#600090">
+    <link rel="shortcut icon" href="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-person-128.png">
+    <link rel="alternate" type="application/atom+xml" title="Haozhe" href="/atom.xml">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
+    <title>
+        
+        python入门 (二)(转载)｜Haozhe&#39;s blog
+        
+    </title>
+
+    <link rel="canonical" href="http://yoursite.com/2016/04/13/Python入门2/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/blog-style.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+</head>
+
+<style>
+
+    header.intro-header {
+        background-image: url('http://7xrw7v.com1.z0.glb.clouddn.com/1485527729222.jpg')
+    }
+</style>
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="" class="animated fadeIn">
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost = "true" data-istags="false
+" data-ishome = "false" >
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand animated pulse" href="/">
+                <span class="brand-logo">
+                    Haozhe
+                </span>
+                's Blog
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <!-- /.navbar-collapse -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+					
+                    
+                        
+							
+                        <li>
+                            <a href="/tags/">tags</a>
+                        </li>
+							
+						
+                    
+					
+					
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+//    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+<!-- Main Content -->
+
+<!--only post-->
+
+
+<img class="wechat-title-img"
+     src="http://7xrw7v.com1.z0.glb.clouddn.com/148552521631.jpg#博文默认的图片">
+
+
+<style>
+    
+    header.intro-header {
+        background-image: url('http://7xrw7v.com1.z0.glb.clouddn.com/148552521631.jpg#博文默认的图片')
+    }
+
+    
+</style>
+
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <div class="post-heading">
+                    <h1>python入门 (二)(转载)</h1>
+                    
+                    <span class="meta">
+                         作者 Haozhe Xue
+                        <span>
+                          日期 2016-04-13
+                         </span>
+                    </span>
+                    <div class="tags text-center">
+                        
+                        <a class="tag" href="/tags/#Python"
+                           title="Python">Python</a>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="post-title-haojen">
+        <span>
+            python入门 (二)(转载)
+        </span>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <!-- Post Container -->
+            <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
+                <p>摘要：</p>
+<ul>
+<li>if-elif-else</li>
+<li>for循环</li>
+<li>while循环</li>
+<li>break退出循环</li>
+<li>continue继续循环</li>
+<li>多重循环<a id="more"></a>
+<h4 id="1、if-elif-else"><a href="#1、if-elif-else" class="headerlink" title="1、if-elif-else"></a>1、if-elif-else</h4>有的时候，一个 if … else … 还不够用。比如，根据年龄的划分：<blockquote>
+<p>条件1：18岁或以上：adult<br>条件2：6岁或以上：teenager<br>条件3：6岁以下：kid</p>
+</blockquote>
+</li>
+</ul>
+<p>我们可以用一个 if age &gt;= 18 判断是否符合条件1，如果不符合，再通过一个 if 判断 age &gt;= 6 来判断是否符合条件2，否则，执行条件3：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="keyword">if</span> age &gt;= <span class="number">18</span>:</div><div class="line">    <span class="keyword">print</span> <span class="string">'adult'</span></div><div class="line"><span class="keyword">else</span>:</div><div class="line">    <span class="keyword">if</span> age &gt;= <span class="number">6</span>:</div><div class="line">        <span class="keyword">print</span> <span class="string">'teenager'</span></div><div class="line">    <span class="keyword">else</span>:</div><div class="line">        <span class="keyword">print</span> <span class="string">'kid'</span></div></pre></td></tr></table></figure>
+<p>这样写出来，我们就得到了一个两层嵌套的 if … else … 语句。这个逻辑没有问题，但是，如果继续增加条件，比如3岁以下是 baby：<br><figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="keyword">if</span> age &gt;= <span class="number">18</span>:</div><div class="line">    <span class="keyword">print</span> <span class="string">'adult'</span></div><div class="line"><span class="keyword">else</span>:</div><div class="line">    <span class="keyword">if</span> age &gt;= <span class="number">6</span>:</div><div class="line">        <span class="keyword">print</span> <span class="string">'teenager'</span></div><div class="line">    <span class="keyword">else</span>:</div><div class="line">        <span class="keyword">if</span> age &gt;= <span class="number">3</span>:</div><div class="line">            <span class="keyword">print</span> <span class="string">'kid'</span></div><div class="line">        <span class="keyword">else</span>:</div><div class="line">            <span class="keyword">print</span> <span class="string">'baby'</span></div></pre></td></tr></table></figure></p>
+<p>这种缩进只会越来越多，代码也会越来越难看。            </p>
+<p>要避免嵌套结构的 if … else …，我们可以用 <code>if ... 多个elif ... else ...</code>的结构，一次写完所有的规则：<br><figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="keyword">if</span> age &gt;= <span class="number">18</span>:</div><div class="line">    <span class="keyword">print</span> <span class="string">'adult'</span></div><div class="line"><span class="keyword">elif</span> age &gt;= <span class="number">6</span>:</div><div class="line">    <span class="keyword">print</span> <span class="string">'teenager'</span></div><div class="line"><span class="keyword">elif</span> age &gt;= <span class="number">3</span>:</div><div class="line">    <span class="keyword">print</span> <span class="string">'kid'</span></div><div class="line"><span class="keyword">else</span>:</div><div class="line">    <span class="keyword">print</span> <span class="string">'baby'</span></div></pre></td></tr></table></figure></p>
+<p><code>elif 意思就是 else if</code>。这样一来，我们就写出了结构非常清晰的一系列条件判断。</p>
+<p><code>特别注意:</code> 这一系列条件判断会从上到下依次判断，如果某个判断为 True，执行完对应的代码块，后面的条件判断就直接忽略，<code>不再执行了</code>。</p>
+<p><code>任务：</code><br>如果按照分数划定结果：<br>90分或以上：excellent<br>80分或以上：good<br>60分或以上：passed<br>60分以下：failed<br>请编写程序根据分数打印结果。<br><figure class="highlight python"><table><tr><td class="code"><pre><div class="line">score = <span class="number">85</span></div><div class="line"><span class="keyword">if</span> score &gt;= <span class="number">90</span>:</div><div class="line">    <span class="keyword">print</span> <span class="string">'excellent'</span></div><div class="line"><span class="keyword">elif</span> score &gt;= <span class="number">80</span>:</div><div class="line">    <span class="keyword">print</span> <span class="string">'good'</span></div><div class="line"><span class="keyword">elif</span> score &gt;= <span class="number">60</span>:</div><div class="line">    <span class="keyword">print</span> <span class="string">'passed'</span></div><div class="line"><span class="keyword">else</span>:</div><div class="line">    <span class="keyword">print</span> <span class="string">'failed'</span></div><div class="line">```    </div><div class="line"></div><div class="line"><span class="comment">#### 2、for循环</span></div><div class="line">Python的 <span class="keyword">for</span> 循环就可以依次把list或tuple的每个元素迭代出来：</div><div class="line">``` python</div><div class="line">L = [<span class="string">'Adam'</span>, <span class="string">'Lisa'</span>, <span class="string">'Bart'</span>]</div><div class="line"><span class="keyword">for</span> name <span class="keyword">in</span> L:</div><div class="line">    <span class="keyword">print</span> name</div></pre></td></tr></table></figure></p>
+<p><code>注意:</code>  name 这个变量是在 for 循环中定义的，意思是，依次取出list中的每一个元素，并把元素赋值给 name，然后执行for循环体（就是缩进的代码块）。</p>
+<p><code>任务</code><br>班里考试后，老师要统计平均成绩，已知4位同学的成绩用list表示如下：<br>L = [75, 92, 59, 68]<br>请利用for循环计算出平均成绩。<br><figure class="highlight python"><table><tr><td class="code"><pre><div class="line">L = [<span class="number">75</span>, <span class="number">92</span>, <span class="number">59</span>, <span class="number">68</span>]</div><div class="line">sum = <span class="number">0.0</span></div><div class="line"><span class="keyword">for</span> x <span class="keyword">in</span> L:</div><div class="line">    sum = sum + x</div><div class="line"><span class="keyword">print</span> sum / <span class="number">4</span></div></pre></td></tr></table></figure></p>
+<h4 id="3、while循环"><a href="#3、while循环" class="headerlink" title="3、while循环"></a>3、while循环</h4><p>和 for 循环不同的另一种循环是 while 循环，while 循环不会迭代 list 或 tuple 的元素，而是根据表达式判断循环是否结束。</p>
+<p>比如要从 0 开始打印不大于 N 的整数：<br><figure class="highlight python"><table><tr><td class="code"><pre><div class="line">N = <span class="number">10</span></div><div class="line">x = <span class="number">0</span></div><div class="line"><span class="keyword">while</span> x &lt; N:</div><div class="line">    <span class="keyword">print</span> x</div><div class="line">    x = x + <span class="number">1</span></div></pre></td></tr></table></figure></p>
+<p>while循环每次先判断 x &lt; N，如果为True，则执行循环体的代码块，否则，退出循环。</p>
+<p>在循环体内，x = x + 1 会让 x 不断增加，最终因为 x &lt; N 不成立而退出循环。</p>
+<p><code>任务</code><br>利用while循环计算100以内奇数的和。<br><figure class="highlight python"><table><tr><td class="code"><pre><div class="line">sum = <span class="number">0</span></div><div class="line">x = <span class="number">1</span></div><div class="line"><span class="keyword">while</span> x &lt; <span class="number">100</span>:</div><div class="line">    sum = sum + x</div><div class="line">    x = x + <span class="number">2</span></div><div class="line"><span class="keyword">print</span> sum</div></pre></td></tr></table></figure></p>
+<h4 id="4、break退出循环"><a href="#4、break退出循环" class="headerlink" title="4、break退出循环"></a>4、break退出循环</h4><p>用 for 循环或者 while 循环时，如果要在循环体内直接退出循环，可以使用 break 语句。</p>
+<p>比如计算1至100的整数和，我们用while来实现：<br><figure class="highlight python"><table><tr><td class="code"><pre><div class="line">sum = <span class="number">0</span></div><div class="line">x = <span class="number">1</span></div><div class="line"><span class="keyword">while</span> <span class="keyword">True</span>:</div><div class="line">    sum = sum + x</div><div class="line">    x = x + <span class="number">1</span></div><div class="line">    <span class="keyword">if</span> x &gt; <span class="number">100</span>:</div><div class="line">        <span class="keyword">break</span></div><div class="line"><span class="keyword">print</span> sum</div></pre></td></tr></table></figure></p>
+<p>咋一看，<code>while True</code>就是一个死循环，但是在循环体内，我们还判断了 <code>x &gt; 100</code> 条件成立时，用<code>break</code>语句退出循环，这样也可以实现循环的结束。</p>
+<p><code>任务</code><br>利用 while True 无限循环配合 break 语句，计算 1 + 2 + 4 + 8 + 16 + … 的前20项的和。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line">sum = <span class="number">0</span></div><div class="line">x = <span class="number">1</span></div><div class="line">n = <span class="number">1</span></div><div class="line"><span class="keyword">while</span> <span class="keyword">True</span>:</div><div class="line">    <span class="keyword">if</span> n &gt; <span class="number">20</span>:</div><div class="line">        <span class="keyword">break</span></div><div class="line">    sum = sum + x</div><div class="line">    x = x * <span class="number">2</span></div><div class="line">    n = n + <span class="number">1</span></div><div class="line"><span class="keyword">print</span> sum</div></pre></td></tr></table></figure>
+<h4 id="5、continue继续循环"><a href="#5、continue继续循环" class="headerlink" title="5、continue继续循环"></a>5、continue继续循环</h4><p>在循环过程中，可以用break退出当前循环，还可以用<code>continue</code>跳过后续循环代码，继续下一次循环。</p>
+<p>假设我们已经写好了利用for循环计算平均分的代码：<br><figure class="highlight python"><table><tr><td class="code"><pre><div class="line">L = [<span class="number">75</span>, <span class="number">98</span>, <span class="number">59</span>, <span class="number">81</span>, <span class="number">66</span>, <span class="number">43</span>, <span class="number">69</span>, <span class="number">85</span>]</div><div class="line">sum = <span class="number">0.0</span></div><div class="line">n = <span class="number">0</span></div><div class="line"><span class="keyword">for</span> x <span class="keyword">in</span> L:</div><div class="line">    sum = sum + x</div><div class="line">    n = n + <span class="number">1</span></div><div class="line"><span class="keyword">print</span> sum / n</div></pre></td></tr></table></figure></p>
+<p>现在老师只想统计及格分数的平均分，就要把 x &lt; 60 的分数剔除掉，这时，利用 continue，可以做到当 x &lt; 60的时候，不继续执行循环体的后续代码，直接进入下一次循环：<br><figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="keyword">for</span> x <span class="keyword">in</span> L:</div><div class="line">    <span class="keyword">if</span> x &lt; <span class="number">60</span>:</div><div class="line">        <span class="keyword">continue</span></div><div class="line">    sum = sum + x</div><div class="line">    n = n + <span class="number">1</span></div></pre></td></tr></table></figure></p>
+<p><code>任务</code><br>对已有的计算 0 - 100 的while循环进行改造，通过增加 continue 语句，使得只计算奇数的和：<br><figure class="highlight python"><table><tr><td class="code"><pre><div class="line">sum = <span class="number">0</span></div><div class="line">x = <span class="number">0</span></div><div class="line"><span class="keyword">while</span> <span class="keyword">True</span>:</div><div class="line">    x = x + <span class="number">1</span></div><div class="line">    <span class="keyword">if</span> x &gt; <span class="number">100</span>:</div><div class="line">        <span class="keyword">break</span></div><div class="line">    <span class="keyword">if</span> x % <span class="number">2</span> == <span class="number">0</span>:</div><div class="line">        <span class="keyword">continue</span></div><div class="line">    sum = sum + x</div><div class="line"><span class="keyword">print</span> sum</div></pre></td></tr></table></figure></p>
+<h4 id="6、多重循环"><a href="#6、多重循环" class="headerlink" title="6、多重循环"></a>6、多重循环</h4><p>在循环内部，还可以嵌套循环，我们来看一个例子：<br><figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="keyword">for</span> x <span class="keyword">in</span> [<span class="string">'A'</span>, <span class="string">'B'</span>, <span class="string">'C'</span>]:</div><div class="line">    <span class="keyword">for</span> y <span class="keyword">in</span> [<span class="string">'1'</span>, <span class="string">'2'</span>, <span class="string">'3'</span>]:</div><div class="line">        <span class="keyword">print</span> x + y</div></pre></td></tr></table></figure></p>
+<p>x 每循环一次，y 就会循环 3 次，这样，我们可以打印出一个全排列：</p>
+<blockquote>
+<p>A1<br>A2<br>A3<br>B1<br>B2<br>B3<br>C1<br>C2<br>C3        </p>
+</blockquote>
+<p><code>任务：</code><br>对100以内的两位数，请使用一个两重循环打印出所有十位数数字比个位数数字小的数，例如，23（2 &lt; 3）。</p>
+<p>思路：十位数循环从1至9，个位数循环从0至9。<br><figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="keyword">for</span> x <span class="keyword">in</span> [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>]:</div><div class="line">    <span class="keyword">for</span> y <span class="keyword">in</span> [<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>]:</div><div class="line">        <span class="keyword">if</span> x &lt; y:</div><div class="line">            <span class="keyword">print</span> x * <span class="number">10</span> + y</div></pre></td></tr></table></figure></p>
+
+                <hr>
+                
+                <!-- 多说 Share start -->
+                <div class="ds-share"
+                     style="text-align: right"
+                     data-thread-key="2016/04/13/Python入门2/"
+                     data-title="python入门 (二)(转载)"
+                     data-url="http://yoursite.com/2016/04/13/Python入门2/"
+                     data-images=""
+                     data-content="摘要：
+
+if-elif-else
+for循环
+while循环
+break退出循环
+conti... | Haozhe&#39;s blog ">
+                    <div class="ds-share-inline">
+                        <ul class="ds-share-icons-16">
+                            <li data-toggle="ds-share-icons-more"><a class="ds-more" href="#">分享到：</a></li>
+                            <li><a class="ds-wechat flat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+                            <li><a class="ds-weibo flat" href="javascript:void(0);" data-service="weibo">微博</a></li>
+                            <li><a class="ds-douban flat" href="javascript:void(0);" data-service="douban">豆瓣</a></li>
+                        </ul>
+                        <div class="ds-share-icons-more">
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+                <!-- 多说 Share end-->
+                
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2016/04/13/java2.4/" data-toggle="tooltip" data-placement="top"
+                           title="java入门（二）String类的其他功能">&larr; Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2016/04/13/java2.3/" data-toggle="tooltip" data-placement="top"
+                           title="java入门（二）String类的转换功能">Next Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+                <!-- 多说评论框 start -->
+                <div class="comment">
+                    <div class="ds-thread"
+                         data-thread-key="2016/04/13/Python入门2/"
+                         data-title="python入门 (二)(转载)"
+                         data-url="http://yoursite.com/2016/04/13/Python入门2/">
+                    </div>
+                </div>
+                <!-- 多说评论框 end -->
+                
+
+                
+
+            </div>
+
+            <div class="hidden-xs col-sm-3 toc-col">
+                <div class="toc-wrap">
+                    <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#1、if-elif-else"><span class="toc-text">1、if-elif-else</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3、while循环"><span class="toc-text">3、while循环</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4、break退出循环"><span class="toc-text">4、break退出循环</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5、continue继续循环"><span class="toc-text">5、continue继续循环</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6、多重循环"><span class="toc-text">6、多重循环</span></a></li></ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5 class="text-center">
+                        <a href="/tags/">FEATURED TAGS</a>
+                    </h5>
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#Python"
+                           title="Python">Python</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <div style="margin-top: 20px;">
+                    <h5 class="text-center">FRIENDS</h5>
+                    <ul class="list-inline text-center">
+                        
+                        <li><a href="http://www.hankcs.com/">hankcs</a></li>
+                        
+                        <li><a href="http://www.lintcode.com/zh-cn/ladder/2/">lintcode</a></li>
+                        
+                        <li><a href="http://www.jiuzhang.com/solutions/">jiuzhang</a></li>
+                        
+                    </ul>
+                </div>
+                
+            </div>
+        </div>
+
+    </div>
+</article>
+
+
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    // dynamic User by Hux
+    var _user = 'xuehaozhe';
+
+    // duoshuo comment query.
+    var duoshuoQuery = {short_name: _user};
+    (function () {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';
+        ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0]
+        || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+</script>
+<!-- 多说公共JS代码 end -->
+
+
+
+
+
+<!-- Footer -->
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <br>
+                <ul class="list-inline text-center">
+                
+                
+                    <li>
+                        <a target="_blank" href="https://twitter.com/xuehaozhe">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/xuehaozhe0526">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="http://weibo.com/fendoujianchi">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/xuehanzhe0526">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Haozhe 2017
+                    <br>
+                    <span id="busuanzi_container_site_pv" style="font-size: 12px;">PV: <span id="busuanzi_value_site_pv"></span> Times</span>
+                    <br>
+                    Theme by <a href="https://haojen.github.io/">Haojen Ma</a>
+                </p>
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/blog.js"></script>
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://yoursite.com/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+
+
+<!-- swiftype -->
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','null','2.0.0');
+</script>
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<!--wechat title img-->
+<img class="wechat-title-img" src="http://7xrw7v.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160402220553.png">
+</body>
+
+</html>

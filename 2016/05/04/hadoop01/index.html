@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="What hurts more,the pain of hard work or the pain of regret.">
+    <meta name="keyword" content="null">
+    <meta name="theme-color" content="#600090">
+    <meta name="msapplication-navbutton-color" content="#600090">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#600090">
+    <link rel="shortcut icon" href="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-person-128.png">
+    <link rel="alternate" type="application/atom+xml" title="Haozhe" href="/atom.xml">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
+    <title>
+        
+        Hadoop伪分布搭建｜Haozhe&#39;s blog
+        
+    </title>
+
+    <link rel="canonical" href="http://yoursite.com/2016/05/04/hadoop01/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/blog-style.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+</head>
+
+<style>
+
+    header.intro-header {
+        background-image: url('http://7xrw7v.com1.z0.glb.clouddn.com/1485527729222.jpg')
+    }
+</style>
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="" class="animated fadeIn">
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost = "true" data-istags="false
+" data-ishome = "false" >
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand animated pulse" href="/">
+                <span class="brand-logo">
+                    Haozhe
+                </span>
+                's Blog
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <!-- /.navbar-collapse -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+					
+                    
+                        
+							
+                        <li>
+                            <a href="/tags/">tags</a>
+                        </li>
+							
+						
+                    
+					
+					
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+//    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+<!-- Main Content -->
+
+<!--only post-->
+
+
+<img class="wechat-title-img"
+     src="http://7xrw7v.com1.z0.glb.clouddn.com/148552521631.jpg#博文默认的图片">
+
+
+<style>
+    
+    header.intro-header {
+        background-image: url('http://7xrw7v.com1.z0.glb.clouddn.com/148552521631.jpg#博文默认的图片')
+    }
+
+    
+</style>
+
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <div class="post-heading">
+                    <h1>Hadoop伪分布搭建</h1>
+                    
+                    <span class="meta">
+                         作者 Haozhe Xue
+                        <span>
+                          日期 2016-05-04
+                         </span>
+                    </span>
+                    <div class="tags text-center">
+                        
+                        <a class="tag" href="/tags/#hadoop"
+                           title="hadoop">hadoop</a>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="post-title-haojen">
+        <span>
+            Hadoop伪分布搭建
+        </span>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <!-- Post Container -->
+            <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
+                <p>摘要：</p>
+<ul>
+<li>虚拟机环境</li>
+<li>安装JDK</li>
+<li>安装hadoop2.4.1</li>
+<li>配置ssh免登陆</li>
+</ul>
+<a id="more"></a>
+<h3 id="1、虚拟机配置"><a href="#1、虚拟机配置" class="headerlink" title="1、虚拟机配置"></a>1、虚拟机配置</h3><p><strong>网络环境：</strong><br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160504142235.png" alt=""></p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160504135757.png" alt=""><br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160504142408.png" alt=""><br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160504140744.png" alt=""></p>
+<p><strong>修改主机名：</strong><br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">vim /etc/sysconfig/network</div><div class="line">NETWORKING=yes</div><div class="line">HOSTNAME=weekend110    ###</div><div class="line">reboot</div></pre></td></tr></table></figure></p>
+<p>另一种方法（立即生效）<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">sudo hostname weekend110</div><div class="line">重新登陆Xshell</div></pre></td></tr></table></figure></p>
+<p><strong>让普通用户具备sudo执行权限:</strong></p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160504144540.png" alt=""></p>
+<p><strong>修改IP</strong><br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">sudo vim /etc/sysconfig/network-scripts/ifcfg-eth0</div><div class="line">			</div><div class="line">DEVICE=&quot;eth0&quot;</div><div class="line">BOOTPROTO=&quot;static&quot;               ###</div><div class="line">HWADDR=&quot;00:0C:29:3C:BF:E7&quot;</div><div class="line">IPV6INIT=&quot;yes&quot;</div><div class="line">NM_CONTROLLED=&quot;yes&quot;</div><div class="line">ONBOOT=&quot;yes&quot;</div><div class="line">TYPE=&quot;Ethernet&quot;</div><div class="line">UUID=&quot;ce22eeca-ecde-4536-8cc2-ef0dc36d4a8c&quot;</div><div class="line">IPADDR=&quot;192.168.1.101&quot;           ###</div><div class="line">NETMASK=&quot;255.255.255.0&quot;          ###</div><div class="line">GATEWAY=&quot;192.168.1.1&quot;            ###</div></pre></td></tr></table></figure></p>
+<p>修改后重启linux服务器(reboot)<br>或者网络服务(sudo service network restart)</p>
+<p><strong>修改主机名和IP的映射关系</strong><br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">sudo vim /etc/hosts</div><div class="line">192.168.2.200  weekend110</div></pre></td></tr></table></figure></p>
+<p><strong>关闭防火墙</strong><br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">#查看防火墙状态</div><div class="line">service iptables status</div><div class="line">#关闭防火墙</div><div class="line">service iptables stop</div><div class="line">#查看防火墙开机启动状态</div><div class="line">chkconfig iptables --list</div><div class="line">#关闭防火墙开机启动</div><div class="line">chkconfig iptables off</div></pre></td></tr></table></figure></p>
+<p><strong>关闭linux图像界面</strong></p>
+<p>切换到root用户<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">init 3</div></pre></td></tr></table></figure></p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160504144833.png" alt=""></p>
+<h3 id="2、安装JDK"><a href="#2、安装JDK" class="headerlink" title="2、安装JDK"></a>2、安装JDK</h3><p><strong>2.1</strong><br>上传alt+p 后出现sftp窗口，然后<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">put d:\xxx\yy\ll\jdk-7u_65-i585.tar.gz（32位）</div></pre></td></tr></table></figure></p>
+<p><strong>2.2解压jdk</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">mkdir /home/hadoop/app</div><div class="line">tar -zxvf jdk-7u65-linux-i586.tar.gz -C /home/hadoop/app</div></pre></td></tr></table></figure>
+<p><strong>2.3将java添加到环境变量</strong><br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">sudo vim /etc/profile</div><div class="line">#在文件最后添加（Shift+G）</div><div class="line">export JAVA_HOME=/home/hadoop/app/jdk1.7.0_65/</div><div class="line">export PATH=$PATH:$JAVA_HOME/bin</div><div class="line">#刷新配置</div><div class="line">source /etc/profile</div></pre></td></tr></table></figure></p>
+<h3 id="3、安装hadoop2-4-1"><a href="#3、安装hadoop2-4-1" class="headerlink" title="3、安装hadoop2.4.1"></a>3、安装hadoop2.4.1</h3><blockquote>
+<p>tar -zxvf hadoop-2.4.1.tar.gz -C app/</p>
+</blockquote>
+<p><strong>注意：</strong>hadoop2.x的配置文件$HADOOP_HOME/etc/hadoop<br>伪分布式需要修改5个配置文件</p>
+<p><strong>第一个：hadoop-env.sh</strong><br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">vim hadoop-env.sh</div><div class="line">#第27行</div><div class="line">export JAVA_HOME=/home/hadoop/app/jdk1.7.0_65/</div></pre></td></tr></table></figure></p>
+<p><strong>查看java路径</strong><br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">[hadoop@weekend110 ~]$ echo $JAVA_HOME</div><div class="line">/home/hadoop/app/jdk1.7.0_65/</div><div class="line">[hadoop@weekend110 ~]$</div></pre></td></tr></table></figure></p>
+<p><strong>第二个：core-site.xml</strong><br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">&lt;!-- 指定HADOOP所使用的文件系统schema（URI），HDFS的老大（NameNode）的地址 --&gt;</div><div class="line">&lt;property&gt;</div><div class="line">	&lt;name&gt;fs.defaultFS&lt;/name&gt;</div><div class="line">	&lt;value&gt;hdfs://weekend110:9000&lt;/value&gt;</div><div class="line">&lt;/property&gt;</div><div class="line">&lt;!-- 指定hadoop运行时产生文件的存储目录 --&gt;</div><div class="line">&lt;property&gt;</div><div class="line">	&lt;name&gt;hadoop.tmp.dir&lt;/name&gt;</div><div class="line">	&lt;value&gt;/home/hadoop/app/hadoop-2.4.1/data/&lt;/value&gt;</div><div class="line">&lt;/property&gt;</div></pre></td></tr></table></figure></p>
+<p><strong>第三个：hdfs-site.xml  </strong><br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">&lt;!-- 指定HDFS副本的数量 --&gt;</div><div class="line">&lt;property&gt;</div><div class="line">&lt;name&gt;dfs.replication&lt;/name&gt;</div><div class="line">&lt;value&gt;1&lt;/value&gt;</div><div class="line">&lt;/property&gt;</div></pre></td></tr></table></figure></p>
+<p><strong>第四个：mapred-site.xml </strong><br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">mv mapred-site.xml.template mapred-site.xml</div></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">vim mapred-site.xml</div><div class="line">&lt;!-- 指定mr运行在yarn上 --&gt;</div><div class="line">&lt;property&gt;</div><div class="line">&lt;name&gt;mapreduce.framework.name&lt;/name&gt;</div><div class="line">&lt;value&gt;yarn&lt;/value&gt;</div><div class="line">&lt;/property&gt;</div></pre></td></tr></table></figure>
+<p><strong>第五个：yarn-site.xml</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">&lt;!-- 指定YARN的老大（ResourceManager）的地址 --&gt;</div><div class="line">&lt;property&gt;</div><div class="line">&lt;name&gt;yarn.resourcemanager.hostname&lt;/name&gt;</div><div class="line">&lt;value&gt;weekend110&lt;/value&gt;</div><div class="line">&lt;/property&gt;</div><div class="line">&lt;!-- reducer获取数据的方式 --&gt;</div><div class="line">&lt;property&gt;</div><div class="line">&lt;name&gt;yarn.nodemanager.aux-services&lt;/name&gt;</div><div class="line">&lt;value&gt;mapreduce_shuffle&lt;/value&gt;</div><div class="line">&lt;/property&gt;</div></pre></td></tr></table></figure>
+<p><strong>将hadoop添加到环境变量</strong><br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">sudo vim /etc/profile</div><div class="line">export JAVA_HOME=/home/hadoop/app/jdk1.7.0_65/</div><div class="line">export PATH=$PATH:$JAVA_HOME/bin:$HADOOP_HOME/bin:$HADOOP_HOME/sbin</div><div class="line">export HADOOP_HOME=/home/hadoop/app/hadoop-2.4.1/</div><div class="line">source /etc/profile</div></pre></td></tr></table></figure></p>
+<p><strong>格式化namenode（是对namenode进行初始化）</strong><br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">hdfs namenode -format (hadoop namenode -format)</div></pre></td></tr></table></figure></p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160504163346.png" alt=""></p>
+<p><strong>启动hadoop</strong><br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">先启动HDFS</div><div class="line">sbin/start-dfs.sh</div><div class="line">		</div><div class="line">再启动YARN</div><div class="line">sbin/start-yarn.sh</div></pre></td></tr></table></figure></p>
+<p><strong>验证是否启动成功</strong><br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">使用jps命令验证</div><div class="line">或者</div><div class="line">C:\Windows\System32\drivers\etc 下的  hosts文件 添加映射关系</div><div class="line">http://weekend100:50070</div></pre></td></tr></table></figure></p>
+<h3 id="4、配置ssh免登陆"><a href="#4、配置ssh免登陆" class="headerlink" title="4、配置ssh免登陆"></a>4、配置ssh免登陆</h3><p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160504180222.png" alt=""></p>
+<p>ssh-keygen -t rsa （四个回车）<br>执行完这个命令后，会生成两个文件id_rsa（私钥）、id_rsa.pub（公钥）<br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160504182017.png" alt=""></p>
+
+                <hr>
+                
+                <!-- 多说 Share start -->
+                <div class="ds-share"
+                     style="text-align: right"
+                     data-thread-key="2016/05/04/hadoop01/"
+                     data-title="Hadoop伪分布搭建"
+                     data-url="http://yoursite.com/2016/05/04/hadoop01/"
+                     data-images=""
+                     data-content="摘要：
+
+虚拟机环境
+安装JDK
+安装hadoop2.4.1
+配置ssh免登陆
+
+
+1、虚拟机... | Haozhe&#39;s blog ">
+                    <div class="ds-share-inline">
+                        <ul class="ds-share-icons-16">
+                            <li data-toggle="ds-share-icons-more"><a class="ds-more" href="#">分享到：</a></li>
+                            <li><a class="ds-wechat flat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+                            <li><a class="ds-weibo flat" href="javascript:void(0);" data-service="weibo">微博</a></li>
+                            <li><a class="ds-douban flat" href="javascript:void(0);" data-service="douban">豆瓣</a></li>
+                        </ul>
+                        <div class="ds-share-icons-more">
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+                <!-- 多说 Share end-->
+                
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2016/05/11/java2.1/" data-toggle="tooltip" data-placement="top"
+                           title="java入门（二）模拟用户登录案例">&larr; Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2016/04/20/java5.2/" data-toggle="tooltip" data-placement="top"
+                           title="java入门（五）集合List">Next Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+                <!-- 多说评论框 start -->
+                <div class="comment">
+                    <div class="ds-thread"
+                         data-thread-key="2016/05/04/hadoop01/"
+                         data-title="Hadoop伪分布搭建"
+                         data-url="http://yoursite.com/2016/05/04/hadoop01/">
+                    </div>
+                </div>
+                <!-- 多说评论框 end -->
+                
+
+                
+
+            </div>
+
+            <div class="hidden-xs col-sm-3 toc-col">
+                <div class="toc-wrap">
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、虚拟机配置"><span class="toc-text">1、虚拟机配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、安装JDK"><span class="toc-text">2、安装JDK</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3、安装hadoop2-4-1"><span class="toc-text">3、安装hadoop2.4.1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4、配置ssh免登陆"><span class="toc-text">4、配置ssh免登陆</span></a></li></ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5 class="text-center">
+                        <a href="/tags/">FEATURED TAGS</a>
+                    </h5>
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#hadoop"
+                           title="hadoop">hadoop</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <div style="margin-top: 20px;">
+                    <h5 class="text-center">FRIENDS</h5>
+                    <ul class="list-inline text-center">
+                        
+                        <li><a href="http://www.hankcs.com/">hankcs</a></li>
+                        
+                        <li><a href="http://www.lintcode.com/zh-cn/ladder/2/">lintcode</a></li>
+                        
+                        <li><a href="http://www.jiuzhang.com/solutions/">jiuzhang</a></li>
+                        
+                    </ul>
+                </div>
+                
+            </div>
+        </div>
+
+    </div>
+</article>
+
+
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    // dynamic User by Hux
+    var _user = 'xuehaozhe';
+
+    // duoshuo comment query.
+    var duoshuoQuery = {short_name: _user};
+    (function () {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';
+        ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0]
+        || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+</script>
+<!-- 多说公共JS代码 end -->
+
+
+
+
+
+<!-- Footer -->
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <br>
+                <ul class="list-inline text-center">
+                
+                
+                    <li>
+                        <a target="_blank" href="https://twitter.com/xuehaozhe">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/xuehaozhe0526">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="http://weibo.com/fendoujianchi">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/xuehanzhe0526">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Haozhe 2017
+                    <br>
+                    <span id="busuanzi_container_site_pv" style="font-size: 12px;">PV: <span id="busuanzi_value_site_pv"></span> Times</span>
+                    <br>
+                    Theme by <a href="https://haojen.github.io/">Haojen Ma</a>
+                </p>
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/blog.js"></script>
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://yoursite.com/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+
+
+<!-- swiftype -->
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','null','2.0.0');
+</script>
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<!--wechat title img-->
+<img class="wechat-title-img" src="http://7xrw7v.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160402220553.png">
+</body>
+
+</html>

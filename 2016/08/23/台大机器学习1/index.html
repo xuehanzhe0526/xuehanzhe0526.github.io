@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="What hurts more,the pain of hard work or the pain of regret.">
+    <meta name="keyword" content="null">
+    <meta name="theme-color" content="#600090">
+    <meta name="msapplication-navbutton-color" content="#600090">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#600090">
+    <link rel="shortcut icon" href="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-person-128.png">
+    <link rel="alternate" type="application/atom+xml" title="Haozhe" href="/atom.xml">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
+    <title>
+        
+        分类：感知机学习算法PLA和口袋算法Pocket Algorithm｜Haozhe&#39;s blog
+        
+    </title>
+
+    <link rel="canonical" href="http://yoursite.com/2016/08/23/台大机器学习1/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/blog-style.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+</head>
+
+<style>
+
+    header.intro-header {
+        background-image: url('http://7xrw7v.com1.z0.glb.clouddn.com/1485527729222.jpg')
+    }
+</style>
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="" class="animated fadeIn">
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost = "true" data-istags="false
+" data-ishome = "false" >
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand animated pulse" href="/">
+                <span class="brand-logo">
+                    Haozhe
+                </span>
+                's Blog
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <!-- /.navbar-collapse -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+					
+                    
+                        
+							
+                        <li>
+                            <a href="/tags/">tags</a>
+                        </li>
+							
+						
+                    
+					
+					
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+//    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+<!-- Main Content -->
+
+<!--only post-->
+
+
+<img class="wechat-title-img"
+     src="http://7xrw7v.com1.z0.glb.clouddn.com/148552521631.jpg#博文默认的图片">
+
+
+<style>
+    
+    header.intro-header {
+        background-image: url('http://7xrw7v.com1.z0.glb.clouddn.com/148552521631.jpg#博文默认的图片')
+    }
+
+    
+</style>
+
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <div class="post-heading">
+                    <h1>分类：感知机学习算法PLA和口袋算法Pocket Algorithm</h1>
+                    
+                    <span class="meta">
+                         作者 Haozhe Xue
+                        <span>
+                          日期 2016-08-23
+                         </span>
+                    </span>
+                    <div class="tags text-center">
+                        
+                        <a class="tag" href="/tags/#机器学习"
+                           title="机器学习">机器学习</a>
+                        
+                        <a class="tag" href="/tags/#台大机器学习基石"
+                           title="台大机器学习基石">台大机器学习基石</a>
+                        
+                        <a class="tag" href="/tags/#算法"
+                           title="算法">算法</a>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="post-title-haojen">
+        <span>
+            分类：感知机学习算法PLA和口袋算法Pocket Algorithm
+        </span>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <!-- Post Container -->
+            <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
+                <p>摘要：</p>
+<ul>
+<li>机器学习介绍 和 数据挖掘的区别</li>
+<li>Perceptron(也称线性分类器 )</li>
+<li>Perceptron Learning Algorithm (PLA)</li>
+<li>数据线性不可分：Pocket Algorithm</li>
+</ul>
+<a id="more"></a>
+<h3 id="机器学习介绍-和-数据挖掘的区别"><a href="#机器学习介绍-和-数据挖掘的区别" class="headerlink" title="机器学习介绍 和 数据挖掘的区别"></a>机器学习介绍 和 数据挖掘的区别</h3><p>参见：<br><a href="http://blog.csdn.net/honeyaya/article/details/51183419" target="_blank" rel="external">http://blog.csdn.net/honeyaya/article/details/51183419</a></p>
+<h3 id="Perceptron-也称线性分类器"><a href="#Perceptron-也称线性分类器" class="headerlink" title="Perceptron(也称线性分类器 )"></a>Perceptron(也称线性分类器 )</h3><p>Learning to Answer Yes/No  （二值分类）</p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/920b20251a1afdb412ce4548f3433cc4.png" alt=""></p>
+<p>sign 是取符号函数， sign(x) = 1 if x&gt;0, -1 otherwise<br>用向量表示：<br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/c135601c521c80cb1cb1a2758d1fe20f.png" alt=""></p>
+<p>h（x）图形表示：<br>感知机（perceptron）是一个线性分类器(linear classifiers）。<br>线性分类器的几何表示：直线、平面、超平面。<br>对于R^2来说：<br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/86bb32f751afc03a46cae1c657260f2d.png" alt=""><br>x 为 平面上的点<br>y 决定了 1 还是 -1<br>假说 h 是一条线 一边为正 一边为负</p>
+<h3 id="Perceptron-Learning-Algorithm-PLA"><a href="#Perceptron-Learning-Algorithm-PLA" class="headerlink" title="Perceptron Learning Algorithm (PLA)"></a>Perceptron Learning Algorithm (PLA)</h3><p>感知机求解（假设空间为无穷多个感知机；注意区分下面的普通乘法和向量内积，内积是省略了向量转置的表示，因为豆瓣不支持公式。。。）<br>初始w = 0 （零向量）。<br>第一步：找一个分错的数据（xi, yi）， sign(w<em>xi) != yi；<br>第二步：调整w 的偏差，w = w + yi</em>xi；<br>循环第一、二步，直到没有任何分类错误， 返回最后得到的w。<br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/e4e0194a442bd1930b25d7bf14d472b8.png" alt=""></p>
+<h4 id="怎么调整这条分隔线"><a href="#怎么调整这条分隔线" class="headerlink" title="怎么调整这条分隔线"></a>怎么调整这条分隔线</h4><p>只有当分类出错误的时候，才对分割线进行调整。<br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/92c6323009c775db8b8f0dc4c72ee381.png" alt=""></p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/75d66c66dbf75f0d289708a56a9bd6d1.png" alt=""><br><code>一个基本问题是：该算法不一定能停止！</code></p>
+<h3 id="PLA算法是否停止"><a href="#PLA算法是否停止" class="headerlink" title="PLA算法是否停止"></a>PLA算法是否停止</h3><p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/754f49d602d282329a7f71cb72fbe73c.png" alt=""></p>
+<h4 id="线性可分的情况"><a href="#线性可分的情况" class="headerlink" title="线性可分的情况"></a>线性可分的情况</h4><p>数据线性可分时，一定存在完美的w(记为wf)， 使得所有的(xi, yi), yi = sign(wf*xi).<br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/ab80762a972db7ede475d67bc9e9dfc5.png" alt=""><br>看要寻找的wt 与wf 是否接近 通过两张内积衡量 （内积越大 两向量越接近）：<br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/ef4b9a389b73110f6537894e597e219f.png" alt=""></p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/7f92f0eedcc4b05bca4b2063329bbc8f.png" alt=""></p>
+<p>下面证明在数据线性可分时，简单的感知机算法会收敛。<br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/93d7fe7e80f29792e599abfd591af0f5.png" alt=""></p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/8d7527ec808b4a63beddc7752e46a2c0.png" alt=""><br>而且量向量夹角余弦值不会大于1，可知T 的值有限。由此，我们证明了简单的PLA 算法可以收敛。</p>
+<h3 id="数据线性不可分：Pocket-Algorithm"><a href="#数据线性不可分：Pocket-Algorithm" class="headerlink" title="数据线性不可分：Pocket Algorithm"></a>数据线性不可分：Pocket Algorithm</h3><p>当数据线性不可分时（存在噪音），简单的PLA 算法显然无法收敛。我们要讨论的是如何得到近似的结果。<br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/32ea9bff6e7fef126e733aa80c264937.png" alt=""></p>
+<p>我们希望尽可能将所有结果做对，即：<br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/177b9562fa0002c995c4e3afcb492fda.png" alt=""></p>
+<p>####Pocket Algorithm<br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/ace5cb0dae89d8f5b08d8b8faa84b6d4.png" alt=""></p>
+<p>与简单PLA 的区别：<br>迭代有限次数（提前设定）；随机地寻找分错的数据（而不是循环遍历）；只有当新得到的w 比之前得到的最好的wg 还要好时，才更新wg（这里的好指的是分出来的错误更少）。<br>由于计算w 后要和之前的wg 比较错误率来决定是否更新wg， 所以pocket algorithm 比简单的PLA 方法要低效。</p>
+<p>参考：<br><a href="https://www.douban.com/note/319669984/" target="_blank" rel="external">https://www.douban.com/note/319669984/</a><br><a href="http://blog.csdn.net/mosbest/article/details/52029217" target="_blank" rel="external">http://blog.csdn.net/mosbest/article/details/52029217</a></p>
+
+                <hr>
+                
+                <!-- 多说 Share start -->
+                <div class="ds-share"
+                     style="text-align: right"
+                     data-thread-key="2016/08/23/台大机器学习1/"
+                     data-title="分类：感知机学习算法PLA和口袋算法Pocket Algorithm"
+                     data-url="http://yoursite.com/2016/08/23/台大机器学习1/"
+                     data-images=""
+                     data-content="摘要：
+
+机器学习介绍 和 数据挖掘的区别
+Perceptron(也称线性分类器 )
+Perc... | Haozhe&#39;s blog ">
+                    <div class="ds-share-inline">
+                        <ul class="ds-share-icons-16">
+                            <li data-toggle="ds-share-icons-more"><a class="ds-more" href="#">分享到：</a></li>
+                            <li><a class="ds-wechat flat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+                            <li><a class="ds-weibo flat" href="javascript:void(0);" data-service="weibo">微博</a></li>
+                            <li><a class="ds-douban flat" href="javascript:void(0);" data-service="douban">豆瓣</a></li>
+                        </ul>
+                        <div class="ds-share-icons-more">
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+                <!-- 多说 Share end-->
+                
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2016/08/24/用决策树预测球队/" data-toggle="tooltip" data-placement="top"
+                           title="用决策树预测球队">&larr; Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2016/08/23/解压与安装/" data-toggle="tooltip" data-placement="top"
+                           title="ubuntu解压与安装">Next Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+                <!-- 多说评论框 start -->
+                <div class="comment">
+                    <div class="ds-thread"
+                         data-thread-key="2016/08/23/台大机器学习1/"
+                         data-title="分类：感知机学习算法PLA和口袋算法Pocket Algorithm"
+                         data-url="http://yoursite.com/2016/08/23/台大机器学习1/">
+                    </div>
+                </div>
+                <!-- 多说评论框 end -->
+                
+
+                
+
+            </div>
+
+            <div class="hidden-xs col-sm-3 toc-col">
+                <div class="toc-wrap">
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#机器学习介绍-和-数据挖掘的区别"><span class="toc-text">机器学习介绍 和 数据挖掘的区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Perceptron-也称线性分类器"><span class="toc-text">Perceptron(也称线性分类器 )</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Perceptron-Learning-Algorithm-PLA"><span class="toc-text">Perceptron Learning Algorithm (PLA)</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#怎么调整这条分隔线"><span class="toc-text">怎么调整这条分隔线</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#PLA算法是否停止"><span class="toc-text">PLA算法是否停止</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#线性可分的情况"><span class="toc-text">线性可分的情况</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#数据线性不可分：Pocket-Algorithm"><span class="toc-text">数据线性不可分：Pocket Algorithm</span></a></li></ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5 class="text-center">
+                        <a href="/tags/">FEATURED TAGS</a>
+                    </h5>
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#机器学习"
+                           title="机器学习">机器学习</a>
+                        
+                        <a class="tag" href="/tags/#台大机器学习基石"
+                           title="台大机器学习基石">台大机器学习基石</a>
+                        
+                        <a class="tag" href="/tags/#算法"
+                           title="算法">算法</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <div style="margin-top: 20px;">
+                    <h5 class="text-center">FRIENDS</h5>
+                    <ul class="list-inline text-center">
+                        
+                        <li><a href="http://www.hankcs.com/">hankcs</a></li>
+                        
+                        <li><a href="http://www.lintcode.com/zh-cn/ladder/2/">lintcode</a></li>
+                        
+                        <li><a href="http://www.jiuzhang.com/solutions/">jiuzhang</a></li>
+                        
+                    </ul>
+                </div>
+                
+            </div>
+        </div>
+
+    </div>
+</article>
+
+
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    // dynamic User by Hux
+    var _user = 'xuehaozhe';
+
+    // duoshuo comment query.
+    var duoshuoQuery = {short_name: _user};
+    (function () {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';
+        ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0]
+        || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+</script>
+<!-- 多说公共JS代码 end -->
+
+
+
+
+
+<!-- Footer -->
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <br>
+                <ul class="list-inline text-center">
+                
+                
+                    <li>
+                        <a target="_blank" href="https://twitter.com/xuehaozhe">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/xuehaozhe0526">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="http://weibo.com/fendoujianchi">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/xuehanzhe0526">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Haozhe 2017
+                    <br>
+                    <span id="busuanzi_container_site_pv" style="font-size: 12px;">PV: <span id="busuanzi_value_site_pv"></span> Times</span>
+                    <br>
+                    Theme by <a href="https://haojen.github.io/">Haojen Ma</a>
+                </p>
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/blog.js"></script>
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://yoursite.com/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+
+
+<!-- swiftype -->
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','null','2.0.0');
+</script>
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<!--wechat title img-->
+<img class="wechat-title-img" src="http://7xrw7v.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160402220553.png">
+</body>
+
+</html>

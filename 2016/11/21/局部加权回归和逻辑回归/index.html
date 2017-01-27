@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="What hurts more,the pain of hard work or the pain of regret.">
+    <meta name="keyword" content="null">
+    <meta name="theme-color" content="#600090">
+    <meta name="msapplication-navbutton-color" content="#600090">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#600090">
+    <link rel="shortcut icon" href="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-person-128.png">
+    <link rel="alternate" type="application/atom+xml" title="Haozhe" href="/atom.xml">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
+    <title>
+        
+        局部加权回归和逻辑回归｜Haozhe&#39;s blog
+        
+    </title>
+
+    <link rel="canonical" href="http://yoursite.com/2016/11/21/局部加权回归和逻辑回归/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/blog-style.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+</head>
+
+<style>
+
+    header.intro-header {
+        background-image: url('http://7xrw7v.com1.z0.glb.clouddn.com/1485527729222.jpg')
+    }
+</style>
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="" class="animated fadeIn">
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost = "true" data-istags="false
+" data-ishome = "false" >
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand animated pulse" href="/">
+                <span class="brand-logo">
+                    Haozhe
+                </span>
+                's Blog
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <!-- /.navbar-collapse -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+					
+                    
+                        
+							
+                        <li>
+                            <a href="/tags/">tags</a>
+                        </li>
+							
+						
+                    
+					
+					
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+//    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+<!-- Main Content -->
+
+<!--only post-->
+
+
+<img class="wechat-title-img"
+     src="http://7xrw7v.com1.z0.glb.clouddn.com/148552521631.jpg#博文默认的图片">
+
+
+<style>
+    
+    header.intro-header {
+        background-image: url('http://7xrw7v.com1.z0.glb.clouddn.com/148552521631.jpg#博文默认的图片')
+    }
+
+    
+</style>
+
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <div class="post-heading">
+                    <h1>局部加权回归和逻辑回归</h1>
+                    
+                    <span class="meta">
+                         作者 Haozhe Xue
+                        <span>
+                          日期 2016-11-21
+                         </span>
+                    </span>
+                    <div class="tags text-center">
+                        
+                        <a class="tag" href="/tags/#邹博机器学习"
+                           title="邹博机器学习">邹博机器学习</a>
+                        
+                        <a class="tag" href="/tags/#机器学习算法"
+                           title="机器学习算法">机器学习算法</a>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="post-title-haojen">
+        <span>
+            局部加权回归和逻辑回归
+        </span>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <!-- Post Container -->
+            <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
+                <p>摘要：</p>
+<ul>
+<li>局部加权回归</li>
+<li>Logistic回归</li>
+<li>鸢尾花数据集（代码）</li>
+</ul>
+<a id="more"></a>
+<h3 id="局部加权回归"><a href="#局部加权回归" class="headerlink" title="局部加权回归"></a>局部加权回归</h3><p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/af5a3623634e1c3868cb9022ef5372b0.png" alt=""><br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/b359f87544064c54236c092af64bdc4a.png" alt=""></p>
+<h4 id="权值的选择"><a href="#权值的选择" class="headerlink" title="权值的选择"></a>权值的选择</h4><p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/967a26ba642725d4a2447bdb4d634e63.png" alt=""></p>
+<h3 id="Logistic回归"><a href="#Logistic回归" class="headerlink" title="Logistic回归"></a>Logistic回归</h3><p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/4cba93dd2eeb1adc60a1ec40696b1de8.png" alt=""></p>
+<h4 id="Logistic-sigmoid函数"><a href="#Logistic-sigmoid函数" class="headerlink" title="Logistic/sigmoid函数"></a>Logistic/sigmoid函数</h4><p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/e3329d43577707d1c9f2d9e69e760a62.png" alt=""><br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/707ab99a275cc72962c1196bf9f4ef04.png" alt=""></p>
+<h4 id="Logistic回归参数估计"><a href="#Logistic回归参数估计" class="headerlink" title="Logistic回归参数估计"></a>Logistic回归参数估计</h4><p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/71cf344a7914a4e2fa4e2b7fadbb1408.png" alt=""></p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/88232f238dd40a6de6d004fd7162ddfa.png" alt=""></p>
+<h4 id="参数的学习规则"><a href="#参数的学习规则" class="headerlink" title="参数的学习规则"></a>参数的学习规则</h4><p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/e0d3073a80dda18ca4280b9a543aae78.png" alt=""></p>
+<h4 id="对数线性模型"><a href="#对数线性模型" class="headerlink" title="对数线性模型"></a>对数线性模型</h4><p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/be1bf52e29bd9034264a596d647eafff.png" alt=""></p>
+<h4 id="Logistic回归的损失函数"><a href="#Logistic回归的损失函数" class="headerlink" title="Logistic回归的损失函数"></a>Logistic回归的损失函数</h4><p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/99f9613cafa3e48a69c59a40f2c18efa.png" alt=""></p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/36e6a53acbac7b664db59a31169038d3.png" alt=""></p>
+<h3 id="Softmax回归"><a href="#Softmax回归" class="headerlink" title="Softmax回归"></a>Softmax回归</h3><p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/f29c6623dee8195e538859b16befe3b4.png" alt=""></p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/e029c0f112bebd2b0d073d655cbfc3ea.png" alt=""></p>
+<h3 id="鸢尾花数据代码"><a href="#鸢尾花数据代码" class="headerlink" title="鸢尾花数据代码"></a>鸢尾花数据代码</h3><p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/271368d7d6a6431c2f452d1dc9b9bc09.png" alt=""></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="comment">#!/usr/bin/python</span></div><div class="line"><span class="comment"># -*- coding:utf-8 -*-</span></div><div class="line"></div><div class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</div><div class="line"><span class="keyword">from</span> sklearn.linear_model <span class="keyword">import</span> LogisticRegression</div><div class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</div><div class="line"><span class="keyword">import</span> matplotlib <span class="keyword">as</span> mpl</div><div class="line"><span class="keyword">from</span> sklearn <span class="keyword">import</span> preprocessing</div><div class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</div><div class="line"><span class="keyword">from</span> sklearn.preprocessing <span class="keyword">import</span> StandardScaler</div><div class="line"><span class="keyword">from</span> sklearn.pipeline <span class="keyword">import</span> Pipeline</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">iris_type</span><span class="params">(s)</span>:</span></div><div class="line">    it = &#123;<span class="string">'Iris-setosa'</span>: <span class="number">0</span>, <span class="string">'Iris-versicolor'</span>: <span class="number">1</span>, <span class="string">'Iris-virginica'</span>: <span class="number">2</span>&#125;</div><div class="line">    <span class="keyword">return</span> it[s]</div><div class="line"></div><div class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</div><div class="line">    path = <span class="string">'8.iris.data'</span></div><div class="line"></div><div class="line">    <span class="string">"""</span></div><div class="line">    方法1：手写读取数据</div><div class="line">    """</div><div class="line">    f = file(path)</div><div class="line">    x = []</div><div class="line">    y = []</div><div class="line">    <span class="keyword">for</span> d <span class="keyword">in</span> f:</div><div class="line">        d = d.strip()</div><div class="line">        <span class="keyword">if</span> d:</div><div class="line">            d = d.split(<span class="string">','</span>)</div><div class="line">            x.append(map(float, d[:<span class="number">-1</span>]))</div><div class="line">            y.append(d[<span class="number">-1</span>])</div><div class="line">    <span class="keyword">print</span> <span class="string">u'原始数据X：\n'</span>, x</div><div class="line">    <span class="keyword">print</span> <span class="string">u'原始数据Y：\n'</span>, y</div><div class="line"></div><div class="line">    x = np.array(x)</div><div class="line">    y = np.array(y)</div><div class="line">    <span class="keyword">print</span> <span class="string">'Numpy格式X：\n'</span>, x</div><div class="line">    <span class="keyword">print</span> <span class="string">'Numpy格式Y - 1:\n'</span>, y</div><div class="line"></div><div class="line">    y[y == <span class="string">'Iris-setosa'</span>] = <span class="number">0</span></div><div class="line">    y[y == <span class="string">'Iris-versicolor'</span>] = <span class="number">1</span></div><div class="line">    y[y == <span class="string">'Iris-virginica'</span>] = <span class="number">2</span></div><div class="line">    <span class="keyword">print</span> <span class="string">u'Numpy格式Y - 2:\n'</span>, y</div><div class="line">    <span class="string">"""</span></div><div class="line">    Numpy格式Y - 2:</div><div class="line">['0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0' '0'</div><div class="line">    """</div><div class="line"></div><div class="line">    y = y.astype(dtype=np.int)</div><div class="line">    <span class="keyword">print</span> <span class="string">u'Numpy格式Y - 3:\n'</span>, y</div><div class="line">    <span class="string">"""</span></div><div class="line">    安全转换</div><div class="line">    Numpy格式Y - 3:</div><div class="line">[0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0</div><div class="line"> 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1</div><div class="line"></div><div class="line">    """</div><div class="line"></div><div class="line">    <span class="string">"""</span></div><div class="line">    方法2：使用sklearn的数据预处理</div><div class="line">    from sklearn import preprocessing</div><div class="line">    """</div><div class="line">    df = pd.read_csv(path, header = <span class="keyword">None</span>)</div><div class="line">    x = df.values[:, :<span class="number">-1</span>]</div><div class="line">    y = df.values[:, <span class="number">-1</span>]</div><div class="line">    <span class="keyword">print</span> <span class="string">'x = \n'</span>, x</div><div class="line">    <span class="keyword">print</span> <span class="string">'y = \n'</span>, y</div><div class="line"></div><div class="line">    le = preprocessing.LabelEncoder()</div><div class="line">    le.fit([<span class="string">'Iris-setosa'</span>, <span class="string">'Iris-versicolor'</span>, <span class="string">'Iris-virginica'</span>])</div><div class="line">    <span class="keyword">print</span> le.classes_</div><div class="line">    y = le.transform(y)</div><div class="line">    <span class="keyword">print</span> <span class="string">'Last Version, y = \n'</span>, y</div><div class="line">    <span class="string">"""</span></div><div class="line">    ['Iris-setosa' 'Iris-versicolor' 'Iris-virginica']</div><div class="line">Last Version, y =</div><div class="line">[0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0</div><div class="line"> 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1</div><div class="line"> 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2 2 2 2 2 2</div><div class="line"> 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2</div><div class="line"> 2]</div><div class="line"> """</div><div class="line">    <span class="string">"""</span></div><div class="line">    方法三</div><div class="line">    """</div><div class="line">    data = np.loadtxt(path, dtype=float, delimiter=<span class="string">','</span>, converters=&#123;<span class="number">4</span>: iris_type&#125;)</div><div class="line">    <span class="keyword">print</span> data</div><div class="line">    <span class="string">"""</span></div><div class="line">    [[ 5.1  3.5  1.4  0.2  0. ]</div><div class="line">    [ 4.9  3.   1.4  0.2  0. ]</div><div class="line">    [ 4.7  3.2  1.3  0.2  0. ]</div><div class="line">    """</div><div class="line">    <span class="comment"># 将数据的0到3列组成x，第4列得到y</span></div><div class="line">    x, y = np.split(data, (<span class="number">4</span>,), axis=<span class="number">1</span>)<span class="comment">#按列</span></div><div class="line"></div><div class="line">    <span class="comment"># 为了可视化，仅使用前两列特征</span></div><div class="line">    x = x[:, :<span class="number">2</span>]</div><div class="line">    <span class="keyword">print</span> x</div><div class="line">    <span class="keyword">print</span> y</div><div class="line">    <span class="keyword">print</span> y.ravel()<span class="comment">#将多维数组展平</span></div><div class="line"></div><div class="line">    <span class="comment">### 进行标准化处理 使用管道</span></div><div class="line">    lr = Pipeline([(<span class="string">'sc'</span>, StandardScaler()),</div><div class="line">                   (<span class="string">'clf'</span>, LogisticRegression())])</div><div class="line"></div><div class="line">    lr.fit(x, y.ravel()) <span class="comment"># 这里数据没有切分为测试集和训练集</span></div><div class="line"></div><div class="line">    <span class="comment"># 画图</span></div><div class="line">    N, M = <span class="number">500</span>, <span class="number">500</span>  <span class="comment"># 横纵各采样多少个值</span></div><div class="line">    x1_min, x1_max = x[:, <span class="number">0</span>].min(), x[:, <span class="number">0</span>].max()  <span class="comment"># 第0列的范围</span></div><div class="line">    x2_min, x2_max = x[:, <span class="number">1</span>].min(), x[:, <span class="number">1</span>].max()  <span class="comment"># 第1列的范围</span></div><div class="line">    t1 = np.linspace(x1_min, x1_max, N)</div><div class="line">    t2 = np.linspace(x2_min, x2_max, M)</div><div class="line"></div><div class="line">    x1, x2 = np.meshgrid(t1, t2)  <span class="comment"># 生成网格采样点</span></div><div class="line">    <span class="comment"># print x1</span></div><div class="line">    <span class="comment"># print x2</span></div><div class="line">    x_test = np.stack((x1.flat, x2.flat), axis=<span class="number">1</span>)  <span class="comment"># 测试点</span></div><div class="line">    <span class="comment"># print x_test</span></div><div class="line">    <span class="string">"""</span></div><div class="line">    stack 函数</div><div class="line">    &gt;&gt;&gt; a = np.array([1, 2, 3])</div><div class="line">    &gt;&gt;&gt; b = np.array([2, 3, 4])</div><div class="line">    &gt;&gt;&gt; np.stack((a, b))</div><div class="line">    array([[1, 2, 3],</div><div class="line">            [2, 3, 4]])</div><div class="line"></div><div class="line">&gt;&gt;&gt;</div><div class="line"></div><div class="line">    &gt;&gt;&gt; np.stack((a, b), axis=1)</div><div class="line">    array([[1, 2],</div><div class="line">            [2, 3],</div><div class="line">            [3, 4]])</div><div class="line">    """</div><div class="line"></div><div class="line">    <span class="comment"># 无意义，只是为了凑另外两个维度</span></div><div class="line">    <span class="comment"># x3 = np.ones(x1.size) * np.average(x[:, 2])</span></div><div class="line">    <span class="comment"># x4 = np.ones(x1.size) * np.average(x[:, 3])</span></div><div class="line">    <span class="comment"># x_test = np.stack((x1.flat, x2.flat, x3, x4), axis=1)  # 测试点</span></div><div class="line"></div><div class="line"></div><div class="line">    cm_light = mpl.colors.ListedColormap([<span class="string">'#77E0A0'</span>, <span class="string">'#FF8080'</span>, <span class="string">'#A0A0FF'</span>])</div><div class="line">    cm_dark = mpl.colors.ListedColormap([<span class="string">'g'</span>, <span class="string">'r'</span>, <span class="string">'b'</span>])</div><div class="line"></div><div class="line">    y_hat = lr.predict(x_test)  <span class="comment"># 预测值</span></div><div class="line">    <span class="comment"># print y_hat</span></div><div class="line">    y_hat = y_hat.reshape(x1.shape)  <span class="comment"># 使之与输入的形状相同</span></div><div class="line">    <span class="comment"># print y_hat</span></div><div class="line">    plt.pcolormesh(x1, x2, y_hat, cmap=cm_light)  <span class="comment"># 预测值的显示</span></div><div class="line">    plt.scatter(x[:, <span class="number">0</span>], x[:, <span class="number">1</span>], c=y, edgecolors=<span class="string">'k'</span>, s=<span class="number">50</span>, cmap=cm_dark)  <span class="comment"># 样本的显示</span></div><div class="line">    plt.xlabel(<span class="string">'petal length'</span>)</div><div class="line">    plt.ylabel(<span class="string">'petal width'</span>)</div><div class="line">    plt.xlim(x1_min, x1_max)</div><div class="line">    plt.ylim(x2_min, x2_max)</div><div class="line">    plt.grid()</div><div class="line">    plt.savefig(<span class="string">'2.png'</span>)</div><div class="line">    plt.show()</div><div class="line"></div><div class="line">    <span class="comment"># 训练集上的预测结果</span></div><div class="line">    y_hat = lr.predict(x)</div><div class="line">    y = y.reshape(<span class="number">-1</span>)</div><div class="line">    result = y_hat == y</div><div class="line">    <span class="keyword">print</span> y_hat</div><div class="line">    <span class="keyword">print</span> result</div><div class="line">    acc = np.mean(result)</div><div class="line">    <span class="keyword">print</span> <span class="string">u'准确度: %.2f%%'</span> % (<span class="number">100</span> * acc)<span class="comment"># 准确度: 79.33%</span></div></pre></td></tr></table></figure>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/da0fede89d4de993ddf2c2acfdd26df9.png" alt=""></p>
+
+                <hr>
+                
+                <!-- 多说 Share start -->
+                <div class="ds-share"
+                     style="text-align: right"
+                     data-thread-key="2016/11/21/局部加权回归和逻辑回归/"
+                     data-title="局部加权回归和逻辑回归"
+                     data-url="http://yoursite.com/2016/11/21/局部加权回归和逻辑回归/"
+                     data-images=""
+                     data-content="摘要：
+
+局部加权回归
+Logistic回归
+鸢尾花数据集（代码）
+
+
+局部加权回归
+权值的选... | Haozhe&#39;s blog ">
+                    <div class="ds-share-inline">
+                        <ul class="ds-share-icons-16">
+                            <li data-toggle="ds-share-icons-more"><a class="ds-more" href="#">分享到：</a></li>
+                            <li><a class="ds-wechat flat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+                            <li><a class="ds-weibo flat" href="javascript:void(0);" data-service="weibo">微博</a></li>
+                            <li><a class="ds-douban flat" href="javascript:void(0);" data-service="douban">豆瓣</a></li>
+                        </ul>
+                        <div class="ds-share-icons-more">
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+                <!-- 多说 Share end-->
+                
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2016/12/09/数据分析：python数据结构/" data-toggle="tooltip" data-placement="top"
+                           title="数据分析：python数据结构">&larr; Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2016/11/21/线性回归（python实现）/" data-toggle="tooltip" data-placement="top"
+                           title="线性回归（python实现）">Next Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+                <!-- 多说评论框 start -->
+                <div class="comment">
+                    <div class="ds-thread"
+                         data-thread-key="2016/11/21/局部加权回归和逻辑回归/"
+                         data-title="局部加权回归和逻辑回归"
+                         data-url="http://yoursite.com/2016/11/21/局部加权回归和逻辑回归/">
+                    </div>
+                </div>
+                <!-- 多说评论框 end -->
+                
+
+                
+
+            </div>
+
+            <div class="hidden-xs col-sm-3 toc-col">
+                <div class="toc-wrap">
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#局部加权回归"><span class="toc-text">局部加权回归</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#权值的选择"><span class="toc-text">权值的选择</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Logistic回归"><span class="toc-text">Logistic回归</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Logistic-sigmoid函数"><span class="toc-text">Logistic/sigmoid函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Logistic回归参数估计"><span class="toc-text">Logistic回归参数估计</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#参数的学习规则"><span class="toc-text">参数的学习规则</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#对数线性模型"><span class="toc-text">对数线性模型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Logistic回归的损失函数"><span class="toc-text">Logistic回归的损失函数</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Softmax回归"><span class="toc-text">Softmax回归</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#鸢尾花数据代码"><span class="toc-text">鸢尾花数据代码</span></a></li></ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5 class="text-center">
+                        <a href="/tags/">FEATURED TAGS</a>
+                    </h5>
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#邹博机器学习"
+                           title="邹博机器学习">邹博机器学习</a>
+                        
+                        <a class="tag" href="/tags/#机器学习算法"
+                           title="机器学习算法">机器学习算法</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <div style="margin-top: 20px;">
+                    <h5 class="text-center">FRIENDS</h5>
+                    <ul class="list-inline text-center">
+                        
+                        <li><a href="http://www.hankcs.com/">hankcs</a></li>
+                        
+                        <li><a href="http://www.lintcode.com/zh-cn/ladder/2/">lintcode</a></li>
+                        
+                        <li><a href="http://www.jiuzhang.com/solutions/">jiuzhang</a></li>
+                        
+                    </ul>
+                </div>
+                
+            </div>
+        </div>
+
+    </div>
+</article>
+
+
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    // dynamic User by Hux
+    var _user = 'xuehaozhe';
+
+    // duoshuo comment query.
+    var duoshuoQuery = {short_name: _user};
+    (function () {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';
+        ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0]
+        || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+</script>
+<!-- 多说公共JS代码 end -->
+
+
+
+
+
+<!-- Footer -->
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <br>
+                <ul class="list-inline text-center">
+                
+                
+                    <li>
+                        <a target="_blank" href="https://twitter.com/xuehaozhe">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/xuehaozhe0526">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="http://weibo.com/fendoujianchi">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/xuehanzhe0526">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Haozhe 2017
+                    <br>
+                    <span id="busuanzi_container_site_pv" style="font-size: 12px;">PV: <span id="busuanzi_value_site_pv"></span> Times</span>
+                    <br>
+                    Theme by <a href="https://haojen.github.io/">Haojen Ma</a>
+                </p>
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/blog.js"></script>
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://yoursite.com/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+
+
+<!-- swiftype -->
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','null','2.0.0');
+</script>
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<!--wechat title img-->
+<img class="wechat-title-img" src="http://7xrw7v.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160402220553.png">
+</body>
+
+</html>

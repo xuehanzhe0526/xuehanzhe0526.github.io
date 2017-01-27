@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="What hurts more,the pain of hard work or the pain of regret.">
+    <meta name="keyword" content="null">
+    <meta name="theme-color" content="#600090">
+    <meta name="msapplication-navbutton-color" content="#600090">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#600090">
+    <link rel="shortcut icon" href="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-person-128.png">
+    <link rel="alternate" type="application/atom+xml" title="Haozhe" href="/atom.xml">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
+    <title>
+        
+        API入门｜Haozhe&#39;s blog
+        
+    </title>
+
+    <link rel="canonical" href="http://yoursite.com/2016/10/15/API和网页爬虫/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/blog-style.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+</head>
+
+<style>
+
+    header.intro-header {
+        background-image: url('http://7xrw7v.com1.z0.glb.clouddn.com/1485527729222.jpg')
+    }
+</style>
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="" class="animated fadeIn">
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost = "true" data-istags="false
+" data-ishome = "false" >
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand animated pulse" href="/">
+                <span class="brand-logo">
+                    Haozhe
+                </span>
+                's Blog
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <!-- /.navbar-collapse -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+					
+                    
+                        
+							
+                        <li>
+                            <a href="/tags/">tags</a>
+                        </li>
+							
+						
+                    
+					
+					
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+//    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+<!-- Main Content -->
+
+<!--only post-->
+
+
+<img class="wechat-title-img"
+     src="http://7xrw7v.com1.z0.glb.clouddn.com/148552521631.jpg#博文默认的图片">
+
+
+<style>
+    
+    header.intro-header {
+        background-image: url('http://7xrw7v.com1.z0.glb.clouddn.com/148552521631.jpg#博文默认的图片')
+    }
+
+    
+</style>
+
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <div class="post-heading">
+                    <h1>API入门</h1>
+                    
+                    <span class="meta">
+                         作者 Haozhe Xue
+                        <span>
+                          日期 2016-10-15
+                         </span>
+                    </span>
+                    <div class="tags text-center">
+                        
+                        <a class="tag" href="/tags/#dataquest"
+                           title="dataquest">dataquest</a>
+                        
+                        <a class="tag" href="/tags/#爬虫"
+                           title="爬虫">爬虫</a>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="post-title-haojen">
+        <span>
+            API入门
+        </span>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <!-- Post Container -->
+            <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
+                <p>摘要：</p>
+<ul>
+<li>API</li>
+<li>Requests</li>
+<li>JSON Format</li>
+<li>Status Codes</li>
+</ul>
+<a id="more"></a>
+<h3 id="什么是API"><a href="#什么是API" class="headerlink" title="什么是API"></a>什么是API</h3><p>Application Program Interface (API)</p>
+<p>API 常用来快速获取数据信息.</p>
+<p>这次的任务 去获取数据 从<code>International Space Station (ISS)</code></p>
+<h3 id="Requests"><a href="#Requests" class="headerlink" title="Requests"></a>Requests</h3><p>为了得到数据 你需要 对网页服务器 进行 <code>request</code>( 在python中 我们使用 requests library )<br> 数据以 <code>json</code> 形式 返回</p>
+<h3 id="Requests的类型"><a href="#Requests的类型" class="headerlink" title="Requests的类型"></a>Requests的类型</h3><p>最常用到的类型<code>GET request</code></p>
+<p>被用来 retrieve 数据</p>
+<p>API endpoints 端点是服务器路由，它是用于检索不同数据API。</p>
+<p>第一个 <code>iss-now.json</code> endpoint,它将得到 国际空间站当前的经度纬度,获取此数据不适合数据集，因为它涉及到一些在服务器上的计算。</p>
+<p><a href="http://open-notify.org/Open-Notify-API/" target="_blank" rel="external">endpoints on OpenNotify</a></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="comment"># 向国际空间站网页服务器发出一个数据请求，并获取请求的状态码</span></div><div class="line"><span class="keyword">import</span> requests</div><div class="line">response = requests.get(<span class="string">"http://api.open-notify.org/iss-now.json"</span>)</div><div class="line">status_code = response.status_code</div><div class="line"></div><div class="line">output:<span class="number">200</span></div></pre></td></tr></table></figure>
+<h3 id="Status-Codes"><a href="#Status-Codes" class="headerlink" title="Status Codes"></a>Status Codes</h3><ul>
+<li>200 – everything went okay, and the result has been returned (if any)</li>
+<li>301 – the server is redirecting you to a different endpoint. This can happen when a company switches domain names, or an endpoint name is changed.</li>
+<li>401 – the server thinks you’re not authenticated. This happens when you don’t send the right credentials to access an API (we’ll talk about this in a later mission).</li>
+<li>400 – the server thinks you made a bad request. This can happen when you don’t send along the right data, among other things.</li>
+<li>403 – the resource you’re trying to access is forbidden – you don’t have the right permissions to see it.</li>
+<li>404 – the resource you tried to access wasn’t found on the server.</li>
+</ul>
+<h3 id="查询参数-Query-Parameters"><a href="#查询参数-Query-Parameters" class="headerlink" title="查询参数(Query Parameters)"></a>查询参数(Query Parameters)</h3><figure class="highlight python"><table><tr><td class="code"><pre><div class="line">response = requests.get(<span class="string">"http://api.open-notify.org/iss-pass.json"</span>)</div><div class="line">status_code = response.status_code</div><div class="line">print(status_code)</div><div class="line"></div><div class="line">output:</div><div class="line"><span class="number">400</span></div></pre></td></tr></table></figure>
+<p>查看  ISS Pass endpoint (<a href="http://open-notify.org/Open-Notify-API/ISS-Pass-Times/" target="_blank" rel="external">http://open-notify.org/Open-Notify-API/ISS-Pass-Times/</a>)<br> 要求 请求参数 为两个:经纬度，<br>该请求返回的是ISS下一次经过指定经纬度位置的时间。</p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/130519e2f905697837a8755fecffa8ea.png" alt=""></p>
+<p><code>params</code>参数</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="comment"># 设置参数 we want to pass to the API.</span></div><div class="line"><span class="comment"># 纽约 New York 经度纬度</span></div><div class="line"><span class="comment"># 字典的形式  </span></div><div class="line">parameters = &#123;<span class="string">"lat"</span>: <span class="number">40.71</span>, <span class="string">"lon"</span>: <span class="number">-74</span>&#125;</div><div class="line"></div><div class="line"><span class="comment"># Make a get request with the parameters.</span></div><div class="line">response = requests.get(<span class="string">"http://api.open-notify.org/iss-pass.json"</span>, params=parameters)</div><div class="line"></div><div class="line"><span class="comment"># Print the content of the response (the data the server returned)</span></div><div class="line">print(response.content)</div><div class="line"></div><div class="line"><span class="comment">### 第二种方法</span></div><div class="line"></div><div class="line"><span class="comment"># This gets the same data as the command above</span></div><div class="line">response = requests.get(<span class="string">"http://api.open-notify.org/iss-pass.json?lat=40.71&amp;lon=-74"</span>)</div><div class="line">print(response.content)</div></pre></td></tr></table></figure>
+<p><code>response.content</code>获取相应的内容<br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/1b3af79b7cef1a838ea706baf3213282.png" alt=""></p>
+<p>推荐 第一种字典形式 方法</p>
+<h3 id="JSON-Format"><a href="#JSON-Format" class="headerlink" title="JSON Format"></a>JSON Format</h3><p>从上面可以发现 API返回的形式 是以字符串的形式 返回</p>
+<p>JavaScript Object Notation(JavaScript 对象表示法)</p>
+<p>JSON 是一种数据结构像列表和字典，以确保它们很容易被机器可读的字符串</p>
+<p><code>json library.</code></p>
+<p>convert lists and dictionaries to JSON</p>
+<p>convert strings to lists and dictionaries</p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/cf350e3a03fcf068102904c5b18fef45.png" alt=""></p>
+<figure class="highlight"><table><tr><td class="code"><pre><div class="line"># Make a list of fast food chains.</div><div class="line">best_food_chains = ["Taco Bell", "Shake Shack", "Chipotle"]</div><div class="line">print(type(best_food_chains))</div><div class="line"></div><div class="line"># Import the json library</div><div class="line">import json</div><div class="line"></div><div class="line"># Use json.dumps to convert best_food_chains to a string.</div><div class="line">best_food_chains_string = json.dumps(best_food_chains)</div><div class="line">print(type(best_food_chains_string))</div><div class="line"></div><div class="line"># Convert best_food_chains_string back into a list</div><div class="line">print(type(json.loads(best_food_chains_string)))</div><div class="line"></div><div class="line"># Make a dictionary</div><div class="line">fast_food_franchise = &#123;</div><div class="line">    "Subway": 24722,</div><div class="line">    "McDonalds": 14098,</div><div class="line">    "Starbucks": 10821,</div><div class="line">    "Pizza Hut": 7600</div><div class="line">&#125;</div><div class="line"></div><div class="line"># We can also dump a dictionary to a string and load it.</div><div class="line">fast_food_franchise_string = json.dumps(fast_food_franchise)</div><div class="line">print(type(fast_food_franchise_string))</div><div class="line"></div><div class="line"></div><div class="line">output:</div><div class="line">&lt;class 'list'&gt;</div><div class="line">&lt;class 'str'&gt;</div><div class="line">&lt;class 'list'&gt;</div><div class="line">&lt;class 'str'&gt;</div></pre></td></tr></table></figure>
+<p>注意：将list变为string后，list[1,2,3]—&gt;str[1,2,3],list[0] == 1而str[0]=[</p>
+<h3 id="Getting-JSON-From-A-Request"><a href="#Getting-JSON-From-A-Request" class="headerlink" title="Getting JSON From A Request"></a>Getting JSON From A Request</h3><p><code>.json() method on the response</code><br>使用这个方法 以 Python object 得到 相应的内容</p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/fb10cfe5150fc7f3a074874e6e4e1c52.png" alt=""></p>
+<p>get的内容包括三块：</p>
+<ul>
+<li>‘response’：包括一个list，list中是dict数据，总共5次经过旧金山</li>
+<li>‘message’：’success’，表示信息get成功</li>
+<li>‘request’：请求的相关数据<br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/7eb75e7454d48d6c35cf04e55e133ed9.png" alt=""></li>
+</ul>
+<h3 id="Content-Type"><a href="#Content-Type" class="headerlink" title="Content Type"></a>Content Type</h3><p><code>.headers property of a response.</code></p>
+<p>response.headers中存放了一些与信息生成以及编码相关的信息</p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/a0888ad816ea17b6e0a9f545bbdd3ade.png" alt=""></p>
+<p>其中content-type是最重要的一个键，对于一个不知道编码类型的网站，我们可以用下面代码来获取编码信息：</p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/62420a29cf128f831a153d4c7e9eb840.png" alt=""></p>
+<h3 id="查看空间站人的数量"><a href="#查看空间站人的数量" class="headerlink" title="查看空间站人的数量"></a>查看空间站人的数量</h3><p><code>astros.json</code>API endpoint 告诉我们空间站人的数量</p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/8862340f112372063939ad0c83c65757.png" alt=""></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line">response = requests.get(<span class="string">"http://api.open-notify.org/astros.json"</span>)</div><div class="line">data = response.json()</div><div class="line"></div><div class="line">in_space_count = data[<span class="string">"number"</span>]</div></pre></td></tr></table></figure>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/0bd485e505b252b7a9977efe2ad59ee2.png" alt=""></p>
+<h3 id="API地址"><a href="#API地址" class="headerlink" title="API地址"></a>API地址</h3><p><a href="http://open-notify.org/Open-Notify-API/" target="_blank" rel="external">http://open-notify.org/Open-Notify-API/</a></p>
+
+                <hr>
+                
+                <!-- 多说 Share start -->
+                <div class="ds-share"
+                     style="text-align: right"
+                     data-thread-key="2016/10/15/API和网页爬虫/"
+                     data-title="API入门"
+                     data-url="http://yoursite.com/2016/10/15/API和网页爬虫/"
+                     data-images=""
+                     data-content="摘要：
+
+API
+Requests
+JSON Format
+Status Codes
+
+
+什么... | Haozhe&#39;s blog ">
+                    <div class="ds-share-inline">
+                        <ul class="ds-share-icons-16">
+                            <li data-toggle="ds-share-icons-more"><a class="ds-more" href="#">分享到：</a></li>
+                            <li><a class="ds-wechat flat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+                            <li><a class="ds-weibo flat" href="javascript:void(0);" data-service="weibo">微博</a></li>
+                            <li><a class="ds-douban flat" href="javascript:void(0);" data-service="douban">豆瓣</a></li>
+                        </ul>
+                        <div class="ds-share-icons-more">
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+                <!-- 多说 Share end-->
+                
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2016/10/15/API进阶/" data-toggle="tooltip" data-placement="top"
+                           title="API进阶">&larr; Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2016/10/14/数据清洗后可视化/" data-toggle="tooltip" data-placement="top"
+                           title="数据清洗后可视化">Next Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+                <!-- 多说评论框 start -->
+                <div class="comment">
+                    <div class="ds-thread"
+                         data-thread-key="2016/10/15/API和网页爬虫/"
+                         data-title="API入门"
+                         data-url="http://yoursite.com/2016/10/15/API和网页爬虫/">
+                    </div>
+                </div>
+                <!-- 多说评论框 end -->
+                
+
+                
+
+            </div>
+
+            <div class="hidden-xs col-sm-3 toc-col">
+                <div class="toc-wrap">
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#什么是API"><span class="toc-text">什么是API</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Requests"><span class="toc-text">Requests</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Requests的类型"><span class="toc-text">Requests的类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Status-Codes"><span class="toc-text">Status Codes</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#查询参数-Query-Parameters"><span class="toc-text">查询参数(Query Parameters)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#JSON-Format"><span class="toc-text">JSON Format</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Getting-JSON-From-A-Request"><span class="toc-text">Getting JSON From A Request</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Content-Type"><span class="toc-text">Content Type</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#查看空间站人的数量"><span class="toc-text">查看空间站人的数量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#API地址"><span class="toc-text">API地址</span></a></li></ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5 class="text-center">
+                        <a href="/tags/">FEATURED TAGS</a>
+                    </h5>
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#dataquest"
+                           title="dataquest">dataquest</a>
+                        
+                        <a class="tag" href="/tags/#爬虫"
+                           title="爬虫">爬虫</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <div style="margin-top: 20px;">
+                    <h5 class="text-center">FRIENDS</h5>
+                    <ul class="list-inline text-center">
+                        
+                        <li><a href="http://www.hankcs.com/">hankcs</a></li>
+                        
+                        <li><a href="http://www.lintcode.com/zh-cn/ladder/2/">lintcode</a></li>
+                        
+                        <li><a href="http://www.jiuzhang.com/solutions/">jiuzhang</a></li>
+                        
+                    </ul>
+                </div>
+                
+            </div>
+        </div>
+
+    </div>
+</article>
+
+
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    // dynamic User by Hux
+    var _user = 'xuehaozhe';
+
+    // duoshuo comment query.
+    var duoshuoQuery = {short_name: _user};
+    (function () {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';
+        ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0]
+        || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+</script>
+<!-- 多说公共JS代码 end -->
+
+
+
+
+
+<!-- Footer -->
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <br>
+                <ul class="list-inline text-center">
+                
+                
+                    <li>
+                        <a target="_blank" href="https://twitter.com/xuehaozhe">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/xuehaozhe0526">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="http://weibo.com/fendoujianchi">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/xuehanzhe0526">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Haozhe 2017
+                    <br>
+                    <span id="busuanzi_container_site_pv" style="font-size: 12px;">PV: <span id="busuanzi_value_site_pv"></span> Times</span>
+                    <br>
+                    Theme by <a href="https://haojen.github.io/">Haojen Ma</a>
+                </p>
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/blog.js"></script>
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://yoursite.com/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+
+
+<!-- swiftype -->
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','null','2.0.0');
+</script>
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<!--wechat title img-->
+<img class="wechat-title-img" src="http://7xrw7v.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160402220553.png">
+</body>
+
+</html>

@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="What hurts more,the pain of hard work or the pain of regret.">
+    <meta name="keyword" content="null">
+    <meta name="theme-color" content="#600090">
+    <meta name="msapplication-navbutton-color" content="#600090">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#600090">
+    <link rel="shortcut icon" href="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-person-128.png">
+    <link rel="alternate" type="application/atom+xml" title="Haozhe" href="/atom.xml">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
+    <title>
+        
+        python错误处理｜Haozhe&#39;s blog
+        
+    </title>
+
+    <link rel="canonical" href="http://yoursite.com/2016/09/22/python错误处理/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/blog-style.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+</head>
+
+<style>
+
+    header.intro-header {
+        background-image: url('http://7xrw7v.com1.z0.glb.clouddn.com/1485527729222.jpg')
+    }
+</style>
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="" class="animated fadeIn">
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost = "true" data-istags="false
+" data-ishome = "false" >
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand animated pulse" href="/">
+                <span class="brand-logo">
+                    Haozhe
+                </span>
+                's Blog
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <!-- /.navbar-collapse -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+					
+                    
+                        
+							
+                        <li>
+                            <a href="/tags/">tags</a>
+                        </li>
+							
+						
+                    
+					
+					
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+//    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+<!-- Main Content -->
+
+<!--only post-->
+
+
+<img class="wechat-title-img"
+     src="http://7xrw7v.com1.z0.glb.clouddn.com/148552521631.jpg#博文默认的图片">
+
+
+<style>
+    
+    header.intro-header {
+        background-image: url('http://7xrw7v.com1.z0.glb.clouddn.com/148552521631.jpg#博文默认的图片')
+    }
+
+    
+</style>
+
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <div class="post-heading">
+                    <h1>python错误处理</h1>
+                    
+                    <span class="meta">
+                         作者 Haozhe Xue
+                        <span>
+                          日期 2016-09-22
+                         </span>
+                    </span>
+                    <div class="tags text-center">
+                        
+                        <a class="tag" href="/tags/#dataquest"
+                           title="dataquest">dataquest</a>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="post-title-haojen">
+        <span>
+            python错误处理
+        </span>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <!-- Post Container -->
+            <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
+                <p>摘要：</p>
+<ul>
+<li>Sets</li>
+<li>Error handling</li>
+<li>Missing Values</li>
+<li>Try/Except Blocks</li>
+<li>The Pass Keyword</li>
+</ul>
+<a id="more"></a>
+<h3 id="The-Dataset"><a href="#The-Dataset" class="headerlink" title="The Dataset"></a>The Dataset</h3><p>legislators.csv<br>数据包含历史上每一位国会议员（美国）<br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/80fcc594df7753e2c4236b15084160a4.png" alt=""></p>
+<ul>
+<li>type – whether they were in the Senate (sen 参议院), or in the House of Representatives (rep 众议院).</li>
+</ul>
+<p>从数据中 我们发现数据有缺失值 缺失值的存在会导致 errors 这节我们将学会如何处理 errors</p>
+<h3 id="Sets"><a href="#Sets" class="headerlink" title="Sets"></a>Sets</h3><p>有时候我们想提取列表的唯一值  就用到了Sets</p>
+<blockquote>
+<p> A set is a data type where each element is unique</p>
+</blockquote>
+<p>比如我们想处理这样的数据：<br><code>[&quot;Dog&quot;, &quot;Cat&quot;, &quot;Hippo&quot;, &quot;Dog&quot;, &quot;Cat&quot;, &quot;Dog&quot;, &quot;Dog&quot;, &quot;Cat&quot;]</code></p>
+<p>Into this:</p>
+<p><code>[&quot;Dog&quot;, &quot;Cat&quot;, &quot;Hippo&quot;]</code></p>
+<p>set的使用 <code>set()</code><br><figure class="highlight python"><table><tr><td class="code"><pre><div class="line">unique_animals = set([<span class="string">"Dog"</span>, <span class="string">"Cat"</span>, <span class="string">"Hippo"</span>, <span class="string">"Dog"</span>, <span class="string">"Cat"</span>, <span class="string">"Dog"</span>, <span class="string">"Dog"</span>, <span class="string">"Cat"</span>])</div><div class="line">print(unique_animals)</div></pre></td></tr></table></figure></p>
+<p>结果如下<br><figure class="highlight python"><table><tr><td class="code"><pre><div class="line">&#123;<span class="string">'Hippo'</span>, <span class="string">'Cat'</span>, <span class="string">'Dog'</span>&#125;</div></pre></td></tr></table></figure></p>
+<ul>
+<li>注意的是：set 是无序的 所以元素没有索引 每次打印的结果 可能会不同</li>
+</ul>
+<p>如果想往set中添加items<br><code>add()</code><br><figure class="highlight python"><table><tr><td class="code"><pre><div class="line">unique_animals.add(<span class="string">"Tiger"</span>)</div></pre></td></tr></table></figure></p>
+<p>删除元素<br><code>remove()</code><br><figure class="highlight python"><table><tr><td class="code"><pre><div class="line">unique_animals.remove(<span class="string">"Dog"</span>)</div></pre></td></tr></table></figure></p>
+<p>转换一个set 到 list （ convert a set to a list）<br><code>list()</code></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line">list(unique_animals)</div></pre></td></tr></table></figure>
+<h4 id="小例子"><a href="#小例子" class="headerlink" title="小例子"></a>小例子</h4><p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/eca66077bc3d92e22dd57e027c698b6c.png" alt=""><br>查看数据中 性别的值<br><figure class="highlight python"><table><tr><td class="code"><pre><div class="line"></div><div class="line">gender = []</div><div class="line"><span class="keyword">for</span> item <span class="keyword">in</span> legislators:</div><div class="line">    gender.append(item[<span class="number">3</span>])</div><div class="line"></div><div class="line">gender = set(gender)</div><div class="line">print(gender)</div></pre></td></tr></table></figure></p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/aa3bfd4f049f4ecad4edc1f04a41e896.png" alt=""></p>
+<h3 id="Exploring-The-Dataset"><a href="#Exploring-The-Dataset" class="headerlink" title="Exploring The Dataset"></a>Exploring The Dataset</h3><p>对于新的数据集 我们要去探索它 看它是否存在某种模式patterns</p>
+<ul>
+<li><p>Missing data.<br>有时候值是全完空的 比如这样“ ” ，或者 用<code>N/A</code>表示缺失值。</p>
+</li>
+<li><p>Values that don’t make intuitive sense<br>如果 一个国会议员的生日 是2050 这将是一个有问题的数据</p>
+</li>
+<li><p>Recuring themes<br>这是数据 你会发现 大部分议员为男性</p>
+</li>
+</ul>
+<h3 id="Missing-Values"><a href="#Missing-Values" class="headerlink" title="Missing Values"></a>Missing Values</h3><p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/67208cf659c87300ed3050c96c3c72e6.png" alt=""></p>
+<p>这里 先使用第二个方法（利用特殊值来填充缺失值） 对缺失值进行处理</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line">rows = [</div><div class="line">    [<span class="string">"Bassett"</span>, <span class="string">"Richard"</span>, <span class="string">"1745-04-02"</span>, <span class="string">"M"</span>, <span class="string">"sen"</span>, <span class="string">"DE"</span>, <span class="string">"Anti-Administration"</span>],</div><div class="line">    [<span class="string">"Bland"</span>, <span class="string">"Theodorick"</span>, <span class="string">"1742-03-21"</span>, <span class="string">""</span>, <span class="string">"rep"</span>, <span class="string">"VA"</span>, <span class="string">""</span>]</div><div class="line">]</div><div class="line"><span class="keyword">for</span> row <span class="keyword">in</span> rows:</div><div class="line">    <span class="keyword">if</span> row[<span class="number">6</span>] == <span class="string">""</span>:</div><div class="line">        row[<span class="number">6</span>] = <span class="string">"No Party"</span></div></pre></td></tr></table></figure>
+<p>对于性别缺失值的处理  由于大部分的议员为男性  所以 我们可以选择 使用M 来填充数据中性别的缺失</p>
+<h3 id="Parsing-Birth-Years"><a href="#Parsing-Birth-Years" class="headerlink" title="Parsing Birth Years"></a>Parsing Birth Years</h3><p>数据中，birthday列 的形式为 <code>1820-01-02</code></p>
+<p>现在要做的 就是转变这种形式</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line">date = <span class="string">"1820-01-02"</span></div><div class="line">parts = date.split(<span class="string">"-"</span>)</div><div class="line">print(parts)</div></pre></td></tr></table></figure>
+<p>结果竟会是一个列表 <code>[&quot;1820&quot;, &quot;01&quot;, &quot;02&quot;]</code><br><figure class="highlight python"><table><tr><td class="code"><pre><div class="line">birth_years = []</div><div class="line"><span class="keyword">for</span> row <span class="keyword">in</span> legislators:</div><div class="line">    birthday = row[<span class="number">2</span>]</div><div class="line">    parts = birthday.split(<span class="string">"-"</span>)</div><div class="line">    birth_years.append(parts[<span class="number">0</span>])</div></pre></td></tr></table></figure></p>
+<p>结果如下：</p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/97a2cddfe6a1f038160b81d36dae2849.png" alt=""></p>
+<h3 id="Try-Except-Blocks"><a href="#Try-Except-Blocks" class="headerlink" title="Try/Except Blocks"></a>Try/Except Blocks</h3><p>上面 如果我们想对议员求平均出生的年，因为上面是 字符串类型， 我们可以通过<code>int()</code>进行转变，但是，存在缺失值，如果直接对缺失值使用int() 比如<code>int(&#39;&#39;)</code> 将会出错ValueError。</p>
+<p>(because an empty string can’t be converted to an integer.)</p>
+<p>处理的方法： 使用<code>try/except block</code><br><figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="keyword">try</span>:</div><div class="line">    int(<span class="string">''</span>)</div><div class="line"><span class="keyword">except</span> Exception:</div><div class="line">    print(<span class="string">"There was an error"</span>)</div></pre></td></tr></table></figure></p>
+<p>在捕获了错误后 代码会继续向下执行。</p>
+<h3 id="Exception-Instances"><a href="#Exception-Instances" class="headerlink" title="Exception Instances"></a>Exception Instances</h3><p>异常实例</p>
+<p>查看Exception的类型</p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/2f887d795f3a49bfc4cdcc39d015801e.png" alt=""></p>
+<p>转变异常类 到 一个字符串</p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/c46900ac92384d33a711ef4ece33202a.png" alt=""></p>
+<h3 id="The-Pass-Keyword"><a href="#The-Pass-Keyword" class="headerlink" title="The Pass Keyword"></a>The Pass Keyword</h3><p>有时候代码出错，我们并不想进行具体的处理或者打印出信息，而是让代码继续执行。比如以下代码  会打印多次错误</p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/c48700fb6bfaae05d993dbaf03af1edd.png" alt=""></p>
+<p>如果不输出 打印语句 程序会报错<br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/e3fb2b09c5bca8b2b41eb61429b9da53.png" alt=""><br>在python语句中 <code>（：）</code>后面需要有缩进的语句</p>
+<p>为了避免这样 我们可以使用<code>pass</code>关键字<br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/5e6081cb8b03d002c426f2f6bc1018d5.png" alt=""></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line">converted_years = []</div><div class="line"><span class="keyword">for</span> year <span class="keyword">in</span> birth_years:</div><div class="line">    <span class="keyword">try</span>:</div><div class="line">        year = int(year)</div><div class="line">    <span class="keyword">except</span> Exception:</div><div class="line">        <span class="keyword">pass</span></div><div class="line">    converted_years.append(year)</div></pre></td></tr></table></figure>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/17b3fb725361399a2b66362ebe3305f7.png" alt=""></p>
+<h3 id="Convert-Birth-Years-To-Integers"><a href="#Convert-Birth-Years-To-Integers" class="headerlink" title="Convert Birth Years To Integers"></a>Convert Birth Years To Integers</h3><figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="keyword">for</span> row <span class="keyword">in</span> legislators:</div><div class="line">    birthday = row[<span class="number">2</span>]</div><div class="line">    birth_year = birthday.split(<span class="string">"-"</span>)[<span class="number">0</span>]</div><div class="line">    <span class="keyword">try</span>:</div><div class="line">        birth_year = int(birth_year)</div><div class="line">    <span class="keyword">except</span> Exception:</div><div class="line">        birth_year = <span class="number">0</span></div><div class="line">    row.append(birth_year)</div></pre></td></tr></table></figure>
+<p>最后 数据legislators 将会多出一列 birth year</p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/f87e2dce235391f7167f30f3c7fb6e32.png" alt=""></p>
+<p>缺失值 用 0 代替</p>
+<h3 id="Fill-In-Years-Without-A-Value"><a href="#Fill-In-Years-Without-A-Value" class="headerlink" title="Fill In Years Without A Value"></a>Fill In Years Without A Value</h3><p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/f2b422bb6225b180c3defb02da7671ca.png" alt=""></p>
+<p>从 birth years column of legislators 可以发现 对于缺失值  我们用0 代替</p>
+<p>现在我们要填写这些缺失值<br>通过发现数据 大体上是按 时间顺序排列</p>
+<p>可以用前一个年份代替</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line">last_value = <span class="number">1</span> <span class="comment">#初始值</span></div><div class="line"><span class="keyword">for</span> row <span class="keyword">in</span> legislators:</div><div class="line">    <span class="keyword">if</span> row[<span class="number">7</span>] == <span class="number">0</span>:</div><div class="line">        row[<span class="number">7</span>] = last_value</div><div class="line">    last_value = row[<span class="number">7</span>]</div></pre></td></tr></table></figure>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/90194d57bc39a25458c603174fbd7cdb.png" alt=""></p>
+
+                <hr>
+                
+                <!-- 多说 Share start -->
+                <div class="ds-share"
+                     style="text-align: right"
+                     data-thread-key="2016/09/22/python错误处理/"
+                     data-title="python错误处理"
+                     data-url="http://yoursite.com/2016/09/22/python错误处理/"
+                     data-images=""
+                     data-content="摘要：
+
+Sets
+Error handling
+Missing Values
+Try/Exc... | Haozhe&#39;s blog ">
+                    <div class="ds-share-inline">
+                        <ul class="ds-share-icons-16">
+                            <li data-toggle="ds-share-icons-more"><a class="ds-more" href="#">分享到：</a></li>
+                            <li><a class="ds-wechat flat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+                            <li><a class="ds-weibo flat" href="javascript:void(0);" data-service="weibo">微博</a></li>
+                            <li><a class="ds-douban flat" href="javascript:void(0);" data-service="douban">豆瓣</a></li>
+                        </ul>
+                        <div class="ds-share-icons-more">
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+                <!-- 多说 Share end-->
+                
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2016/09/23/列表深入理解/" data-toggle="tooltip" data-placement="top"
+                           title="List comprehensions">&larr; Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2016/09/22/python函数和调试错误/" data-toggle="tooltip" data-placement="top"
+                           title="Customizing functions and debugging errors">Next Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+                <!-- 多说评论框 start -->
+                <div class="comment">
+                    <div class="ds-thread"
+                         data-thread-key="2016/09/22/python错误处理/"
+                         data-title="python错误处理"
+                         data-url="http://yoursite.com/2016/09/22/python错误处理/">
+                    </div>
+                </div>
+                <!-- 多说评论框 end -->
+                
+
+                
+
+            </div>
+
+            <div class="hidden-xs col-sm-3 toc-col">
+                <div class="toc-wrap">
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#The-Dataset"><span class="toc-text">The Dataset</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Sets"><span class="toc-text">Sets</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#小例子"><span class="toc-text">小例子</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Exploring-The-Dataset"><span class="toc-text">Exploring The Dataset</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Missing-Values"><span class="toc-text">Missing Values</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Parsing-Birth-Years"><span class="toc-text">Parsing Birth Years</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Try-Except-Blocks"><span class="toc-text">Try/Except Blocks</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Exception-Instances"><span class="toc-text">Exception Instances</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#The-Pass-Keyword"><span class="toc-text">The Pass Keyword</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Convert-Birth-Years-To-Integers"><span class="toc-text">Convert Birth Years To Integers</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Fill-In-Years-Without-A-Value"><span class="toc-text">Fill In Years Without A Value</span></a></li></ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5 class="text-center">
+                        <a href="/tags/">FEATURED TAGS</a>
+                    </h5>
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#dataquest"
+                           title="dataquest">dataquest</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <div style="margin-top: 20px;">
+                    <h5 class="text-center">FRIENDS</h5>
+                    <ul class="list-inline text-center">
+                        
+                        <li><a href="http://www.hankcs.com/">hankcs</a></li>
+                        
+                        <li><a href="http://www.lintcode.com/zh-cn/ladder/2/">lintcode</a></li>
+                        
+                        <li><a href="http://www.jiuzhang.com/solutions/">jiuzhang</a></li>
+                        
+                    </ul>
+                </div>
+                
+            </div>
+        </div>
+
+    </div>
+</article>
+
+
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    // dynamic User by Hux
+    var _user = 'xuehaozhe';
+
+    // duoshuo comment query.
+    var duoshuoQuery = {short_name: _user};
+    (function () {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';
+        ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0]
+        || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+</script>
+<!-- 多说公共JS代码 end -->
+
+
+
+
+
+<!-- Footer -->
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <br>
+                <ul class="list-inline text-center">
+                
+                
+                    <li>
+                        <a target="_blank" href="https://twitter.com/xuehaozhe">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/xuehaozhe0526">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="http://weibo.com/fendoujianchi">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/xuehanzhe0526">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Haozhe 2017
+                    <br>
+                    <span id="busuanzi_container_site_pv" style="font-size: 12px;">PV: <span id="busuanzi_value_site_pv"></span> Times</span>
+                    <br>
+                    Theme by <a href="https://haojen.github.io/">Haojen Ma</a>
+                </p>
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/blog.js"></script>
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://yoursite.com/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+
+
+<!-- swiftype -->
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','null','2.0.0');
+</script>
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<!--wechat title img-->
+<img class="wechat-title-img" src="http://7xrw7v.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160402220553.png">
+</body>
+
+</html>

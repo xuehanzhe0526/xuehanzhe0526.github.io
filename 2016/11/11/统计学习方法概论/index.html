@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="What hurts more,the pain of hard work or the pain of regret.">
+    <meta name="keyword" content="null">
+    <meta name="theme-color" content="#600090">
+    <meta name="msapplication-navbutton-color" content="#600090">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#600090">
+    <link rel="shortcut icon" href="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-person-128.png">
+    <link rel="alternate" type="application/atom+xml" title="Haozhe" href="/atom.xml">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
+    <title>
+        
+        统计学习方法概论｜Haozhe&#39;s blog
+        
+    </title>
+
+    <link rel="canonical" href="http://yoursite.com/2016/11/11/统计学习方法概论/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/blog-style.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+</head>
+
+<style>
+
+    header.intro-header {
+        background-image: url('http://7xrw7v.com1.z0.glb.clouddn.com/1485527729222.jpg')
+    }
+</style>
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="" class="animated fadeIn">
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost = "true" data-istags="false
+" data-ishome = "false" >
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand animated pulse" href="/">
+                <span class="brand-logo">
+                    Haozhe
+                </span>
+                's Blog
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <!-- /.navbar-collapse -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+					
+                    
+                        
+							
+                        <li>
+                            <a href="/tags/">tags</a>
+                        </li>
+							
+						
+                    
+					
+					
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+//    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+<!-- Main Content -->
+
+<!--only post-->
+
+
+<img class="wechat-title-img"
+     src="http://7xrw7v.com1.z0.glb.clouddn.com/148552521631.jpg#博文默认的图片">
+
+
+<style>
+    
+    header.intro-header {
+        background-image: url('http://7xrw7v.com1.z0.glb.clouddn.com/148552521631.jpg#博文默认的图片')
+    }
+
+    
+</style>
+
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <div class="post-heading">
+                    <h1>统计学习方法概论</h1>
+                    
+                    <span class="meta">
+                         作者 Haozhe Xue
+                        <span>
+                          日期 2016-11-11
+                         </span>
+                    </span>
+                    <div class="tags text-center">
+                        
+                        <a class="tag" href="/tags/#统计学习方法"
+                           title="统计学习方法">统计学习方法</a>
+                        
+                        <a class="tag" href="/tags/#统计学"
+                           title="统计学">统计学</a>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="post-title-haojen">
+        <span>
+            统计学习方法概论
+        </span>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <!-- Post Container -->
+            <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
+                <p>摘要：</p>
+<ul>
+<li>损失函数和风险函数</li>
+<li>模型</li>
+<li>经验风险最小化与结构风险最小化</li>
+<li>模型评估与模型选择</li>
+<li>正则化与交叉验证</li>
+<li>泛化能力</li>
+<li>分类问题</li>
+<li>精确率和召回率</li>
+</ul>
+<a id="more"></a>
+<h3 id="模型"><a href="#模型" class="headerlink" title="模型"></a>模型</h3><p>模型就是所要学习的条件概率分布或决策函数。模型的假设空间（hypothesis space）包含所有可能的条件概率分布或决策函数。<br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/463ae0df3eca1547396ef1d6b4822c43.png" alt=""></p>
+<h3 id="损失函数和风险函数"><a href="#损失函数和风险函数" class="headerlink" title="损失函数和风险函数"></a>损失函数和风险函数</h3><p>损失函数度量模型一次预测的好坏，风险函数度量平均意义下模型预测的好坏。</p>
+<h4 id="损失函数"><a href="#损失函数" class="headerlink" title="损失函数"></a>损失函数</h4><p>对于给定的输入X，由f(X)给出相应的输出Y，这个输出的预测值f(X)与真实值Y可能一致也可能不一致，一个损失函数（loss function）或代价函数（cost function）来度量预测错误的程度。损失函数是f(X)和Y的非负实值函数，记作$L(Y,f(X))$。<br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/e6b7d49b3e5c8bc0b5bc75642049f44e.png" alt=""><br>损失函数值越小，模型就越好。</p>
+<h4 id="风险函数"><a href="#风险函数" class="headerlink" title="风险函数"></a>风险函数</h4><p>由于模型的输入、输出（X,Y）是随机变量，遵循联合分布P(X,Y)，所以损失函数的期望是<br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/0e1041523b779edab3098ee4a7103015.png" alt=""><br>这是理论上模型f(X)关于联合分布P(X,Y)的平均意义下的损失，称为风险函数（risk function）或期望损失（expected loss）。</p>
+<p>学习的目标就是选择期望风险最小的模型。</p>
+<h4 id="经验风险（empirical-risk）"><a href="#经验风险（empirical-risk）" class="headerlink" title="经验风险（empirical risk）"></a>经验风险（empirical risk）</h4><p>或经验损失（empirical loss）<br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/3fa072b1d6d4c5163b40516123235ad2.png" alt=""><br>期望风险Rexp(f)是模型关于联合分布的期望损失，经验风险Remp(f)是模型关于训练样本集的平均损失。根据大数定律，当样本容量N趋于无穷时，经验风险Remp(f)趋于期望风险Rexp(f)。</p>
+<h3 id="经验风险最小化与结构风险最小化"><a href="#经验风险最小化与结构风险最小化" class="headerlink" title="经验风险最小化与结构风险最小化"></a>经验风险最小化与结构风险最小化</h3><p>经验风险最小化（empirical risk minimization，ERM）的策略认为，经验风险最小的模型是最优的模型。<br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/928467c0e214ef642e0aa64d27650493.png" alt=""><br>当样本容量足够大时，经验风险最小化能保证有很好的学习效果，在现实中被广泛采用。</p>
+<p>当样本容量很小时，经验风险最小化学习的效果就未必很好，会产生后面将要叙述的“过拟合(over-fitting)”现象。</p>
+<p>结构风险最小化（structural risk minimization，SRM）是为了防止过拟合而提出来的策略。<br>结构风险最小化等价于正则化（regularization）</p>
+<p>结构风险在经验风险上加上表示模型复杂度的正则化项（regularizer）或罚项（penalty term）。<br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/bf193720e228d24f34aee6c5ec5cfc27.png" alt=""><br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/b94f86f6c65fce439ad0f27d31089b36.png" alt=""></p>
+<p>结构风险最小化的策略认为结构风险最小的模型是最优的模型。所以求最优模型，就是求解最优化问题：<br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/d441a41807f7ea1ba94590a11df92129.png" alt=""></p>
+<h3 id="模型评估与模型选择"><a href="#模型评估与模型选择" class="headerlink" title="模型评估与模型选择"></a>模型评估与模型选择</h3><h4 id="训练误差-测试误差"><a href="#训练误差-测试误差" class="headerlink" title="训练误差 测试误差"></a>训练误差 测试误差</h4><p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/8a249d6aa74b71be0fe44522af290b73.png" alt=""></p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/5ef158a8876a269200d4b8b74b780a7b.png" alt=""></p>
+<h4 id="误差率-准确率"><a href="#误差率-准确率" class="headerlink" title="误差率 准确率"></a>误差率 准确率</h4><p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/343e921b2ea2fe17e1e2aded37f2f42d.png" alt=""></p>
+<p>将学习方法对未知数据的预测能力称为泛化能力（generalization ability）</p>
+<h4 id="过拟合"><a href="#过拟合" class="headerlink" title="过拟合"></a>过拟合</h4><p>过拟合是指学习时选择的模型所包含的参数过多，以致于出现这一模型对已知数据预测得很好，但对未知数据预测得很差的现象。</p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/fc92ebe0f3d4563e85416b3cf4c88a14.png" alt=""></p>
+<p>这样，在学习时就要防止过拟合，进行最优的模型选择，即选择复杂度适当的模型，以达到使测试误差最小的学习目的。下面介绍两种常用的模型选择方法：正则化与交叉验证。</p>
+<h3 id="正则化与交叉验证"><a href="#正则化与交叉验证" class="headerlink" title="正则化与交叉验证"></a>正则化与交叉验证</h3><h4 id="正则化"><a href="#正则化" class="headerlink" title="正则化"></a>正则化</h4><p>正则化是结构风险最小化策略的实现，是在经验风险上加一个正则化项（regularizer）或罚项(penalty term)。正则化项一般是模型复杂度的单调递增函数，模型越复杂，正则化值就越大。</p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/b658f35d2ad99ae4cfa24a12961e49aa.png" alt=""><br>其中，第1项是经验风险，第2项是正则化项，≥0为调整两者之间关系的系数。</p>
+<p>正则化项可以取不同的形式。例如，回归问题中，损失函数是平方损失，正则化项可以是参数向量的L2范数：<br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/23e6630ad8ca92dbb063cc81da72fd21.png" alt=""><br>||w||表示参数向量w的L2范数</p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/0bbf55f5f592423eb9a86bb49eb0f8aa.png" alt=""><br>||w||1表示参数向量w的L1范数。</p>
+<p>正则化的作用是选择经验风险与模型复杂度同时较小的模型。</p>
+<p>正则化符合奥卡姆剃刀（Occam’s razor）原理。奥卡姆剃刀原理应用于模型选择时变为以下想法：在所有可能选择的模型中，能够很好地解释已知数据并且十分简单才是最好的模型，也就是应该选择的模型。</p>
+<h4 id="交叉验证"><a href="#交叉验证" class="headerlink" title="交叉验证"></a>交叉验证</h4><p>如果给定的样本数据充足，进行模型选择的一种简单方法是随机地将数据集切分成三部分：<br>训练集（training set）<br>验证集（validation set）<br>测试集（test set）<br>训练集用来训练模型，验证集用于模型的选择，而测试集用于最终对学习方法的评估。<br>在学习到的不同复杂度的模型中，选择对验证集有最小预测误差的模型。</p>
+<p>样本数据不充足时：<br>交叉验证的基本想法是重复地使用数据；把给定的数据进行切分，将切分的数据集组合为训练集与测试集，在此基础上反复地进行训练、测试以及模型选择。<br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/86c739f1e2194dd3686b77ecbfb5b1f9.png" alt=""></p>
+<h3 id="泛化能力"><a href="#泛化能力" class="headerlink" title="泛化能力"></a>泛化能力</h3><p>学习方法的泛化能力（generalization ability）是指由该方法学习到的模型对未知数据的预测能力</p>
+<p>测试误差来评价学习方法的泛化能力</p>
+<p>首先给出泛化误差的定义。如果学到的模型是，那么用这个模型对未知数据预测的误差即为泛化误差（generalization error）<br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/0137b42be6ed26562e1f858307a12bbb.png" alt=""><br>事实上，泛化误差就是所学习到的模型的期望风险。</p>
+<h3 id="分类问题"><a href="#分类问题" class="headerlink" title="分类问题"></a>分类问题</h3><p>在监督学习中，当输出变量Y取有限个离散值时，预测问题便成为分类问题。这时，输入变量X可以是离散的，也可以是连续的。监督学习从数据中学习一个分类模型或分类决策函数，称为分类器（classifier）。分类器对新的输入进行输出的预测（prediction），称为分类（classification）</p>
+<h4 id="准确率（accuracy）"><a href="#准确率（accuracy）" class="headerlink" title="准确率（accuracy）"></a>准确率（accuracy）</h4><p>评价分类器性能的指标一般是分类准确率（accuracy）：<br>其定义是：对于给定的测试数据集，分类器正确分类的样本数与总样本数之比。</p>
+<h4 id="精确率和召回率"><a href="#精确率和召回率" class="headerlink" title="精确率和召回率"></a>精确率和召回率</h4><p>对于二类分类问题常用的评价指标是精确率（precision）与召回率（recall）。通常以关注的类为正类，其他类为负类，分类器在测试数据集上的预测或正确或不正确，4种情况出现的总数分别记作：<br>TP——将正类预测为正类数；<br>FN——将正类预测为负类数；<br>FP——将负类预测为正类数；<br>TN——将负类预测为负类数。</p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/4587751238535844fa5207cfbe9a78c4.png" alt=""></p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/7d1b1e991019813e2a33f083e05f5f24.png" alt=""></p>
+
+                <hr>
+                
+                <!-- 多说 Share start -->
+                <div class="ds-share"
+                     style="text-align: right"
+                     data-thread-key="2016/11/11/统计学习方法概论/"
+                     data-title="统计学习方法概论"
+                     data-url="http://yoursite.com/2016/11/11/统计学习方法概论/"
+                     data-images=""
+                     data-content="摘要：
+
+损失函数和风险函数
+模型
+经验风险最小化与结构风险最小化
+模型评估与模型选择
+正则化... | Haozhe&#39;s blog ">
+                    <div class="ds-share-inline">
+                        <ul class="ds-share-icons-16">
+                            <li data-toggle="ds-share-icons-more"><a class="ds-more" href="#">分享到：</a></li>
+                            <li><a class="ds-wechat flat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+                            <li><a class="ds-weibo flat" href="javascript:void(0);" data-service="weibo">微博</a></li>
+                            <li><a class="ds-douban flat" href="javascript:void(0);" data-service="douban">豆瓣</a></li>
+                        </ul>
+                        <div class="ds-share-icons-more">
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+                <!-- 多说 Share end-->
+                
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2016/11/11/感知机/" data-toggle="tooltip" data-placement="top"
+                           title="感知机">&larr; Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2016/10/23/深入理解你的数据/" data-toggle="tooltip" data-placement="top"
+                           title="深入理解你的数据">Next Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+                <!-- 多说评论框 start -->
+                <div class="comment">
+                    <div class="ds-thread"
+                         data-thread-key="2016/11/11/统计学习方法概论/"
+                         data-title="统计学习方法概论"
+                         data-url="http://yoursite.com/2016/11/11/统计学习方法概论/">
+                    </div>
+                </div>
+                <!-- 多说评论框 end -->
+                
+
+                
+
+            </div>
+
+            <div class="hidden-xs col-sm-3 toc-col">
+                <div class="toc-wrap">
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#模型"><span class="toc-text">模型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#损失函数和风险函数"><span class="toc-text">损失函数和风险函数</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#损失函数"><span class="toc-text">损失函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#风险函数"><span class="toc-text">风险函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#经验风险（empirical-risk）"><span class="toc-text">经验风险（empirical risk）</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#经验风险最小化与结构风险最小化"><span class="toc-text">经验风险最小化与结构风险最小化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#模型评估与模型选择"><span class="toc-text">模型评估与模型选择</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#训练误差-测试误差"><span class="toc-text">训练误差 测试误差</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#误差率-准确率"><span class="toc-text">误差率 准确率</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#过拟合"><span class="toc-text">过拟合</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#正则化与交叉验证"><span class="toc-text">正则化与交叉验证</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#正则化"><span class="toc-text">正则化</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#交叉验证"><span class="toc-text">交叉验证</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#泛化能力"><span class="toc-text">泛化能力</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#分类问题"><span class="toc-text">分类问题</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#准确率（accuracy）"><span class="toc-text">准确率（accuracy）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#精确率和召回率"><span class="toc-text">精确率和召回率</span></a></li></ol></li></ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5 class="text-center">
+                        <a href="/tags/">FEATURED TAGS</a>
+                    </h5>
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#统计学习方法"
+                           title="统计学习方法">统计学习方法</a>
+                        
+                        <a class="tag" href="/tags/#统计学"
+                           title="统计学">统计学</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <div style="margin-top: 20px;">
+                    <h5 class="text-center">FRIENDS</h5>
+                    <ul class="list-inline text-center">
+                        
+                        <li><a href="http://www.hankcs.com/">hankcs</a></li>
+                        
+                        <li><a href="http://www.lintcode.com/zh-cn/ladder/2/">lintcode</a></li>
+                        
+                        <li><a href="http://www.jiuzhang.com/solutions/">jiuzhang</a></li>
+                        
+                    </ul>
+                </div>
+                
+            </div>
+        </div>
+
+    </div>
+</article>
+
+
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    // dynamic User by Hux
+    var _user = 'xuehaozhe';
+
+    // duoshuo comment query.
+    var duoshuoQuery = {short_name: _user};
+    (function () {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';
+        ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0]
+        || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+</script>
+<!-- 多说公共JS代码 end -->
+
+
+
+
+
+<!-- Footer -->
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <br>
+                <ul class="list-inline text-center">
+                
+                
+                    <li>
+                        <a target="_blank" href="https://twitter.com/xuehaozhe">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/xuehaozhe0526">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="http://weibo.com/fendoujianchi">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/xuehanzhe0526">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Haozhe 2017
+                    <br>
+                    <span id="busuanzi_container_site_pv" style="font-size: 12px;">PV: <span id="busuanzi_value_site_pv"></span> Times</span>
+                    <br>
+                    Theme by <a href="https://haojen.github.io/">Haojen Ma</a>
+                </p>
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/blog.js"></script>
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://yoursite.com/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+
+
+<!-- swiftype -->
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','null','2.0.0');
+</script>
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<!--wechat title img-->
+<img class="wechat-title-img" src="http://7xrw7v.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160402220553.png">
+</body>
+
+</html>

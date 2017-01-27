@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="What hurts more,the pain of hard work or the pain of regret.">
+    <meta name="keyword" content="null">
+    <meta name="theme-color" content="#600090">
+    <meta name="msapplication-navbutton-color" content="#600090">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#600090">
+    <link rel="shortcut icon" href="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-person-128.png">
+    <link rel="alternate" type="application/atom+xml" title="Haozhe" href="/atom.xml">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
+    <title>
+        
+        java入门（四）正则表达式｜Haozhe&#39;s blog
+        
+    </title>
+
+    <link rel="canonical" href="http://yoursite.com/2016/04/16/java4.1/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/blog-style.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+</head>
+
+<style>
+
+    header.intro-header {
+        background-image: url('http://7xrw7v.com1.z0.glb.clouddn.com/1485527729222.jpg')
+    }
+</style>
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="" class="animated fadeIn">
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost = "true" data-istags="false
+" data-ishome = "false" >
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand animated pulse" href="/">
+                <span class="brand-logo">
+                    Haozhe
+                </span>
+                's Blog
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <!-- /.navbar-collapse -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+					
+                    
+                        
+							
+                        <li>
+                            <a href="/tags/">tags</a>
+                        </li>
+							
+						
+                    
+					
+					
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+//    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+<!-- Main Content -->
+
+<!--only post-->
+
+
+<img class="wechat-title-img"
+     src="http://7xrw7v.com1.z0.glb.clouddn.com/148552521631.jpg#博文默认的图片">
+
+
+<style>
+    
+    header.intro-header {
+        background-image: url('http://7xrw7v.com1.z0.glb.clouddn.com/148552521631.jpg#博文默认的图片')
+    }
+
+    
+</style>
+
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <div class="post-heading">
+                    <h1>java入门（四）正则表达式</h1>
+                    
+                    <span class="meta">
+                         作者 Haozhe Xue
+                        <span>
+                          日期 2016-04-16
+                         </span>
+                    </span>
+                    <div class="tags text-center">
+                        
+                        <a class="tag" href="/tags/#JAVA"
+                           title="JAVA">JAVA</a>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="post-title-haojen">
+        <span>
+            java入门（四）正则表达式
+        </span>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <!-- Post Container -->
+            <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
+                <p>摘要：</p>
+<ul>
+<li>正则表达式</li>
+<li>判断功能</li>
+<li>分割功能</li>
+<li>替换功能</li>
+<li>获取功能</li>
+</ul>
+<a id="more"></a>
+<h3 id="1、正则表达式"><a href="#1、正则表达式" class="headerlink" title="1、正则表达式"></a>1、正则表达式</h3><h4 id="引入案例"><a href="#引入案例" class="headerlink" title="引入案例"></a>引入案例</h4><p>校验qq号码.</p>
+<ul>
+<li>1:要求必须是5-15位数字</li>
+<li>2:0不能开头</li>
+</ul>
+<p>分析：</p>
+<ul>
+<li>A:键盘录入一个QQ号码</li>
+<li>B:写一个功能实现校验</li>
+<li>C:调用功能，输出结果。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><div class="line"><span class="keyword">import</span> java.util.Scanner;</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RegexDemo</span> </span>&#123;</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">		<span class="comment">// 创建键盘录入对象</span></div><div class="line">		Scanner sc = <span class="keyword">new</span> Scanner(System.in);</div><div class="line">		System.out.println(<span class="string">"请输入你的QQ号码："</span>);</div><div class="line">		String qq = sc.nextLine();</div><div class="line">		</div><div class="line">		System.out.println(<span class="string">"checkQQ:"</span>+checkQQ(qq));</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="comment">/*</span></div><div class="line">	 * 写一个功能实现校验 两个明确： 明确返回值类型：boolean 明确参数列表：String qq</div><div class="line">	 */</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">checkQQ</span><span class="params">(String qq)</span> </span>&#123;</div><div class="line">		<span class="keyword">boolean</span> flag = <span class="keyword">true</span>;</div><div class="line"></div><div class="line">		<span class="comment">// 校验长度</span></div><div class="line">		<span class="keyword">if</span> (qq.length() &gt;= <span class="number">5</span> &amp;&amp; qq.length() &lt;= <span class="number">15</span>) &#123;</div><div class="line">			<span class="comment">// 0不能开头</span></div><div class="line">			<span class="keyword">if</span> (!qq.startsWith(<span class="string">"0"</span>)) &#123;</div><div class="line">				<span class="comment">// 必须是数字</span></div><div class="line">				<span class="keyword">char</span>[] chs = qq.toCharArray();</div><div class="line">				<span class="keyword">for</span> (<span class="keyword">int</span> x = <span class="number">0</span>; x &lt; chs.length; x++) &#123;</div><div class="line">					<span class="keyword">char</span> ch = chs[x];</div><div class="line">					<span class="keyword">if</span> (!Character.isDigit(ch)) &#123;</div><div class="line">						flag = <span class="keyword">false</span>;</div><div class="line">						<span class="keyword">break</span>;</div><div class="line">					&#125;</div><div class="line">				&#125;</div><div class="line">			&#125; <span class="keyword">else</span> &#123;</div><div class="line">				flag = <span class="keyword">false</span>;</div><div class="line">			&#125;</div><div class="line">		&#125; <span class="keyword">else</span> &#123;</div><div class="line">			flag = <span class="keyword">false</span>;</div><div class="line">		&#125;</div><div class="line"></div><div class="line">		<span class="keyword">return</span> flag;</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">------------------------------------</div><div class="line"><span class="keyword">import</span> java.util.Scanner;</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RegexDemo2</span> </span>&#123;</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">		<span class="comment">// 创建键盘录入对象</span></div><div class="line">		Scanner sc = <span class="keyword">new</span> Scanner(System.in);</div><div class="line">		System.out.println(<span class="string">"请输入你的QQ号码："</span>);</div><div class="line">		String qq = sc.nextLine();</div><div class="line"></div><div class="line">		System.out.println(<span class="string">"checkQQ:"</span> + checkQQ(qq));</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">checkQQ</span><span class="params">(String qq)</span> </span>&#123;</div><div class="line">		<span class="comment">// String regex ="[1-9][0-9]&#123;4,14&#125;";</span></div><div class="line">		<span class="comment">// //public boolean matches(String regex)告知此字符串是否匹配给定的正则表达式</span></div><div class="line">		<span class="comment">// boolean flag = qq.matches(regex);</span></div><div class="line">		<span class="comment">// return flag;</span></div><div class="line"></div><div class="line">		<span class="comment">//return qq.matches("[1-9][0-9]&#123;4,14&#125;");</span></div><div class="line">		</div><div class="line">		<span class="keyword">return</span> qq.matches(<span class="string">"[1-9]\\d&#123;4,14&#125;"</span>);</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="正则表达式的规则"><a href="#正则表达式的规则" class="headerlink" title="正则表达式的规则"></a>正则表达式的规则</h4><p><strong>正则表达式：符合一定规则的字符串。</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">A:字符</div><div class="line">	x 字符 x。举例：&apos;a&apos;表示字符a</div><div class="line">	\\ 反斜线字符。</div><div class="line">	\n 新行（换行）符 (&apos;\u000A&apos;) </div><div class="line">	\r 回车符 (&apos;\u000D&apos;)</div><div class="line">	</div><div class="line">B:字符类</div><div class="line">	[abc] a、b 或 c（简单类） </div><div class="line">	[^abc] 任何字符，除了 a、b 或 c（否定） </div><div class="line">	[a-zA-Z] a到 z 或 A到 Z，两头的字母包括在内（范围） </div><div class="line">	[0-9] 0到9的字符都包括</div><div class="line">	</div><div class="line">C:预定义字符类</div><div class="line">	. 任何字符。我的就是.字符本身，怎么表示呢? \.</div><div class="line">	\d 数字：[0-9]</div><div class="line">	\w 单词字符：[a-zA-Z_0-9]</div><div class="line">		在正则表达式里面组成单词的东西必须有这些东西组成</div><div class="line"></div><div class="line">D:边界匹配器</div><div class="line">	^ 行的开头 </div><div class="line">	$ 行的结尾 </div><div class="line">	\b 单词边界</div><div class="line">		就是不是单词字符的地方。</div><div class="line">		举例：hello world?haha;xixi</div><div class="line">	</div><div class="line">E:Greedy 数量词 </div><div class="line">	X? X，一次或一次也没有</div><div class="line">	X* X，零次或多次</div><div class="line">	X+ X，一次或多次</div><div class="line">	X&#123;n&#125; X，恰好 n 次 </div><div class="line">	X&#123;n,&#125; X，至少 n 次 </div><div class="line">	X&#123;n,m&#125; X，至少 n 次，但是不超过 m 次</div></pre></td></tr></table></figure>
+<h3 id="2、判断功能"><a href="#2、判断功能" class="headerlink" title="2、判断功能"></a>2、判断功能</h3><p><strong>String类的public boolean matches(String regex)</strong></p>
+<p>案例：校验邮箱<br>分析：<br>A:键盘录入邮箱<br>B:定义邮箱的规则</p>
+<ul>
+<li>1517806580@qq.com</li>
+<li>liuyi@163.com</li>
+<li>linqingxia@126.com</li>
+<li>fengqingyang@sina.com.cn</li>
+<li>fqy@itcast.cn</li>
+</ul>
+<p>C:调用功能，判断即可<br>D:输出结果</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RegexTest</span> </span>&#123;</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">		<span class="comment">//键盘录入邮箱</span></div><div class="line">		Scanner sc = <span class="keyword">new</span> Scanner(System.in);</div><div class="line">		System.out.println(<span class="string">"请输入邮箱："</span>);</div><div class="line">		String email = sc.nextLine();</div><div class="line">		</div><div class="line">		<span class="comment">//定义邮箱的规则</span></div><div class="line">		<span class="comment">//String regex = "[a-zA-Z_0-9]+@[a-zA-Z_0-9]&#123;2,6&#125;(\\.[a-zA-Z_0-9]&#123;2,3&#125;)+";</span></div><div class="line">		String regex = <span class="string">"\\w+@\\w&#123;2,6&#125;(\\.\\w&#123;2,3&#125;)+"</span>;</div><div class="line">		</div><div class="line">		<span class="comment">//调用功能，判断即可</span></div><div class="line">		<span class="keyword">boolean</span> flag = email.matches(regex);</div><div class="line">		</div><div class="line">		<span class="comment">//输出结果</span></div><div class="line">		System.out.println(<span class="string">"flag:"</span>+flag);</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="3、分割功能"><a href="#3、分割功能" class="headerlink" title="3、分割功能"></a>3、分割功能</h3><ul>
+<li>String类的public String[] split(String regex)</li>
+<li>根据给定正则表达式的匹配拆分此字符串。 </li>
+</ul>
+<p>举例：<br>百合网，世纪佳缘,珍爱网,QQ<br>搜索好友</p>
+<ul>
+<li>性别：女</li>
+<li><p>范围：”18-24”</p>
+</li>
+<li><p>age&gt;=18 &amp;&amp; age&lt;=24</p>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RegexDemo</span> </span>&#123;</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">		<span class="comment">//定义一个年龄搜索范围</span></div><div class="line">		String ages = <span class="string">"18-24"</span>;</div><div class="line">		</div><div class="line">		<span class="comment">//定义规则</span></div><div class="line">		String regex = <span class="string">"-"</span>;</div><div class="line">		</div><div class="line">		<span class="comment">//调用方法</span></div><div class="line">		String[] strArray = ages.split(regex);</div><div class="line">		</div><div class="line"><span class="comment">//		//遍历</span></div><div class="line"><span class="comment">//		for(int x=0; x&lt;strArray.length; x++)&#123;</span></div><div class="line"><span class="comment">//			System.out.println(strArray[x]);</span></div><div class="line"><span class="comment">//		&#125;</span></div><div class="line">		</div><div class="line">		<span class="comment">//如何得到int类型的呢?</span></div><div class="line">		<span class="comment">//public static int parseInt(String s)</span></div><div class="line"></div><div class="line">		<span class="keyword">int</span> startAge = Integer.parseInt(strArray[<span class="number">0</span>]);</div><div class="line">		<span class="keyword">int</span> endAge = Integer.parseInt(strArray[<span class="number">1</span>]);</div><div class="line">		</div><div class="line">		<span class="comment">//键盘录入年龄</span></div><div class="line">		Scanner sc = <span class="keyword">new</span> Scanner(System.in);</div><div class="line">		System.out.println(<span class="string">"请输入你的年龄："</span>);</div><div class="line">		<span class="keyword">int</span> age = sc.nextInt();</div><div class="line">		</div><div class="line">		<span class="keyword">if</span>(age&gt;=startAge &amp;&amp; age&lt;=endAge) &#123;</div><div class="line">			System.out.println(<span class="string">"你就是我想找的"</span>);</div><div class="line">		&#125;<span class="keyword">else</span> &#123;</div><div class="line">			System.out.println(<span class="string">"不符合我的要求，gun"</span>);</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="分割案例-重要"><a href="#分割案例-重要" class="headerlink" title="分割案例(重要)"></a>分割案例(重要)</h4><ul>
+<li>我有如下一个字符串:”91 27 46 38 50”</li>
+<li>请写代码实现最终输出结果是：”27 38 46 50 91”</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RegexTest</span> </span>&#123;</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">		<span class="comment">// 定义一个字符串</span></div><div class="line">		String s = <span class="string">"91 27 46 38 50"</span>;</div><div class="line"></div><div class="line">		<span class="comment">// 把字符串进行分割，得到一个字符串数组</span></div><div class="line">		String[] strArray = s.split(<span class="string">" "</span>);</div><div class="line"></div><div class="line">		<span class="comment">// 把字符串数组变换成int数组</span></div><div class="line">		<span class="keyword">int</span>[] arr = <span class="keyword">new</span> <span class="keyword">int</span>[strArray.length];</div><div class="line"></div><div class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> x = <span class="number">0</span>; x &lt; arr.length; x++) &#123;</div><div class="line">			arr[x] = Integer.parseInt(strArray[x]);</div><div class="line">		&#125;</div><div class="line"></div><div class="line">		<span class="comment">// 对int数组排序</span></div><div class="line">		Arrays.sort(arr);</div><div class="line"></div><div class="line">		<span class="comment">// 把排序后的int数组在组装成一个字符串</span></div><div class="line">		StringBuilder sb = <span class="keyword">new</span> StringBuilder();</div><div class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> x = <span class="number">0</span>; x &lt; arr.length; x++) &#123;</div><div class="line">			sb.append(arr[x]).append(<span class="string">" "</span>);</div><div class="line">		&#125;</div><div class="line">		<span class="comment">//转化为字符串</span></div><div class="line">		String result = sb.toString().trim();</div><div class="line">		</div><div class="line">		<span class="comment">//输出字符串</span></div><div class="line">		System.out.println(<span class="string">"result:"</span>+result);</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>###4、替换功能<br><strong>String类的public String replaceAll(String regex,String replacement)</strong><br>使用给定的 replacement 替换此字符串所有匹配给定的正则表达式的子字符串。 </p>
+<figure class="highlight java"><table><tr><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RegexDemo</span> </span>&#123;</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">		<span class="comment">// 定义一个字符串</span></div><div class="line">		String s = <span class="string">"helloqq12345worldkh622112345678java"</span>;</div><div class="line"></div><div class="line">		<span class="comment">// 我要去除所有的数字,用*给替换掉</span></div><div class="line">		<span class="comment">// String regex = "\\d+";</span></div><div class="line">		<span class="comment">// String regex = "\\d";</span></div><div class="line">		<span class="comment">//String ss = "*";</span></div><div class="line">		</div><div class="line">		</div><div class="line">		<span class="comment">// 直接把数字干掉</span></div><div class="line">		String regex = <span class="string">"\\d+"</span>;</div><div class="line">		String ss = <span class="string">""</span>;</div><div class="line"></div><div class="line">		String result = s.replaceAll(regex, ss);</div><div class="line">		System.out.println(result);</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="5、获取功能"><a href="#5、获取功能" class="headerlink" title="5、获取功能"></a>5、获取功能</h3><p><strong>Pattern和Matcher类的使用</strong><br><strong>模式和匹配器的基本使用顺序</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><div class="line"><span class="keyword">import</span> java.util.regex.Matcher;</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RegexDemo</span> </span>&#123;</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">		<span class="comment">// 模式和匹配器的典型调用顺序</span></div><div class="line">		<span class="comment">// 把正则表达式编译成模式对象</span></div><div class="line">		Pattern p = Pattern.compile(<span class="string">"a*b"</span>);</div><div class="line">		<span class="comment">// 通过模式对象得到匹配器对象，这个时候需要的是被匹配的字符串</span></div><div class="line">		Matcher m = p.matcher(<span class="string">"aaaaab"</span>);</div><div class="line">		<span class="comment">// 调用匹配器对象的功能</span></div><div class="line">		<span class="keyword">boolean</span> b = m.matches();</div><div class="line">		System.out.println(b);</div><div class="line">		</div><div class="line">		<span class="comment">//这个是判断功能，但是如果做判断，这样做就有点麻烦了，我们直接用字符串的方法做</span></div><div class="line">		String s = <span class="string">"aaaaab"</span>;</div><div class="line">		String regex = <span class="string">"a*b"</span>;</div><div class="line">		<span class="keyword">boolean</span> bb = s.matches(regex);</div><div class="line">		System.out.println(bb);</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="案例"><a href="#案例" class="headerlink" title="案例"></a>案例</h4><p>获取功能：</p>
+<ul>
+<li>获取下面这个字符串中由三个字符组成的单词</li>
+<li>da jia ting wo shuo,jin tian yao xia yu,bu shang wan zi xi,gao xing bu?</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><div class="line"><span class="keyword">import</span> java.util.regex.Matcher;</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RegexDemo2</span> </span>&#123;</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">		<span class="comment">// 定义字符串</span></div><div class="line">		String s = <span class="string">"da jia ting wo shuo,jin tian yao xia yu,bu shang wan zi xi,gao xing bu?"</span>;</div><div class="line">		<span class="comment">// 规则</span></div><div class="line">		String regex = <span class="string">"\\b\\w&#123;3&#125;\\b"</span>;</div><div class="line"></div><div class="line">		<span class="comment">// 把规则编译成模式对象</span></div><div class="line">		Pattern p = Pattern.compile(regex);</div><div class="line">		<span class="comment">// 通过模式对象得到匹配器对象</span></div><div class="line">		Matcher m = p.matcher(s);</div><div class="line">		<span class="comment">// 调用匹配器对象的功能</span></div><div class="line">		<span class="comment">// 通过find方法就是查找有没有满足条件的子串</span></div><div class="line">		<span class="comment">// public boolean find()</span></div><div class="line">		<span class="comment">// boolean flag = m.find();</span></div><div class="line">		<span class="comment">// System.out.println(flag);</span></div><div class="line">		<span class="comment">// // 如何得到值呢?</span></div><div class="line">		<span class="comment">// // public String group()</span></div><div class="line">		<span class="comment">// String ss = m.group();</span></div><div class="line">		<span class="comment">// System.out.println(ss);</span></div><div class="line">		<span class="comment">//</span></div><div class="line">		<span class="comment">// // 再来一次</span></div><div class="line">		<span class="comment">// flag = m.find();</span></div><div class="line">		<span class="comment">// System.out.println(flag);</span></div><div class="line">		<span class="comment">// ss = m.group();</span></div><div class="line">		<span class="comment">// System.out.println(ss);</span></div><div class="line"></div><div class="line">		<span class="keyword">while</span> (m.find()) &#123;</div><div class="line">			System.out.println(m.group());</div><div class="line">		&#125;</div><div class="line"></div><div class="line">		<span class="comment">// 注意：一定要先find()，然后才能group()</span></div><div class="line">		<span class="comment">// IllegalStateException: No match found</span></div><div class="line">		<span class="comment">// String ss = m.group();</span></div><div class="line">		<span class="comment">// System.out.println(ss);</span></div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+
+                <hr>
+                
+                <!-- 多说 Share start -->
+                <div class="ds-share"
+                     style="text-align: right"
+                     data-thread-key="2016/04/16/java4.1/"
+                     data-title="java入门（四）正则表达式"
+                     data-url="http://yoursite.com/2016/04/16/java4.1/"
+                     data-images=""
+                     data-content="摘要：
+
+正则表达式
+判断功能
+分割功能
+替换功能
+获取功能
+
+
+1、正则表达式引入案例校验q... | Haozhe&#39;s blog ">
+                    <div class="ds-share-inline">
+                        <ul class="ds-share-icons-16">
+                            <li data-toggle="ds-share-icons-more"><a class="ds-more" href="#">分享到：</a></li>
+                            <li><a class="ds-wechat flat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+                            <li><a class="ds-weibo flat" href="javascript:void(0);" data-service="weibo">微博</a></li>
+                            <li><a class="ds-douban flat" href="javascript:void(0);" data-service="douban">豆瓣</a></li>
+                        </ul>
+                        <div class="ds-share-icons-more">
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+                <!-- 多说 Share end-->
+                
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2016/04/16/java4.2/" data-toggle="tooltip" data-placement="top"
+                           title="java入门（四）常见对象Math类、Random类">&larr; Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2016/04/16/java3.4/" data-toggle="tooltip" data-placement="top"
+                           title="java入门（三）包装类、自动装箱拆箱">Next Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+                <!-- 多说评论框 start -->
+                <div class="comment">
+                    <div class="ds-thread"
+                         data-thread-key="2016/04/16/java4.1/"
+                         data-title="java入门（四）正则表达式"
+                         data-url="http://yoursite.com/2016/04/16/java4.1/">
+                    </div>
+                </div>
+                <!-- 多说评论框 end -->
+                
+
+                
+
+            </div>
+
+            <div class="hidden-xs col-sm-3 toc-col">
+                <div class="toc-wrap">
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、正则表达式"><span class="toc-text">1、正则表达式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#引入案例"><span class="toc-text">引入案例</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#正则表达式的规则"><span class="toc-text">正则表达式的规则</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、判断功能"><span class="toc-text">2、判断功能</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3、分割功能"><span class="toc-text">3、分割功能</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#分割案例-重要"><span class="toc-text">分割案例(重要)</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5、获取功能"><span class="toc-text">5、获取功能</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#案例"><span class="toc-text">案例</span></a></li></ol></li></ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5 class="text-center">
+                        <a href="/tags/">FEATURED TAGS</a>
+                    </h5>
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#JAVA"
+                           title="JAVA">JAVA</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <div style="margin-top: 20px;">
+                    <h5 class="text-center">FRIENDS</h5>
+                    <ul class="list-inline text-center">
+                        
+                        <li><a href="http://www.hankcs.com/">hankcs</a></li>
+                        
+                        <li><a href="http://www.lintcode.com/zh-cn/ladder/2/">lintcode</a></li>
+                        
+                        <li><a href="http://www.jiuzhang.com/solutions/">jiuzhang</a></li>
+                        
+                    </ul>
+                </div>
+                
+            </div>
+        </div>
+
+    </div>
+</article>
+
+
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    // dynamic User by Hux
+    var _user = 'xuehaozhe';
+
+    // duoshuo comment query.
+    var duoshuoQuery = {short_name: _user};
+    (function () {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';
+        ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0]
+        || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+</script>
+<!-- 多说公共JS代码 end -->
+
+
+
+
+
+<!-- Footer -->
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <br>
+                <ul class="list-inline text-center">
+                
+                
+                    <li>
+                        <a target="_blank" href="https://twitter.com/xuehaozhe">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/xuehaozhe0526">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="http://weibo.com/fendoujianchi">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/xuehanzhe0526">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Haozhe 2017
+                    <br>
+                    <span id="busuanzi_container_site_pv" style="font-size: 12px;">PV: <span id="busuanzi_value_site_pv"></span> Times</span>
+                    <br>
+                    Theme by <a href="https://haojen.github.io/">Haojen Ma</a>
+                </p>
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/blog.js"></script>
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://yoursite.com/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+
+
+<!-- swiftype -->
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','null','2.0.0');
+</script>
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<!--wechat title img-->
+<img class="wechat-title-img" src="http://7xrw7v.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160402220553.png">
+</body>
+
+</html>

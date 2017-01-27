@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="What hurts more,the pain of hard work or the pain of regret.">
+    <meta name="keyword" content="null">
+    <meta name="theme-color" content="#600090">
+    <meta name="msapplication-navbutton-color" content="#600090">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#600090">
+    <link rel="shortcut icon" href="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-person-128.png">
+    <link rel="alternate" type="application/atom+xml" title="Haozhe" href="/atom.xml">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
+    <title>
+        
+        python入门 (三)(转载)｜Haozhe&#39;s blog
+        
+    </title>
+
+    <link rel="canonical" href="http://yoursite.com/2016/04/15/Python3/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/blog-style.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+</head>
+
+<style>
+
+    header.intro-header {
+        background-image: url('http://7xrw7v.com1.z0.glb.clouddn.com/1485527729222.jpg')
+    }
+</style>
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="" class="animated fadeIn">
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost = "true" data-istags="false
+" data-ishome = "false" >
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand animated pulse" href="/">
+                <span class="brand-logo">
+                    Haozhe
+                </span>
+                's Blog
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <!-- /.navbar-collapse -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+					
+                    
+                        
+							
+                        <li>
+                            <a href="/tags/">tags</a>
+                        </li>
+							
+						
+                    
+					
+					
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+//    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+<!-- Main Content -->
+
+<!--only post-->
+
+
+<img class="wechat-title-img"
+     src="http://7xrw7v.com1.z0.glb.clouddn.com/148552521631.jpg#博文默认的图片">
+
+
+<style>
+    
+    header.intro-header {
+        background-image: url('http://7xrw7v.com1.z0.glb.clouddn.com/148552521631.jpg#博文默认的图片')
+    }
+
+    
+</style>
+
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <div class="post-heading">
+                    <h1>python入门 (三)(转载)</h1>
+                    
+                    <span class="meta">
+                         作者 Haozhe Xue
+                        <span>
+                          日期 2016-04-15
+                         </span>
+                    </span>
+                    <div class="tags text-center">
+                        
+                        <a class="tag" href="/tags/#Python"
+                           title="Python">Python</a>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="post-title-haojen">
+        <span>
+            python入门 (三)(转载)
+        </span>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <!-- Post Container -->
+            <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
+                <p>摘要：</p>
+<ul>
+<li>什么是dict</li>
+<li>访问dict</li>
+<li>dict的特点</li>
+<li>更新dict</li>
+<li>遍历dict<a id="more"></a>
+</li>
+</ul>
+<h4 id="1、什么是dict"><a href="#1、什么是dict" class="headerlink" title="1、什么是dict"></a>1、什么是dict</h4><p>如果把名字和分数关联起来，组成类似的查找表：</p>
+<blockquote>
+<p>‘Adam’ ==&gt; 95<br>‘Lisa’ ==&gt; 85<br>‘Bart’ ==&gt; 59</p>
+</blockquote>
+<p>给定一个名字，就可以直接查到分数。</p>
+<p>Python的 <code>dict</code> 就是专门干这件事的。用 dict 表示“名字”-“成绩”的查找表如下：<br><figure class="highlight python"><table><tr><td class="code"><pre><div class="line">d = &#123;</div><div class="line">    <span class="string">'Adam'</span>: <span class="number">95</span>,</div><div class="line">    <span class="string">'Lisa'</span>: <span class="number">85</span>,</div><div class="line">    <span class="string">'Bart'</span>: <span class="number">59</span></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>我们把<code>名字称为key</code>，对应的<code>成绩称为value</code>，dict就是通过 <code>key</code>来查找<code>value</code>。</p>
+<p>花括号 <code>{}</code>表示这是一个dict，然后按照<code>key: value,</code>写出来即可。最后一个 key: value 的逗号可以<code>省略</code>。</p>
+<p>由于dict也是集合，len() 函数可以计算任意集合的大小：<br><figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="meta">&gt;&gt;&gt; </span>len(d)</div><div class="line"><span class="number">3</span></div></pre></td></tr></table></figure></p>
+<p><code>注意:</code>一个 key-value 算一个，因此，dict大小为3。</p>
+<p><code>任务</code><br>新来的Paul同学成绩是 75 分，请编写一个dict，把Paul同学的成绩也加进去。<br><figure class="highlight python"><table><tr><td class="code"><pre><div class="line">d = &#123;</div><div class="line">    <span class="string">'Adam'</span>: <span class="number">95</span>,</div><div class="line">    <span class="string">'Lisa'</span>: <span class="number">85</span>,</div><div class="line">    <span class="string">'Bart'</span>: <span class="number">59</span></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>按照 key: value 的格式写出 ‘Paul’: 75<br><figure class="highlight python"><table><tr><td class="code"><pre><div class="line">d = &#123;</div><div class="line">    <span class="string">'Adam'</span>: <span class="number">95</span>,</div><div class="line">    <span class="string">'Lisa'</span>: <span class="number">85</span>,</div><div class="line">    <span class="string">'Bart'</span>: <span class="number">59</span>,</div><div class="line">    <span class="string">'Paul'</span>: <span class="number">75</span></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h4 id="2、访问dict"><a href="#2、访问dict" class="headerlink" title="2、访问dict"></a>2、访问dict</h4><p>我们已经能创建一个dict，用于表示名字和成绩的对应关系：<br><figure class="highlight python"><table><tr><td class="code"><pre><div class="line">d = &#123;</div><div class="line">    <span class="string">'Adam'</span>: <span class="number">95</span>,</div><div class="line">    <span class="string">'Lisa'</span>: <span class="number">85</span>,</div><div class="line">    <span class="string">'Bart'</span>: <span class="number">59</span></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>那么，如何根据名字来查找对应的成绩呢？</p>
+<p>可以简单地使用<code>d[key]</code> 的形式来查找对应的 value，这和 list 很像，不同之处是，<code>list 必须使用索引返回对应的元素，而dict使用key</code>：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">&gt;&gt;&gt; print d[&apos;Adam&apos;]</div><div class="line">95</div><div class="line">&gt;&gt;&gt; print d[&apos;Paul&apos;]</div><div class="line">Traceback (most recent call last):</div><div class="line">  File &quot;index.py&quot;, line 11, in &lt;module&gt;</div><div class="line">    print d[&apos;Paul&apos;]</div><div class="line">KeyError: &apos;Paul&apos;</div></pre></td></tr></table></figure>
+<p><code>注意</code>: 通过 key 访问 dict 的value，只要 key 存在，dict就返回对应的value。如果key不存在，会直接报错：KeyError。</p>
+<p>要避免 KeyError 发生，有两个办法：</p>
+<p><strong>一是先判断一下 key 是否存在，用 in 操作符：</strong><br><figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="keyword">if</span> <span class="string">'Paul'</span> <span class="keyword">in</span> d:</div><div class="line">    <span class="keyword">print</span> d[<span class="string">'Paul'</span>]</div></pre></td></tr></table></figure></p>
+<p>如果 ‘Paul’ 不存在，if语句判断为False，自然不会执行 print d[‘Paul’] ，从而避免了错误。</p>
+<p><strong>strong text</strong>二是使用dict本身提供的一个 get 方法，在Key不存在的时候，返回None：<br><figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">print</span> d.get(<span class="string">'Bart'</span>)</div><div class="line"><span class="number">59</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">print</span> d.get(<span class="string">'Paul'</span>)</div><div class="line"><span class="keyword">None</span></div></pre></td></tr></table></figure></p>
+<p><code>任务</code><br>根据如下dict：<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">d = &#123;</div><div class="line">    &apos;Adam&apos;: 95,</div><div class="line">    &apos;Lisa&apos;: 85,</div><div class="line">    &apos;Bart&apos;: 59</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>请打印出：<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">Adam: 95</div><div class="line">Lisa: 85</div><div class="line">Bart: 59</div></pre></td></tr></table></figure></p>
+<p>print语句可以打印多个变量。<br>参考代码:<br><figure class="highlight python"><table><tr><td class="code"><pre><div class="line">d = &#123;</div><div class="line">    <span class="string">'Adam'</span>: <span class="number">95</span>,</div><div class="line">    <span class="string">'Lisa'</span>: <span class="number">85</span>,</div><div class="line">    <span class="string">'Bart'</span>: <span class="number">59</span></div><div class="line">&#125;</div><div class="line"><span class="keyword">print</span> <span class="string">'Adam:'</span>, d[<span class="string">'Adam'</span>]</div><div class="line"><span class="keyword">print</span> <span class="string">'Lisa:'</span>, d[<span class="string">'Lisa'</span>]</div><div class="line"><span class="keyword">print</span> <span class="string">'Bart:'</span>, d[<span class="string">'Bart'</span>]</div></pre></td></tr></table></figure></p>
+<h4 id="3、dict的特点"><a href="#3、dict的特点" class="headerlink" title="3、dict的特点"></a>3、dict的特点</h4><p><strong>dict的第一个特点</strong>是<code>查找速度快</code>，无论dict有10个元素还是10万个元素，查找速度都一样。而list的查找速度随着元素增加而逐渐下降。</p>
+<p>不过<code>dict</code>的查找速度快不是没有代价的，<code>dict的缺点是占用内存大，还会浪费很多内容</code>，<code>list</code>正好相反，<code>占用内存小，但是查找速度慢</code>。</p>
+<p>由于dict是按 key 查找，所以，在一个dict中，key<code>不能重复</code>。</p>
+<p><strong>dict的第二个特点</strong>就是存储的key-value序对是没有顺序的！这和list不一样：<br><figure class="highlight python"><table><tr><td class="code"><pre><div class="line">d = &#123;</div><div class="line">    <span class="string">'Adam'</span>: <span class="number">95</span>,</div><div class="line">    <span class="string">'Lisa'</span>: <span class="number">85</span>,</div><div class="line">    <span class="string">'Bart'</span>: <span class="number">59</span></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>当我们试图打印这个dict时：<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">&gt;&gt;&gt; print d</div><div class="line">&#123;&apos;Lisa&apos;: 85, &apos;Adam&apos;: 95, &apos;Bart&apos;: 59&#125;</div></pre></td></tr></table></figure></p>
+<p>打印的顺序不一定是我们创建时的顺序，而且，不同的机器打印的顺序都可能不同，这说明dict内部是<code>无序的</code>，不能用dict存储有序的集合。        </p>
+<p><strong>dict的第三个特点是作为 key 的元素必须<code>不可变</code></strong><br>Python的基本类型如字符串、整数、浮点数都是不可变的，都可以作为 key。但是list是可变的，就不能作为 key。</p>
+<p>不可变这个限制仅作用于key，value是否可变无所谓：<br><figure class="highlight python"><table><tr><td class="code"><pre><div class="line">&#123;</div><div class="line">    <span class="string">'123'</span>: [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>],  <span class="comment"># key 是 str，value是list</span></div><div class="line">    <span class="number">123</span>: <span class="string">'123'</span>,  <span class="comment"># key 是 int，value 是 str</span></div><div class="line">    (<span class="string">'a'</span>, <span class="string">'b'</span>): <span class="keyword">True</span>  <span class="comment"># key 是 tuple，并且tuple的每个元素都是不可变对象，value是 boolean</span></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h4 id="4、更新dict"><a href="#4、更新dict" class="headerlink" title="4、更新dict"></a>4、更新dict</h4><p>dict是可变的，也就是说，我们可以随时往dict中添加新的 key-value。比如已有dict：<br><figure class="highlight python"><table><tr><td class="code"><pre><div class="line">d = &#123;</div><div class="line">    <span class="string">'Adam'</span>: <span class="number">95</span>,</div><div class="line">    <span class="string">'Lisa'</span>: <span class="number">85</span>,</div><div class="line">    <span class="string">'Bart'</span>: <span class="number">59</span></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>要把新同学’Paul’的成绩 72 加进去，用赋值语句：<br><figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="meta">&gt;&gt;&gt; </span>d[<span class="string">'Paul'</span>] = <span class="number">72</span></div></pre></td></tr></table></figure></p>
+<p>再看看dict的内容：<br><figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">print</span> d</div><div class="line">&#123;<span class="string">'Lisa'</span>: <span class="number">85</span>, <span class="string">'Paul'</span>: <span class="number">72</span>, <span class="string">'Adam'</span>: <span class="number">95</span>, <span class="string">'Bart'</span>: <span class="number">59</span>&#125;</div></pre></td></tr></table></figure></p>
+<p>如果 key 已经存在，则赋值会用新的 value <code>替换</code>掉原来的 value：<br><figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="meta">&gt;&gt;&gt; </span>d[<span class="string">'Bart'</span>] = <span class="number">60</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">print</span> d</div><div class="line">&#123;<span class="string">'Lisa'</span>: <span class="number">85</span>, <span class="string">'Paul'</span>: <span class="number">72</span>, <span class="string">'Adam'</span>: <span class="number">95</span>, <span class="string">'Bart'</span>: <span class="number">60</span>&#125;</div></pre></td></tr></table></figure></p>
+<h4 id="5、遍历dict"><a href="#5、遍历dict" class="headerlink" title="5、遍历dict"></a>5、遍历dict</h4><p>由于dict也是一个集合，所以，遍历dict和遍历list类似，都可以通过 for 循环实现。</p>
+<p>直接使用for循环可以遍历 dict 的 key：<br><figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="meta">&gt;&gt;&gt; </span>d = &#123; <span class="string">'Adam'</span>: <span class="number">95</span>, <span class="string">'Lisa'</span>: <span class="number">85</span>, <span class="string">'Bart'</span>: <span class="number">59</span> &#125;</div><div class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">for</span> key <span class="keyword">in</span> d:</div><div class="line"><span class="meta">... </span>    <span class="keyword">print</span> key</div><div class="line">...</div><div class="line">Lisa</div><div class="line">Adam</div><div class="line">Bart</div></pre></td></tr></table></figure></p>
+<p>由于通过 key 可以获取对应的 value，因此，在循环体内，可以获取到value的值。</p>
+<p><code>任务</code><br>请用 for 循环遍历如下的dict，打印出 name: score 来。<br><figure class="highlight python"><table><tr><td class="code"><pre><div class="line">d = &#123;</div><div class="line">    <span class="string">'Adam'</span>: <span class="number">95</span>,</div><div class="line">    <span class="string">'Lisa'</span>: <span class="number">85</span>,</div><div class="line">    <span class="string">'Bart'</span>: <span class="number">59</span></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>通过d[key]获取对应的value。<br><figure class="highlight python"><table><tr><td class="code"><pre><div class="line">d= &#123;</div><div class="line">    <span class="string">'Adam'</span>: <span class="number">95</span>,</div><div class="line">    <span class="string">'Lisa'</span>: <span class="number">85</span>,</div><div class="line">    <span class="string">'Bart'</span>: <span class="number">59</span></div><div class="line">&#125;</div><div class="line"><span class="keyword">for</span> key <span class="keyword">in</span> d:</div><div class="line">    <span class="keyword">print</span> key + <span class="string">':'</span>, d[key]</div></pre></td></tr></table></figure></p>
+
+                <hr>
+                
+                <!-- 多说 Share start -->
+                <div class="ds-share"
+                     style="text-align: right"
+                     data-thread-key="2016/04/15/Python3/"
+                     data-title="python入门 (三)(转载)"
+                     data-url="http://yoursite.com/2016/04/15/Python3/"
+                     data-images=""
+                     data-content="摘要：
+
+什么是dict
+访问dict
+dict的特点
+更新dict
+遍历dict
+
+
+1、什... | Haozhe&#39;s blog ">
+                    <div class="ds-share-inline">
+                        <ul class="ds-share-icons-16">
+                            <li data-toggle="ds-share-icons-more"><a class="ds-more" href="#">分享到：</a></li>
+                            <li><a class="ds-wechat flat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+                            <li><a class="ds-weibo flat" href="javascript:void(0);" data-service="weibo">微博</a></li>
+                            <li><a class="ds-douban flat" href="javascript:void(0);" data-service="douban">豆瓣</a></li>
+                        </ul>
+                        <div class="ds-share-icons-more">
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+                <!-- 多说 Share end-->
+                
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2016/04/16/java3.4/" data-toggle="tooltip" data-placement="top"
+                           title="java入门（三）包装类、自动装箱拆箱">&larr; Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2016/04/15/java3.3/" data-toggle="tooltip" data-placement="top"
+                           title="java入门（三）数组排序、查找">Next Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+                <!-- 多说评论框 start -->
+                <div class="comment">
+                    <div class="ds-thread"
+                         data-thread-key="2016/04/15/Python3/"
+                         data-title="python入门 (三)(转载)"
+                         data-url="http://yoursite.com/2016/04/15/Python3/">
+                    </div>
+                </div>
+                <!-- 多说评论框 end -->
+                
+
+                
+
+            </div>
+
+            <div class="hidden-xs col-sm-3 toc-col">
+                <div class="toc-wrap">
+                    <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#1、什么是dict"><span class="toc-text">1、什么是dict</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2、访问dict"><span class="toc-text">2、访问dict</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3、dict的特点"><span class="toc-text">3、dict的特点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4、更新dict"><span class="toc-text">4、更新dict</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5、遍历dict"><span class="toc-text">5、遍历dict</span></a></li></ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5 class="text-center">
+                        <a href="/tags/">FEATURED TAGS</a>
+                    </h5>
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#Python"
+                           title="Python">Python</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <div style="margin-top: 20px;">
+                    <h5 class="text-center">FRIENDS</h5>
+                    <ul class="list-inline text-center">
+                        
+                        <li><a href="http://www.hankcs.com/">hankcs</a></li>
+                        
+                        <li><a href="http://www.lintcode.com/zh-cn/ladder/2/">lintcode</a></li>
+                        
+                        <li><a href="http://www.jiuzhang.com/solutions/">jiuzhang</a></li>
+                        
+                    </ul>
+                </div>
+                
+            </div>
+        </div>
+
+    </div>
+</article>
+
+
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    // dynamic User by Hux
+    var _user = 'xuehaozhe';
+
+    // duoshuo comment query.
+    var duoshuoQuery = {short_name: _user};
+    (function () {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';
+        ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0]
+        || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+</script>
+<!-- 多说公共JS代码 end -->
+
+
+
+
+
+<!-- Footer -->
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <br>
+                <ul class="list-inline text-center">
+                
+                
+                    <li>
+                        <a target="_blank" href="https://twitter.com/xuehaozhe">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/xuehaozhe0526">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="http://weibo.com/fendoujianchi">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/xuehanzhe0526">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Haozhe 2017
+                    <br>
+                    <span id="busuanzi_container_site_pv" style="font-size: 12px;">PV: <span id="busuanzi_value_site_pv"></span> Times</span>
+                    <br>
+                    Theme by <a href="https://haojen.github.io/">Haojen Ma</a>
+                </p>
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/blog.js"></script>
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://yoursite.com/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+
+
+<!-- swiftype -->
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','null','2.0.0');
+</script>
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<!--wechat title img-->
+<img class="wechat-title-img" src="http://7xrw7v.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160402220553.png">
+</body>
+
+</html>

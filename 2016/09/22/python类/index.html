@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="What hurts more,the pain of hard work or the pain of regret.">
+    <meta name="keyword" content="null">
+    <meta name="theme-color" content="#600090">
+    <meta name="msapplication-navbutton-color" content="#600090">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#600090">
+    <link rel="shortcut icon" href="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-person-128.png">
+    <link rel="alternate" type="application/atom+xml" title="Haozhe" href="/atom.xml">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
+    <title>
+        
+        python类｜Haozhe&#39;s blog
+        
+    </title>
+
+    <link rel="canonical" href="http://yoursite.com/2016/09/22/python类/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/blog-style.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+</head>
+
+<style>
+
+    header.intro-header {
+        background-image: url('http://7xrw7v.com1.z0.glb.clouddn.com/1485527729222.jpg')
+    }
+</style>
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="" class="animated fadeIn">
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost = "true" data-istags="false
+" data-ishome = "false" >
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand animated pulse" href="/">
+                <span class="brand-logo">
+                    Haozhe
+                </span>
+                's Blog
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <!-- /.navbar-collapse -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+					
+                    
+                        
+							
+                        <li>
+                            <a href="/tags/">tags</a>
+                        </li>
+							
+						
+                    
+					
+					
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+//    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+<!-- Main Content -->
+
+<!--only post-->
+
+
+<img class="wechat-title-img"
+     src="http://7xrw7v.com1.z0.glb.clouddn.com/148552521631.jpg#博文默认的图片">
+
+
+<style>
+    
+    header.intro-header {
+        background-image: url('http://7xrw7v.com1.z0.glb.clouddn.com/148552521631.jpg#博文默认的图片')
+    }
+
+    
+</style>
+
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <div class="post-heading">
+                    <h1>python类</h1>
+                    
+                    <span class="meta">
+                         作者 Haozhe Xue
+                        <span>
+                          日期 2016-09-22
+                         </span>
+                    </span>
+                    <div class="tags text-center">
+                        
+                        <a class="tag" href="/tags/#dataquest"
+                           title="dataquest">dataquest</a>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="post-title-haojen">
+        <span>
+            python类
+        </span>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <!-- Post Container -->
+            <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
+                <p>摘要：</p>
+<ul>
+<li>Classes</li>
+</ul>
+<a id="more"></a>
+<h3 id="NFL-Data"><a href="#NFL-Data" class="headerlink" title="NFL Data"></a>NFL Data</h3><p>用到的数据集 为美国橄榄球联盟数据 这个数据集包括2009-2013赛季的每一场比赛。数据集如下：<br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/be39c422a53b2e40c7cd876fdf8cc61e.png" alt=""></p>
+<h3 id="Introduction-To-Objects-And-Classes"><a href="#Introduction-To-Objects-And-Classes" class="headerlink" title="Introduction To Objects And Classes"></a>Introduction To Objects And Classes</h3><p>python也是一种面对对象的语言。</p>
+<blockquote>
+<p>An object is a variable that contains its own variables and behavior</p>
+</blockquote>
+<p>一个对象中的变量，成为属性（properties）<br>假设我们有一个对象 <code>black_honda_accord</code><br>调用属性的方法为</p>
+<p><code>black_honda_accord</code> is an instance of the <code>Car</code> class.<br><figure class="highlight python"><table><tr><td class="code"><pre><div class="line"></div><div class="line">print(black_honda_accord.color)</div><div class="line">print(black_honda_accord.make)</div><div class="line">print(black_honda_accord.model)</div></pre></td></tr></table></figure></p>
+<h3 id="Class-Syntax"><a href="#Class-Syntax" class="headerlink" title="Class Syntax"></a>Class Syntax</h3><figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Car</span><span class="params">()</span>:</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></div><div class="line">        self.color = <span class="string">"black"</span></div><div class="line">        self.make = <span class="string">"honda"</span></div><div class="line">        self.model = <span class="string">"accord"</span></div><div class="line"></div><div class="line">black_honda_accord = Car() <span class="comment"># 声明对象</span></div><div class="line"></div><div class="line">print(black_honda_accord.color) <span class="comment">#调用属性 black</span></div></pre></td></tr></table></figure>
+<p><code>__init__</code>函数 定义属性（默认值）</p>
+<h3 id="Instance-Methods-And-init"><a href="#Instance-Methods-And-init" class="headerlink" title="Instance Methods And __init__"></a>Instance Methods And <code>__init__</code></h3><p>实例有属性 也有方法（behavior）</p>
+<p>添加更多的参数</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Team</span><span class="params">()</span>:</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></div><div class="line">        self.name = <span class="string">"Tampa Bay Buccaneers"</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Team</span><span class="params">()</span>:</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, name)</span>:</span></div><div class="line">        self.name = name</div><div class="line"></div><div class="line">giants = Team(<span class="string">"New York Giants"</span>)</div></pre></td></tr></table></figure>
+<p>Let’s add the name argument to our Team class’s <code>__init__</code> method so that we can create teams with any name.</p>
+<h3 id="The-Self-Keyword"><a href="#The-Self-Keyword" class="headerlink" title="The Self Keyword"></a>The Self Keyword</h3><blockquote>
+<p><code>self</code> can be used to access properties or methods on the current instance.</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Team</span><span class="params">()</span>:</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, name)</span>:</span></div><div class="line">        self.name = name</div><div class="line">bucs = Team(<span class="string">"Tampa Bay Buccaneers"</span>)</div></pre></td></tr></table></figure>
+<p><code>__init__</code>是自动调用的<br><code>self</code>和<code>“Tampa Bay Buccaneers”</code>作为它的参数</p>
+<p><code>self</code>仅仅是 实例 <code>bucs</code>的一个参考/引用（reference） 当<code>self.name</code> 真正设置的是<code>bucs.name</code></p>
+<h3 id="More-Instance-Methods"><a href="#More-Instance-Methods" class="headerlink" title="More Instance Methods"></a>More Instance Methods</h3><p>在类中  我们也可以定义任何方法，与函数相似 不同的是他们都可以访问 self</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Team</span><span class="params">()</span>:</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, name)</span>:</span></div><div class="line">        self.name = name</div><div class="line"><span class="comment"># instance method</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">print_name</span><span class="params">(self)</span>:</span></div><div class="line">        print(self.name)</div></pre></td></tr></table></figure>
+<p>上述 <code>instance method</code> 并不像<code>__init__</code>方法那样自动调用</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line">bucs = Team(<span class="string">"Tampa Bay Buccaneers"</span>)</div><div class="line">...</div><div class="line">bucs.print_name() <span class="comment">##调用</span></div></pre></td></tr></table></figure>
+<blockquote>
+<p>By defining instance methods that we call explicitly</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"></div><div class="line"><span class="keyword">import</span> csv</div><div class="line"></div><div class="line">f = open(<span class="string">"nfl.csv"</span>, <span class="string">'r'</span>)</div><div class="line">nfl = list(csv.reader(f))</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Team</span><span class="params">()</span>:</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, name)</span>:</span></div><div class="line">        self.name = name</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">print_name</span><span class="params">(self)</span>:</span></div><div class="line">        print(self.name)</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">count_total_wins</span><span class="params">(self)</span>:</span></div><div class="line">        count = <span class="number">0</span></div><div class="line">        <span class="keyword">for</span> row <span class="keyword">in</span> nfl:</div><div class="line">            <span class="keyword">if</span> row[<span class="number">2</span>] == self.name:</div><div class="line">                count = count + <span class="number">1</span></div><div class="line">        <span class="keyword">return</span> count</div><div class="line"></div><div class="line">broncos = Team(<span class="string">"Denver Broncos"</span>)</div><div class="line">broncos_wins = broncos.count_total_wins()</div><div class="line"></div><div class="line">chiefs = Team(<span class="string">"Kansas City Chiefs"</span>)</div><div class="line">chiefs_wins = chiefs.count_total_wins()</div></pre></td></tr></table></figure>
+<h3 id="Wins-In-A-Year"><a href="#Wins-In-A-Year" class="headerlink" title="Wins In A Year"></a>Wins In A Year</h3><p>与上一篇文章相似  现在统计给定一年 统计这一年中某队赢球的次数<br>使用 类</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="keyword">import</span> csv</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Team</span><span class="params">()</span>:</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, name)</span>:</span></div><div class="line">        self.name = name</div><div class="line">        f = open(<span class="string">"nfl.csv"</span>, <span class="string">'r'</span>)</div><div class="line">        csvreader = csv.reader(f)</div><div class="line">        self.nfl = list(csvreader)</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">count_total_wins</span><span class="params">(self)</span>:</span></div><div class="line">        count = <span class="number">0</span></div><div class="line">        <span class="keyword">for</span> row <span class="keyword">in</span> self.nfl:</div><div class="line">            <span class="keyword">if</span> row[<span class="number">2</span>] == self.name:</div><div class="line">                count = count + <span class="number">1</span></div><div class="line">        <span class="keyword">return</span> count</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">count_wins_in_year</span><span class="params">(self, year)</span>:</span></div><div class="line">        count = <span class="number">0</span></div><div class="line">        <span class="keyword">for</span> row <span class="keyword">in</span> self.nfl:</div><div class="line">            <span class="keyword">if</span> row[<span class="number">2</span>] == self.name <span class="keyword">and</span> row[<span class="number">0</span>] == year:</div><div class="line">                count += <span class="number">1</span></div><div class="line">        <span class="keyword">return</span> count</div><div class="line"></div><div class="line">niners = Team(<span class="string">"San Francisco 49ers"</span>)</div><div class="line">niners_wins_2013 = niners.count_wins_in_year(<span class="string">"2013"</span>)</div></pre></td></tr></table></figure>
+<p>使用类后 代码更加具有结构化</p>
+
+                <hr>
+                
+                <!-- 多说 Share start -->
+                <div class="ds-share"
+                     style="text-align: right"
+                     data-thread-key="2016/09/22/python类/"
+                     data-title="python类"
+                     data-url="http://yoursite.com/2016/09/22/python类/"
+                     data-images=""
+                     data-content="摘要：
+
+Classes
+
+
+NFL Data用到的数据集 为美国橄榄球联盟数据 这个数据集包... | Haozhe&#39;s blog ">
+                    <div class="ds-share-inline">
+                        <ul class="ds-share-icons-16">
+                            <li data-toggle="ds-share-icons-more"><a class="ds-more" href="#">分享到：</a></li>
+                            <li><a class="ds-wechat flat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+                            <li><a class="ds-weibo flat" href="javascript:void(0);" data-service="weibo">微博</a></li>
+                            <li><a class="ds-douban flat" href="javascript:void(0);" data-service="douban">豆瓣</a></li>
+                        </ul>
+                        <div class="ds-share-icons-more">
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+                <!-- 多说 Share end-->
+                
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2016/09/22/python实例：拼写检查器spell checker/" data-toggle="tooltip" data-placement="top"
+                           title="python函数实例：拼写检查器spell checker">&larr; Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2016/09/22/python模块/" data-toggle="tooltip" data-placement="top"
+                           title="python模块">Next Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+                <!-- 多说评论框 start -->
+                <div class="comment">
+                    <div class="ds-thread"
+                         data-thread-key="2016/09/22/python类/"
+                         data-title="python类"
+                         data-url="http://yoursite.com/2016/09/22/python类/">
+                    </div>
+                </div>
+                <!-- 多说评论框 end -->
+                
+
+                
+
+            </div>
+
+            <div class="hidden-xs col-sm-3 toc-col">
+                <div class="toc-wrap">
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#NFL-Data"><span class="toc-text">NFL Data</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Introduction-To-Objects-And-Classes"><span class="toc-text">Introduction To Objects And Classes</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Class-Syntax"><span class="toc-text">Class Syntax</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Instance-Methods-And-init"><span class="toc-text">Instance Methods And __init__</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#The-Self-Keyword"><span class="toc-text">The Self Keyword</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#More-Instance-Methods"><span class="toc-text">More Instance Methods</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Wins-In-A-Year"><span class="toc-text">Wins In A Year</span></a></li></ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5 class="text-center">
+                        <a href="/tags/">FEATURED TAGS</a>
+                    </h5>
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#dataquest"
+                           title="dataquest">dataquest</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <div style="margin-top: 20px;">
+                    <h5 class="text-center">FRIENDS</h5>
+                    <ul class="list-inline text-center">
+                        
+                        <li><a href="http://www.hankcs.com/">hankcs</a></li>
+                        
+                        <li><a href="http://www.lintcode.com/zh-cn/ladder/2/">lintcode</a></li>
+                        
+                        <li><a href="http://www.jiuzhang.com/solutions/">jiuzhang</a></li>
+                        
+                    </ul>
+                </div>
+                
+            </div>
+        </div>
+
+    </div>
+</article>
+
+
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    // dynamic User by Hux
+    var _user = 'xuehaozhe';
+
+    // duoshuo comment query.
+    var duoshuoQuery = {short_name: _user};
+    (function () {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';
+        ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0]
+        || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+</script>
+<!-- 多说公共JS代码 end -->
+
+
+
+
+
+<!-- Footer -->
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <br>
+                <ul class="list-inline text-center">
+                
+                
+                    <li>
+                        <a target="_blank" href="https://twitter.com/xuehaozhe">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/xuehaozhe0526">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="http://weibo.com/fendoujianchi">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/xuehanzhe0526">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Haozhe 2017
+                    <br>
+                    <span id="busuanzi_container_site_pv" style="font-size: 12px;">PV: <span id="busuanzi_value_site_pv"></span> Times</span>
+                    <br>
+                    Theme by <a href="https://haojen.github.io/">Haojen Ma</a>
+                </p>
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/blog.js"></script>
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://yoursite.com/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+
+
+<!-- swiftype -->
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','null','2.0.0');
+</script>
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<!--wechat title img-->
+<img class="wechat-title-img" src="http://7xrw7v.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160402220553.png">
+</body>
+
+</html>

@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="What hurts more,the pain of hard work or the pain of regret.">
+    <meta name="keyword" content="null">
+    <meta name="theme-color" content="#600090">
+    <meta name="msapplication-navbutton-color" content="#600090">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#600090">
+    <link rel="shortcut icon" href="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-person-128.png">
+    <link rel="alternate" type="application/atom+xml" title="Haozhe" href="/atom.xml">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
+    <title>
+        
+        hadoop2.5.0编译｜Haozhe&#39;s blog
+        
+    </title>
+
+    <link rel="canonical" href="http://yoursite.com/2016/07/12/hadoop2.5.0编译/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/blog-style.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+</head>
+
+<style>
+
+    header.intro-header {
+        background-image: url('http://7xrw7v.com1.z0.glb.clouddn.com/1485527729222.jpg')
+    }
+</style>
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="" class="animated fadeIn">
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost = "true" data-istags="false
+" data-ishome = "false" >
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand animated pulse" href="/">
+                <span class="brand-logo">
+                    Haozhe
+                </span>
+                's Blog
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <!-- /.navbar-collapse -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+					
+                    
+                        
+							
+                        <li>
+                            <a href="/tags/">tags</a>
+                        </li>
+							
+						
+                    
+					
+					
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+//    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+<!-- Main Content -->
+
+<!--only post-->
+
+
+<img class="wechat-title-img"
+     src="http://7xrw7v.com1.z0.glb.clouddn.com/148552521631.jpg#博文默认的图片">
+
+
+<style>
+    
+    header.intro-header {
+        background-image: url('http://7xrw7v.com1.z0.glb.clouddn.com/148552521631.jpg#博文默认的图片')
+    }
+
+    
+</style>
+
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <div class="post-heading">
+                    <h1>hadoop2.5.0编译</h1>
+                    
+                    <span class="meta">
+                         作者 Haozhe Xue
+                        <span>
+                          日期 2016-07-12
+                         </span>
+                    </span>
+                    <div class="tags text-center">
+                        
+                        <a class="tag" href="/tags/#hadoop"
+                           title="hadoop">hadoop</a>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="post-title-haojen">
+        <span>
+            hadoop2.5.0编译
+        </span>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <!-- Post Container -->
+            <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
+                <p>摘要：</p>
+<ul>
+<li>问题</li>
+<li>编译前的依赖包的准备</li>
+<li>安装jdk</li>
+<li>安装maven</li>
+<li>安装protobuf</li>
+<li>安装findbugs</li>
+</ul>
+<a id="more"></a>
+<h3 id="1-问题"><a href="#1-问题" class="headerlink" title="1.问题"></a>1.问题</h3><p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160517101353.png" alt=""></p>
+<p>所需软件：<br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160517103907.png" alt=""></p>
+<h3 id="2-编译前的依赖包的准备"><a href="#2-编译前的依赖包的准备" class="headerlink" title="2.编译前的依赖包的准备"></a>2.编译前的依赖包的准备</h3><p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160517132751.png" alt=""><br>注意 ：root用户操作（联网）</p>
+<p>将m2.zip文件解压上传<br>（链接：<a href="http://pan.baidu.com/s/1c2fpvPI" target="_blank" rel="external">http://pan.baidu.com/s/1c2fpvPI</a> 密码：iken）<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">[hadoop@hadoop-yarn softwares]$ chmod u+x m2.zip</div><div class="line"></div><div class="line">[hadoop@hadoop-yarn softwares]$ tar -zxf m2.zip</div><div class="line"></div><div class="line">###进入到其目录下的 repository/</div><div class="line">[hadoop@hadoop-yarn m2]$ cd repository/</div><div class="line"></div><div class="line">##参见maven安装</div><div class="line">mv ./* ~/.m2/repository/（移动）</div><div class="line"></div><div class="line">[hadoop@hadoop-yarn ~]$ cd .m2/</div><div class="line">[hadoop@hadoop-yarn .m2]$ ls</div><div class="line">repository</div><div class="line">[hadoop@hadoop-yarn .m2]$ cd repository/</div><div class="line">[hadoop@hadoop-yarn repository]$ cp /opt/modules/apache-maven-3.0.5/conf/settings.xml .</div></pre></td></tr></table></figure></p>
+<h3 id="3-安装jdk"><a href="#3-安装jdk" class="headerlink" title="3.安装jdk"></a>3.安装jdk</h3><p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160517122643.png" alt=""></p>
+<h4 id="卸载已有的jdk"><a href="#卸载已有的jdk" class="headerlink" title="卸载已有的jdk"></a>卸载已有的jdk</h4><p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160517121956.png" alt=""></p>
+<h3 id="4-安装maven"><a href="#4-安装maven" class="headerlink" title="4.安装maven"></a>4.安装maven</h3><p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160517122721.png" alt=""><br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">[hadoop@hadoop-yarn ~]$ mvn -version</div><div class="line">Apache Maven 3.0.5 (r01de14724cdef164cd33c7c8c2fe155faf9602da; 2013-02-19 21:51:28+0800)</div><div class="line">Maven home: /opt/modules/apache-maven-3.0.5</div><div class="line">Java version: 1.7.0_67, vendor: Oracle Corporation</div><div class="line">Java home: /opt/modules/jdk1.7.0_67/jre</div><div class="line">Default locale: en_US, platform encoding: UTF-8</div><div class="line">OS name: &quot;linux&quot;, version: &quot;2.6.32-431.el6.x86_64&quot;, arch: &quot;amd64&quot;, family: &quot;unix&quot;</div></pre></td></tr></table></figure></p>
+<p>设置本地仓库</p>
+<p>通过阅读 <code>/opt/modules/apache-maven-3.0.5/conf</code>目录下的settings.xml 文件<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">&lt;!-- localRepository</div><div class="line">  | The path to the local repository maven will use to store artifacts.</div><div class="line">  |</div><div class="line">  | Default: ~/.m2/repository</div><div class="line"> &lt;localRepository&gt;/path/to/local/repo&lt;/localRepository&gt;</div><div class="line"> --&gt;</div></pre></td></tr></table></figure></p>
+<p>创建以下目录：<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">[hadoop@hadoop-yarn conf]$ cd</div><div class="line">[hadoop@hadoop-yarn ~]$ mkdir .m2</div><div class="line">[hadoop@hadoop-yarn ~]$ mkdir .m2/repository</div></pre></td></tr></table></figure></p>
+<h3 id="5-安装protobuf"><a href="#5-安装protobuf" class="headerlink" title="5.安装protobuf"></a>5.安装protobuf</h3><p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160517131506.png" alt=""></p>
+<p>root下 vi /etc/profile<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">export PROTOBUF_HOME=/opt/modules/protobuf-2.5.0</div></pre></td></tr></table></figure></p>
+<p>在 /opt/modules/protobuf-2.5.0下<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">[hadoop@hadoop-yarn protobuf-2.5.0]$ ./configure</div><div class="line">checking whether to enable maintainer-specific portions of Makefiles... yes</div><div class="line">checking build system type... x86_64-unknown-linux-gnu</div><div class="line">checking host system type... x86_64-unknown-linux-gnu</div><div class="line">checking target system type... x86_64-unknown-linux-gnu</div><div class="line">checking for a BSD-compatible install... /usr/bin/install -c</div><div class="line">checking whether build environment is sane... yes</div><div class="line">checking for a thread-safe mkdir -p... /bin/mkdir -p</div><div class="line">checking for gawk... gawk</div><div class="line">checking whether make sets $(MAKE)... yes</div><div class="line">checking for gcc... no</div><div class="line">checking for cc... no</div><div class="line">checking for cl.exe... no</div><div class="line">configure: error: in `/opt/modules/protobuf-2.5.0&apos;:</div><div class="line">configure: error: no acceptable C compiler found in $PATH</div><div class="line">See `config.log&apos; for more details</div></pre></td></tr></table></figure></p>
+<p>切换到 root用户下  执行make</p>
+<h3 id="6-安装findbugs"><a href="#6-安装findbugs" class="headerlink" title="6. 安装findbugs"></a>6. 安装findbugs</h3><p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160517160134.png" alt=""></p>
+<h2 id="—————————————————–"><a href="#—————————————————–" class="headerlink" title="—————————————————–"></a>—————————————————–</h2><p>准备工作完毕 断开所有xshell  重新连接</p>
+<h3 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h3><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">[hadoop@hadoop-yarn ~]$ cd /opt/modules/hadoop-2.5.0-src/</div><div class="line">[hadoop@hadoop-yarn hadoop-2.5.0-src]$ mvn package -Pdist,native -DskipTests -Dtar</div></pre></td></tr></table></figure>
+<p>等待一个小时左右：<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">[INFO] --------------------------------</div><div class="line">[INFO] BUILD SUCCESS</div><div class="line">[INFO] --------------------------------</div><div class="line">[INFO] Total time: 54:32.640s</div><div class="line">[INFO] Finished at: Wed May 18 01:10:48 CST 2016</div><div class="line">[INFO] Final Memory: 92M/426M</div><div class="line">[INFO] --------------------------------</div></pre></td></tr></table></figure></p>
+<p><strong>成功后的编译文件在 /opt/modules/hadoop-2.5.0-src/hadoop-dist/target下</strong></p>
+<p>进入：<br><code>/opt/modules/hadoop-2.5.0-src/hadoop-dist/target/hadoop-2.5.0/lib/native</code>下<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">[hadoop@hadoop-yarn native]$ file libhadoop.so.1.0.0</div><div class="line">libhadoop.so.1.0.0: ELF 64-bit LSB shared object, x86-64, version 1 (SYSV), dynamically linked, not stripped</div><div class="line">[hadoop@hadoop-yarn native]$</div></pre></td></tr></table></figure></p>
+<p>如图 ：说明已是64位</p>
+<p>注意：官方的hadoop2.5.0 已经支持64位</p>
+
+                <hr>
+                
+                <!-- 多说 Share start -->
+                <div class="ds-share"
+                     style="text-align: right"
+                     data-thread-key="2016/07/12/hadoop2.5.0编译/"
+                     data-title="hadoop2.5.0编译"
+                     data-url="http://yoursite.com/2016/07/12/hadoop2.5.0编译/"
+                     data-images=""
+                     data-content="摘要：
+
+问题
+编译前的依赖包的准备
+安装jdk
+安装maven
+安装protobuf
+安装f... | Haozhe&#39;s blog ">
+                    <div class="ds-share-inline">
+                        <ul class="ds-share-icons-16">
+                            <li data-toggle="ds-share-icons-more"><a class="ds-more" href="#">分享到：</a></li>
+                            <li><a class="ds-wechat flat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+                            <li><a class="ds-weibo flat" href="javascript:void(0);" data-service="weibo">微博</a></li>
+                            <li><a class="ds-douban flat" href="javascript:void(0);" data-service="douban">豆瓣</a></li>
+                        </ul>
+                        <div class="ds-share-icons-more">
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+                <!-- 多说 Share end-->
+                
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2016/07/13/hadoop源码导入/" data-toggle="tooltip" data-placement="top"
+                           title="hadoop源码导入">&larr; Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2016/07/11/centos6.4虚拟机更改IP地址/" data-toggle="tooltip" data-placement="top"
+                           title="centos6.4虚拟机更改IP地址">Next Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+                <!-- 多说评论框 start -->
+                <div class="comment">
+                    <div class="ds-thread"
+                         data-thread-key="2016/07/12/hadoop2.5.0编译/"
+                         data-title="hadoop2.5.0编译"
+                         data-url="http://yoursite.com/2016/07/12/hadoop2.5.0编译/">
+                    </div>
+                </div>
+                <!-- 多说评论框 end -->
+                
+
+                
+
+            </div>
+
+            <div class="hidden-xs col-sm-3 toc-col">
+                <div class="toc-wrap">
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-问题"><span class="toc-text">1.问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-编译前的依赖包的准备"><span class="toc-text">2.编译前的依赖包的准备</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-安装jdk"><span class="toc-text">3.安装jdk</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#卸载已有的jdk"><span class="toc-text">卸载已有的jdk</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-安装maven"><span class="toc-text">4.安装maven</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-安装protobuf"><span class="toc-text">5.安装protobuf</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-安装findbugs"><span class="toc-text">6. 安装findbugs</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#—————————————————–"><span class="toc-text">—————————————————–</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#编译"><span class="toc-text">编译</span></a></li></ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5 class="text-center">
+                        <a href="/tags/">FEATURED TAGS</a>
+                    </h5>
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#hadoop"
+                           title="hadoop">hadoop</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <div style="margin-top: 20px;">
+                    <h5 class="text-center">FRIENDS</h5>
+                    <ul class="list-inline text-center">
+                        
+                        <li><a href="http://www.hankcs.com/">hankcs</a></li>
+                        
+                        <li><a href="http://www.lintcode.com/zh-cn/ladder/2/">lintcode</a></li>
+                        
+                        <li><a href="http://www.jiuzhang.com/solutions/">jiuzhang</a></li>
+                        
+                    </ul>
+                </div>
+                
+            </div>
+        </div>
+
+    </div>
+</article>
+
+
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    // dynamic User by Hux
+    var _user = 'xuehaozhe';
+
+    // duoshuo comment query.
+    var duoshuoQuery = {short_name: _user};
+    (function () {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';
+        ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0]
+        || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+</script>
+<!-- 多说公共JS代码 end -->
+
+
+
+
+
+<!-- Footer -->
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <br>
+                <ul class="list-inline text-center">
+                
+                
+                    <li>
+                        <a target="_blank" href="https://twitter.com/xuehaozhe">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/xuehaozhe0526">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="http://weibo.com/fendoujianchi">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/xuehanzhe0526">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Haozhe 2017
+                    <br>
+                    <span id="busuanzi_container_site_pv" style="font-size: 12px;">PV: <span id="busuanzi_value_site_pv"></span> Times</span>
+                    <br>
+                    Theme by <a href="https://haojen.github.io/">Haojen Ma</a>
+                </p>
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/blog.js"></script>
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://yoursite.com/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+
+
+<!-- swiftype -->
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','null','2.0.0');
+</script>
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<!--wechat title img-->
+<img class="wechat-title-img" src="http://7xrw7v.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160402220553.png">
+</body>
+
+</html>

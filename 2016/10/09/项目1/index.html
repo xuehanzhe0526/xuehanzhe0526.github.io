@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="What hurts more,the pain of hard work or the pain of regret.">
+    <meta name="keyword" content="null">
+    <meta name="theme-color" content="#600090">
+    <meta name="msapplication-navbutton-color" content="#600090">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#600090">
+    <link rel="shortcut icon" href="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-person-128.png">
+    <link rel="alternate" type="application/atom+xml" title="Haozhe" href="/atom.xml">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
+    <title>
+        
+        Guided Project:Visualizing Pixar&#39;s Roller Coaster｜Haozhe&#39;s blog
+        
+    </title>
+
+    <link rel="canonical" href="http://yoursite.com/2016/10/09/项目1/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/blog-style.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+</head>
+
+<style>
+
+    header.intro-header {
+        background-image: url('http://7xrw7v.com1.z0.glb.clouddn.com/1485527729222.jpg')
+    }
+</style>
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="" class="animated fadeIn">
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost = "true" data-istags="false
+" data-ishome = "false" >
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand animated pulse" href="/">
+                <span class="brand-logo">
+                    Haozhe
+                </span>
+                's Blog
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <!-- /.navbar-collapse -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+					
+                    
+                        
+							
+                        <li>
+                            <a href="/tags/">tags</a>
+                        </li>
+							
+						
+                    
+					
+					
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+//    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+<!-- Main Content -->
+
+<!--only post-->
+
+
+<img class="wechat-title-img"
+     src="http://7xrw7v.com1.z0.glb.clouddn.com/148552521631.jpg#博文默认的图片">
+
+
+<style>
+    
+    header.intro-header {
+        background-image: url('http://7xrw7v.com1.z0.glb.clouddn.com/148552521631.jpg#博文默认的图片')
+    }
+
+    
+</style>
+
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <div class="post-heading">
+                    <h1>Guided Project:Visualizing Pixar&#39;s Roller Coaster</h1>
+                    
+                    <span class="meta">
+                         作者 Haozhe Xue
+                        <span>
+                          日期 2016-10-09
+                         </span>
+                    </span>
+                    <div class="tags text-center">
+                        
+                        <a class="tag" href="/tags/#dataquest"
+                           title="dataquest">dataquest</a>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="post-title-haojen">
+        <span>
+            Guided Project:Visualizing Pixar's Roller Coaster
+        </span>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <!-- Post Container -->
+            <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
+                <p>摘要：</p>
+<p>皮克斯动画数据集</p>
+<p>这个项目就是对其电影 进行可视化分析</p>
+<p>代码和数据集（<a href="https://github.com/xuehanzhe0526/DataQuest）" target="_blank" rel="external">https://github.com/xuehanzhe0526/DataQuest）</a></p>
+<a id="more"></a>
+<h3 id="Introduction-To-The-Data"><a href="#Introduction-To-The-Data" class="headerlink" title="Introduction To The Data"></a>Introduction To The Data</h3><p>皮克斯动画数据集</p>
+<p>这个项目就是对其电影 进行可视化分析</p>
+<p><code>PixarMovies.csv</code></p>
+<ul>
+<li><p>Year Released - the year the movie was released.<br>Movie - the name of the movie.</p>
+</li>
+<li><p>RT Score - the Rotten Tomatoes rating for the movie.<br>IMDB Score - the IMDB rating for the movie.</p>
+</li>
+<li>Metacritic SCore - the Metacritic rating for the movie.</li>
+<li>Opening Weekend - the amount of revenue the movie made on opening weekend (in millions of dollars).</li>
+<li>Worldwide Gross - the total amount of revenue the movie has made to date.</li>
+<li>Production Budget - the amount of money spent to produce the film (in millions of dollars).</li>
+<li>Oscars Won - the number of Oscar awards the movie won.</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</div><div class="line"><span class="keyword">import</span> seaborn <span class="keyword">as</span> sns</div><div class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</div><div class="line">%matplotlib inline</div><div class="line"></div><div class="line">pixar_movies = pd.read_csv(<span class="string">"PixarMovies.csv"</span>)</div></pre></td></tr></table></figure>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/d99242a4ea5b3f74c511f512e6c4aca1.png" alt=""></p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/cf9c31a4b71b6888bb58dd2de8da23ab.png" alt=""></p>
+<h3 id="Data-Cleaning"><a href="#Data-Cleaning" class="headerlink" title="Data Cleaning"></a>Data Cleaning</h3><p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/f6dbe64bb7d2fcc38366b4f669cf6664.png" alt=""></p>
+<p>数据的最后一行 电影<code>Inside Out</code> 有缺失值。<br><figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="comment"># Create a new DataFrame containing only the first 14 rows.</span></div><div class="line">filtered_pixar = pixar_movies.loc[<span class="number">0</span>:<span class="number">13</span>]</div></pre></td></tr></table></figure></p>
+<p>对于数据列<code>IMDB Score</code>评分标准为 10</p>
+<p>而<code>RT Score and Metacritic Score</code> 为100<br><figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="comment"># Multiply the `IMDB Score` column by 10</span></div><div class="line">pixar_movies[<span class="string">"IMDB Score"</span>] = pixar_movies[<span class="string">"IMDB Score"</span>]*<span class="number">10</span></div></pre></td></tr></table></figure></p>
+<p>同时 我们也有转变数据的索引 以<code>Movie</code>作为索引。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="comment"># Set the `Movie` column as the index for the DataFrame.</span></div><div class="line">pixar_movies.set_index(<span class="string">"Movie"</span>, inplace=<span class="keyword">True</span>)</div><div class="line">filtered_pixar.set_index(<span class="string">"Movie"</span>, inplace=<span class="keyword">True</span>)</div></pre></td></tr></table></figure>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/70cea1665b270dfbae999c5703e1a5ee.png" alt=""></p>
+<p>需要转变上面两列的数据类型为float<br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/d0ad7254949431f7c59641fa6a537266.png" alt=""></p>
+<p>这里需要用到的方法：<br><code>使用Series 参数 str 的 rstrip() 去移除 % 符号</code><br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/215aeb4c011d0f4233f4298e19933235.png" alt=""></p>
+<p>使用<code>astype()去转变为 float数据类型</code></p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/8ea4e3abae6e1a33c946d946f7736ff5.png" alt=""></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="comment"># Use the `str` attribute followed by the string method `rstrip()` to apply the string method</span></div><div class="line"><span class="comment"># to every value in the column.  Use the `astype()` method to cast the column to the float data type.</span></div><div class="line">pixar_movies[<span class="string">"Domestic %"</span>] = pixar_movies[<span class="string">"Domestic %"</span>].str.rstrip(<span class="string">"%"</span>).astype(<span class="string">"float"</span>)</div><div class="line">pixar_movies[<span class="string">"International %"</span>] = pixar_movies[<span class="string">"International %"</span>].str.rstrip(<span class="string">"%"</span>).astype(<span class="string">"float"</span>)</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line"># Create a new DataFrame containing only the first 14 rows.</div><div class="line">filtered_pixar = pixar_movies.loc[0:13]</div></pre></td></tr></table></figure>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/6e7fd06c76e77549e228a24181541ae1.png" alt=""></p>
+<h3 id="Data-Visualization-Line-Plots"><a href="#Data-Visualization-Line-Plots" class="headerlink" title="Data Visualization, Line Plots"></a>Data Visualization, Line Plots</h3><p>现在观察 三个评分网站的电影的票价</p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/67bb67f4fb007f2a45f2315209a4f65e.png" alt=""></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line">critics_reviews = pixar_movies[[<span class="string">"RT Score"</span>,<span class="string">"Metacritic Score"</span>,<span class="string">"IMDB Score"</span>]]</div><div class="line">critics_reviews.plot()</div></pre></td></tr></table></figure>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/580e5e18e38e6a3403ed1cb24bfc9901.png" alt=""></p>
+<p>默认时 画布太小</p>
+<p><code>figsize parameter</code></p>
+<p><code>critics_reviews.plot(figsize=(10,6))</code></p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/4a569838f3d5afdfe8177087ca61cfe9.png" alt=""></p>
+<p>上图发现 并不是所有的 电影名字 都出现在 X 轴 只在背景网格的分界才出现电影名</p>
+<h3 id="Data-Visualization-Box-Plot"><a href="#Data-Visualization-Box-Plot" class="headerlink" title="Data Visualization, Box Plot"></a>Data Visualization, Box Plot</h3><p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/55f693acc25ce7b6776bc8483a97340d.png" alt=""><br><code>pixar_movies[[&quot;RT Score&quot;,&quot;Metacritic Score&quot;,&quot;IMDB Score&quot;]].plot(kind=&quot;box&quot;, figsize=(9,5))</code><br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/31eb28441982f719e08a9fd91def1a38.png" alt=""></p>
+<p>由上 可以看出 三个网站 对电影评分 的分布状况</p>
+<h3 id="Data-Visualization-Stacked-堆叠-Bar-Plot"><a href="#Data-Visualization-Stacked-堆叠-Bar-Plot" class="headerlink" title="Data Visualization, Stacked(堆叠) Bar Plot"></a>Data Visualization, Stacked(堆叠) Bar Plot</h3><p>观察 电影数据<code>Domestic % and International % columns</code></p>
+<p>代表着 总的收入 国内和国际收入各占多少 百分比。</p>
+<p><code>stacked bar plot.</code></p>
+<p>两者相加为 100%</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"></div><div class="line">revenue_proportions = filtered_pixar[[<span class="string">"Domestic %"</span>, <span class="string">"International %"</span>]]</div><div class="line">revenue_proportions.plot(kind=<span class="string">'bar'</span>, stacked=<span class="keyword">True</span>, figsize=(<span class="number">7</span>,<span class="number">6</span>))</div></pre></td></tr></table></figure>
+<p><code>stacked=True</code><br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/0dec2fa8b1c5751d03216dd2ea555b65.png" alt=""></p>
+<p>从上图可以发现 国内市场比例 有下降趋势</p>
+<p>查看电影被提名 和 最终获得奥斯卡的情况：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="comment"># Grouped bar plot for oscar nominations / oscars won</span></div><div class="line">filtered_pixar[[<span class="string">"Oscars Nominated"</span>,<span class="string">"Oscars Won"</span>]].plot(kind=<span class="string">'bar'</span>, figsize=(<span class="number">10</span>,<span class="number">6</span>))</div></pre></td></tr></table></figure>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/84cf2ddda718125dbaf31813c14d0309.png" alt=""></p>
+<p>查看 当时电影票房已经经济和股票膨胀后的票房<br><code>filtered_pixar[[&quot;Domestic Gross&quot;,&quot;Adjusted Domestic Gross&quot;]].plot(kind=&#39;bar&#39;, figsize=(10,6))</code><br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/b915c8a93899653e397fec85b85b7b2f.png" alt=""></p>
+
+                <hr>
+                
+                <!-- 多说 Share start -->
+                <div class="ds-share"
+                     style="text-align: right"
+                     data-thread-key="2016/10/09/项目1/"
+                     data-title="Guided Project:Visualizing Pixar&#39;s Roller Coaster"
+                     data-url="http://yoursite.com/2016/10/09/项目1/"
+                     data-images=""
+                     data-content="摘要：
+皮克斯动画数据集
+这个项目就是对其电影 进行可视化分析
+代码和数据集（https://... | Haozhe&#39;s blog ">
+                    <div class="ds-share-inline">
+                        <ul class="ds-share-icons-16">
+                            <li data-toggle="ds-share-icons-more"><a class="ds-more" href="#">分享到：</a></li>
+                            <li><a class="ds-wechat flat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+                            <li><a class="ds-weibo flat" href="javascript:void(0);" data-service="weibo">微博</a></li>
+                            <li><a class="ds-douban flat" href="javascript:void(0);" data-service="douban">豆瓣</a></li>
+                        </ul>
+                        <div class="ds-share-icons-more">
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+                <!-- 多说 Share end-->
+                
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2016/10/10/项目2/" data-toggle="tooltip" data-placement="top"
+                           title="Guided Project:Customizing Data Visualizations">&larr; Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2016/10/09/画图Seaborn/" data-toggle="tooltip" data-placement="top"
+                           title="Creating compelling visualizations">Next Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+                <!-- 多说评论框 start -->
+                <div class="comment">
+                    <div class="ds-thread"
+                         data-thread-key="2016/10/09/项目1/"
+                         data-title="Guided Project:Visualizing Pixar&#39;s Roller Coaster"
+                         data-url="http://yoursite.com/2016/10/09/项目1/">
+                    </div>
+                </div>
+                <!-- 多说评论框 end -->
+                
+
+                
+
+            </div>
+
+            <div class="hidden-xs col-sm-3 toc-col">
+                <div class="toc-wrap">
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Introduction-To-The-Data"><span class="toc-text">Introduction To The Data</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Data-Cleaning"><span class="toc-text">Data Cleaning</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Data-Visualization-Line-Plots"><span class="toc-text">Data Visualization, Line Plots</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Data-Visualization-Box-Plot"><span class="toc-text">Data Visualization, Box Plot</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Data-Visualization-Stacked-堆叠-Bar-Plot"><span class="toc-text">Data Visualization, Stacked(堆叠) Bar Plot</span></a></li></ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5 class="text-center">
+                        <a href="/tags/">FEATURED TAGS</a>
+                    </h5>
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#dataquest"
+                           title="dataquest">dataquest</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <div style="margin-top: 20px;">
+                    <h5 class="text-center">FRIENDS</h5>
+                    <ul class="list-inline text-center">
+                        
+                        <li><a href="http://www.hankcs.com/">hankcs</a></li>
+                        
+                        <li><a href="http://www.lintcode.com/zh-cn/ladder/2/">lintcode</a></li>
+                        
+                        <li><a href="http://www.jiuzhang.com/solutions/">jiuzhang</a></li>
+                        
+                    </ul>
+                </div>
+                
+            </div>
+        </div>
+
+    </div>
+</article>
+
+
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    // dynamic User by Hux
+    var _user = 'xuehaozhe';
+
+    // duoshuo comment query.
+    var duoshuoQuery = {short_name: _user};
+    (function () {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';
+        ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0]
+        || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+</script>
+<!-- 多说公共JS代码 end -->
+
+
+
+
+
+<!-- Footer -->
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <br>
+                <ul class="list-inline text-center">
+                
+                
+                    <li>
+                        <a target="_blank" href="https://twitter.com/xuehaozhe">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/xuehaozhe0526">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="http://weibo.com/fendoujianchi">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/xuehanzhe0526">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Haozhe 2017
+                    <br>
+                    <span id="busuanzi_container_site_pv" style="font-size: 12px;">PV: <span id="busuanzi_value_site_pv"></span> Times</span>
+                    <br>
+                    Theme by <a href="https://haojen.github.io/">Haojen Ma</a>
+                </p>
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/blog.js"></script>
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://yoursite.com/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+
+
+<!-- swiftype -->
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','null','2.0.0');
+</script>
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<!--wechat title img-->
+<img class="wechat-title-img" src="http://7xrw7v.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160402220553.png">
+</body>
+
+</html>

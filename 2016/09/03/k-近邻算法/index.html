@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="What hurts more,the pain of hard work or the pain of regret.">
+    <meta name="keyword" content="null">
+    <meta name="theme-color" content="#600090">
+    <meta name="msapplication-navbutton-color" content="#600090">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#600090">
+    <link rel="shortcut icon" href="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-person-128.png">
+    <link rel="alternate" type="application/atom+xml" title="Haozhe" href="/atom.xml">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
+    <title>
+        
+        k-近邻算法｜Haozhe&#39;s blog
+        
+    </title>
+
+    <link rel="canonical" href="http://yoursite.com/2016/09/03/k-近邻算法/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/blog-style.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+</head>
+
+<style>
+
+    header.intro-header {
+        background-image: url('http://7xrw7v.com1.z0.glb.clouddn.com/1485527729222.jpg')
+    }
+</style>
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="" class="animated fadeIn">
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost = "true" data-istags="false
+" data-ishome = "false" >
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand animated pulse" href="/">
+                <span class="brand-logo">
+                    Haozhe
+                </span>
+                's Blog
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <!-- /.navbar-collapse -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+					
+                    
+                        
+							
+                        <li>
+                            <a href="/tags/">tags</a>
+                        </li>
+							
+						
+                    
+					
+					
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+//    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+<!-- Main Content -->
+
+<!--only post-->
+
+
+<img class="wechat-title-img"
+     src="http://7xrw7v.com1.z0.glb.clouddn.com/148552521631.jpg#博文默认的图片">
+
+
+<style>
+    
+    header.intro-header {
+        background-image: url('http://7xrw7v.com1.z0.glb.clouddn.com/148552521631.jpg#博文默认的图片')
+    }
+
+    
+</style>
+
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <div class="post-heading">
+                    <h1>k-近邻算法</h1>
+                    
+                    <span class="meta">
+                         作者 Haozhe Xue
+                        <span>
+                          日期 2016-09-03
+                         </span>
+                    </span>
+                    <div class="tags text-center">
+                        
+                        <a class="tag" href="/tags/#机器学习实战"
+                           title="机器学习实战">机器学习实战</a>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="post-title-haojen">
+        <span>
+            k-近邻算法
+        </span>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <!-- Post Container -->
+            <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
+                <p>摘要：</p>
+<ul>
+<li>k-近邻算法概述</li>
+<li>欧氏距离</li>
+<li>构造了第一个分类器</li>
+<li>使用k近邻算法改进约会网站的配对效果</li>
+<li>归一化数据</li>
+</ul>
+<a id="more"></a>
+<h3 id="k-近邻算法概述"><a href="#k-近邻算法概述" class="headerlink" title="k-近邻算法概述"></a>k-近邻算法概述</h3><p>简单地说，k近邻算法采用测量不同特征值之间的距离方法进行分类。</p>
+<h4 id="工作原理是："><a href="#工作原理是：" class="headerlink" title="工作原理是："></a>工作原理是：</h4><p>存在一个样本数据集合，也称作训练样本集，并且样本集中每个数据都存在标签，即我们知道样本集中每一数据与所属分类的对应关系。输入没有标签的新数据后，将新数据的每个特征与样本集中数据对应的特征进行比较，然后算法提取样本集中特征最相似数据（最近邻）的分类标签。一般来说，我们只选择样本数据集中前k个最相似的数据，这就是k-近邻算法中k的出处，通常k是不大于20的整数。最后，选择k个最相似数据中出现次数最多的分类，作为新数据的分类。</p>
+<h3 id="欧氏距离公式"><a href="#欧氏距离公式" class="headerlink" title="欧氏距离公式"></a>欧氏距离公式</h3><p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/904fb974b4f5789a1c2dc30986631e12.png" alt=""></p>
+<h3 id="构造了第一个分类器"><a href="#构造了第一个分类器" class="headerlink" title="构造了第一个分类器"></a>构造了第一个分类器</h3><h4 id="使用Python导入数据"><a href="#使用Python导入数据" class="headerlink" title="使用Python导入数据"></a>使用Python导入数据</h4><p>创建kNN.py文件 并添加代码：<br><figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="keyword">from</span> numpy <span class="keyword">import</span> *</div><div class="line"><span class="keyword">import</span> operator</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">createDataSet</span><span class="params">()</span>:</span></div><div class="line">    group = array([[<span class="number">1.0</span>,<span class="number">1.1</span>],[<span class="number">1.0</span>,<span class="number">1.0</span>],[<span class="number">0</span>,<span class="number">0</span>],[<span class="number">0</span>,<span class="number">0.1</span>]])</div><div class="line">    labels = [<span class="string">'A'</span>,<span class="string">'A'</span>,<span class="string">'B'</span>,<span class="string">'B'</span>]</div><div class="line">    <span class="keyword">return</span> group, labels</div></pre></td></tr></table></figure></p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/3bcc6fde75bc1be696779cff409564a6.png" alt=""><br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/e2b51de45c3aebde876cda7c1424a16a.png" alt=""></p>
+<h4 id="实施kNN分类算法"><a href="#实施kNN分类算法" class="headerlink" title="实施kNN分类算法"></a>实施kNN分类算法</h4><h5 id="伪代码如下："><a href="#伪代码如下：" class="headerlink" title="伪代码如下："></a>伪代码如下：</h5><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">对未知类别属性的数据集中的每个点依次执行以下操作：</div><div class="line">    1. 计算已知类别数据集中的点与当前点之间的距离；</div><div class="line">    2. 按照距离递增次序排序；</div><div class="line">    3. 选取与当前点距离最小的k个点；</div><div class="line">    4. 确定前k个点所在类别的出现频率；</div><div class="line">    5. 返回前k个点出现频率最高的类别作为当前点的预测分类。</div></pre></td></tr></table></figure>
+<p>在kNN.py 文件添加以下代码：<br>classify0()函数有4个输入参数：用于分类的输入向量是inX，输入的训练样本集为dataSet，标签向量为labels，最后的参数k表示用于选择最近邻居的数目，其中标签向量的元素数目和矩阵dataSet的行数相同<br><figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">classify0</span><span class="params">(inX, dataSet, labels, k)</span>:</span></div><div class="line">    dataSetSize = dataSet.shape[<span class="number">0</span>] <span class="comment">#得到数组的行数。即知道有几个训练数据</span></div><div class="line">    diffMat = tile(inX, (dataSetSize,<span class="number">1</span>)) - dataSet <span class="comment">#tile:numpy中的函数。tile将原来的一个数组，扩充成了4个一样的数组。</span></div><div class="line">    <span class="comment">#diffMat得到了目标与训练数值之间的差值。</span></div><div class="line">    sqDiffMat = diffMat**<span class="number">2</span> <span class="comment">#各个元素分别平方</span></div><div class="line">    sqDistances = sqDiffMat.sum(axis=<span class="number">1</span>)<span class="comment">#对应列相加，即得到了每一个距离的平方</span></div><div class="line">    distances = sqDistances**<span class="number">0.5</span><span class="comment">#开方，得到距离。</span></div><div class="line">    sortedDistIndicies = distances.argsort()  <span class="comment">#升序排列  </span></div><div class="line">    classCount=&#123;&#125;  </div><div class="line">    <span class="comment">#选择距离最小的k个点。</span></div><div class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(k):</div><div class="line">        voteIlabel = labels[sortedDistIndicies[i]]</div><div class="line">        classCount[voteIlabel] = classCount.get(voteIlabel,<span class="number">0</span>) + <span class="number">1</span></div><div class="line">    <span class="comment">#排序</span></div><div class="line">    sortedClassCount = sorted(classCount.iteritems(), key=operator.itemgetter(<span class="number">1</span>), reverse=<span class="keyword">True</span>)</div><div class="line">    <span class="keyword">return</span> sortedClassCount[<span class="number">0</span>][<span class="number">0</span>]</div></pre></td></tr></table></figure></p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/00b7ea32829d2877ab937e9f043fc80e.png" alt=""></p>
+<h4 id="具体python小知识点"><a href="#具体python小知识点" class="headerlink" title="具体python小知识点"></a>具体python小知识点</h4><p>#####tile函数:<br>numpy中的函数。tile将原来的一个数组，扩充成了4个一样的数组。<br><figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span>  np</div><div class="line">np.tile([<span class="number">0</span>,<span class="number">0</span>],(<span class="number">4</span>,<span class="number">1</span>))<span class="comment">##四行一列</span></div></pre></td></tr></table></figure></p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/f6a8caddd9c36805577e7af38e6ca8fe.png" alt=""></p>
+<h5 id="argsort-函数"><a href="#argsort-函数" class="headerlink" title="argsort()函数"></a>argsort()函数</h5><p>argsort函数返回的是数组值从小到大的索引值<br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/c2631d75436ba1c5f9720543158bd210.png" alt=""></p>
+<h5 id="operator-itemgetter"><a href="#operator-itemgetter" class="headerlink" title="operator.itemgetter()"></a>operator.itemgetter()</h5><p>以第三列为依据进行升序排列<br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/e00032a1b79d1d03368eccbe5f864130.png" alt=""></p>
+<h3 id="使用k近邻算法改进约会网站的配对效果"><a href="#使用k近邻算法改进约会网站的配对效果" class="headerlink" title="使用k近邻算法改进约会网站的配对效果"></a>使用k近邻算法改进约会网站的配对效果</h3><p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/1515c513e25bbaa687cde07b70511efd.png" alt=""></p>
+<h4 id="数据准备"><a href="#数据准备" class="headerlink" title="数据准备"></a>数据准备</h4><p>数据存放在文本文件datingTestSet.txt中，每个样本数据占据一行，总共有1000行。<br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/f12c2227fad62fa5214132d7dd5ec208.png" alt=""><br>含以下3种特征：<br>每年获得的飞行常客里程数<br>玩视频游戏所耗时间百分比<br>每周消费的冰琪淋公升数</p>
+<h4 id="数据处理"><a href="#数据处理" class="headerlink" title="数据处理"></a>数据处理</h4><p>必须将待处理数据的格式改变为分类器可以接受的格式<br>在kNN.py中创建名为file2matrix的函数 该函数的输入为文件名字符串，输出为训练样本矩阵和类标签向量。<br><figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">file2matrix</span><span class="params">(filename)</span>:</span></div><div class="line">    fr = open(filename)</div><div class="line">    numberOfLines = len(fr.readlines())         <span class="comment">#get the number of lines in the file</span></div><div class="line">    returnMat = zeros((numberOfLines,<span class="number">3</span>))        <span class="comment">#创建返回的Numpy矩阵prepare matrix to return</span></div><div class="line">    classLabelVector = []                       <span class="comment">#prepare labels return   </span></div><div class="line">    fr = open(filename)</div><div class="line">    index = <span class="number">0</span></div><div class="line">    <span class="comment"># 以下三行）解析文件数据到列表</span></div><div class="line">    <span class="keyword">for</span> line <span class="keyword">in</span> fr.readlines():</div><div class="line">        line = line.strip()</div><div class="line">        listFromLine = line.split(<span class="string">'\t'</span>)</div><div class="line">        returnMat[index,:] = listFromLine[<span class="number">0</span>:<span class="number">3</span>]</div><div class="line">        classLabelVector.append(int(listFromLine[<span class="number">-1</span>]))</div><div class="line">        index += <span class="number">1</span></div><div class="line">    <span class="keyword">return</span> returnMat,classLabelVector</div></pre></td></tr></table></figure></p>
+<p>首先使用函数line.strip()截取掉所有的回车字符，然后使用tab字符\t将上一步得到的整行数据分割成一个元素列表。接着，我们选取前3个元素，将它们存储到特征矩阵中。Python语言可以使用索引值-1表示列表中的最后一列元素，利用这种负索引，我们可以很方便地将列表的最后一列存储到向量classLabelVector中。需要注意的是，我们必须明确地通知解释器，告诉它列表中存储的元素值为整型，否则Python语言会将这些元素当作字符串处理。以前我们必须自己处理这些变量值类型问题，现在这些细节问题完全可以交给NumPy函数库来处理。</p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/3a7f0fce96abcac9a5417bc9b98f7a70.png" alt=""><br>一般来说，我们会采用图形化的方式直观地展示数据。下面就用Python工具来图形化展示数据内容，以便辨识出一些数据模式。<br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/978c491b914f78676ffae9bb3324b0d1.png" alt=""><br>散点图使用datingDataMat矩阵的第二、第三列数据，分别表示特征值“玩视频游戏所耗时间百分比”和“每周所消费的冰淇淋公升数”。</p>
+<p>由于没有使用样本分类的特征值，我们很难从图2-3中看到任何有用的数据模式信息。一般来说，我们会采用色彩或其他的记号来标记不同样本分类，以便更好地理解数据信息。Matplotlib库提供的scatter函数支持个性化标记散点图上的点。重新输入上面的代码，调用scatter函数时使用下列参数：<br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/5223dd68bce78649b4c5628682866f52.png" alt=""><br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/f234e5ab67d7a3707dfad76cf40a080d.png" alt=""></p>
+<h5 id="strip-函数"><a href="#strip-函数" class="headerlink" title="strip()函数"></a>strip()函数</h5><p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/d85010b333f94e0922b9d4cf292e3123.png" alt=""></p>
+<h4 id="数据准备：归一化数据"><a href="#数据准备：归一化数据" class="headerlink" title="数据准备：归一化数据"></a>数据准备：归一化数据</h4><p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/d9f63d4001d71763c71b0afdb4bdfbb1.png" alt=""></p>
+<p>在文件kNN.py中增加一个新函数autoNorm()，该函数可以自动将数字特征值转化为0到1的区间。<br><figure class="highlight python"><table><tr><td class="code"><pre><div class="line"></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">autoNorm</span><span class="params">(dataSet)</span>:</span></div><div class="line">    minVals = dataSet.min(<span class="number">0</span>)</div><div class="line">    maxVals = dataSet.max(<span class="number">0</span>)</div><div class="line">    ranges = maxVals - minVals</div><div class="line">    normDataSet = zeros(shape(dataSet))</div><div class="line">    m = dataSet.shape[<span class="number">0</span>]</div><div class="line">    normDataSet = dataSet - tile(minVals, (m,<span class="number">1</span>))</div><div class="line">    normDataSet = normDataSet/tile(ranges, (m,<span class="number">1</span>))   <span class="comment">#element wise divide</span></div><div class="line">    <span class="keyword">return</span> normDataSet, ranges, minVals</div></pre></td></tr></table></figure></p>
+<p>其中dataSet.min(0)中的参数0使得函数可以从列中选取最小值，而不是选取当前行的最小值。<br>需要注意的是，特征值矩阵有1000 x 3个值，而minVals和range的值都为1 x 3。为了解决这个问题，我们使用NumPy库中tile()函数将变量内容复制成输入矩阵同样大小的矩阵<br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/51ecfbf18e40dfcd0ab078039d723e0d.png" alt=""></p>
+<h4 id="测试算法：作为完整程序验证分类器"><a href="#测试算法：作为完整程序验证分类器" class="headerlink" title="测试算法：作为完整程序验证分类器"></a>测试算法：作为完整程序验证分类器</h4><p>机器学习算法一个很重要的工作就是评估算法的正确率，通常我们只提供已有数据的90%作为训练样本来训练分类器，而使用其余的10%数据去测试分类器<br>需要注意的是，10%的测试数据应该是随机选择的</p>
+<h4 id="错误率"><a href="#错误率" class="headerlink" title="错误率"></a>错误率</h4><p>错误率就是分类器给出错误结果的次数除以测试数据的总数<br>完美分类器的错误率为0，而错误率为1.0的分类器不会给出任何正确的分类结果。</p>
+<p>为了测试分类器效果，在kNN.py文件中创建函数datingClassTest，该函数是自包含的，你可以在任何时候在Python运行环境中使用该函数测试分类器效果。在kNN.py文件中输入下面的程序代码。<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line"></div><div class="line">def datingClassTest():</div><div class="line">    hoRatio = 0.10</div><div class="line">    datingDataMat,datingLabels = file2matrix(&apos;datingTestSet.txt&apos;)</div><div class="line">    normMat, ranges, minVals = autoNorm(datingDataMat)</div><div class="line">    m = normMat.shape[0]</div><div class="line">    numTestVecs = int(m*hoRatio)</div><div class="line">    errorCount = 0.0</div><div class="line">    for i in range(numTestVecs):</div><div class="line">        classifierResult = classify0(normMat[i,:],normMat[numTestVecs:m,:],\</div><div class="line">                     datingLabels[numTestVecs:m],3)</div><div class="line">        print &quot;the classifier came back with: %d, the real answer is: %d&quot;\</div><div class="line">                     % (classifierResult, datingLabels[i])</div><div class="line">        if (classifierResult != datingLabels[i]): errorCount += 1.0</div><div class="line">    print &quot;the total error rate is: %f&quot; % (errorCount/float(numTestVecs))</div><div class="line">    print errorCount</div></pre></td></tr></table></figure></p>
+<p>它首先使用了file2matrix和autoNorm()函数从文件中读取数据并将其转换为归一化特征值。<br>在Python命令提示符下重新加载kNN模块，并输入kNN.datingClassTest()，执行分类器测试程序，我们将得到下面的输出结果：<br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/b49cb6e2eae587d26f8266c35f093458.png" alt=""></p>
+<h4 id="使用算法：构建完整可用系统"><a href="#使用算法：构建完整可用系统" class="headerlink" title="使用算法：构建完整可用系统"></a>使用算法：构建完整可用系统</h4><p>上面我们已经在数据上对分类器进行了测试，现在终于可以使用这个分类器为海伦来对人们分类。我们会给海伦一小段程序，通过该程序海伦会在约会网站上找到某个人并输入他的信息。程序会给出她对对方喜欢程度的预测值。</p>
+<p>将下列代码加入到kNN.py并重新载入kNN。<br><figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">classifyPerson</span><span class="params">()</span>:</span></div><div class="line">    resultList = [<span class="string">'not at all'</span>,<span class="string">'in small doses'</span>, <span class="string">'in large doses'</span>]</div><div class="line">    percentTats = float(raw_input(\</div><div class="line">                 <span class="string">"percentage of time spent playing video games?"</span>))</div><div class="line">    ffMiles = float(raw_input(<span class="string">"frequent flier miles earned per year?"</span>))</div><div class="line">    iceCream = float(raw_input(<span class="string">"liters of ice cream consumed per year?"</span>))</div><div class="line">    datingDataMat,datingLabels = file2matrix(<span class="string">'datingTestSet2.txt'</span>)</div><div class="line">    normMat, ranges, minVals = autoNorm(datingDataMat)</div><div class="line">    inArr = array([ffMiles, percentTats, iceCream])</div><div class="line">    classifierResult = classify0((inArr-\</div><div class="line">                   minVals)/ranges,normMat,datingLabels,<span class="number">3</span>)</div><div class="line">    <span class="keyword">print</span> <span class="string">"You will probably like this person: "</span>,\</div><div class="line">                   resultList[classifierResult - <span class="number">1</span>]</div></pre></td></tr></table></figure></p>
+<p>函数raw_input()。该函数允许用户输入文本行命令并返回用户所输入的内容。为了解程序的实际运行效果，输入如下命令：</p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/d50f4135bb2b08a24fc773ff9dbf0973.png" alt=""></p>
+<h3 id="数据下载"><a href="#数据下载" class="headerlink" title="数据下载"></a>数据下载</h3><p><a href="https://github.com/xuehanzhe0526/data/blob/master/datingTestSet2.txt" target="_blank" rel="external">https://github.com/xuehanzhe0526/data/blob/master/datingTestSet2.txt</a></p>
+
+                <hr>
+                
+                <!-- 多说 Share start -->
+                <div class="ds-share"
+                     style="text-align: right"
+                     data-thread-key="2016/09/03/k-近邻算法/"
+                     data-title="k-近邻算法"
+                     data-url="http://yoursite.com/2016/09/03/k-近邻算法/"
+                     data-images=""
+                     data-content="摘要：
+
+k-近邻算法概述
+欧氏距离
+构造了第一个分类器
+使用k近邻算法改进约会网站的配对效果... | Haozhe&#39;s blog ">
+                    <div class="ds-share-inline">
+                        <ul class="ds-share-icons-16">
+                            <li data-toggle="ds-share-icons-more"><a class="ds-more" href="#">分享到：</a></li>
+                            <li><a class="ds-wechat flat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+                            <li><a class="ds-weibo flat" href="javascript:void(0);" data-service="weibo">微博</a></li>
+                            <li><a class="ds-douban flat" href="javascript:void(0);" data-service="douban">豆瓣</a></li>
+                        </ul>
+                        <div class="ds-share-icons-more">
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+                <!-- 多说 Share end-->
+                
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2016/09/04/协同过滤/" data-toggle="tooltip" data-placement="top"
+                           title="协同过滤-相似性">&larr; Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2016/09/02/Logistic回归实例/" data-toggle="tooltip" data-placement="top"
+                           title="Logistic回归实例">Next Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+                <!-- 多说评论框 start -->
+                <div class="comment">
+                    <div class="ds-thread"
+                         data-thread-key="2016/09/03/k-近邻算法/"
+                         data-title="k-近邻算法"
+                         data-url="http://yoursite.com/2016/09/03/k-近邻算法/">
+                    </div>
+                </div>
+                <!-- 多说评论框 end -->
+                
+
+                
+
+            </div>
+
+            <div class="hidden-xs col-sm-3 toc-col">
+                <div class="toc-wrap">
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#k-近邻算法概述"><span class="toc-text">k-近邻算法概述</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#工作原理是："><span class="toc-text">工作原理是：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#欧氏距离公式"><span class="toc-text">欧氏距离公式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#构造了第一个分类器"><span class="toc-text">构造了第一个分类器</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#使用Python导入数据"><span class="toc-text">使用Python导入数据</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#实施kNN分类算法"><span class="toc-text">实施kNN分类算法</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#伪代码如下："><span class="toc-text">伪代码如下：</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#具体python小知识点"><span class="toc-text">具体python小知识点</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#argsort-函数"><span class="toc-text">argsort()函数</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#operator-itemgetter"><span class="toc-text">operator.itemgetter()</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用k近邻算法改进约会网站的配对效果"><span class="toc-text">使用k近邻算法改进约会网站的配对效果</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#数据准备"><span class="toc-text">数据准备</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#数据处理"><span class="toc-text">数据处理</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#strip-函数"><span class="toc-text">strip()函数</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#数据准备：归一化数据"><span class="toc-text">数据准备：归一化数据</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#测试算法：作为完整程序验证分类器"><span class="toc-text">测试算法：作为完整程序验证分类器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#错误率"><span class="toc-text">错误率</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#使用算法：构建完整可用系统"><span class="toc-text">使用算法：构建完整可用系统</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#数据下载"><span class="toc-text">数据下载</span></a></li></ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5 class="text-center">
+                        <a href="/tags/">FEATURED TAGS</a>
+                    </h5>
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#机器学习实战"
+                           title="机器学习实战">机器学习实战</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <div style="margin-top: 20px;">
+                    <h5 class="text-center">FRIENDS</h5>
+                    <ul class="list-inline text-center">
+                        
+                        <li><a href="http://www.hankcs.com/">hankcs</a></li>
+                        
+                        <li><a href="http://www.lintcode.com/zh-cn/ladder/2/">lintcode</a></li>
+                        
+                        <li><a href="http://www.jiuzhang.com/solutions/">jiuzhang</a></li>
+                        
+                    </ul>
+                </div>
+                
+            </div>
+        </div>
+
+    </div>
+</article>
+
+
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    // dynamic User by Hux
+    var _user = 'xuehaozhe';
+
+    // duoshuo comment query.
+    var duoshuoQuery = {short_name: _user};
+    (function () {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';
+        ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0]
+        || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+</script>
+<!-- 多说公共JS代码 end -->
+
+
+
+
+
+<!-- Footer -->
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <br>
+                <ul class="list-inline text-center">
+                
+                
+                    <li>
+                        <a target="_blank" href="https://twitter.com/xuehaozhe">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/xuehaozhe0526">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="http://weibo.com/fendoujianchi">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/xuehanzhe0526">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Haozhe 2017
+                    <br>
+                    <span id="busuanzi_container_site_pv" style="font-size: 12px;">PV: <span id="busuanzi_value_site_pv"></span> Times</span>
+                    <br>
+                    Theme by <a href="https://haojen.github.io/">Haojen Ma</a>
+                </p>
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/blog.js"></script>
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://yoursite.com/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+
+
+<!-- swiftype -->
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','null','2.0.0');
+</script>
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<!--wechat title img-->
+<img class="wechat-title-img" src="http://7xrw7v.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160402220553.png">
+</body>
+
+</html>

@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="What hurts more,the pain of hard work or the pain of regret.">
+    <meta name="keyword" content="null">
+    <meta name="theme-color" content="#600090">
+    <meta name="msapplication-navbutton-color" content="#600090">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#600090">
+    <link rel="shortcut icon" href="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-person-128.png">
+    <link rel="alternate" type="application/atom+xml" title="Haozhe" href="/atom.xml">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
+    <title>
+        
+        正则表达式Regular Expressions｜Haozhe&#39;s blog
+        
+    </title>
+
+    <link rel="canonical" href="http://yoursite.com/2016/09/25/正则表达式/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/blog-style.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+</head>
+
+<style>
+
+    header.intro-header {
+        background-image: url('http://7xrw7v.com1.z0.glb.clouddn.com/1485527729222.jpg')
+    }
+</style>
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="" class="animated fadeIn">
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost = "true" data-istags="false
+" data-ishome = "false" >
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand animated pulse" href="/">
+                <span class="brand-logo">
+                    Haozhe
+                </span>
+                's Blog
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <!-- /.navbar-collapse -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+					
+                    
+                        
+							
+                        <li>
+                            <a href="/tags/">tags</a>
+                        </li>
+							
+						
+                    
+					
+					
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+//    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+<!-- Main Content -->
+
+<!--only post-->
+
+
+<img class="wechat-title-img"
+     src="http://7xrw7v.com1.z0.glb.clouddn.com/148552521631.jpg#博文默认的图片">
+
+
+<style>
+    
+    header.intro-header {
+        background-image: url('http://7xrw7v.com1.z0.glb.clouddn.com/148552521631.jpg#博文默认的图片')
+    }
+
+    
+</style>
+
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <div class="post-heading">
+                    <h1>正则表达式Regular Expressions</h1>
+                    
+                    <span class="meta">
+                         作者 Haozhe Xue
+                        <span>
+                          日期 2016-09-25
+                         </span>
+                    </span>
+                    <div class="tags text-center">
+                        
+                        <a class="tag" href="/tags/#dataquest"
+                           title="dataquest">dataquest</a>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="post-title-haojen">
+        <span>
+            正则表达式Regular Expressions
+        </span>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <!-- Post Container -->
+            <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
+                <p>摘要：</p>
+<ul>
+<li>Regular Expressions</li>
+</ul>
+<a id="more"></a>
+<h3 id="Regular-Expressions"><a href="#Regular-Expressions" class="headerlink" title="Regular Expressions"></a>Regular Expressions</h3><blockquote>
+<p>A regular expression is a sequence of characters that describes a search pattern.</p>
+</blockquote>
+<p>匹配正则表达式</p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/03ee639de5a32dd5cc5b45287050aeeb.png" alt=""></p>
+<h3 id="Special-Characters"><a href="#Special-Characters" class="headerlink" title="Special Characters"></a>Special Characters</h3><p><code>.</code>可以代表任何字符串</p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/0173e4286f01938ba9044225543ec369.png" alt=""></p>
+<p><code>&quot;^&quot;</code> 字符串的开始    <code>&quot;$&quot;</code>字符串的结尾</p>
+<p>“^a” 以字符串a开始</p>
+<p>“a$” 以字符串a结尾</p>
+<h3 id="数据集"><a href="#数据集" class="headerlink" title="数据集"></a>数据集</h3><p>the top 1000 posts on AskReddit in 2015<br>数据<a href="https://www.reddit.com/user/P_S_Laplace" target="_blank" rel="external">“askreddit_2015.csv”</a></p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/e9bcff377639dcfb6e725df0a0c9940c.png" alt=""></p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/ac30f2fa3e81f788340fcc423b3fe2ba.png" alt=""></p>
+<h3 id="正则表达式使用"><a href="#正则表达式使用" class="headerlink" title="正则表达式使用"></a>正则表达式使用</h3><p><code>re module</code><br>这个模块一个非常有用的函数  <code>search()</code></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line">re.search(regex, string)</div></pre></td></tr></table></figure>
+<p>它会检查字符串 是否匹配 regex ，如果是将返回 match object<br>否则返回None<br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/4db9c7e8ea44a57adb5f3e649e4c0d1c.png" alt=""></p>
+<h3 id="quot-bcr-at-quot-与之相匹配的字符串为：”bat”-“cat”-and-“rat”"><a href="#quot-bcr-at-quot-与之相匹配的字符串为：”bat”-“cat”-and-“rat”" class="headerlink" title="&quot;[bcr]at&quot; 与之相匹配的字符串为：”bat”, “cat”, and “rat”"></a><code>&quot;[bcr]at&quot;</code> 与之相匹配的字符串为：”bat”, “cat”, and “rat”</h3><p><code>&quot;[bcr]at&quot;</code> 与之相匹配的字符串为：”bat”, “cat”, and “rat”</p>
+<h3 id="Escaping-Special-Characters"><a href="#Escaping-Special-Characters" class="headerlink" title="Escaping Special Characters"></a>Escaping Special Characters</h3><p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/c0f8baf741c1911ffa8a9abdf7a090d6.png" alt=""></p>
+<p>在数据中 posts 存在 [Serious] tag，表明用户不想得到一个滑稽的回复。为了去匹配 [Serious] 统计出现的次数 ，由上面可知 <code>[]</code>有着特殊的含义,”[Serious]” will match any string that contains “S”, “e”, “r”, etc.</p>
+<p>为了解决这个问题 ，我们用到了转义字符。<code>&quot;\&quot; (backslash)</code></p>
+<p>如我们想匹配一个字符串 以点结束 如果使用<code>&quot;.$&quot;</code> 这将匹配任何字符串，正确的做法为<code>&quot;\.$&quot;</code></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="keyword">import</span> re</div><div class="line"></div><div class="line">serious_count = <span class="number">0</span></div><div class="line"><span class="keyword">for</span> row <span class="keyword">in</span> posts:</div><div class="line">    <span class="keyword">if</span> re.search(<span class="string">"\[Serious\]"</span>, row[<span class="number">0</span>]) <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">None</span>:</div><div class="line">        serious_count += <span class="number">1</span></div><div class="line"></div><div class="line">区分大小写：</div><div class="line">serious_count = <span class="number">0</span></div><div class="line"><span class="keyword">for</span> row <span class="keyword">in</span> posts:</div><div class="line">    <span class="keyword">if</span> re.search(<span class="string">"\[[Ss]erious\]"</span>, row[<span class="number">0</span>]) <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">None</span>:</div><div class="line">        serious_count += <span class="number">1</span></div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">### "(Serious)"和[Serious] 同时匹配</span></div><div class="line"><span class="comment">### "[\[\(]" indicates either "[" or "(".</span></div><div class="line">serious_count = <span class="number">0</span></div><div class="line"><span class="keyword">for</span> row <span class="keyword">in</span> posts:</div><div class="line">    <span class="keyword">if</span> re.search(<span class="string">"[\[\(][Ss]erious[\]\)]"</span>, row[<span class="number">0</span>]) <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">None</span>:</div><div class="line">        serious_count += <span class="number">1</span></div></pre></td></tr></table></figure>
+<h3 id="Multiple-Regular-Expressions"><a href="#Multiple-Regular-Expressions" class="headerlink" title="Multiple Regular Expressions"></a>Multiple Regular Expressions</h3><p><code>&quot;|&quot; character.</code></p>
+<p>“cat|dog” would be matched by “catfish” and “hotdog”</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="keyword">import</span> re</div><div class="line"></div><div class="line">serious_start_count = <span class="number">0</span></div><div class="line">serious_end_count = <span class="number">0</span></div><div class="line">serious_count_final = <span class="number">0</span></div><div class="line"><span class="keyword">for</span> row <span class="keyword">in</span> posts:</div><div class="line">    <span class="keyword">if</span> re.search(<span class="string">"^[\[\(][Ss]erious[\]\)]"</span>, row[<span class="number">0</span>]) <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">None</span>:</div><div class="line">        serious_start_count += <span class="number">1</span></div><div class="line">    <span class="keyword">if</span> re.search(<span class="string">"[\[\(][Ss]erious[\]\)]$"</span>, row[<span class="number">0</span>]) <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">None</span>:</div><div class="line">        serious_end_count += <span class="number">1</span></div><div class="line">    <span class="keyword">if</span> re.search(<span class="string">"^[\[\(][Ss]erious[\]\)]|[\[\(][Ss]erious[\]\)]$"</span>, row[<span class="number">0</span>]) <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">None</span>:</div><div class="line">        serious_count_final += <span class="number">1</span></div></pre></td></tr></table></figure>
+<h3 id="Substituting-Strings"><a href="#Substituting-Strings" class="headerlink" title="Substituting Strings"></a>Substituting Strings</h3><p><code>sub() method</code><br>参数：</p>
+<ul>
+<li><ol>
+<li>pattern - The regular expression to match</li>
+</ol>
+</li>
+<li><ol>
+<li>repl    - The string to replace the matched substring with</li>
+</ol>
+</li>
+<li><ol>
+<li>string  - The string in which we would like to replace occurrences of the pattern with repl</li>
+</ol>
+</li>
+</ul>
+<p><code>re.sub(&quot;yo&quot;, &quot;hello&quot;, &quot;yo world&quot;)</code><br>将返回的结果为 ：”hello world”</p>
+<p>要求：Replace “[serious]”, “(Serious)”, and “(serious)” with “[Serious]” in the titles of every row in posts<br><figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="keyword">import</span> re</div><div class="line">posts_new = []</div><div class="line"></div><div class="line"><span class="keyword">for</span> row <span class="keyword">in</span> posts:</div><div class="line">    row[<span class="number">0</span>] = re.sub(<span class="string">"[\[\(][Ss]erious[\]\)]"</span>, <span class="string">"[Serious]"</span>, row[<span class="number">0</span>])</div><div class="line">    posts_new.append(row)</div></pre></td></tr></table></figure></p>
+<h3 id="Matching-Years"><a href="#Matching-Years" class="headerlink" title="Matching Years"></a>Matching Years</h3><p><code>&quot;-&quot;</code><br>“[0-9]”匹配0-9之间的所有数字<br>“[a-z]” 同理</p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/7ef2f1f1f1e9076a81fcf078e08441e8.png" alt=""><br>匹配每个字符串包含的年 1000-2999<br><figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="keyword">import</span> re</div><div class="line"></div><div class="line">year_strings = []</div><div class="line"><span class="keyword">for</span> string <span class="keyword">in</span> strings:</div><div class="line">    <span class="keyword">if</span> re.search(<span class="string">"[1-2][0-9][0-9][0-9]"</span>, string) <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">None</span>:</div><div class="line">        year_strings.append(string)</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">### 改进版本</span></div><div class="line"><span class="keyword">import</span> re</div><div class="line"></div><div class="line">year_strings = []</div><div class="line"><span class="keyword">for</span> string <span class="keyword">in</span> strings:</div><div class="line">    <span class="keyword">if</span> re.search(<span class="string">"[1-2][0-9]&#123;3&#125;"</span>, string) <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">None</span>:</div><div class="line">        year_strings.append(string)</div></pre></td></tr></table></figure></p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/d96c0e561b382780fc1e663927030cb0.png" alt=""></p>
+<h3 id="Repeating-Regular-Expressions"><a href="#Repeating-Regular-Expressions" class="headerlink" title="Repeating Regular Expressions"></a>Repeating Regular Expressions</h3><p><code>(&quot;{&quot; and &quot;}&quot;),</code></p>
+<p>如果想要重复匹配一个模式，可以使用上面的样式</p>
+<p>“[0-9]{4}” 表示：<code>&quot;[0-9]&quot;</code>匹配四次</p>
+<h3 id="Extracting-Years"><a href="#Extracting-Years" class="headerlink" title="Extracting Years"></a>Extracting Years</h3><p><code>findall() method.</code></p>
+<p>例如：<br><figure class="highlight python"><table><tr><td class="code"><pre><div class="line">re.findall(<span class="string">"[a-z]"</span>, <span class="string">"abc123"</span>)</div><div class="line"></div><div class="line"><span class="comment">## 结果：["a", "b", "c"]</span></div></pre></td></tr></table></figure></p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/2f560af5bfeade050aa0e2d9935ebc85.png" alt=""></p>
+<p><code>import re
+years = re.findall(&quot;[1-2][0-9]{3}&quot;, years_string)</code></p>
+<p>结果：<br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/8954614cc6a7605ae0e83423a15f94c7.png" alt=""></p>
+
+                <hr>
+                
+                <!-- 多说 Share start -->
+                <div class="ds-share"
+                     style="text-align: right"
+                     data-thread-key="2016/09/25/正则表达式/"
+                     data-title="正则表达式Regular Expressions"
+                     data-url="http://yoursite.com/2016/09/25/正则表达式/"
+                     data-images=""
+                     data-content="摘要：
+
+Regular Expressions
+
+
+Regular Expressions
+... | Haozhe&#39;s blog ">
+                    <div class="ds-share-inline">
+                        <ul class="ds-share-icons-16">
+                            <li data-toggle="ds-share-icons-more"><a class="ds-more" href="#">分享到：</a></li>
+                            <li><a class="ds-wechat flat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+                            <li><a class="ds-weibo flat" href="javascript:void(0);" data-service="weibo">微博</a></li>
+                            <li><a class="ds-douban flat" href="javascript:void(0);" data-service="douban">豆瓣</a></li>
+                        </ul>
+                        <div class="ds-share-icons-more">
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+                <!-- 多说 Share end-->
+                
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2016/09/25/python时间/" data-toggle="tooltip" data-placement="top"
+                           title="Dates In Python">&larr; Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2016/09/25/变量作用域/" data-toggle="tooltip" data-placement="top"
+                           title="Variable scopes">Next Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+                <!-- 多说评论框 start -->
+                <div class="comment">
+                    <div class="ds-thread"
+                         data-thread-key="2016/09/25/正则表达式/"
+                         data-title="正则表达式Regular Expressions"
+                         data-url="http://yoursite.com/2016/09/25/正则表达式/">
+                    </div>
+                </div>
+                <!-- 多说评论框 end -->
+                
+
+                
+
+            </div>
+
+            <div class="hidden-xs col-sm-3 toc-col">
+                <div class="toc-wrap">
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Regular-Expressions"><span class="toc-text">Regular Expressions</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Special-Characters"><span class="toc-text">Special Characters</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#数据集"><span class="toc-text">数据集</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#正则表达式使用"><span class="toc-text">正则表达式使用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#quot-bcr-at-quot-与之相匹配的字符串为：”bat”-“cat”-and-“rat”"><span class="toc-text">"[bcr]at" 与之相匹配的字符串为：”bat”, “cat”, and “rat”</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Escaping-Special-Characters"><span class="toc-text">Escaping Special Characters</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Multiple-Regular-Expressions"><span class="toc-text">Multiple Regular Expressions</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Substituting-Strings"><span class="toc-text">Substituting Strings</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Matching-Years"><span class="toc-text">Matching Years</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Repeating-Regular-Expressions"><span class="toc-text">Repeating Regular Expressions</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Extracting-Years"><span class="toc-text">Extracting Years</span></a></li></ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5 class="text-center">
+                        <a href="/tags/">FEATURED TAGS</a>
+                    </h5>
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#dataquest"
+                           title="dataquest">dataquest</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <div style="margin-top: 20px;">
+                    <h5 class="text-center">FRIENDS</h5>
+                    <ul class="list-inline text-center">
+                        
+                        <li><a href="http://www.hankcs.com/">hankcs</a></li>
+                        
+                        <li><a href="http://www.lintcode.com/zh-cn/ladder/2/">lintcode</a></li>
+                        
+                        <li><a href="http://www.jiuzhang.com/solutions/">jiuzhang</a></li>
+                        
+                    </ul>
+                </div>
+                
+            </div>
+        </div>
+
+    </div>
+</article>
+
+
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    // dynamic User by Hux
+    var _user = 'xuehaozhe';
+
+    // duoshuo comment query.
+    var duoshuoQuery = {short_name: _user};
+    (function () {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';
+        ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0]
+        || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+</script>
+<!-- 多说公共JS代码 end -->
+
+
+
+
+
+<!-- Footer -->
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <br>
+                <ul class="list-inline text-center">
+                
+                
+                    <li>
+                        <a target="_blank" href="https://twitter.com/xuehaozhe">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/xuehaozhe0526">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="http://weibo.com/fendoujianchi">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/xuehanzhe0526">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Haozhe 2017
+                    <br>
+                    <span id="busuanzi_container_site_pv" style="font-size: 12px;">PV: <span id="busuanzi_value_site_pv"></span> Times</span>
+                    <br>
+                    Theme by <a href="https://haojen.github.io/">Haojen Ma</a>
+                </p>
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/blog.js"></script>
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://yoursite.com/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+
+
+<!-- swiftype -->
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','null','2.0.0');
+</script>
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<!--wechat title img-->
+<img class="wechat-title-img" src="http://7xrw7v.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160402220553.png">
+</body>
+
+</html>

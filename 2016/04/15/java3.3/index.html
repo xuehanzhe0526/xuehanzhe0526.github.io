@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="What hurts more,the pain of hard work or the pain of regret.">
+    <meta name="keyword" content="null">
+    <meta name="theme-color" content="#600090">
+    <meta name="msapplication-navbutton-color" content="#600090">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#600090">
+    <link rel="shortcut icon" href="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-person-128.png">
+    <link rel="alternate" type="application/atom+xml" title="Haozhe" href="/atom.xml">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
+    <title>
+        
+        java入门（三）数组排序、查找｜Haozhe&#39;s blog
+        
+    </title>
+
+    <link rel="canonical" href="http://yoursite.com/2016/04/15/java3.3/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/blog-style.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+</head>
+
+<style>
+
+    header.intro-header {
+        background-image: url('http://7xrw7v.com1.z0.glb.clouddn.com/1485527729222.jpg')
+    }
+</style>
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="" class="animated fadeIn">
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost = "true" data-istags="false
+" data-ishome = "false" >
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand animated pulse" href="/">
+                <span class="brand-logo">
+                    Haozhe
+                </span>
+                's Blog
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <!-- /.navbar-collapse -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+					
+                    
+                        
+							
+                        <li>
+                            <a href="/tags/">tags</a>
+                        </li>
+							
+						
+                    
+					
+					
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+//    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+<!-- Main Content -->
+
+<!--only post-->
+
+
+<img class="wechat-title-img"
+     src="http://7xrw7v.com1.z0.glb.clouddn.com/148552521631.jpg#博文默认的图片">
+
+
+<style>
+    
+    header.intro-header {
+        background-image: url('http://7xrw7v.com1.z0.glb.clouddn.com/148552521631.jpg#博文默认的图片')
+    }
+
+    
+</style>
+
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <div class="post-heading">
+                    <h1>java入门（三）数组排序、查找</h1>
+                    
+                    <span class="meta">
+                         作者 Haozhe Xue
+                        <span>
+                          日期 2016-04-15
+                         </span>
+                    </span>
+                    <div class="tags text-center">
+                        
+                        <a class="tag" href="/tags/#JAVA"
+                           title="JAVA">JAVA</a>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="post-title-haojen">
+        <span>
+            java入门（三）数组排序、查找
+        </span>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <!-- Post Container -->
+            <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
+                <p>摘要：</p>
+<ul>
+<li>数组排序之冒泡排序</li>
+<li>数组排序之选择排序</li>
+<li>把字符串中的字符进行排序</li>
+<li>二分查找(折半查找)</li>
+<li>Arrays工具类</li>
+</ul>
+<a id="more"></a>
+<h3 id="1、数组排序之冒泡排序"><a href="#1、数组排序之冒泡排序" class="headerlink" title="1、数组排序之冒泡排序"></a>1、数组排序之冒泡排序</h3><p>相邻元素两两比较，大的往后放，第一次完毕，最大值出现在了最大索引处<br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160414210654.png" alt=""></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ArrayDemo</span> </span>&#123;</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">		<span class="comment">// 定义一个数组</span></div><div class="line">		<span class="keyword">int</span>[] arr = &#123; <span class="number">24</span>, <span class="number">69</span>, <span class="number">80</span>, <span class="number">57</span>, <span class="number">13</span> &#125;;</div><div class="line">		System.out.println(<span class="string">"排序前："</span>);</div><div class="line">		printArray(arr);</div><div class="line"></div><div class="line">		<span class="comment">/*</span></div><div class="line">		// 第一次比较</div><div class="line">		// arr.length - 1是为了防止数据越界</div><div class="line">		// arr.length - 1 - 0是为了减少比较的次数</div><div class="line">		for (int x = 0; x &lt; arr.length - 1 - 0; x++) &#123;</div><div class="line">			if (arr[x] &gt; arr[x + 1]) &#123;</div><div class="line">				int temp = arr[x];</div><div class="line">				arr[x] = arr[x + 1];</div><div class="line">				arr[x + 1] = temp;</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line">		System.out.println("第一次比较后：");</div><div class="line">		printArray(arr);</div><div class="line"></div><div class="line">		// 第二次比较</div><div class="line">		// arr.length - 1是为了防止数据越界</div><div class="line">		// arr.length - 1 - 1是为了减少比较的次数</div><div class="line">		for (int x = 0; x &lt; arr.length - 1 - 1; x++) &#123;</div><div class="line">			if (arr[x] &gt; arr[x + 1]) &#123;</div><div class="line">				int temp = arr[x];</div><div class="line">				arr[x] = arr[x + 1];</div><div class="line">				arr[x + 1] = temp;</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line">		System.out.println("第二次比较后：");</div><div class="line">		printArray(arr);</div><div class="line"></div><div class="line">		// 第三次比较</div><div class="line">		// arr.length - 1是为了防止数据越界</div><div class="line">		// arr.length - 1 - 2是为了减少比较的次数</div><div class="line">		for (int x = 0; x &lt; arr.length - 1 - 2; x++) &#123;</div><div class="line">			if (arr[x] &gt; arr[x + 1]) &#123;</div><div class="line">				int temp = arr[x];</div><div class="line">				arr[x] = arr[x + 1];</div><div class="line">				arr[x + 1] = temp;</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line">		System.out.println("第三次比较后：");</div><div class="line">		printArray(arr);</div><div class="line"></div><div class="line">		// 第四次比较</div><div class="line">		// arr.length - 1是为了防止数据越界</div><div class="line">		// arr.length - 1 - 3是为了减少比较的次数</div><div class="line">		for (int x = 0; x &lt; arr.length - 1 - 3; x++) &#123;</div><div class="line">			if (arr[x] &gt; arr[x + 1]) &#123;</div><div class="line">				int temp = arr[x];</div><div class="line">				arr[x] = arr[x + 1];</div><div class="line">				arr[x + 1] = temp;</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line">		System.out.println("第四次比较后：");</div><div class="line">		printArray(arr);</div><div class="line">		*/</div><div class="line"></div><div class="line">		<span class="comment">// 既然听懂了，那么上面的代码就是排序代码</span></div><div class="line">		<span class="comment">// 而上面的代码重复度太高了，所以用循环改进</span></div><div class="line">		<span class="comment">// for (int y = 0; y &lt; 4; y++) &#123;</span></div><div class="line">		<span class="comment">// for (int x = 0; x &lt; arr.length - 1 - y; x++) &#123;</span></div><div class="line">		<span class="comment">// if (arr[x] &gt; arr[x + 1]) &#123;</span></div><div class="line">		<span class="comment">// int temp = arr[x];</span></div><div class="line">		<span class="comment">// arr[x] = arr[x + 1];</span></div><div class="line">		<span class="comment">// arr[x + 1] = temp;</span></div><div class="line">		<span class="comment">// &#125;</span></div><div class="line">		<span class="comment">// &#125;</span></div><div class="line">		<span class="comment">// &#125;</span></div><div class="line"></div><div class="line">		<span class="comment">/*</span></div><div class="line">		// 由于我们知道比较的次数是数组长度-1次，所以改进最终版程序</div><div class="line">		for (int x = 0; x &lt; arr.length - 1; x++) &#123;</div><div class="line">			for (int y = 0; y &lt; arr.length - 1 - x; y++) &#123;</div><div class="line">				if (arr[y] &gt; arr[y + 1]) &#123;</div><div class="line">					int temp = arr[y];</div><div class="line">					arr[y] = arr[y + 1];</div><div class="line">					arr[y + 1] = temp;</div><div class="line">				&#125;</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line">		System.out.println("排序后：");</div><div class="line">		printArray(arr);</div><div class="line">		*/</div><div class="line">		</div><div class="line">		<span class="comment">//由于我可能有多个数组要排序，所以我要写成方法</span></div><div class="line">		bubbleSort(arr);</div><div class="line">		System.out.println(<span class="string">"排序后："</span>);</div><div class="line">		printArray(arr);</div><div class="line">	&#125;</div><div class="line">	</div><div class="line">	<span class="comment">//冒泡排序代码</span></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">bubbleSort</span><span class="params">(<span class="keyword">int</span>[] arr)</span></span>&#123;</div><div class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> x = <span class="number">0</span>; x &lt; arr.length - <span class="number">1</span>; x++) &#123;</div><div class="line">			<span class="keyword">for</span> (<span class="keyword">int</span> y = <span class="number">0</span>; y &lt; arr.length - <span class="number">1</span> - x; y++) &#123;</div><div class="line">				<span class="keyword">if</span> (arr[y] &gt; arr[y + <span class="number">1</span>]) &#123;</div><div class="line">					<span class="keyword">int</span> temp = arr[y];</div><div class="line">					arr[y] = arr[y + <span class="number">1</span>];</div><div class="line">					arr[y + <span class="number">1</span>] = temp;</div><div class="line">				&#125;</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="comment">// 遍历功能</span></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">printArray</span><span class="params">(<span class="keyword">int</span>[] arr)</span> </span>&#123;</div><div class="line">		System.out.print(<span class="string">"["</span>);</div><div class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> x = <span class="number">0</span>; x &lt; arr.length; x++) &#123;</div><div class="line">			<span class="keyword">if</span> (x == arr.length - <span class="number">1</span>) &#123;</div><div class="line">				System.out.print(arr[x]);</div><div class="line">			&#125; <span class="keyword">else</span> &#123;</div><div class="line">				System.out.print(arr[x] + <span class="string">", "</span>);</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line">		System.out.println(<span class="string">"]"</span>);</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="2、数组排序之选择排序："><a href="#2、数组排序之选择排序：" class="headerlink" title="2、数组排序之选择排序："></a>2、数组排序之选择排序：</h3><p>从0索引开始，依次和后面元素比较，小的往前放，第一次完毕，最小值出现在了最小索引处<br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160414212618.png" alt=""></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ArrayDemo</span> </span>&#123;</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">		<span class="comment">// 定义一个数组</span></div><div class="line">		<span class="keyword">int</span>[] arr = &#123; <span class="number">24</span>, <span class="number">69</span>, <span class="number">80</span>, <span class="number">57</span>, <span class="number">13</span> &#125;;</div><div class="line">		System.out.println(<span class="string">"排序前："</span>);</div><div class="line">		printArray(arr);</div><div class="line"></div><div class="line">		<span class="comment">/*</span></div><div class="line">		// 第一次</div><div class="line">		int x = 0;</div><div class="line">		for (int y = x + 1; y &lt; arr.length; y++) &#123;</div><div class="line">			if (arr[y] &lt; arr[x]) &#123;</div><div class="line">				int temp = arr[x];</div><div class="line">				arr[x] = arr[y];</div><div class="line">				arr[y] = temp;</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line">		System.out.println("第一次比较后：");</div><div class="line">		printArray(arr);</div><div class="line"></div><div class="line">		// 第二次</div><div class="line">		x = 1;</div><div class="line">		for (int y = x + 1; y &lt; arr.length; y++) &#123;</div><div class="line">			if (arr[y] &lt; arr[x]) &#123;</div><div class="line">				int temp = arr[x];</div><div class="line">				arr[x] = arr[y];</div><div class="line">				arr[y] = temp;</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line">		System.out.println("第二次比较后：");</div><div class="line">		printArray(arr);</div><div class="line"></div><div class="line">		// 第三次</div><div class="line">		x = 2;</div><div class="line">		for (int y = x + 1; y &lt; arr.length; y++) &#123;</div><div class="line">			if (arr[y] &lt; arr[x]) &#123;</div><div class="line">				int temp = arr[x];</div><div class="line">				arr[x] = arr[y];</div><div class="line">				arr[y] = temp;</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line">		System.out.println("第三次比较后：");</div><div class="line">		printArray(arr);</div><div class="line"></div><div class="line">		// 第四次</div><div class="line">		x = 3;</div><div class="line">		for (int y = x + 1; y &lt; arr.length; y++) &#123;</div><div class="line">			if (arr[y] &lt; arr[x]) &#123;</div><div class="line">				int temp = arr[x];</div><div class="line">				arr[x] = arr[y];</div><div class="line">				arr[y] = temp;</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line">		System.out.println("第四次比较后：");</div><div class="line">		printArray(arr);</div><div class="line">		*/</div><div class="line">		</div><div class="line">		<span class="comment">/*</span></div><div class="line">		//通过观察发现代码的重复度太高，所以用循环改进</div><div class="line">		for(int x=0; x&lt;arr.length-1; x++)&#123;</div><div class="line">			for(int y=x+1; y&lt;arr.length; y++)&#123;</div><div class="line">				if(arr[y] &lt;arr[x])&#123;</div><div class="line">					int temp = arr[x];</div><div class="line">					arr[x] = arr[y];</div><div class="line">					 arr[y] = temp;</div><div class="line">				&#125;</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line">		System.out.println("排序后：");</div><div class="line">		printArray(arr);</div><div class="line">		*/</div><div class="line">		</div><div class="line">		<span class="comment">//用方法改进</span></div><div class="line">		selectSort(arr);</div><div class="line">		System.out.println(<span class="string">"排序后："</span>);</div><div class="line">		printArray(arr);</div><div class="line"></div><div class="line">	&#125;</div><div class="line">	</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">selectSort</span><span class="params">(<span class="keyword">int</span>[] arr)</span></span>&#123;</div><div class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> x=<span class="number">0</span>; x&lt;arr.length-<span class="number">1</span>; x++)&#123;</div><div class="line">			<span class="keyword">for</span>(<span class="keyword">int</span> y=x+<span class="number">1</span>; y&lt;arr.length; y++)&#123;</div><div class="line">				<span class="keyword">if</span>(arr[y] &lt;arr[x])&#123;</div><div class="line">					<span class="keyword">int</span> temp = arr[x];</div><div class="line">					arr[x] = arr[y];</div><div class="line">					 arr[y] = temp;</div><div class="line">				&#125;</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="comment">// 遍历功能</span></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">printArray</span><span class="params">(<span class="keyword">int</span>[] arr)</span> </span>&#123;</div><div class="line">		System.out.print(<span class="string">"["</span>);</div><div class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> x = <span class="number">0</span>; x &lt; arr.length; x++) &#123;</div><div class="line">			<span class="keyword">if</span> (x == arr.length - <span class="number">1</span>) &#123;</div><div class="line">				System.out.print(arr[x]);</div><div class="line">			&#125; <span class="keyword">else</span> &#123;</div><div class="line">				System.out.print(arr[x] + <span class="string">", "</span>);</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line">		System.out.println(<span class="string">"]"</span>);</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="3、把字符串中的字符进行排序"><a href="#3、把字符串中的字符进行排序" class="headerlink" title="3、把字符串中的字符进行排序"></a>3、把字符串中的字符进行排序</h3><p>举例：”dacgebf”<br>结果：”abcdefg”</p>
+<p>分析：<br>A:定义一个字符串<br>B:把字符串转换为字符数组<br>C:把字符数组进行排序<br>D:把排序后的字符数组转成字符串<br>E:输出最后的字符串</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ArrayTest</span> </span>&#123;</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">		<span class="comment">// 定义一个字符串</span></div><div class="line">		String s = <span class="string">"dacgebf"</span>;</div><div class="line"></div><div class="line">		<span class="comment">// 把字符串转换为字符数组</span></div><div class="line">		<span class="keyword">char</span>[] chs = s.toCharArray();</div><div class="line"></div><div class="line">		<span class="comment">// 把字符数组进行排序</span></div><div class="line">		bubbleSort(chs);</div><div class="line"></div><div class="line">		<span class="comment">//把排序后的字符数组转成字符串</span></div><div class="line">		String result = String.valueOf(chs);</div><div class="line">		</div><div class="line">		<span class="comment">//输出最后的字符串</span></div><div class="line">		System.out.println(<span class="string">"result:"</span>+result);</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="comment">// 冒泡排序</span></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">bubbleSort</span><span class="params">(<span class="keyword">char</span>[] chs)</span> </span>&#123;</div><div class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> x = <span class="number">0</span>; x &lt; chs.length - <span class="number">1</span>; x++) &#123;</div><div class="line">			<span class="keyword">for</span> (<span class="keyword">int</span> y = <span class="number">0</span>; y &lt; chs.length - <span class="number">1</span> - x; y++) &#123;</div><div class="line">				<span class="keyword">if</span> (chs[y] &gt; chs[y + <span class="number">1</span>]) &#123;</div><div class="line">					<span class="keyword">char</span> temp = chs[y];</div><div class="line">					chs[y] = chs[y + <span class="number">1</span>];</div><div class="line">					chs[y + <span class="number">1</span>] = temp;</div><div class="line">				&#125;</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="4、二分查找-折半查找"><a href="#4、二分查找-折半查找" class="headerlink" title="4、二分查找(折半查找)"></a>4、二分查找(折半查找)</h3><p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160415095045.png" alt=""></p>
+<p>查找：</p>
+<ul>
+<li>基本查找:数组元素无序(从头找到尾)</li>
+<li>二分查找(折半查找):数组元素有序</li>
+</ul>
+<p>分析：<br>A:定义最大索引，最小索引<br>B:计算出中间索引<br>C:拿中间索引的值和要查找的值进行比较<br>相等：就返回当前的中间索引</p>
+<p>不相等：<br>大    左边找<br>小    右边找</p>
+<p>D:重新计算出中间索引<br>大    左边找<br>max = mid - 1;<br>小    右边找<br>min = mid + 1;</p>
+<p>E:回到B</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">getIndex</span><span class="params">(<span class="keyword">int</span>[] arr,<span class="keyword">int</span> value)</span></span>&#123;</div><div class="line">		<span class="comment">//定义最大索引，最小索引</span></div><div class="line">		<span class="keyword">int</span> max = arr.length -<span class="number">1</span>;</div><div class="line">		<span class="keyword">int</span> min = <span class="number">0</span>;</div><div class="line">		</div><div class="line">		<span class="comment">//计算出中间索引</span></div><div class="line">		<span class="keyword">int</span> mid = (max +min)/<span class="number">2</span>;</div><div class="line">		</div><div class="line">		<span class="comment">//拿中间索引的值和要查找的值进行比较</span></div><div class="line">		<span class="keyword">while</span>(arr[mid] != value)&#123;</div><div class="line">			<span class="keyword">if</span>(arr[mid]&gt;value)&#123;</div><div class="line">				max = mid - <span class="number">1</span>;</div><div class="line">			&#125;<span class="keyword">else</span> <span class="keyword">if</span>(arr[mid]&lt;value)&#123;</div><div class="line">				min = mid + <span class="number">1</span>;</div><div class="line">			&#125;</div><div class="line">			</div><div class="line">			<span class="comment">//加入判断</span></div><div class="line">			<span class="keyword">if</span>(min &gt; max)&#123;</div><div class="line">				<span class="keyword">return</span> -<span class="number">1</span>;</div><div class="line">			&#125;</div><div class="line">			</div><div class="line">			mid = (max +min)/<span class="number">2</span>;</div><div class="line">		&#125;</div><div class="line">		</div><div class="line">		<span class="keyword">return</span> mid;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><strong>例子：</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><div class="line"></div><div class="line"><span class="comment">/*</span></div><div class="line"> * 注意：下面这种做法是有问题的。</div><div class="line"> * 因为数组本身是无序的，所以这种情况下的查找不能使用二分查找。</div><div class="line"> * 所以你先排序了，但是你排序的时候已经改变了我最原始的元素索引。</div><div class="line"> */</div><div class="line"></div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ArrayDemo2</span> </span>&#123;</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">		<span class="comment">// 定义数组</span></div><div class="line">		<span class="keyword">int</span>[] arr = &#123; <span class="number">24</span>, <span class="number">69</span>, <span class="number">80</span>, <span class="number">57</span>, <span class="number">13</span> &#125;;</div><div class="line"></div><div class="line">		<span class="comment">// 先排序</span></div><div class="line">		bubbleSort(arr);</div><div class="line">		<span class="comment">// 后查找</span></div><div class="line">		<span class="keyword">int</span> index = getIndex(arr, <span class="number">80</span>);</div><div class="line">		System.out.println(<span class="string">"index:"</span> + index);</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="comment">// 冒泡排序代码</span></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">bubbleSort</span><span class="params">(<span class="keyword">int</span>[] arr)</span> </span>&#123;</div><div class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> x = <span class="number">0</span>; x &lt; arr.length - <span class="number">1</span>; x++) &#123;</div><div class="line">			<span class="keyword">for</span> (<span class="keyword">int</span> y = <span class="number">0</span>; y &lt; arr.length - <span class="number">1</span> - x; y++) &#123;</div><div class="line">				<span class="keyword">if</span> (arr[y] &gt; arr[y + <span class="number">1</span>]) &#123;</div><div class="line">					<span class="keyword">int</span> temp = arr[y];</div><div class="line">					arr[y] = arr[y + <span class="number">1</span>];</div><div class="line">					arr[y + <span class="number">1</span>] = temp;</div><div class="line">				&#125;</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="comment">// 二分查找</span></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">getIndex</span><span class="params">(<span class="keyword">int</span>[] arr, <span class="keyword">int</span> value)</span> </span>&#123;</div><div class="line">		<span class="comment">// 定义最大索引，最小索引</span></div><div class="line">		<span class="keyword">int</span> max = arr.length - <span class="number">1</span>;</div><div class="line">		<span class="keyword">int</span> min = <span class="number">0</span>;</div><div class="line"></div><div class="line">		<span class="comment">// 计算出中间索引</span></div><div class="line">		<span class="keyword">int</span> mid = (max + min) / <span class="number">2</span>;</div><div class="line"></div><div class="line">		<span class="comment">// 拿中间索引的值和要查找的值进行比较</span></div><div class="line">		<span class="keyword">while</span> (arr[mid] != value) &#123;</div><div class="line">			<span class="keyword">if</span> (arr[mid] &gt; value) &#123;</div><div class="line">				max = mid - <span class="number">1</span>;</div><div class="line">			&#125; <span class="keyword">else</span> <span class="keyword">if</span> (arr[mid] &lt; value) &#123;</div><div class="line">				min = mid + <span class="number">1</span>;</div><div class="line">			&#125;</div><div class="line"></div><div class="line">			<span class="comment">// 加入判断</span></div><div class="line">			<span class="keyword">if</span> (min &gt; max) &#123;</div><div class="line">				<span class="keyword">return</span> -<span class="number">1</span>;</div><div class="line">			&#125;</div><div class="line"></div><div class="line">			mid = (max + min) / <span class="number">2</span>;</div><div class="line">		&#125;</div><div class="line"></div><div class="line">		<span class="keyword">return</span> mid;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="5、Arrays"><a href="#5、Arrays" class="headerlink" title="5、Arrays"></a>5、Arrays</h3><p> Arrays:针对数组进行操作的工具类。比如说排序和查找。<br><figure class="highlight java"><table><tr><td class="code"><pre><div class="line"><span class="keyword">import</span> java.util.Arrays;</div><div class="line"></div><div class="line"><span class="comment">/*</span></div><div class="line"> * 1:public static String toString(int[] a) 把数组转成字符串</div><div class="line"> * 2:public static void sort(int[] a) 对数组进行排序</div><div class="line"> * 3:public static int binarySearch(int[] a,int key) 二分查找</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ArraysDemo</span> </span>&#123;</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">		<span class="comment">// 定义一个数组</span></div><div class="line">		<span class="keyword">int</span>[] arr = &#123; <span class="number">24</span>, <span class="number">69</span>, <span class="number">80</span>, <span class="number">57</span>, <span class="number">13</span> &#125;;</div><div class="line"></div><div class="line">		<span class="comment">// public static String toString(int[] a) 把数组转成字符串</span></div><div class="line">		System.out.println(<span class="string">"排序前："</span> + Arrays.toString(arr));</div><div class="line"></div><div class="line">		<span class="comment">// public static void sort(int[] a) 对数组进行排序</span></div><div class="line">		Arrays.sort(arr);</div><div class="line">		System.out.println(<span class="string">"排序后："</span> + Arrays.toString(arr));</div><div class="line"></div><div class="line">		<span class="comment">// [13, 24, 57, 69, 80]</span></div><div class="line">		<span class="comment">// public static int binarySearch(int[] a,int key) 二分查找</span></div><div class="line">		System.out.println(<span class="string">"binarySearch:"</span> + Arrays.binarySearch(arr, <span class="number">57</span>)); <span class="comment">//2</span></div><div class="line">		System.out.println(<span class="string">"binarySearch:"</span> + Arrays.binarySearch(arr, <span class="number">577</span>)); <span class="comment">//-6 ??????</span></div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><strong>????为什么是-6 看源码</strong></p>
+<p>public static String toString(int[] a)<br>public static void sort(int[] a) 底层是快速排序，知道就可以了<br>public static int binarySearch(int[] a,int key)</p>
+<p>开发原则：<br>    只要是对象，我们就要判断该对象是否为null。<br><figure class="highlight java"><table><tr><td class="code"><pre><div class="line"><span class="keyword">int</span>[] arr = &#123; <span class="number">24</span>, <span class="number">69</span>, <span class="number">80</span>, <span class="number">57</span>, <span class="number">13</span> &#125;;</div><div class="line">System.out.println(<span class="string">"排序前："</span> + Arrays.toString(arr));</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">toString</span><span class="params">(<span class="keyword">int</span>[] a)</span> </span>&#123;</div><div class="line">	<span class="comment">//a -- arr -- &#123; 24, 69, 80, 57, 13 &#125;</span></div><div class="line"></div><div class="line">    <span class="keyword">if</span> (a == <span class="keyword">null</span>)</div><div class="line">        <span class="keyword">return</span> <span class="string">"null"</span>; <span class="comment">//说明数组对象不存在</span></div><div class="line">    <span class="keyword">int</span> iMax = a.length - <span class="number">1</span>; <span class="comment">//iMax=4;</span></div><div class="line">    <span class="keyword">if</span> (iMax == -<span class="number">1</span>)</div><div class="line">        <span class="keyword">return</span> <span class="string">"[]"</span>; <span class="comment">//说明数组存在,但是没有元素。</span></div><div class="line"></div><div class="line">    StringBuilder b = <span class="keyword">new</span> StringBuilder();</div><div class="line">    b.append(<span class="string">'['</span>); <span class="comment">//"["</span></div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; ; i++) &#123;</div><div class="line">        b.append(a[i]); <span class="comment">//"[24, 69, 80, 57, 13"</span></div><div class="line">        <span class="keyword">if</span> (i == iMax)</div><div class="line">        	<span class="comment">//"[24, 69, 80, 57, 13]"</span></div><div class="line">            <span class="keyword">return</span> b.append(<span class="string">']'</span>).toString();</div><div class="line">        b.append(<span class="string">", "</span>); <span class="comment">//"[24, 69, 80, 57, "</span></div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">-----------------------------------------------------</div><div class="line"></div><div class="line"><span class="keyword">int</span>[] arr = &#123;<span class="number">13</span>, <span class="number">24</span>, <span class="number">57</span>, <span class="number">69</span>, <span class="number">80</span>&#125;;</div><div class="line">System.out.println(<span class="string">"binarySearch:"</span> + Arrays.binarySearch(arr, <span class="number">577</span>));</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">binarySearch</span><span class="params">(<span class="keyword">int</span>[] a, <span class="keyword">int</span> key)</span> </span>&#123;</div><div class="line">	<span class="comment">//a -- arr -- &#123;13, 24, 57, 69, 80&#125;</span></div><div class="line">	<span class="comment">//key -- 577</span></div><div class="line">    <span class="keyword">return</span> binarySearch0(a, <span class="number">0</span>, a.length, key);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">binarySearch0</span><span class="params">(<span class="keyword">int</span>[] a, <span class="keyword">int</span> fromIndex, <span class="keyword">int</span> toIndex,</span></span></div><div class="line">                                 <span class="keyword">int</span> key) &#123;</div><div class="line">    <span class="comment">//a -- arr --  &#123;13, 24, 57, 69, 80&#125;</span></div><div class="line">    <span class="comment">//fromIndex -- 0</span></div><div class="line">    <span class="comment">//toIndex -- 5</span></div><div class="line">    <span class="comment">//key -- 577                           </span></div><div class="line">                                 </div><div class="line">                                 </div><div class="line">    <span class="keyword">int</span> low = fromIndex; <span class="comment">//low=0</span></div><div class="line">    <span class="keyword">int</span> high = toIndex - <span class="number">1</span>; <span class="comment">//high=4</span></div><div class="line"></div><div class="line">    <span class="keyword">while</span> (low &lt;= high) &#123;</div><div class="line">        <span class="keyword">int</span> mid = (low + high) &gt;&gt;&gt; <span class="number">1</span>; <span class="comment">//mid=2,mid=3,mid=4</span></div><div class="line">        <span class="keyword">int</span> midVal = a[mid]; <span class="comment">//midVal=57,midVal=69,midVal=80</span></div><div class="line"></div><div class="line">        <span class="keyword">if</span> (midVal &lt; key)</div><div class="line">            low = mid + <span class="number">1</span>; <span class="comment">//low=3,low=4,low=5</span></div><div class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (midVal &gt; key)</div><div class="line">            high = mid - <span class="number">1</span>;</div><div class="line">        <span class="keyword">else</span></div><div class="line">            <span class="keyword">return</span> mid; <span class="comment">// key found</span></div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> -(low + <span class="number">1</span>);  <span class="comment">// key not found.</span></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+
+                <hr>
+                
+                <!-- 多说 Share start -->
+                <div class="ds-share"
+                     style="text-align: right"
+                     data-thread-key="2016/04/15/java3.3/"
+                     data-title="java入门（三）数组排序、查找"
+                     data-url="http://yoursite.com/2016/04/15/java3.3/"
+                     data-images=""
+                     data-content="摘要：
+
+数组排序之冒泡排序
+数组排序之选择排序
+把字符串中的字符进行排序
+二分查找(折半查找... | Haozhe&#39;s blog ">
+                    <div class="ds-share-inline">
+                        <ul class="ds-share-icons-16">
+                            <li data-toggle="ds-share-icons-more"><a class="ds-more" href="#">分享到：</a></li>
+                            <li><a class="ds-wechat flat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+                            <li><a class="ds-weibo flat" href="javascript:void(0);" data-service="weibo">微博</a></li>
+                            <li><a class="ds-douban flat" href="javascript:void(0);" data-service="douban">豆瓣</a></li>
+                        </ul>
+                        <div class="ds-share-icons-more">
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+                <!-- 多说 Share end-->
+                
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2016/04/15/Python3/" data-toggle="tooltip" data-placement="top"
+                           title="python入门 (三)(转载)">&larr; Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2016/04/14/java3.2/" data-toggle="tooltip" data-placement="top"
+                           title="java入门（三）StringBuffer案例">Next Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+                <!-- 多说评论框 start -->
+                <div class="comment">
+                    <div class="ds-thread"
+                         data-thread-key="2016/04/15/java3.3/"
+                         data-title="java入门（三）数组排序、查找"
+                         data-url="http://yoursite.com/2016/04/15/java3.3/">
+                    </div>
+                </div>
+                <!-- 多说评论框 end -->
+                
+
+                
+
+            </div>
+
+            <div class="hidden-xs col-sm-3 toc-col">
+                <div class="toc-wrap">
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、数组排序之冒泡排序"><span class="toc-text">1、数组排序之冒泡排序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、数组排序之选择排序："><span class="toc-text">2、数组排序之选择排序：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3、把字符串中的字符进行排序"><span class="toc-text">3、把字符串中的字符进行排序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4、二分查找-折半查找"><span class="toc-text">4、二分查找(折半查找)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5、Arrays"><span class="toc-text">5、Arrays</span></a></li></ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5 class="text-center">
+                        <a href="/tags/">FEATURED TAGS</a>
+                    </h5>
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#JAVA"
+                           title="JAVA">JAVA</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <div style="margin-top: 20px;">
+                    <h5 class="text-center">FRIENDS</h5>
+                    <ul class="list-inline text-center">
+                        
+                        <li><a href="http://www.hankcs.com/">hankcs</a></li>
+                        
+                        <li><a href="http://www.lintcode.com/zh-cn/ladder/2/">lintcode</a></li>
+                        
+                        <li><a href="http://www.jiuzhang.com/solutions/">jiuzhang</a></li>
+                        
+                    </ul>
+                </div>
+                
+            </div>
+        </div>
+
+    </div>
+</article>
+
+
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    // dynamic User by Hux
+    var _user = 'xuehaozhe';
+
+    // duoshuo comment query.
+    var duoshuoQuery = {short_name: _user};
+    (function () {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';
+        ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0]
+        || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+</script>
+<!-- 多说公共JS代码 end -->
+
+
+
+
+
+<!-- Footer -->
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <br>
+                <ul class="list-inline text-center">
+                
+                
+                    <li>
+                        <a target="_blank" href="https://twitter.com/xuehaozhe">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/xuehaozhe0526">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="http://weibo.com/fendoujianchi">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/xuehanzhe0526">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Haozhe 2017
+                    <br>
+                    <span id="busuanzi_container_site_pv" style="font-size: 12px;">PV: <span id="busuanzi_value_site_pv"></span> Times</span>
+                    <br>
+                    Theme by <a href="https://haojen.github.io/">Haojen Ma</a>
+                </p>
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/blog.js"></script>
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://yoursite.com/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+
+
+<!-- swiftype -->
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','null','2.0.0');
+</script>
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<!--wechat title img-->
+<img class="wechat-title-img" src="http://7xrw7v.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160402220553.png">
+</body>
+
+</html>

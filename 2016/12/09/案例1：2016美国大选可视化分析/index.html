@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="What hurts more,the pain of hard work or the pain of regret.">
+    <meta name="keyword" content="null">
+    <meta name="theme-color" content="#600090">
+    <meta name="msapplication-navbutton-color" content="#600090">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#600090">
+    <link rel="shortcut icon" href="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-person-128.png">
+    <link rel="alternate" type="application/atom+xml" title="Haozhe" href="/atom.xml">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
+    <title>
+        
+        案例1：2016美国大选可视化分析｜Haozhe&#39;s blog
+        
+    </title>
+
+    <link rel="canonical" href="http://yoursite.com/2016/12/09/案例1：2016美国大选可视化分析/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/blog-style.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+</head>
+
+<style>
+
+    header.intro-header {
+        background-image: url('http://7xrw7v.com1.z0.glb.clouddn.com/1485527729222.jpg')
+    }
+</style>
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="" class="animated fadeIn">
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost = "true" data-istags="false
+" data-ishome = "false" >
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand animated pulse" href="/">
+                <span class="brand-logo">
+                    Haozhe
+                </span>
+                's Blog
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <!-- /.navbar-collapse -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+					
+                    
+                        
+							
+                        <li>
+                            <a href="/tags/">tags</a>
+                        </li>
+							
+						
+                    
+					
+					
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+//    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+<!-- Main Content -->
+
+<!--only post-->
+
+
+<img class="wechat-title-img"
+     src="http://7xrw7v.com1.z0.glb.clouddn.com/148552521631.jpg#博文默认的图片">
+
+
+<style>
+    
+    header.intro-header {
+        background-image: url('http://7xrw7v.com1.z0.glb.clouddn.com/148552521631.jpg#博文默认的图片')
+    }
+
+    
+</style>
+
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <div class="post-heading">
+                    <h1>案例1：2016美国大选可视化分析</h1>
+                    
+                    <span class="meta">
+                         作者 Haozhe Xue
+                        <span>
+                          日期 2016-12-09
+                         </span>
+                    </span>
+                    <div class="tags text-center">
+                        
+                        <a class="tag" href="/tags/#基于Kaggle案例Python数据分析"
+                           title="基于Kaggle案例Python数据分析">基于Kaggle案例Python数据分析</a>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="post-title-haojen">
+        <span>
+            案例1：2016美国大选可视化分析
+        </span>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <!-- Post Container -->
+            <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
+                <p>摘要：</p>
+<p>项目地址:<a href="https://www.kaggle.com/fivethirtyeight/2016-election-polls" target="_blank" rel="external">https://www.kaggle.com/fivethirtyeight/2016-election-polls</a><br>• 该数据集包含了2015年11月至2016年11月期间对于2016美国大选的选票数据<br>• 27列数据</p>
+<p>目的：分析每个月的民意调查统计趋势<br><a id="more"></a><br>涉及知识点<br>• 高阶函数:filter<br>• Numpy读取文本文件<br>• 处理日期格式数据<br>• Numpy的切片与索引<br>• Numpy的统计方法<br>• 高级特性:列表推导式<br>• 数据结构zip<br>• Matplotlib进行简单的数据可视化</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="comment"># coding:utf-8</span></div><div class="line"></div><div class="line"><span class="comment"># 引入必要的库</span></div><div class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</div><div class="line"><span class="keyword">import</span> datetime</div><div class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</div><div class="line"></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">is_convert_float</span><span class="params">(s)</span>:</span></div><div class="line">    <span class="string">"""</span></div><div class="line">            判断一个字符串能否转换为float</div><div class="line">    """</div><div class="line">    <span class="keyword">try</span>:</div><div class="line">        float(s)</div><div class="line">    <span class="keyword">except</span>:</div><div class="line">        <span class="keyword">return</span> <span class="keyword">False</span></div><div class="line"></div><div class="line">    <span class="keyword">return</span> <span class="keyword">True</span></div><div class="line"></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_sum</span><span class="params">(str_array)</span>:</span></div><div class="line">    <span class="string">"""</span></div><div class="line">            返回字符串数组中数字的总和</div><div class="line">    """</div><div class="line">    <span class="comment"># 去掉不能转换成数字的数据</span></div><div class="line">    cleaned_data = filter(is_convert_float, str_array)</div><div class="line"></div><div class="line">    <span class="comment"># 转换数据类型</span></div><div class="line">    float_array = np.array(cleaned_data, np.float)</div><div class="line"></div><div class="line">    <span class="keyword">return</span> np.sum(float_array)</div><div class="line"></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">run_main</span><span class="params">()</span>:</span></div><div class="line">    <span class="string">"""</span></div><div class="line">        main function</div><div class="line">    """</div><div class="line">    <span class="comment"># 数据文件地址</span></div><div class="line">    filename = <span class="string">'./presidential_polls.csv'</span></div><div class="line"></div><div class="line">    <span class="comment">## Step1. 列名预处理</span></div><div class="line">    <span class="comment"># 读取列名，即第一行数据</span></div><div class="line">    <span class="keyword">with</span> open(filename, <span class="string">'r'</span>) <span class="keyword">as</span> f:</div><div class="line">        col_names_str = f.readline()[:<span class="number">-1</span>] <span class="comment"># [:-1]表示不读取末尾的换行符'\n'</span></div><div class="line"></div><div class="line">    <span class="comment"># 将字符串拆分，并组成列表</span></div><div class="line">    col_name_lst = col_names_str.split(<span class="string">','</span>)</div><div class="line"></div><div class="line">    <span class="comment"># 使用的列名</span></div><div class="line">    use_col_name_lst = [<span class="string">'enddate'</span>, <span class="string">'rawpoll_clinton'</span>, <span class="string">'rawpoll_trump'</span>,<span class="string">'adjpoll_clinton'</span>, <span class="string">'adjpoll_trump'</span>]</div><div class="line"></div><div class="line">    <span class="comment"># 获取相应列名的索引号</span></div><div class="line">    use_col_index_lst = [col_name_lst.index(use_col_name) <span class="keyword">for</span> use_col_name <span class="keyword">in</span> use_col_name_lst]</div><div class="line"></div><div class="line">    <span class="comment">## Step2. 读取数据</span></div><div class="line">    data_array = np.loadtxt(filename,      <span class="comment"># 文件名</span></div><div class="line">                        delimiter=<span class="string">','</span>, <span class="comment"># 分隔符</span></div><div class="line">                        skiprows=<span class="number">1</span>,    <span class="comment"># 跳过第一行，即跳过列名</span></div><div class="line">                        dtype=str,     <span class="comment"># 数据类型</span></div><div class="line">                        usecols=use_col_index_lst) <span class="comment"># 指定读取的列索引号</span></div><div class="line"></div><div class="line">    <span class="comment">## Step3. 数据处理</span></div><div class="line">    <span class="comment"># 处理日期格式数据</span></div><div class="line">    enddate_idx = use_col_name_lst.index(<span class="string">'enddate'</span>)</div><div class="line">    enddate_lst = data_array[:,enddate_idx].tolist()</div><div class="line"></div><div class="line">    <span class="comment"># 将日期字符串格式统一，即'yy/dd/mm'</span></div><div class="line">    enddate_lst = [enddate.replace(<span class="string">'-'</span>, <span class="string">'/'</span>) <span class="keyword">for</span> enddate <span class="keyword">in</span> enddate_lst]</div><div class="line"></div><div class="line">    <span class="comment"># 将日期字符串转换成日期</span></div><div class="line">    date_lst = [datetime.datetime.strptime(enddate, <span class="string">'%m/%d/%Y'</span>) <span class="keyword">for</span> enddate <span class="keyword">in</span> enddate_lst]</div><div class="line"></div><div class="line">    <span class="comment"># 构造年份-月份列表</span></div><div class="line">    month_lst = [<span class="string">'%d-%02d'</span> %(date_obj.year, date_obj.month) <span class="keyword">for</span> date_obj <span class="keyword">in</span> date_lst]</div><div class="line"></div><div class="line">    month_array = np.array(month_lst)</div><div class="line">    months = np.unique(month_array)</div><div class="line"></div><div class="line">    <span class="comment">## Step4. 数据分析</span></div><div class="line">    <span class="comment"># 统计民意投票数</span></div><div class="line">    <span class="comment"># cliton</span></div><div class="line">    <span class="comment"># 原始数据 rawpoll</span></div><div class="line">    rawpoll_clinton_idx = use_col_name_lst.index(<span class="string">'rawpoll_clinton'</span>)</div><div class="line">    rawpoll_clinton_data = data_array[:, rawpoll_clinton_idx]</div><div class="line"></div><div class="line">    <span class="comment"># 调整后的数据 adjpool</span></div><div class="line">    adjpoll_clinton_idx = use_col_name_lst.index(<span class="string">'adjpoll_clinton'</span>)</div><div class="line">    adjpoll_clinton_data = data_array[:, adjpoll_clinton_idx]</div><div class="line"></div><div class="line">    <span class="comment"># trump</span></div><div class="line">    <span class="comment"># 原始数据 rawpoll</span></div><div class="line">    rawpoll_trump_idx = use_col_name_lst.index(<span class="string">'rawpoll_trump'</span>)</div><div class="line">    rawpoll_trump_data = data_array[:, rawpoll_trump_idx]</div><div class="line"></div><div class="line">    <span class="comment"># 调整后的数据 adjpoll</span></div><div class="line">    adjpoll_trump_idx = use_col_name_lst.index(<span class="string">'adjpoll_trump'</span>)</div><div class="line">    adjpoll_trump_data = data_array[:, adjpoll_trump_idx]</div><div class="line"></div><div class="line">    <span class="comment"># 结果保存</span></div><div class="line">    results = []</div><div class="line"></div><div class="line">    <span class="keyword">for</span> month <span class="keyword">in</span> months:   </div><div class="line">        <span class="comment"># clinton</span></div><div class="line">        <span class="comment"># 原始数据 rawpoll</span></div><div class="line">        rawpoll_clinton_month_data = rawpoll_clinton_data[month_array == month]  </div><div class="line">        <span class="comment"># 统计当月的总票数</span></div><div class="line">        rawpoll_clinton_month_sum = get_sum(rawpoll_clinton_month_data)</div><div class="line"></div><div class="line">        <span class="comment"># 调整数据 adjpoll</span></div><div class="line">        adjpoll_clinton_month_data = adjpoll_clinton_data[month_array == month]  </div><div class="line">        <span class="comment"># 统计当月的总票数</span></div><div class="line">        adjpoll_clinton_month_sum = get_sum(adjpoll_clinton_month_data)</div><div class="line"></div><div class="line"></div><div class="line">        <span class="comment"># trump</span></div><div class="line">        <span class="comment"># 原始数据 rawpoll</span></div><div class="line">        rawpoll_trump_month_data = rawpoll_trump_data[month_array == month]</div><div class="line">        <span class="comment"># 统计当月的总票数</span></div><div class="line">        rawpoll_trump_month_sum = get_sum(rawpoll_trump_month_data)</div><div class="line"></div><div class="line">        <span class="comment"># 调整数据 adjpoll</span></div><div class="line">        adjpoll_trump_month_data = adjpoll_trump_data[month_array == month]</div><div class="line">        <span class="comment"># 统计当月的总票数</span></div><div class="line">        adjpoll_trump_month_sum = get_sum(adjpoll_trump_month_data)</div><div class="line"></div><div class="line">        results.append((month, rawpoll_clinton_month_sum, adjpoll_clinton_month_sum, rawpoll_trump_month_sum, adjpoll_trump_month_sum))</div><div class="line"></div><div class="line">    <span class="keyword">print</span> results</div><div class="line"></div><div class="line"></div><div class="line">    months, raw_cliton_sum, adj_cliton_sum, raw_trump_sum, adj_trump_sum = zip(*results)</div><div class="line"></div><div class="line">    <span class="comment">## Step5. 可视化分析结果</span></div><div class="line">    fig, subplot_arr = plt.subplots(<span class="number">2</span>,<span class="number">2</span>, figsize=(<span class="number">15</span>,<span class="number">10</span>))</div><div class="line"></div><div class="line">    <span class="comment"># 原始数据趋势展示</span></div><div class="line">    subplot_arr[<span class="number">0</span>,<span class="number">0</span>].plot(raw_cliton_sum, color=<span class="string">'r'</span>)</div><div class="line">    subplot_arr[<span class="number">0</span>,<span class="number">0</span>].plot(raw_trump_sum, color=<span class="string">'g'</span>)</div><div class="line"></div><div class="line">    width = <span class="number">0.25</span></div><div class="line">    x = np.arange(len(months))</div><div class="line">    subplot_arr[<span class="number">0</span>,<span class="number">1</span>].bar(x, raw_cliton_sum, width, color=<span class="string">'r'</span>)</div><div class="line">    subplot_arr[<span class="number">0</span>,<span class="number">1</span>].bar(x + width, raw_trump_sum, width, color=<span class="string">'g'</span>)</div><div class="line">    subplot_arr[<span class="number">0</span>,<span class="number">1</span>].set_xticks(x + width)</div><div class="line">    subplot_arr[<span class="number">0</span>,<span class="number">1</span>].set_xticklabels(months, rotation=<span class="string">'vertical'</span>)</div><div class="line"></div><div class="line">    <span class="comment"># 调整数据趋势展示</span></div><div class="line">    subplot_arr[<span class="number">1</span>,<span class="number">0</span>].plot(adj_cliton_sum, color=<span class="string">'r'</span>)</div><div class="line">    subplot_arr[<span class="number">1</span>,<span class="number">0</span>].plot(adj_trump_sum, color=<span class="string">'g'</span>)</div><div class="line"></div><div class="line">    width = <span class="number">0.25</span></div><div class="line">    x = np.arange(len(months))</div><div class="line">    subplot_arr[<span class="number">1</span>,<span class="number">1</span>].bar(x, adj_cliton_sum, width, color=<span class="string">'r'</span>)</div><div class="line">    subplot_arr[<span class="number">1</span>,<span class="number">1</span>].bar(x + width, adj_trump_sum, width, color=<span class="string">'g'</span>)</div><div class="line">    subplot_arr[<span class="number">1</span>,<span class="number">1</span>].set_xticks(x + width)</div><div class="line">    subplot_arr[<span class="number">1</span>,<span class="number">1</span>].set_xticklabels(months, rotation=<span class="string">'vertical'</span>)</div><div class="line"></div><div class="line">    plt.subplots_adjust(wspace=<span class="number">0.2</span>)</div><div class="line"></div><div class="line">    plt.show()</div><div class="line"></div><div class="line"></div><div class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</div><div class="line">    run_main()</div></pre></td></tr></table></figure>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/public/16-12-9/51386820.jpg" alt=""></p>
+<iframe src="http://nbviewer.jupyter.org/github/xuehanzhe0526/code/blob/master/lecture02_project.ipynb" width="1000" height="1000"></iframe>
+
+                <hr>
+                
+                <!-- 多说 Share start -->
+                <div class="ds-share"
+                     style="text-align: right"
+                     data-thread-key="2016/12/09/案例1：2016美国大选可视化分析/"
+                     data-title="案例1：2016美国大选可视化分析"
+                     data-url="http://yoursite.com/2016/12/09/案例1：2016美国大选可视化分析/"
+                     data-images=""
+                     data-content="摘要：
+项目地址:https://www.kaggle.com/fivethirtyeight... | Haozhe&#39;s blog ">
+                    <div class="ds-share-inline">
+                        <ul class="ds-share-icons-16">
+                            <li data-toggle="ds-share-icons-more"><a class="ds-more" href="#">分享到：</a></li>
+                            <li><a class="ds-wechat flat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+                            <li><a class="ds-weibo flat" href="javascript:void(0);" data-service="weibo">微博</a></li>
+                            <li><a class="ds-douban flat" href="javascript:void(0);" data-service="douban">豆瓣</a></li>
+                        </ul>
+                        <div class="ds-share-icons-more">
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+                <!-- 多说 Share end-->
+                
+
+                <ul class="pager">
+                    
+                    
+                    <li class="next">
+                        <a href="/2016/12/09/数据分析：科学计算及数据可视化入门/" data-toggle="tooltip" data-placement="top"
+                           title="数据分析：科学计算及数据可视化入门">Next Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+                <!-- 多说评论框 start -->
+                <div class="comment">
+                    <div class="ds-thread"
+                         data-thread-key="2016/12/09/案例1：2016美国大选可视化分析/"
+                         data-title="案例1：2016美国大选可视化分析"
+                         data-url="http://yoursite.com/2016/12/09/案例1：2016美国大选可视化分析/">
+                    </div>
+                </div>
+                <!-- 多说评论框 end -->
+                
+
+                
+
+            </div>
+
+            <div class="hidden-xs col-sm-3 toc-col">
+                <div class="toc-wrap">
+                    
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5 class="text-center">
+                        <a href="/tags/">FEATURED TAGS</a>
+                    </h5>
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#基于Kaggle案例Python数据分析"
+                           title="基于Kaggle案例Python数据分析">基于Kaggle案例Python数据分析</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <div style="margin-top: 20px;">
+                    <h5 class="text-center">FRIENDS</h5>
+                    <ul class="list-inline text-center">
+                        
+                        <li><a href="http://www.hankcs.com/">hankcs</a></li>
+                        
+                        <li><a href="http://www.lintcode.com/zh-cn/ladder/2/">lintcode</a></li>
+                        
+                        <li><a href="http://www.jiuzhang.com/solutions/">jiuzhang</a></li>
+                        
+                    </ul>
+                </div>
+                
+            </div>
+        </div>
+
+    </div>
+</article>
+
+
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    // dynamic User by Hux
+    var _user = 'xuehaozhe';
+
+    // duoshuo comment query.
+    var duoshuoQuery = {short_name: _user};
+    (function () {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';
+        ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0]
+        || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+</script>
+<!-- 多说公共JS代码 end -->
+
+
+
+
+
+<!-- Footer -->
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <br>
+                <ul class="list-inline text-center">
+                
+                
+                    <li>
+                        <a target="_blank" href="https://twitter.com/xuehaozhe">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/xuehaozhe0526">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="http://weibo.com/fendoujianchi">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/xuehanzhe0526">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Haozhe 2017
+                    <br>
+                    <span id="busuanzi_container_site_pv" style="font-size: 12px;">PV: <span id="busuanzi_value_site_pv"></span> Times</span>
+                    <br>
+                    Theme by <a href="https://haojen.github.io/">Haojen Ma</a>
+                </p>
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/blog.js"></script>
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://yoursite.com/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+
+
+<!-- swiftype -->
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','null','2.0.0');
+</script>
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<!--wechat title img-->
+<img class="wechat-title-img" src="http://7xrw7v.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160402220553.png">
+</body>
+
+</html>

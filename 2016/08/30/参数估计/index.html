@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="What hurts more,the pain of hard work or the pain of regret.">
+    <meta name="keyword" content="null">
+    <meta name="theme-color" content="#600090">
+    <meta name="msapplication-navbutton-color" content="#600090">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#600090">
+    <link rel="shortcut icon" href="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-person-128.png">
+    <link rel="alternate" type="application/atom+xml" title="Haozhe" href="/atom.xml">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
+    <title>
+        
+        参数估计｜Haozhe&#39;s blog
+        
+    </title>
+
+    <link rel="canonical" href="http://yoursite.com/2016/08/30/参数估计/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/blog-style.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+</head>
+
+<style>
+
+    header.intro-header {
+        background-image: url('http://7xrw7v.com1.z0.glb.clouddn.com/1485527729222.jpg')
+    }
+</style>
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="" class="animated fadeIn">
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost = "true" data-istags="false
+" data-ishome = "false" >
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand animated pulse" href="/">
+                <span class="brand-logo">
+                    Haozhe
+                </span>
+                's Blog
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <!-- /.navbar-collapse -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+					
+                    
+                        
+							
+                        <li>
+                            <a href="/tags/">tags</a>
+                        </li>
+							
+						
+                    
+					
+					
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+//    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+<!-- Main Content -->
+
+<!--only post-->
+
+
+<img class="wechat-title-img"
+     src="http://7xrw7v.com1.z0.glb.clouddn.com/148552521631.jpg#博文默认的图片">
+
+
+<style>
+    
+    header.intro-header {
+        background-image: url('http://7xrw7v.com1.z0.glb.clouddn.com/148552521631.jpg#博文默认的图片')
+    }
+
+    
+</style>
+
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <div class="post-heading">
+                    <h1>参数估计</h1>
+                    
+                    <span class="meta">
+                         作者 Haozhe Xue
+                        <span>
+                          日期 2016-08-30
+                         </span>
+                    </span>
+                    <div class="tags text-center">
+                        
+                        <a class="tag" href="/tags/#数学"
+                           title="数学">数学</a>
+                        
+                        <a class="tag" href="/tags/#统计学"
+                           title="统计学">统计学</a>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="post-title-haojen">
+        <span>
+            参数估计
+        </span>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <!-- Post Container -->
+            <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
+                <p>摘要：</p>
+<ul>
+<li>参数估计</li>
+<li>点估计</li>
+<li>区间估计</li>
+<li>置信区间</li>
+<li>置信水平</li>
+<li>评价估计量的标准（无偏性、有效性、一致性）</li>
+<li>一个总体参数的区间估计</li>
+<li>两个总体参数的区间估计</li>
+</ul>
+<a id="more"></a>
+<h3 id="参数估计"><a href="#参数估计" class="headerlink" title="参数估计"></a>参数估计</h3><p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/e22a9de456f867d66e7fe75a45beca07.png" alt=""></p>
+<h3 id="点估计"><a href="#点估计" class="headerlink" title="点估计"></a>点估计</h3><h2 id=""><a href="#" class="headerlink" title=""></a><img src="http://7xrw7v.com1.z0.glb.clouddn.com/705c9a618ac9cea429a8319ab3c44f4c.png" alt=""></h2><p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/481946af3dada3a661b71cc27fcabda4.png" alt=""><br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/491b77d6d02cb64d455bc0b0c451d0e6.png" alt=""></p>
+<h3 id="区间估计"><a href="#区间估计" class="headerlink" title="区间估计"></a>区间估计</h3><p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/ff3ba3206c3c0c294f878d17e1f64e98.png" alt=""></p>
+<p>参见：<a href="http://haozhe.site/2016/08/29/%E7%BB%9F%E8%AE%A1%E9%87%8F%E5%8F%8A%E6%8A%BD%E6%A0%B7%E5%88%86%E5%B8%83/" target="_blank" rel="external">样本均值分布</a><br>样本均值期望等于总体均值：<br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/40d6191686d4f23f7c25d73de0771684.png" alt=""><br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/a9211e16154b825e76df4541531d1127.png" alt=""><br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/8c59e5819f5920e5fc2b8e763feb201a.png" alt=""></p>
+<h3 id="置信区间"><a href="#置信区间" class="headerlink" title="置信区间"></a>置信区间</h3><p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/fb1939098f84a0252dc9c18738b818d3.png" alt=""></p>
+<h3 id="置信水平-（置信度-或者置信系数）"><a href="#置信水平-（置信度-或者置信系数）" class="headerlink" title="置信水平 （置信度 或者置信系数）"></a>置信水平 （置信度 或者置信系数）</h3><p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/b4e09d9bba5f7abff9b73a08a913b4f3.png" alt=""></p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/08868a63731a7b76293d1ae9049d0af8.png" alt=""></p>
+<h3 id="评价估计量的标准（无偏性、有效性、一致性）"><a href="#评价估计量的标准（无偏性、有效性、一致性）" class="headerlink" title="评价估计量的标准（无偏性、有效性、一致性）"></a>评价估计量的标准（无偏性、有效性、一致性）</h3><h4 id="无偏性"><a href="#无偏性" class="headerlink" title="无偏性"></a>无偏性</h4><p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/d8871f21db6dc13d2fc1ddbad9a8fd5f.png" alt=""></p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/fd239f3f5d9e0abc20de3029fcd806c6.png" alt=""></p>
+<h4 id="有效性"><a href="#有效性" class="headerlink" title="有效性"></a>有效性</h4><blockquote>
+<p>有效性 是指 对 同一个总体参数 的俩个无偏估计量 有更小标准差的估计量 更有效。</p>
+</blockquote>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/7e245401fa47d238c8b72c1b113c36e1.png" alt=""></p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/462da71db09ade6ddb26abf2ea1a9444.png" alt=""></p>
+<p>参见：<a href="http://haozhe.site/2016/08/29/%E6%A6%82%E7%8E%87%E5%88%86%E5%B8%83/" target="_blank" rel="external">正态分布</a></p>
+<h4 id="一致性"><a href="#一致性" class="headerlink" title="一致性"></a>一致性</h4><p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/c5713c23b90bf01630e22bfcda7d1811.png" alt=""></p>
+<h3 id="一个总体参数的区间估计"><a href="#一个总体参数的区间估计" class="headerlink" title="一个总体参数的区间估计"></a>一个总体参数的区间估计</h3><p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/053d9374331833c69ea5ad383dc79bc1.png" alt=""></p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/12f16f9520714ea443d9e9a9b20d9ff5.png" alt=""></p>
+<h4 id="总体均值的区间估计"><a href="#总体均值的区间估计" class="headerlink" title="总体均值的区间估计"></a>总体均值的区间估计</h4><p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/8ed6a599fccabc784f01bf56387d565e.png" alt=""></p>
+<h5 id="正态总体-方差已知-或-非正态总体-大样本"><a href="#正态总体-方差已知-或-非正态总体-大样本" class="headerlink" title="正态总体 方差已知 或 非正态总体 大样本"></a>正态总体 方差已知 或 非正态总体 大样本</h5><p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/09da37dc798f5bfff1b90966f7e3a281.png" alt=""><br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/928562b6807b41e2ef2fa35768455e54.png" alt=""><br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/3ac6de3204572446326c3cc844bb03b6.png" alt=""><br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/7eba737256a7aaf40ba5c6ee50cbdd2c.png" alt=""></p>
+<h6 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h6><p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/edb639cd4e757869ae06ff5197898f20.png" alt=""><br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/4430c77464e736dff8da7122cb9c6cf7.png" alt=""></p>
+<h5 id="正态总体-方差未知-小样本"><a href="#正态总体-方差未知-小样本" class="headerlink" title="正态总体 方差未知 小样本"></a>正态总体 方差未知 小样本</h5><p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/be3b9df0766ab774e8cc2570ccc0ad6a.png" alt=""><br><a href="http://haozhe.site/2016/08/29/%E7%BB%9F%E8%AE%A1%E9%87%8F%E5%8F%8A%E6%8A%BD%E6%A0%B7%E5%88%86%E5%B8%83/" target="_blank" rel="external">参见t分布</a></p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/9c3097c2f1cdf7998d8331cfb0fd0c2c.png" alt=""><br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/e1c281309607e1e2b40cef981cdbd801.png" alt=""></p>
+<h5 id="比较"><a href="#比较" class="headerlink" title="比较"></a>比较</h5><p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/a56a6a282dacef3c2aee5cfbbc337f99.png" alt=""></p>
+<h4 id="总体比例区间估计"><a href="#总体比例区间估计" class="headerlink" title="总体比例区间估计"></a>总体比例区间估计</h4><blockquote>
+<p>只考虑<code>大样本</code>下 总体比例的估计问题</p>
+</blockquote>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/9926b6bf75e78ee8f38bbe334cf1418e.png" alt=""></p>
+<p>参见：<a href="http://haozhe.site/2016/08/29/%E7%BB%9F%E8%AE%A1%E9%87%8F%E5%8F%8A%E6%8A%BD%E6%A0%B7%E5%88%86%E5%B8%83/" target="_blank" rel="external">样本比例的抽样分布</a></p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/4f01b5be58f749f6c47b6b0eaa488a61.png" alt=""><br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/277a004ed6dfa1925e137465107ccd6a.png" alt=""><br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/02727ac3cf0ae713bd34f94c4927bc54.png" alt=""><br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/8e78203735728183898821b0ca5d6361.png" alt=""></p>
+<h5 id="例子-1"><a href="#例子-1" class="headerlink" title="例子"></a>例子</h5><p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/4c99e65c853e8d71d7c4ebb3a134f5ae.png" alt=""></p>
+<h4 id="总体方差区间估计"><a href="#总体方差区间估计" class="headerlink" title="总体方差区间估计"></a>总体方差区间估计</h4><p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/1810aaaf21e1eda3eba4bf8e77187df4.png" alt=""><br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/e8d6468a85886c9268c3e511aed1f00b.png" alt=""><br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/b643d5d242f4330f5ad611261bc65393.png" alt=""></p>
+<h5 id="例子-2"><a href="#例子-2" class="headerlink" title="例子"></a>例子</h5><p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/5615423122a42299814230d79c2521c8.png" alt=""></p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/fd62b8bcaac93a36c234f1b5217de8f7.png" alt=""></p>
+<h3 id="两个总体参数的区间估计"><a href="#两个总体参数的区间估计" class="headerlink" title="两个总体参数的区间估计"></a>两个总体参数的区间估计</h3><p>具体参见课本：<br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/bf6f07b33f2f7f48610781165f79fb37.png" alt=""></p>
+
+                <hr>
+                
+                <!-- 多说 Share start -->
+                <div class="ds-share"
+                     style="text-align: right"
+                     data-thread-key="2016/08/30/参数估计/"
+                     data-title="参数估计"
+                     data-url="http://yoursite.com/2016/08/30/参数估计/"
+                     data-images=""
+                     data-content="摘要：
+
+参数估计
+点估计
+区间估计
+置信区间
+置信水平
+评价估计量的标准（无偏性、有效性、一... | Haozhe&#39;s blog ">
+                    <div class="ds-share-inline">
+                        <ul class="ds-share-icons-16">
+                            <li data-toggle="ds-share-icons-more"><a class="ds-more" href="#">分享到：</a></li>
+                            <li><a class="ds-wechat flat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+                            <li><a class="ds-weibo flat" href="javascript:void(0);" data-service="weibo">微博</a></li>
+                            <li><a class="ds-douban flat" href="javascript:void(0);" data-service="douban">豆瓣</a></li>
+                        </ul>
+                        <div class="ds-share-icons-more">
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+                <!-- 多说 Share end-->
+                
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2016/09/02/预测数值型数据：回归/" data-toggle="tooltip" data-placement="top"
+                           title="预测数值型数据：回归">&larr; Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2016/08/29/统计量及抽样分布/" data-toggle="tooltip" data-placement="top"
+                           title="统计量及抽样分布">Next Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+                <!-- 多说评论框 start -->
+                <div class="comment">
+                    <div class="ds-thread"
+                         data-thread-key="2016/08/30/参数估计/"
+                         data-title="参数估计"
+                         data-url="http://yoursite.com/2016/08/30/参数估计/">
+                    </div>
+                </div>
+                <!-- 多说评论框 end -->
+                
+
+                
+
+            </div>
+
+            <div class="hidden-xs col-sm-3 toc-col">
+                <div class="toc-wrap">
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#参数估计"><span class="toc-text">参数估计</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#点估计"><span class="toc-text">点估计</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#"><span class="toc-text"></span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#区间估计"><span class="toc-text">区间估计</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#置信区间"><span class="toc-text">置信区间</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#置信水平-（置信度-或者置信系数）"><span class="toc-text">置信水平 （置信度 或者置信系数）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#评价估计量的标准（无偏性、有效性、一致性）"><span class="toc-text">评价估计量的标准（无偏性、有效性、一致性）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#无偏性"><span class="toc-text">无偏性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#有效性"><span class="toc-text">有效性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#一致性"><span class="toc-text">一致性</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#一个总体参数的区间估计"><span class="toc-text">一个总体参数的区间估计</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#总体均值的区间估计"><span class="toc-text">总体均值的区间估计</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#正态总体-方差已知-或-非正态总体-大样本"><span class="toc-text">正态总体 方差已知 或 非正态总体 大样本</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#例子"><span class="toc-text">例子</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#正态总体-方差未知-小样本"><span class="toc-text">正态总体 方差未知 小样本</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#比较"><span class="toc-text">比较</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#总体比例区间估计"><span class="toc-text">总体比例区间估计</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#例子-1"><span class="toc-text">例子</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#总体方差区间估计"><span class="toc-text">总体方差区间估计</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#例子-2"><span class="toc-text">例子</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#两个总体参数的区间估计"><span class="toc-text">两个总体参数的区间估计</span></a></li></ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5 class="text-center">
+                        <a href="/tags/">FEATURED TAGS</a>
+                    </h5>
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#数学"
+                           title="数学">数学</a>
+                        
+                        <a class="tag" href="/tags/#统计学"
+                           title="统计学">统计学</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <div style="margin-top: 20px;">
+                    <h5 class="text-center">FRIENDS</h5>
+                    <ul class="list-inline text-center">
+                        
+                        <li><a href="http://www.hankcs.com/">hankcs</a></li>
+                        
+                        <li><a href="http://www.lintcode.com/zh-cn/ladder/2/">lintcode</a></li>
+                        
+                        <li><a href="http://www.jiuzhang.com/solutions/">jiuzhang</a></li>
+                        
+                    </ul>
+                </div>
+                
+            </div>
+        </div>
+
+    </div>
+</article>
+
+
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    // dynamic User by Hux
+    var _user = 'xuehaozhe';
+
+    // duoshuo comment query.
+    var duoshuoQuery = {short_name: _user};
+    (function () {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';
+        ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0]
+        || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+</script>
+<!-- 多说公共JS代码 end -->
+
+
+
+
+
+<!-- Footer -->
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <br>
+                <ul class="list-inline text-center">
+                
+                
+                    <li>
+                        <a target="_blank" href="https://twitter.com/xuehaozhe">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/xuehaozhe0526">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="http://weibo.com/fendoujianchi">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/xuehanzhe0526">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Haozhe 2017
+                    <br>
+                    <span id="busuanzi_container_site_pv" style="font-size: 12px;">PV: <span id="busuanzi_value_site_pv"></span> Times</span>
+                    <br>
+                    Theme by <a href="https://haojen.github.io/">Haojen Ma</a>
+                </p>
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/blog.js"></script>
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://yoursite.com/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+
+
+<!-- swiftype -->
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','null','2.0.0');
+</script>
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<!--wechat title img-->
+<img class="wechat-title-img" src="http://7xrw7v.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160402220553.png">
+</body>
+
+</html>
