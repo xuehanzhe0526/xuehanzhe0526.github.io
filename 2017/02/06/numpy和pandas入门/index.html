@@ -18,11 +18,11 @@
     <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
     <title>
         
-        MapReduce Uber 模式讲解｜Haozhe&#39;s blog
+        numpy和pandas入门｜Haozhe&#39;s blog
         
     </title>
 
-    <link rel="canonical" href="http://yoursite.com/2016/04/14/MapReduce Uber 模式/">
+    <link rel="canonical" href="http://yoursite.com/2017/02/06/numpy和pandas入门/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -145,18 +145,18 @@
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
                 <div class="post-heading">
-                    <h1>MapReduce Uber 模式讲解</h1>
+                    <h1>numpy和pandas入门</h1>
                     
                     <span class="meta">
                          作者 Haozhe Xue
                         <span>
-                          日期 2016-04-14
+                          日期 2017-02-06
                          </span>
                     </span>
                     <div class="tags text-center">
                         
-                        <a class="tag" href="/tags/#hadoop"
-                           title="hadoop">hadoop</a>
+                        <a class="tag" href="/tags/#python"
+                           title="python">python</a>
                         
                     </div>
                 </div>
@@ -165,7 +165,7 @@
     </div>
     <div class="post-title-haojen">
         <span>
-            MapReduce Uber 模式讲解
+            numpy和pandas入门
         </span>
     </div>
 </header>
@@ -176,40 +176,33 @@
         <div class="row">
             <!-- Post Container -->
             <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
-                <p>摘要：</p>
-<ul>
-<li>MapReduce Uber 模式讲解<a id="more"></a>
-</li>
-</ul>
-<h3 id="引出"><a href="#引出" class="headerlink" title="引出"></a>引出</h3><p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160521203304.png" alt=""></p>
-<h3 id="没开启的情况下："><a href="#没开启的情况下：" class="headerlink" title="没开启的情况下："></a>没开启的情况下：</h3><p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160521205205.png" alt=""></p>
-<p><strong>在mapred-site.xml中添加以下代码：</strong></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">&lt;property&gt;</div><div class="line">  &lt;name&gt;mapreduce.job.ubertask.enable&lt;/name&gt;</div><div class="line">  &lt;value&gt;true&lt;/value&gt;</div><div class="line">&lt;/property&gt;</div></pre></td></tr></table></figure>
-<blockquote>
-<p>scp -r etc/hadoop/mapred-site.xml hadoop-slave01.cloudyhadoop.com:/opt/modules/hadoop-2.5.0/etc/hadoop/<br>scp -r etc/hadoop/mapred-site.xml hadoop-slave02.cloudyhadoop.com:/opt/modules/hadoop-2.5.0/etc/hadoop/</p>
+                <h3 id="numpy"><a href="#numpy" class="headerlink" title="numpy"></a>numpy</h3><blockquote>
+<p>The array object class is the foundation of Numpy, and Numpy arrays are like<br>lists in Python, except that every thing inside an array must be of the<br>same type, like int or float.</p>
 </blockquote>
-<p><strong>重启yarn</strong></p>
-<h3 id="启动后运行的情况："><a href="#启动后运行的情况：" class="headerlink" title="启动后运行的情况："></a>启动后运行的情况：</h3><p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160521212146.png" alt=""><br>可以发现 在小任务的情况下 性能大幅提高。</p>
-<h3 id="出现的问题："><a href="#出现的问题：" class="headerlink" title="出现的问题："></a>出现的问题：</h3><p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160521210828.png" alt=""></p>
-<p>原因：集群时间同步问题  具体见下一篇博客</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</div><div class="line">array1 = np.array([<span class="number">1</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">8</span>], float)</div><div class="line"><span class="comment">#[ 1.  4.  5.  8.]</span></div><div class="line">array2 = np.array([[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>], [<span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>]], float)  <span class="comment"># a 2D array/Matrix</span></div><div class="line"><span class="string">'''</span></div><div class="line">[[ 1.  2.  3.]</div><div class="line"> [ 4.  5.  6.]]</div><div class="line">'''</div><div class="line"></div><div class="line">array_1 = np.array([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>], float)</div><div class="line">array_2 = np.array([[<span class="number">6</span>], [<span class="number">7</span>], [<span class="number">8</span>]], float)</div><div class="line"><span class="keyword">print</span> np.mean(array_1)</div><div class="line"><span class="keyword">print</span> np.mean(array_2)</div><div class="line"><span class="keyword">print</span> <span class="string">""</span></div><div class="line"><span class="keyword">print</span> np.dot(array_1, array_2)</div></pre></td></tr></table></figure>
+<h3 id="pandas"><a href="#pandas" class="headerlink" title="pandas"></a>pandas</h3><h4 id="Series"><a href="#Series" class="headerlink" title="Series"></a>Series</h4><figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</div><div class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</div><div class="line"></div><div class="line">series = pd.Series([<span class="string">'Dave'</span>, <span class="string">'Cheng-Han'</span>, <span class="string">'Udacity'</span>, <span class="number">42</span>, <span class="number">-1789710578</span>])</div><div class="line"><span class="string">"""</span></div><div class="line">Instructor                 Dave</div><div class="line">Curriculum Manager    Cheng-Han</div><div class="line">Course Number               359</div><div class="line">Power Level                9001</div><div class="line">dtype: object</div><div class="line">"""</div><div class="line">cuteness = pd.Series([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>], index=[<span class="string">'Cockroach'</span>, <span class="string">'Fish'</span>, <span class="string">'Mini Pig'</span>,<span class="string">'Puppy'</span>, <span class="string">'Kitten'</span>])</div><div class="line"><span class="keyword">print</span> cuteness &gt; <span class="number">3</span></div><div class="line"><span class="keyword">print</span> cuteness[cuteness &gt; <span class="number">3</span>]</div><div class="line"></div><div class="line"><span class="string">"""</span></div><div class="line">Cockroach    False</div><div class="line">Fish         False</div><div class="line">Mini Pig     False</div><div class="line">Puppy         True</div><div class="line">Kitten        True</div><div class="line">dtype: bool</div><div class="line"></div><div class="line">Puppy     4</div><div class="line">Kitten    5</div><div class="line">dtype: int64</div><div class="line">"""</div></pre></td></tr></table></figure>
+<h4 id="Dataframe"><a href="#Dataframe" class="headerlink" title="Dataframe"></a>Dataframe</h4><blockquote>
+<p>To create a dataframe, you can pass a dictionary of lists to the Dataframe<br>constructor:<br>1) The key of the dictionary will be the column name<br>2) The associating list will be the values within that column.</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="keyword">if</span> <span class="keyword">True</span>:</div><div class="line">    data = &#123;<span class="string">'year'</span>: [<span class="number">2010</span>, <span class="number">2011</span>, <span class="number">2012</span>, <span class="number">2011</span>, <span class="number">2012</span>, <span class="number">2010</span>, <span class="number">2011</span>, <span class="number">2012</span>],</div><div class="line">            <span class="string">'team'</span>: [<span class="string">'Bears'</span>, <span class="string">'Bears'</span>, <span class="string">'Bears'</span>, <span class="string">'Packers'</span>, <span class="string">'Packers'</span>, <span class="string">'Lions'</span>,</div><div class="line">                     <span class="string">'Lions'</span>, <span class="string">'Lions'</span>],</div><div class="line">            <span class="string">'wins'</span>: [<span class="number">11</span>, <span class="number">8</span>, <span class="number">10</span>, <span class="number">15</span>, <span class="number">11</span>, <span class="number">6</span>, <span class="number">10</span>, <span class="number">4</span>],</div><div class="line">            <span class="string">'losses'</span>: [<span class="number">5</span>, <span class="number">8</span>, <span class="number">6</span>, <span class="number">1</span>, <span class="number">5</span>, <span class="number">10</span>, <span class="number">6</span>, <span class="number">12</span>]&#125;</div><div class="line">    football = pd.DataFrame(data)</div><div class="line">    <span class="keyword">print</span> football</div><div class="line"></div><div class="line"><span class="string">"""</span></div><div class="line">   losses     team  wins  year</div><div class="line">0       5    Bears    11  2010</div><div class="line">1       8    Bears     8  2011</div><div class="line">2       6    Bears    10  2012</div><div class="line">3       1  Packers    15  2011</div><div class="line">4       5  Packers    11  2012</div><div class="line">5      10    Lions     6  2010</div><div class="line">6       6    Lions    10  2011</div><div class="line">7      12    Lions     4  2012</div><div class="line">"""</div></pre></td></tr></table></figure>
+<blockquote>
+<p>Pandas also has various functions that will help you understand some basic<br>information about your data frame. Some of these functions are:<br>1) dtypes: to get the datatype for each column<br>2) describe: useful for seeing basic statistics of the dataframe’s numerical<br>   columns<br>3) head: displays the first five rows of the dataset<br>4) tail: displays the last five rows of the dataset</p>
+</blockquote>
+<h4 id="索引数据框"><a href="#索引数据框" class="headerlink" title="索引数据框"></a>索引数据框</h4><p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/20170206148639037016462.png" alt="20170206148639037016462.png"></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="keyword">print</span> football[<span class="string">'year'</span>]</div><div class="line"><span class="keyword">print</span> football.year</div><div class="line"><span class="keyword">print</span> football[[<span class="string">'year'</span>, <span class="string">'wins'</span>, <span class="string">'losses'</span>]]</div><div class="line"><span class="string">"""</span></div><div class="line">year  wins  losses</div><div class="line">0  2010    11       5</div><div class="line">1  2011     8       8</div><div class="line">2  2012    10       6</div><div class="line">3  2011    15       1</div><div class="line">4  2012    11       5</div><div class="line">5  2010     6      10</div><div class="line">6  2011    10       6</div><div class="line">7  2012     4      12</div><div class="line">"""</div><div class="line"></div><div class="line"><span class="keyword">print</span> football[<span class="number">3</span>:<span class="number">5</span>]</div><div class="line"><span class="string">"""</span></div><div class="line">   losses     team  wins  year</div><div class="line">3       1  Packers    15  2011</div><div class="line">4       5  Packers    11  2012</div><div class="line">"""</div><div class="line"></div><div class="line">avg_medal_count = df[[<span class="string">'gold'</span>,<span class="string">'silver'</span>,<span class="string">'bronze'</span>]].apply(np.mean)</div></pre></td></tr></table></figure>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/20170206148639074972524.png" alt="20170206148639074972524.png"></p>
 
                 <hr>
                 
                 <!-- 多说 Share start -->
                 <div class="ds-share"
                      style="text-align: right"
-                     data-thread-key="2016/04/14/MapReduce Uber 模式/"
-                     data-title="MapReduce Uber 模式讲解"
-                     data-url="http://yoursite.com/2016/04/14/MapReduce Uber 模式/"
+                     data-thread-key="2017/02/06/numpy和pandas入门/"
+                     data-title="numpy和pandas入门"
+                     data-url="http://yoursite.com/2017/02/06/numpy和pandas入门/"
                      data-images=""
-                     data-content="摘要：
-
-MapReduce Uber 模式讲解
-
-
-引出
-没开启的情况下：
-在mapred-... | Haozhe&#39;s blog ">
+                     data-content="numpy
+The array object class is the foundation ... | Haozhe&#39;s blog ">
                     <div class="ds-share-inline">
                         <ul class="ds-share-icons-16">
                             <li data-toggle="ds-share-icons-more"><a class="ds-more" href="#">分享到：</a></li>
@@ -227,15 +220,10 @@ MapReduce Uber 模式讲解
 
                 <ul class="pager">
                     
-                    <li class="previous">
-                        <a href="/2016/04/14/java3.2/" data-toggle="tooltip" data-placement="top"
-                           title="java入门（三）StringBuffer案例">&larr; Previous Post</a>
-                    </li>
-                    
                     
                     <li class="next">
-                        <a href="/2016/04/14/java3.1/" data-toggle="tooltip" data-placement="top"
-                           title="java入门（三）StringBuffer">Next Post &rarr;</a>
+                        <a href="/2017/02/06/numpy 和 pandas/" data-toggle="tooltip" data-placement="top"
+                           title="">Next Post &rarr;</a>
                     </li>
                     
                 </ul>
@@ -244,9 +232,9 @@ MapReduce Uber 模式讲解
                 <!-- 多说评论框 start -->
                 <div class="comment">
                     <div class="ds-thread"
-                         data-thread-key="2016/04/14/MapReduce Uber 模式/"
-                         data-title="MapReduce Uber 模式讲解"
-                         data-url="http://yoursite.com/2016/04/14/MapReduce Uber 模式/">
+                         data-thread-key="2017/02/06/numpy和pandas入门/"
+                         data-title="numpy和pandas入门"
+                         data-url="http://yoursite.com/2017/02/06/numpy和pandas入门/">
                     </div>
                 </div>
                 <!-- 多说评论框 end -->
@@ -258,7 +246,7 @@ MapReduce Uber 模式讲解
 
             <div class="hidden-xs col-sm-3 toc-col">
                 <div class="toc-wrap">
-                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#引出"><span class="toc-text">引出</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#没开启的情况下："><span class="toc-text">没开启的情况下：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#启动后运行的情况："><span class="toc-text">启动后运行的情况：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#出现的问题："><span class="toc-text">出现的问题：</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#numpy"><span class="toc-text">numpy</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#pandas"><span class="toc-text">pandas</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Series"><span class="toc-text">Series</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Dataframe"><span class="toc-text">Dataframe</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#索引数据框"><span class="toc-text">索引数据框</span></a></li></ol></li></ol>
                 </div>
             </div>
         </div>
@@ -280,8 +268,8 @@ MapReduce Uber 模式讲解
                     </h5>
                     <div class="tags">
                         
-                        <a class="tag" href="/tags/#hadoop"
-                           title="hadoop">hadoop</a>
+                        <a class="tag" href="/tags/#python"
+                           title="python">python</a>
                         
                     </div>
                 </section>
