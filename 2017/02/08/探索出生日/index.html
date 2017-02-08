@@ -18,11 +18,11 @@
     <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
     <title>
         
-        python入门 (一)(转载)｜Haozhe&#39;s blog
+        GuidedProject:Explore U.S. Births｜Haozhe&#39;s blog
         
     </title>
 
-    <link rel="canonical" href="http://yoursite.com/2016/04/17/Python入门1/">
+    <link rel="canonical" href="http://yoursite.com/2017/02/08/探索出生日/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -145,18 +145,24 @@
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
                 <div class="post-heading">
-                    <h1>python入门 (一)(转载)</h1>
+                    <h1>GuidedProject:Explore U.S. Births</h1>
                     
                     <span class="meta">
                          作者 Haozhe Xue
                         <span>
-                          日期 2016-04-17
+                          日期 2017-02-08
                          </span>
                     </span>
                     <div class="tags text-center">
                         
-                        <a class="tag" href="/tags/#Python"
-                           title="Python">Python</a>
+                        <a class="tag" href="/tags/#dataquest"
+                           title="dataquest">dataquest</a>
+                        
+                        <a class="tag" href="/tags/#Python Introduction"
+                           title="Python Introduction">Python Introduction</a>
+                        
+                        <a class="tag" href="/tags/#Guided Project"
+                           title="Guided Project">Guided Project</a>
                         
                     </div>
                 </div>
@@ -165,7 +171,7 @@
     </div>
     <div class="post-title-haojen">
         <span>
-            python入门 (一)(转载)
+            GuidedProject:Explore U.S. Births
         </span>
     </div>
 </header>
@@ -176,53 +182,23 @@
         <div class="row">
             <!-- Post Container -->
             <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
-                <p>摘要：</p>
-<ul>
-<li>创建tuple</li>
-<li>创建单元素 tuple</li>
-<li>创建单元素 tuple<a id="more"></a>
-</li>
-</ul>
-<h4 id="1-1-创建tuple"><a href="#1-1-创建tuple" class="headerlink" title="1.1 创建tuple"></a>1.1 创建tuple</h4><p>tuple是另一种有序的列表，中文翻译为“ 元组 ”。tuple 和 list 非常类似，但是，<code>tuple一旦创建完毕，就不能修改了</code>。</p>
-<p>同样是表示班里同学的名称，用tuple表示如下：<br><figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="meta">&gt;&gt;&gt; </span>t = (<span class="string">'Adam'</span>, <span class="string">'Lisa'</span>, <span class="string">'Bart'</span>)</div></pre></td></tr></table></figure></p>
-<p>创建tuple和创建list唯一不同之处是用<code>( )</code>替代了<code>[ ]</code>。</p>
-<p>现在，这个<code>t</code>就不能改变了，tuple没有 <code>append()</code>方法，也没有<code>insert()</code>和<code>pop()</code>方法。所以，新同学没法直接往 tuple 中添加，老同学想退出 tuple 也不行。</p>
-<p>获取 tuple 元素的方式和 list 是一模一样的，我们可以正常使用 t[0]，t[-1]等索引方式访问元素，但是不能赋值成别的元素，不信可以试试：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="meta">&gt;&gt;&gt; </span>t[<span class="number">0</span>] = <span class="string">'Paul'</span></div><div class="line">Traceback (most recent call last):</div><div class="line">  File <span class="string">"&lt;stdin&gt;"</span>, line <span class="number">1</span>, <span class="keyword">in</span> &lt;module&gt;</div><div class="line">TypeError: <span class="string">'tuple'</span> object does <span class="keyword">not</span> support item assignment</div></pre></td></tr></table></figure>
-<p><code>任务：</code></p>
-<p>创建一个tuple，顺序包含0 - 9这10个数。<br><figure class="highlight python"><table><tr><td class="code"><pre><div class="line">t = (<span class="number">0</span>,<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>)</div><div class="line"><span class="keyword">print</span> t</div></pre></td></tr></table></figure></p>
-<h4 id="1-2-创建单元素-tuple"><a href="#1-2-创建单元素-tuple" class="headerlink" title="1.2 创建单元素 tuple"></a>1.2 创建单元素 tuple</h4><p>tuple和list一样，可以包含 0 个、1个和任意多个元素。<br>包含多个元素的 tuple，前面我们已经创建过了。<br>包含 0 个元素的 tuple，也就是空tuple，直接用 ()表示：<br><figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="meta">&gt;&gt;&gt; </span>t = ()</div><div class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">print</span> t</div><div class="line">()</div></pre></td></tr></table></figure></p>
-<p>创建包含1个元素的 tuple 呢？来试试：<br><figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="meta">&gt;&gt;&gt; </span>t = (<span class="number">1</span>)</div><div class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">print</span> t</div><div class="line"><span class="number">1</span></div></pre></td></tr></table></figure></p>
-<p>好像哪里不对！t 不是 tuple ，而是整数1。为什么呢？<br>因为<code>()</code>既可以表示tuple，又可以作为括号表示运算时的<code>优先级</code>，结果 (1) 被Python解释器计算出结果 1，导致我们得到的不是tuple，而是整数 1。</p>
-<p>正是因为用()定义单元素的tuple有歧义，所以 Python 规定，单元素 tuple 要多加一个逗号<code>“,”</code>，这样就避免了歧义：<br><figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="meta">&gt;&gt;&gt; </span>t = (<span class="number">1</span>,)</div><div class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">print</span> t</div><div class="line">(<span class="number">1</span>,)</div></pre></td></tr></table></figure></p>
-<p>Python在打印单元素tuple时，也自动添加了一个“,”，为了更明确地告诉你这是一个tuple。</p>
-<p>多元素 tuple 加不加这个额外的“,”效果是一样的：<br><figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="meta">&gt;&gt;&gt; </span>t = (<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>,)</div><div class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">print</span> t</div><div class="line">(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>)</div></pre></td></tr></table></figure></p>
-<h4 id="1-3-“可变”的tuple"><a href="#1-3-“可变”的tuple" class="headerlink" title="1.3 “可变”的tuple"></a>1.3 “可变”的tuple</h4><p>前面我们看到了tuple一旦创建就不能修改。现在，我们来看一个“可变”的tuple：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="meta">&gt;&gt;&gt; </span>t = (<span class="string">'a'</span>, <span class="string">'b'</span>, [<span class="string">'A'</span>, <span class="string">'B'</span>])</div></pre></td></tr></table></figure>
-<p><code>注意</code>到 t 有 3 个元素：’a’，’b’和一个list：[‘A’, ‘B’]。list作为一个整体是tuple的第3个元素。list对象可以通过 t[2] 拿到：<br><figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="meta">&gt;&gt;&gt; </span>L = t[<span class="number">2</span>]</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>L[<span class="number">0</span>] = <span class="string">'X'</span>  <span class="comment">#把list的两个元素改一改</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>L[<span class="number">1</span>] = <span class="string">'Y'</span></div></pre></td></tr></table></figure></p>
-<p>再看看tuple的内容：<br><figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">print</span> t</div><div class="line">(<span class="string">'a'</span>, <span class="string">'b'</span>, [<span class="string">'X'</span>, <span class="string">'Y'</span>])</div></pre></td></tr></table></figure></p>
-<p>不是说tuple一旦定义后就不可变了吗？怎么现在又变了？<br><img src="http://img.mukewang.com/540538d400010f4603500260.jpg" alt="Alt text"><br>当我们把list的元素’A’和’B’修改为’X’和’Y’后，tuple变为：<br><img src="http://img.mukewang.com/540538e9000110c003500260.jpg" alt=""><br>表面上看，tuple的元素确实变了，但其实<strong>变的不是 tuple 的元素，而是list的元素。</strong></p>
-<p>tuple一开始指向的list并没有改成别的list，所以，tuple所谓的“不变”是说，tuple的每个元素，指向永远不变。<strong>即指向’a’，就不能改成指向’b’，</strong>指向一个list，就不能改成指向其他对象，但指向的这个list本身是可变的！</p>
-<p><code>任务：</code><br>定义了tuple：<br>t = (‘a’, ‘b’, [‘A’, ‘B’])<br>由于 t 包含一个list元素，导致tuple的内容是可变的。能否修改上述代码，让tuple内容不可变？</p>
-<p><code>解析</code>：[‘A’, ‘B’]是list，因此内容可变，<strong>但(‘A’, ‘B’)的内容是不可变的。</strong><br>参考代码:<br><figure class="highlight python"><table><tr><td class="code"><pre><div class="line">t = (<span class="string">'a'</span>, <span class="string">'b'</span>, (<span class="string">'A'</span>, <span class="string">'B'</span>))</div><div class="line"><span class="keyword">print</span> t</div></pre></td></tr></table></figure></p>
+                <h3 id="Guided-Project-Explore-U-S-Births"><a href="#Guided-Project-Explore-U-S-Births" class="headerlink" title="Guided Project: Explore U.S. Births"></a>Guided Project: Explore U.S. Births</h3><p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/20170208148655076885869.png" alt="20170208148655076885869.png"></p>
+<h4 id="数据集"><a href="#数据集" class="headerlink" title="数据集"></a>数据集</h4><p><a href="https://raw.githubusercontent.com/fivethirtyeight/data/master/births/US_births_1994-2003_CDC_NCHS.csv" target="_blank" rel="external">https://raw.githubusercontent.com/fivethirtyeight/data/master/births/US_births_1994-2003_CDC_NCHS.csv</a></p>
+<h4 id="代码notebook"><a href="#代码notebook" class="headerlink" title="代码notebook"></a>代码notebook</h4><p><a href="https://github.com/dataquestio/solutions/blob/master/Mission9Solutions.ipynb" target="_blank" rel="external">https://github.com/dataquestio/solutions/blob/master/Mission9Solutions.ipynb</a></p>
+<h4 id="要处理的样式"><a href="#要处理的样式" class="headerlink" title="要处理的样式"></a>要处理的样式</h4><p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/2017020814118屏幕快照 2017-02-08 下午3.08.36.png" alt="2017020814118屏幕快照 2017-02-08 下午3.08.36.png"><br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/201702085829屏幕快照 2017-02-08 下午4.39.22.png" alt="201702085829屏幕快照 2017-02-08 下午4.39.22.png"></p>
+<h4 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h4><figure class="highlight python"><table><tr><td class="code"><pre><div class="line"></div><div class="line"><span class="comment">#!/usr/bin/env python</span></div><div class="line"><span class="comment"># -*- coding: utf-8 -*-</span></div><div class="line"><span class="comment"># Created by xuehz on 2017/2/8</span></div><div class="line"></div><div class="line"><span class="string">"""</span></div><div class="line">year: Year (1994 to 2003).</div><div class="line">month: Month (1 to 12).</div><div class="line">date_of_month: Day number of the month (1 to 31).</div><div class="line">day_of_week: Day of week (1 to 7).</div><div class="line">births: Number of births that day.</div><div class="line">"""</div><div class="line"></div><div class="line">csv_list = open(<span class="string">'data/US_births_1994-2003_CDC_NCHS.csv'</span>).read().split(<span class="string">"\r"</span>)</div><div class="line"><span class="keyword">print</span> csv_list[<span class="number">0</span>:<span class="number">4</span>]</div><div class="line"><span class="comment">#['year,month,date_of_month,day_of_week,births', '1994,1,1,6,8096', '1994,1,2,7,7772', '1994,1,3,1,10142']</span></div><div class="line"></div><div class="line"><span class="comment">#Converting Data Into A List Of Lists</span></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">read_csv</span><span class="params">(filename)</span>:</span></div><div class="line">    string = open(filename).read()</div><div class="line">    string_list = string.split(<span class="string">'\r'</span>)[<span class="number">1</span>:] <span class="comment"># removes the header row.</span></div><div class="line">    final_list = []</div><div class="line"></div><div class="line">    <span class="keyword">for</span> row <span class="keyword">in</span> string_list:</div><div class="line">        string_fields = row.split(<span class="string">','</span>)</div><div class="line">        int_fields = []</div><div class="line">        <span class="keyword">for</span> value <span class="keyword">in</span> string_fields:</div><div class="line">            int_fields.append(int(value))</div><div class="line">        final_list.append(int_fields)</div><div class="line"></div><div class="line">    <span class="keyword">return</span> final_list</div><div class="line"></div><div class="line">cdc_list = read_csv(<span class="string">'US_births_1994-2003_CDC_NCHS.csv'</span>)</div><div class="line"><span class="keyword">print</span> cdc_list[<span class="number">0</span>:<span class="number">4</span>]</div><div class="line"><span class="string">"""</span></div><div class="line">year,month,date_of_month,day_of_week,births</div><div class="line">[[1994, 1, 1, 6, 8096], [1994, 1, 2, 7, 7772], [1994, 1, 3, 1, 10142], [1994, 1, 4, 2, 11248]]</div><div class="line">"""</div><div class="line"></div><div class="line"><span class="comment">#Calculating Number Of Births Each Month</span></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">month_births</span><span class="params">(data)</span>:</span></div><div class="line"></div><div class="line">    births_per_month = &#123;&#125;</div><div class="line"></div><div class="line">    <span class="keyword">for</span> row <span class="keyword">in</span> data:</div><div class="line">        month = row[<span class="number">1</span>]</div><div class="line">        births = row[<span class="number">-1</span>]</div><div class="line">        <span class="keyword">if</span> month <span class="keyword">in</span> births_per_month:</div><div class="line">            births_per_month[month] = births_per_month[month] + births</div><div class="line">        <span class="keyword">else</span>:</div><div class="line">            births_per_month[month] = births</div><div class="line"></div><div class="line">    <span class="keyword">return</span> births_per_month</div><div class="line"><span class="string">"""</span></div><div class="line">&#123;1: 3232517, 2: 3018140, 3: 3322069, 4: 3185314, 5: 3350907,</div><div class="line">6: 3296530, 7: 3498783, 8: 3525858, 9: 3439698, 10: 3378814, 11: 3171647, 12: 3301860&#125;</div><div class="line">"""</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">cdc_month_births = month_births(cdc_list)</div><div class="line"><span class="keyword">print</span> cdc_month_births</div><div class="line"></div><div class="line"><span class="comment">#Calculating Number Of Births Each Day Of Week</span></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">dow_births</span><span class="params">(data)</span>:</span></div><div class="line">    births_per_week = &#123;&#125;</div><div class="line"></div><div class="line">    <span class="keyword">for</span> row <span class="keyword">in</span> data:</div><div class="line">        week = row[<span class="number">3</span>]</div><div class="line">        births = row[<span class="number">-1</span>]</div><div class="line">        <span class="keyword">if</span> week <span class="keyword">in</span> births_per_week:</div><div class="line">            births_per_week[week] = births_per_week[week] + births</div><div class="line">        <span class="keyword">else</span>:</div><div class="line">            births_per_week[week] = births</div><div class="line">    <span class="keyword">return</span> births_per_week</div><div class="line"></div><div class="line">cdc_dow_births = dow_births(cdc_list)</div><div class="line"><span class="keyword">print</span> cdc_dow_births</div><div class="line"></div><div class="line"><span class="comment">#Creating A More General Function</span></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">calc_counts</span><span class="params">(data, column)</span>:</span></div><div class="line">    <span class="string">'''</span></div><div class="line">    data: a list of lists</div><div class="line">    column: the column number we want to calculate the totals for</div><div class="line">    :return: sums_dict</div><div class="line">    '''</div><div class="line">    sums_dict = &#123;&#125;</div><div class="line"></div><div class="line">    <span class="keyword">for</span> row <span class="keyword">in</span> data:</div><div class="line">        col_value = row[column]</div><div class="line">        births = row[<span class="number">4</span>]</div><div class="line">        <span class="keyword">if</span> col_value <span class="keyword">in</span> sums_dict:</div><div class="line">            sums_dict[col_value] = sums_dict[col_value] + births</div><div class="line">        <span class="keyword">else</span>:</div><div class="line">            sums_dict[col_value] = births</div><div class="line"></div><div class="line">    <span class="keyword">return</span> sums_dict</div><div class="line"></div><div class="line"></div><div class="line">cdc_year_births = calc_counts(cdc_list, <span class="number">0</span>)</div><div class="line">cdc_month_births = calc_counts(cdc_list, <span class="number">1</span>)</div><div class="line">cdc_dom_births = calc_counts(cdc_list, <span class="number">2</span>)</div><div class="line">cdc_dow_births = calc_counts(cdc_list, <span class="number">3</span>)</div><div class="line"></div><div class="line"><span class="keyword">print</span> <span class="string">"-----------------"</span></div><div class="line"><span class="keyword">print</span> <span class="string">'年：'</span>,cdc_year_births</div><div class="line"><span class="keyword">print</span> <span class="string">'月：'</span>,cdc_month_births</div><div class="line"><span class="keyword">print</span> <span class="string">"-----------------"</span></div><div class="line"><span class="keyword">print</span> <span class="string">'一月的每一天：'</span>,cdc_dom_births</div><div class="line"><span class="keyword">print</span> <span class="string">'周：'</span>,cdc_dow_births</div><div class="line"></div><div class="line"><span class="comment"># 求每个字典的最大值和最小值</span></div><div class="line"><span class="comment">#Write a function that can calculate the min and max values for any dictionary that's passed in.</span></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">max_min_dic</span><span class="params">(data)</span>:</span></div><div class="line"></div><div class="line">    <span class="keyword">import</span> numpy <span class="keyword">as</span> np</div><div class="line">    list = data.values()</div><div class="line"></div><div class="line">    max = np.max(list)</div><div class="line">    min = np.min(list)</div><div class="line">    <span class="keyword">return</span> [max,min]</div><div class="line"></div><div class="line">list_max_min = max_min_dic(cdc_month_births)</div><div class="line"><span class="keyword">print</span> list_max_min  <span class="comment">#[3525858, 3018140]</span></div></pre></td></tr></table></figure>
 
                 <hr>
                 
                 <!-- 多说 Share start -->
                 <div class="ds-share"
                      style="text-align: right"
-                     data-thread-key="2016/04/17/Python入门1/"
-                     data-title="python入门 (一)(转载)"
-                     data-url="http://yoursite.com/2016/04/17/Python入门1/"
+                     data-thread-key="2017/02/08/探索出生日/"
+                     data-title="GuidedProject:Explore U.S. Births"
+                     data-url="http://yoursite.com/2017/02/08/探索出生日/"
                      data-images=""
-                     data-content="摘要：
-
-创建tuple
-创建单元素 tuple
-创建单元素 tuple
-
-
-1.1 创建tu... | Haozhe&#39;s blog ">
+                     data-content="Guided Project: Explore U.S. Births
+数据集https://... | Haozhe&#39;s blog ">
                     <div class="ds-share-inline">
                         <ul class="ds-share-icons-16">
                             <li data-toggle="ds-share-icons-more"><a class="ds-more" href="#">分享到：</a></li>
@@ -240,15 +216,10 @@
 
                 <ul class="pager">
                     
-                    <li class="previous">
-                        <a href="/2016/04/19/java5.1/" data-toggle="tooltip" data-placement="top"
-                           title="java入门（五）集合Collection">&larr; Previous Post</a>
-                    </li>
-                    
                     
                     <li class="next">
-                        <a href="/2016/04/16/java4.1/" data-toggle="tooltip" data-placement="top"
-                           title="java入门（四）正则表达式">Next Post &rarr;</a>
+                        <a href="/2017/02/08/python list及list添加元素/" data-toggle="tooltip" data-placement="top"
+                           title="python list及list添加元素">Next Post &rarr;</a>
                     </li>
                     
                 </ul>
@@ -257,9 +228,9 @@
                 <!-- 多说评论框 start -->
                 <div class="comment">
                     <div class="ds-thread"
-                         data-thread-key="2016/04/17/Python入门1/"
-                         data-title="python入门 (一)(转载)"
-                         data-url="http://yoursite.com/2016/04/17/Python入门1/">
+                         data-thread-key="2017/02/08/探索出生日/"
+                         data-title="GuidedProject:Explore U.S. Births"
+                         data-url="http://yoursite.com/2017/02/08/探索出生日/">
                     </div>
                 </div>
                 <!-- 多说评论框 end -->
@@ -271,7 +242,7 @@
 
             <div class="hidden-xs col-sm-3 toc-col">
                 <div class="toc-wrap">
-                    <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-1-创建tuple"><span class="toc-text">1.1 创建tuple</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-创建单元素-tuple"><span class="toc-text">1.2 创建单元素 tuple</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-3-“可变”的tuple"><span class="toc-text">1.3 “可变”的tuple</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Guided-Project-Explore-U-S-Births"><span class="toc-text">Guided Project: Explore U.S. Births</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#数据集"><span class="toc-text">数据集</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#代码notebook"><span class="toc-text">代码notebook</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#要处理的样式"><span class="toc-text">要处理的样式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#代码"><span class="toc-text">代码</span></a></li></ol></li></ol>
                 </div>
             </div>
         </div>
@@ -293,8 +264,14 @@
                     </h5>
                     <div class="tags">
                         
-                        <a class="tag" href="/tags/#Python"
-                           title="Python">Python</a>
+                        <a class="tag" href="/tags/#dataquest"
+                           title="dataquest">dataquest</a>
+                        
+                        <a class="tag" href="/tags/#Python Introduction"
+                           title="Python Introduction">Python Introduction</a>
+                        
+                        <a class="tag" href="/tags/#Guided Project"
+                           title="Guided Project">Guided Project</a>
                         
                     </div>
                 </section>
