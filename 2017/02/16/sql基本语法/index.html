@@ -18,11 +18,11 @@
     <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
     <title>
         
-        数据可视化进阶｜Haozhe&#39;s blog
+        sql基本语法｜Haozhe&#39;s blog
         
     </title>
 
-    <link rel="canonical" href="http://yoursite.com/2017/02/16/数据可视化进阶/">
+    <link rel="canonical" href="http://yoursite.com/2017/02/16/sql基本语法/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -145,7 +145,7 @@
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
                 <div class="post-heading">
-                    <h1>数据可视化进阶</h1>
+                    <h1>sql基本语法</h1>
                     
                     <span class="meta">
                          作者 Haozhe Xue
@@ -158,8 +158,8 @@
                         <a class="tag" href="/tags/#dataquest"
                            title="dataquest">dataquest</a>
                         
-                        <a class="tag" href="/tags/#数据可视化"
-                           title="数据可视化">数据可视化</a>
+                        <a class="tag" href="/tags/#数据库"
+                           title="数据库">数据库</a>
                         
                     </div>
                 </div>
@@ -168,7 +168,7 @@
     </div>
     <div class="post-title-haojen">
         <span>
-            数据可视化进阶
+            sql基本语法
         </span>
     </div>
 </header>
@@ -179,29 +179,35 @@
         <div class="row">
             <!-- Post Container -->
             <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
-                <blockquote>
-<p> 探讨 不同学科之间 性别的差距</p>
+                <h3 id="sql介绍"><a href="#sql介绍" class="headerlink" title="sql介绍"></a>sql介绍</h3><p>SQL语言一个结构化查询语言。它是用来查询、更新和修改数据库中的数据</p>
+<p>一个数据库就是tables的集合，一个表格包含一行行的数据，以及列信息。table和Pandas中的DataFrame很像。 </p>
+<p>数据：<br><a href="https://github.com/fivethirtyeight/data/tree/master/college-majors" target="_blank" rel="external">https://github.com/fivethirtyeight/data/tree/master/college-majors</a></p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/2017021314869882211964.png" alt="2017021314869882211964.png"></p>
+<h3 id="Querying"><a href="#Querying" class="headerlink" title="Querying"></a>Querying</h3><p>SELECT statement</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><div class="line"><span class="keyword">SELECT</span> [columnA, columnB, ...]</div><div class="line"><span class="keyword">FROM</span> tableName;</div><div class="line"></div><div class="line"></div><div class="line"><span class="keyword">SELECT</span> <span class="keyword">Rank</span>,Major</div><div class="line"><span class="keyword">FROM</span> recent_grads;</div></pre></td></tr></table></figure>
+<p>其中分号 ; 是不能省略的，它表明这个查询语句的结尾。这可以允许我们在一行写很多个查询语句，只要不写 ; 就没有结束。</p>
+<h3 id="Where"><a href="#Where" class="headerlink" title="Where"></a>Where</h3><p>我们用select返回的是整个列的数据，倘若我们想要返回某列满足一些条件的数据，则需要用到where语句，where语句是用来过滤的。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><div class="line"><span class="keyword">SELECT</span> Major,ShareWomen</div><div class="line"><span class="keyword">FROM</span> recent_grads</div><div class="line"><span class="keyword">WHERE</span> ShareWomen &gt; <span class="number">0.5</span>;</div></pre></td></tr></table></figure>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/20170213148698959199202.png" alt="20170213148698959199202.png"></p>
+<h3 id="Limit"><a href="#Limit" class="headerlink" title="Limit"></a>Limit</h3><p>前面查询语句返回的数据都很多，有的时候这很麻烦，我们需要做一个限制。SQL中有一个LIMIT 语句可以实现这个功能，LIMIT 语句放在查询的最后。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><div class="line"><span class="keyword">SELECT</span> Major <span class="keyword">FROM</span> recent_grads <span class="keyword">LIMIT</span> <span class="number">5</span>;</div><div class="line">'''</div><div class="line">[["PETROLEUM ENGINEERING"], ["MINING AND MINERAL ENGINEERING"], ["METALLURGICAL ENGINEERING"], ["NAVAL ARCHITECTURE AND MARINE ENGINEERING"], ["CHEMICAL ENGINEERING"]]</div><div class="line">'''</div></pre></td></tr></table></figure>
+<h3 id="Logical-Operators"><a href="#Logical-Operators" class="headerlink" title="Logical Operators"></a>Logical Operators</h3><blockquote>
+<p>where语句中有6个比较操作 使用 逻辑操作 OR 以及ＡＮＤ 连接多个比较操作 </p>
 </blockquote>
-<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"></div><div class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</div><div class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</div><div class="line"></div><div class="line">women_degrees = pd.read_csv(<span class="string">'percent-bachelors-degrees-women-usa.csv'</span>)</div><div class="line"></div><div class="line">women_degrees.head()</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment"># 生物学 授予 女性 的比率 </span></div><div class="line">plt.plot(women_degrees[<span class="string">"Year"</span>],women_degrees[<span class="string">"Biology"</span>])</div><div class="line"></div><div class="line">plt.show()</div></pre></td></tr></table></figure>
-<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com//17-2-16/17936167-file_1487215731833_10362.png" alt=""></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"></div><div class="line"><span class="comment">## 画出 授予男性的 图 。用100 - 女性 women_degrees["Biology"]</span></div><div class="line">plt.plot(women_degrees[<span class="string">"Year"</span>],women_degrees[<span class="string">"Biology"</span>],label=<span class="string">'Women'</span>)</div><div class="line">plt.plot(women_degrees[<span class="string">"Year"</span>],<span class="number">100</span> - women_degrees[<span class="string">"Biology"</span>],label=<span class="string">'Men'</span>)</div><div class="line">plt.legend(loc=<span class="string">'upper right'</span>)</div><div class="line">plt.title(<span class="string">"Percentage of Biology Degrees Awarded By Gender"</span>)</div><div class="line">plt.show()</div></pre></td></tr></table></figure>
-<h3 id="Axes-tick-params-隐藏-坐标轴的-不需要的-标记"><a href="#Axes-tick-params-隐藏-坐标轴的-不需要的-标记" class="headerlink" title="Axes.tick_params(): 隐藏 坐标轴的 不需要的 标记"></a>Axes.tick_params(): 隐藏 坐标轴的 不需要的 标记</h3><h3 id="隐去-坐标框架"><a href="#隐去-坐标框架" class="headerlink" title="隐去 坐标框架"></a>隐去 坐标框架</h3><figure class="highlight python"><table><tr><td class="code"><pre><div class="line"></div><div class="line">print(ax.spines)</div><div class="line">&#123;<span class="string">u'top'</span>: &lt;matplotlib.spines.Spine object at <span class="number">0x10ff05cd0</span>&gt;, <span class="string">u'right'</span>: &lt;matplotlib.spines.Spine object at <span class="number">0x10ff28bd0</span>&gt;, <span class="string">u'bottom'</span>: &lt;matplotlib.spines.Spine object at <span class="number">0x10fc37b90</span>&gt;, <span class="string">u'left'</span>: &lt;matplotlib.spines.Spine object at <span class="number">0x10ff28b90</span>&gt;&#125;</div><div class="line"></div><div class="line">ax.spines[<span class="string">"right"</span>].set_visible(<span class="keyword">False</span>)</div></pre></td></tr></table></figure>
-<h3 id="不同学科之间-性别的差距"><a href="#不同学科之间-性别的差距" class="headerlink" title="不同学科之间 性别的差距"></a>不同学科之间 性别的差距</h3><figure class="highlight python"><table><tr><td class="code"><pre><div class="line"></div><div class="line">major_cats = [<span class="string">'Biology'</span>, <span class="string">'Computer Science'</span>, <span class="string">'Engineering'</span>, <span class="string">'Math and Statistics'</span>]</div><div class="line">fig = plt.figure(figsize=(<span class="number">10</span>, <span class="number">10</span>))</div><div class="line"></div><div class="line"><span class="keyword">for</span> sp <span class="keyword">in</span> range(<span class="number">0</span>,<span class="number">4</span>):</div><div class="line">    ax = fig.add_subplot(<span class="number">2</span>,<span class="number">2</span>,sp+<span class="number">1</span>)</div><div class="line">    ax.plot(women_degrees[<span class="string">'Year'</span>], women_degrees[major_cats[sp]], c=<span class="string">'blue'</span>, label=<span class="string">'Women'</span>)</div><div class="line">    ax.plot(women_degrees[<span class="string">'Year'</span>], <span class="number">100</span>-women_degrees[major_cats[sp]], c=<span class="string">'green'</span>, label=<span class="string">'Men'</span>)</div><div class="line">    </div><div class="line">    <span class="keyword">for</span> key,spine <span class="keyword">in</span> ax.spines.items():<span class="comment">#隐藏 坐标标记</span></div><div class="line">        spine.set_visible(<span class="keyword">False</span>)</div><div class="line">        </div><div class="line">    ax.set_xlim(<span class="number">1968</span>, <span class="number">2011</span>)<span class="comment">#设置相同的坐标范围</span></div><div class="line">    ax.set_ylim(<span class="number">0</span>,<span class="number">100</span>)</div><div class="line">    ax.set_title(major_cats[sp])</div><div class="line">    </div><div class="line">    ax.tick_params(bottom=<span class="string">"off"</span>, top=<span class="string">"off"</span>, left=<span class="string">"off"</span>, right=<span class="string">"off"</span>)<span class="comment"># 隐去 坐标框架</span></div><div class="line"></div><div class="line"><span class="comment"># Calling pyplot.legend() here will add the legend to the last subplot that was created.</span></div><div class="line">plt.legend(loc=<span class="string">'upper right'</span>)</div><div class="line">plt.show()</div></pre></td></tr></table></figure>
-<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com//17-2-16/85122692-file_1487220302703_133d9.png" alt=""></p>
-
+<h4 id="AND的语法"><a href="#AND的语法" class="headerlink" title="AND的语法"></a>AND的语法</h4><figure class="highlight sql"><table><tr><td class="code"><pre><div class="line"><span class="keyword">SELECT</span> [column1, column2,...] <span class="keyword">FROM</span> [table1]</div><div class="line"><span class="keyword">WHERE</span> [condition1] <span class="keyword">AND</span> [condition2]</div></pre></td></tr></table></figure>
+<h4 id="OR的语法"><a href="#OR的语法" class="headerlink" title="OR的语法"></a>OR的语法</h4><figure class="highlight sql"><table><tr><td class="code"><pre><div class="line"><span class="keyword">SELECT</span> [column1, column2,...] <span class="keyword">FROM</span> [table1]</div><div class="line"><span class="keyword">WHERE</span> [condition1] <span class="keyword">OR</span> [condition2]</div></pre></td></tr></table></figure>
+<h3 id="Order-By"><a href="#Order-By" class="headerlink" title="Order By"></a>Order By</h3><figure class="highlight sql"><table><tr><td class="code"><pre><div class="line"><span class="keyword">SELECT</span> [column1, column2,...] <span class="keyword">FROM</span> [table1]</div><div class="line"><span class="keyword">WHERE</span> [conditions]..</div><div class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> column1 [<span class="keyword">ASC</span> <span class="keyword">or</span> <span class="keyword">DESC</span>]</div><div class="line"></div><div class="line"></div><div class="line"><span class="keyword">select</span> [column1, column2..]</div><div class="line"><span class="keyword">from</span> table_name</div><div class="line"><span class="keyword">order</span> <span class="keyword">by</span> column1 (<span class="keyword">asc</span> <span class="keyword">or</span> <span class="keyword">desc</span>), column2 (<span class="keyword">asc</span> <span class="keyword">or</span> <span class="keyword">desc</span>)</div></pre></td></tr></table></figure>
                 <hr>
                 
                 <!-- 多说 Share start -->
                 <div class="ds-share"
                      style="text-align: right"
-                     data-thread-key="2017/02/16/数据可视化进阶/"
-                     data-title="数据可视化进阶"
-                     data-url="http://yoursite.com/2017/02/16/数据可视化进阶/"
+                     data-thread-key="2017/02/16/sql基本语法/"
+                     data-title="sql基本语法"
+                     data-url="http://yoursite.com/2017/02/16/sql基本语法/"
                      data-images=""
-                     data-content="
- 探讨 不同学科之间 性别的差距
-
-import pandas as pdimport ma... | Haozhe&#39;s blog ">
+                     data-content="sql介绍SQL语言一个结构化查询语言。它是用来查询、更新和修改数据库中的数据
+一个数据库就是... | Haozhe&#39;s blog ">
                     <div class="ds-share-inline">
                         <ul class="ds-share-icons-16">
                             <li data-toggle="ds-share-icons-more"><a class="ds-more" href="#">分享到：</a></li>
@@ -219,15 +225,10 @@ import pandas as pdimport ma... | Haozhe&#39;s blog ">
 
                 <ul class="pager">
                     
-                    <li class="previous">
-                        <a href="/2017/02/16/sql基本语法/" data-toggle="tooltip" data-placement="top"
-                           title="sql基本语法">&larr; Previous Post</a>
-                    </li>
-                    
                     
                     <li class="next">
-                        <a href="/2017/02/13/机器学习-回归/" data-toggle="tooltip" data-placement="top"
-                           title="线性回归(汽车数据)">Next Post &rarr;</a>
+                        <a href="/2017/02/16/数据可视化进阶/" data-toggle="tooltip" data-placement="top"
+                           title="数据可视化进阶">Next Post &rarr;</a>
                     </li>
                     
                 </ul>
@@ -236,9 +237,9 @@ import pandas as pdimport ma... | Haozhe&#39;s blog ">
                 <!-- 多说评论框 start -->
                 <div class="comment">
                     <div class="ds-thread"
-                         data-thread-key="2017/02/16/数据可视化进阶/"
-                         data-title="数据可视化进阶"
-                         data-url="http://yoursite.com/2017/02/16/数据可视化进阶/">
+                         data-thread-key="2017/02/16/sql基本语法/"
+                         data-title="sql基本语法"
+                         data-url="http://yoursite.com/2017/02/16/sql基本语法/">
                     </div>
                 </div>
                 <!-- 多说评论框 end -->
@@ -250,7 +251,7 @@ import pandas as pdimport ma... | Haozhe&#39;s blog ">
 
             <div class="hidden-xs col-sm-3 toc-col">
                 <div class="toc-wrap">
-                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Axes-tick-params-隐藏-坐标轴的-不需要的-标记"><span class="toc-text">Axes.tick_params(): 隐藏 坐标轴的 不需要的 标记</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#隐去-坐标框架"><span class="toc-text">隐去 坐标框架</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#不同学科之间-性别的差距"><span class="toc-text">不同学科之间 性别的差距</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#sql介绍"><span class="toc-text">sql介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Querying"><span class="toc-text">Querying</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Where"><span class="toc-text">Where</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Limit"><span class="toc-text">Limit</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Logical-Operators"><span class="toc-text">Logical Operators</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#AND的语法"><span class="toc-text">AND的语法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#OR的语法"><span class="toc-text">OR的语法</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Order-By"><span class="toc-text">Order By</span></a></li></ol>
                 </div>
             </div>
         </div>
@@ -275,8 +276,8 @@ import pandas as pdimport ma... | Haozhe&#39;s blog ">
                         <a class="tag" href="/tags/#dataquest"
                            title="dataquest">dataquest</a>
                         
-                        <a class="tag" href="/tags/#数据可视化"
-                           title="数据可视化">数据可视化</a>
+                        <a class="tag" href="/tags/#数据库"
+                           title="数据库">数据库</a>
                         
                     </div>
                 </section>
