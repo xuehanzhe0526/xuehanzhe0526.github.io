@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="What hurts more,the pain of hard work or the pain of regret.">
+    <meta name="keyword" content="null">
+    <meta name="theme-color" content="#600090">
+    <meta name="msapplication-navbutton-color" content="#600090">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#600090">
+    <link rel="shortcut icon" href="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-person-128.png">
+    <link rel="alternate" type="application/atom+xml" title="Haozhe" href="/atom.xml">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
+    <title>
+        
+        决策树算法实现（scikit-learn）｜Haozhe&#39;s blog
+        
+    </title>
+
+    <link rel="canonical" href="http://yoursite.com/2017/03/04/决策树算法实现（scikit-learn）/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/blog-style.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+</head>
+
+<style>
+
+    header.intro-header {
+        background-image: url('http://7xrw7v.com1.z0.glb.clouddn.com/1485527729222.jpg')
+    }
+</style>
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="" class="animated fadeIn">
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost = "true" data-istags="false
+" data-ishome = "false" >
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand animated pulse" href="/">
+                <span class="brand-logo">
+                    Haozhe
+                </span>
+                's Blog
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <!-- /.navbar-collapse -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+					
+                    
+                        
+							
+                        <li>
+                            <a href="/tags/">tags</a>
+                        </li>
+							
+						
+                    
+					
+					
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+//    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+<!-- Main Content -->
+
+<!--only post-->
+
+
+<img class="wechat-title-img"
+     src="http://7xrw7v.com1.z0.glb.clouddn.com/148552521631.jpg#博文默认的图片">
+
+
+<style>
+    
+    header.intro-header {
+        background-image: url('http://7xrw7v.com1.z0.glb.clouddn.com/148552521631.jpg#博文默认的图片')
+    }
+
+    
+</style>
+
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <div class="post-heading">
+                    <h1>决策树算法实现（scikit-learn）</h1>
+                    
+                    <span class="meta">
+                         作者 Haozhe Xue
+                        <span>
+                          日期 2017-03-04
+                         </span>
+                    </span>
+                    <div class="tags text-center">
+                        
+                        <a class="tag" href="/tags/#机器学习"
+                           title="机器学习">机器学习</a>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="post-title-haojen">
+        <span>
+            决策树算法实现（scikit-learn）
+        </span>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <!-- Post Container -->
+            <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
+                <h3 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h3><p><a href="scikit-learn.org/stable/modules/tree.html">sk-learn的决策树文档</a><br><a href="http://blog.csdn.net/youyuyixiu/article/details/52881567" target="_blank" rel="external">决策树的算法介绍
+</a></p>
+<p><a href="https://blog.gtwang.org/mac-os-x/mac-os-x-graphviz/" target="_blank" rel="external">在 Mac OS X 中安裝與使用 Graphviz 圖形視覺化工具</a></p>
+<a id="more"></a>
+<h4 id="决策树归纳算法（ID3）"><a href="#决策树归纳算法（ID3）" class="headerlink" title="决策树归纳算法（ID3）"></a>决策树归纳算法（ID3）</h4><p>优先选择信息获取量最大的属性作为属性判断结点</p>
+<p>信息获取量(Information Gain)：Gain(A) = Info(D) - Infor_A(D)</p>
+<p>age属性信息获取量的计算过程如下所示：<br><img src="http://7xrw7v.com1.z0.glb.clouddn.com//17-3-3/55899140-file_1488555682501_b9f5.png" alt=""></p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com//17-3-3/86913147-file_1488555726422_82c8.png" alt=""></p>
+<p><img src="http://img.blog.csdn.net/20161021125650259" alt=""></p>
+<p>算法步骤：</p>
+<ul>
+<li>树以代表训练样本的单个结点开始。</li>
+<li>如果样本都在同一个类，则该结点成为树叶，并用该类标号。</li>
+<li>否则，算法使用称为信息增益的基于熵的度量作为启发信息，选择能够最好地将样本分类的属性。该属性成为该结点的“测试”或“判定”属性。在算法的该版本中，所有的属性都是分类的，即离散值。连续属性必须离散化。</li>
+<li>对测试属性的每个已知的值，创建一个分枝，并据此划分样本。</li>
+<li>算法使用同样的过程，递归地形成每个划分上的样本判定树。一旦一个属性出现在一个结点上，就不在该结点的任何后代上考虑它。</li>
+<li>递归划分步骤仅当下列条件之一成立停止：</li>
+</ul>
+<p>(a) 给定结点的所有样本属于同一类。</p>
+<p>(b) 没有剩余属性可以用来进一步划分样本。在此情况下，使用多数表决。这涉及将给定的结点转换成树叶，并用样本中的多数所在的类标记它。替换地，可以存放结点样本的类分布。</p>
+<p>(c) 分枝test_attribute = a，没有样本。在这种情况下，以 samples 中的多数类创建一个树叶。</p>
+<h4 id="决策树的优缺点"><a href="#决策树的优缺点" class="headerlink" title="决策树的优缺点"></a>决策树的优缺点</h4><p>优：直观，便于理解，小规模数据集有效</p>
+<p>缺：处理连续变量不好<br>类别较多时，错误增加的比较快<br>可规模性一般</p>
+<h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><h4 id="数据转换为-sklearn需要的格式"><a href="#数据转换为-sklearn需要的格式" class="headerlink" title="数据转换为 sklearn需要的格式"></a>数据转换为 sklearn需要的格式</h4><p><img src="http://7xrw7v.com1.z0.glb.clouddn.com//17-3-3/30950483-file_1488556319461_11f16.png" alt=""></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="comment">#!/usr/bin/env python</span></div><div class="line"><span class="comment"># -*- coding: utf-8 -*-</span></div><div class="line"><span class="comment"># Created by xuehz on 2017/3/3</span></div><div class="line"></div><div class="line"></div><div class="line"><span class="keyword">from</span> sklearn.feature_extraction <span class="keyword">import</span> DictVectorizer <span class="comment"># 将字典 转化为 sklearn 用的数据形式 数据型 矩阵</span></div><div class="line"><span class="keyword">import</span> csv</div><div class="line"><span class="keyword">from</span> sklearn <span class="keyword">import</span> preprocessing</div><div class="line"><span class="keyword">from</span> sklearn <span class="keyword">import</span> tree</div><div class="line"><span class="keyword">from</span> sklearn.externals.six <span class="keyword">import</span> StringIO</div><div class="line"></div><div class="line"></div><div class="line">allElectronicsData = open(<span class="string">'AllElectronics.csv'</span>,<span class="string">'rb'</span>)</div><div class="line">reader = csv.reader(allElectronicsData)</div><div class="line"></div><div class="line">header = reader.next() <span class="comment">#['RID', 'age', 'income', 'student', 'credit_rating', 'class_buys_computer']</span></div><div class="line"></div><div class="line"><span class="comment">## 数据预处理</span></div><div class="line"></div><div class="line">featureList = [] <span class="comment">#[&#123;'credit_rating': 'fair', 'age': 'youth', 'student': 'no', 'income': 'high'&#125;, &#123;'credit_rating': 'excellent',</span></div><div class="line">labelList = [] <span class="comment">#['no', 'no', 'yes', 'yes', 'yes', 'no', 'yes', 'no', 'yes', 'yes', 'yes', 'yes', 'yes', 'no']</span></div><div class="line"></div><div class="line"><span class="keyword">for</span> row <span class="keyword">in</span> reader:</div><div class="line">    labelList.append(row[<span class="number">-1</span>])</div><div class="line">    <span class="comment"># 下面这几步的目的是为了让特征值转化成一种字典的形式，就可以调用sk-learn里面的DictVectorizer，直接将特征的类别值转化成0,1值</span></div><div class="line">    rowDict = &#123;&#125;</div><div class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>, len(row) - <span class="number">1</span>):</div><div class="line">        rowDict[header[i]] = row[i]</div><div class="line">    featureList.append(rowDict)</div><div class="line"></div><div class="line"><span class="comment"># Vectorize features</span></div><div class="line">vec = DictVectorizer()</div><div class="line">dummyX = vec.fit_transform(featureList).toarray()</div><div class="line"></div><div class="line">print(<span class="string">"dummyX:"</span>+str(dummyX))</div><div class="line"></div><div class="line">print(vec.get_feature_names())</div><div class="line"><span class="string">"""</span></div><div class="line">[[ 0.  0.  1.  0.  1.  1.  0.  0.  1.  0.]</div><div class="line"> [ 0.  0.  1.  1.  0.  1.  0.  0.  1.  0.]</div><div class="line"></div><div class="line"> ['age=middle_aged', 'age=senior', 'age=youth', 'credit_rating=excellent', 'credit_rating=fair', 'income=high', 'income=low', 'income=medium', 'student=no', 'student=yes']</div><div class="line">"""</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment"># label的转化，直接用preprocessing的LabelBinarizer方法</span></div><div class="line">lb = preprocessing.LabelBinarizer()</div><div class="line">dummyY = lb.fit_transform(labelList)</div><div class="line">print(<span class="string">"dummyY:"</span>+str(dummyY))</div><div class="line">print(<span class="string">"labelList:"</span>+str(labelList))</div><div class="line"><span class="string">"""</span></div><div class="line">dummyY:[[0]</div><div class="line"> [0]</div><div class="line"> [1]</div><div class="line"> [1]</div><div class="line"> [1]</div><div class="line"></div><div class="line"> labelList:['no', 'no', 'yes', 'yes', 'yes', 'no', 'yes', 'no', 'yes', 'yes', 'yes', 'yes', 'yes', 'no']</div><div class="line">"""</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">#criterion是选择决策树节点的 标准 ，这里是按照“熵”为标准，即ID3算法；默认标准是gini index，即CART算法。</span></div><div class="line"></div><div class="line">clf = tree.DecisionTreeClassifier(criterion=<span class="string">'entropy'</span>)</div><div class="line">clf = clf.fit(dummyX,dummyY)</div><div class="line"></div><div class="line">print(<span class="string">"clf:"</span>+str(clf))</div><div class="line"><span class="string">"""</span></div><div class="line">clf:DecisionTreeClassifier(class_weight=None, criterion='entropy', max_depth=None,</div><div class="line">            max_features=None, max_leaf_nodes=None, min_samples_leaf=1,</div><div class="line">            min_samples_split=2, min_weight_fraction_leaf=0.0,</div><div class="line">            presort=False, random_state=None, splitter='best')</div><div class="line">"""</div><div class="line"></div><div class="line"><span class="comment">#生成dot文件</span></div><div class="line"><span class="keyword">with</span> open(<span class="string">"allElectronicInformationGainOri.dot"</span>,<span class="string">'w'</span>) <span class="keyword">as</span> f:</div><div class="line">    f = tree.export_graphviz(clf, feature_names= vec.get_feature_names(),out_file= f)</div><div class="line"></div><div class="line"><span class="comment">#测试代码，取第1个实例数据，将001-&gt;100，即age：youth-&gt;middle_aged</span></div><div class="line">oneRowX = dummyX[<span class="number">0</span>,:]</div><div class="line">print(<span class="string">"oneRowX:"</span>+str(oneRowX))</div><div class="line">newRowX = oneRowX</div><div class="line">newRowX[<span class="number">0</span>] = <span class="number">1</span></div><div class="line">newRowX[<span class="number">2</span>] = <span class="number">0</span></div><div class="line">print(<span class="string">"newRowX:"</span>+str(newRowX))</div><div class="line"></div><div class="line"><span class="comment">#预测代码</span></div><div class="line">predictedY = clf.predict(newRowX)</div><div class="line">print(<span class="string">"predictedY:"</span>+str(predictedY))</div></pre></td></tr></table></figure>
+<h4 id="生成的-dot-文件"><a href="#生成的-dot-文件" class="headerlink" title="生成的 .dot 文件"></a>生成的 .dot 文件</h4><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">digraph Tree &#123;</div><div class="line">node [shape=box] ;</div><div class="line">0 [label=&quot;age=middle_aged &lt;= 0.5\nentropy = 0.9403\nsamples = 14\nvalue = [5, 9]&quot;] ;</div><div class="line">1 [label=&quot;student=no &lt;= 0.5\nentropy = 1.0\nsamples = 10\nvalue = [5, 5]&quot;] ;</div><div class="line">0 -&gt; 1 [labeldistance=2.5, labelangle=45, headlabel=&quot;True&quot;] ;</div><div class="line">2 [label=&quot;credit_rating=fair &lt;= 0.5\nentropy = 0.7219\nsamples = 5\nvalue = [1, 4]&quot;] ;</div><div class="line">1 -&gt; 2 ;</div><div class="line">3 [label=&quot;income=medium &lt;= 0.5\nentropy = 1.0\nsamples = 2\nvalue = [1, 1]&quot;] ;</div><div class="line">2 -&gt; 3 ;</div><div class="line">4 [label=&quot;entropy = 0.0\nsamples = 1\nvalue = [1, 0]&quot;] ;</div><div class="line">3 -&gt; 4 ;</div><div class="line">5 [label=&quot;entropy = 0.0\nsamples = 1\nvalue = [0, 1]&quot;] ;</div><div class="line">3 -&gt; 5 ;</div><div class="line">6 [label=&quot;entropy = 0.0\nsamples = 3\nvalue = [0, 3]&quot;] ;</div><div class="line">2 -&gt; 6 ;</div><div class="line">7 [label=&quot;age=senior &lt;= 0.5\nentropy = 0.7219\nsamples = 5\nvalue = [4, 1]&quot;] ;</div><div class="line">1 -&gt; 7 ;</div><div class="line">8 [label=&quot;entropy = 0.0\nsamples = 3\nvalue = [3, 0]&quot;] ;</div><div class="line">7 -&gt; 8 ;</div><div class="line">9 [label=&quot;credit_rating=excellent &lt;= 0.5\nentropy = 1.0\nsamples = 2\nvalue = [1, 1]&quot;] ;</div><div class="line">7 -&gt; 9 ;</div><div class="line">10 [label=&quot;entropy = 0.0\nsamples = 1\nvalue = [0, 1]&quot;] ;</div><div class="line">9 -&gt; 10 ;</div><div class="line">11 [label=&quot;entropy = 0.0\nsamples = 1\nvalue = [1, 0]&quot;] ;</div><div class="line">9 -&gt; 11 ;</div><div class="line">12 [label=&quot;entropy = 0.0\nsamples = 4\nvalue = [0, 4]&quot;] ;</div><div class="line">0 -&gt; 12 [labeldistance=2.5, labelangle=-45, headlabel=&quot;False&quot;] ;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="将dot文件用graphviz转换为pdf文件"><a href="#将dot文件用graphviz转换为pdf文件" class="headerlink" title="将dot文件用graphviz转换为pdf文件"></a>将dot文件用graphviz转换为pdf文件</h4><p>在命令行下，cd到你的dot文件的路径下，输入 </p>
+<blockquote>
+<p>dot -Tpdf filename.dot -o output.pdf<br>（filename以dot文件名为准） </p>
+</blockquote>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com//17-3-4/73391572-file_1488557754358_b778.png" alt=""></p>
+<h3 id="文件和源码"><a href="#文件和源码" class="headerlink" title="文件和源码"></a>文件和源码</h3><p><a href="https://github.com/xuehanzhe0526/python--Kaggle/tree/master/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AE%97%E6%B3%95/%E5%86%B3%E7%AD%96%E6%A0%91" target="_blank" rel="external">https://github.com/xuehanzhe0526/python--Kaggle/tree/master/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AE%97%E6%B3%95/%E5%86%B3%E7%AD%96%E6%A0%91</a></p>
+<blockquote>
+<p>不足之处 请指出<br>个人博客：<a href="http://haozhe.site/" target="_blank" rel="external">http://haozhe.site/</a></p>
+</blockquote>
+
+                <hr>
+                
+                <!-- 多说 Share start -->
+                <div class="ds-share"
+                     style="text-align: right"
+                     data-thread-key="2017/03/04/决策树算法实现（scikit-learn）/"
+                     data-title="决策树算法实现（scikit-learn）"
+                     data-url="http://yoursite.com/2017/03/04/决策树算法实现（scikit-learn）/"
+                     data-images=""
+                     data-content="参考：sk-learn的决策树文档决策树的算法介绍
+
+在 Mac OS X 中安裝與使用 Gr... | Haozhe&#39;s blog ">
+                    <div class="ds-share-inline">
+                        <ul class="ds-share-icons-16">
+                            <li data-toggle="ds-share-icons-more"><a class="ds-more" href="#">分享到：</a></li>
+                            <li><a class="ds-wechat flat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+                            <li><a class="ds-weibo flat" href="javascript:void(0);" data-service="weibo">微博</a></li>
+                            <li><a class="ds-douban flat" href="javascript:void(0);" data-service="douban">豆瓣</a></li>
+                        </ul>
+                        <div class="ds-share-icons-more">
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+                <!-- 多说 Share end-->
+                
+
+                <ul class="pager">
+                    
+                    
+                    <li class="next">
+                        <a href="/2017/02/21/数据科学工作者心理健康分析/" data-toggle="tooltip" data-placement="top"
+                           title="科技工作者心理健康数据分析">Next Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+                <!-- 多说评论框 start -->
+                <div class="comment">
+                    <div class="ds-thread"
+                         data-thread-key="2017/03/04/决策树算法实现（scikit-learn）/"
+                         data-title="决策树算法实现（scikit-learn）"
+                         data-url="http://yoursite.com/2017/03/04/决策树算法实现（scikit-learn）/">
+                    </div>
+                </div>
+                <!-- 多说评论框 end -->
+                
+
+                
+
+            </div>
+
+            <div class="hidden-xs col-sm-3 toc-col">
+                <div class="toc-wrap">
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#参考："><span class="toc-text">参考：</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#决策树归纳算法（ID3）"><span class="toc-text">决策树归纳算法（ID3）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#决策树的优缺点"><span class="toc-text">决策树的优缺点</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#代码实现"><span class="toc-text">代码实现</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#数据转换为-sklearn需要的格式"><span class="toc-text">数据转换为 sklearn需要的格式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#生成的-dot-文件"><span class="toc-text">生成的 .dot 文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#将dot文件用graphviz转换为pdf文件"><span class="toc-text">将dot文件用graphviz转换为pdf文件</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#文件和源码"><span class="toc-text">文件和源码</span></a></li></ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5 class="text-center">
+                        <a href="/tags/">FEATURED TAGS</a>
+                    </h5>
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#机器学习"
+                           title="机器学习">机器学习</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <div style="margin-top: 20px;">
+                    <h5 class="text-center">FRIENDS</h5>
+                    <ul class="list-inline text-center">
+                        
+                        <li><a href="http://www.hankcs.com/">hankcs</a></li>
+                        
+                        <li><a href="http://www.lintcode.com/zh-cn/ladder/2/">lintcode</a></li>
+                        
+                        <li><a href="http://www.jiuzhang.com/solutions/">jiuzhang</a></li>
+                        
+                    </ul>
+                </div>
+                
+            </div>
+        </div>
+
+    </div>
+</article>
+
+
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    // dynamic User by Hux
+    var _user = 'xuehaozhe';
+
+    // duoshuo comment query.
+    var duoshuoQuery = {short_name: _user};
+    (function () {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';
+        ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0]
+        || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+</script>
+<!-- 多说公共JS代码 end -->
+
+
+
+
+
+<!-- Footer -->
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <br>
+                <ul class="list-inline text-center">
+                
+                
+                    <li>
+                        <a target="_blank" href="https://twitter.com/xuehaozhe">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/xuehaozhe0526">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="http://weibo.com/fendoujianchi">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/xuehanzhe0526">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Haozhe 2017
+                    <br>
+                    <span id="busuanzi_container_site_pv" style="font-size: 12px;">PV: <span id="busuanzi_value_site_pv"></span> Times</span>
+                    <br>
+                    Theme by <a href="https://haojen.github.io/">Haojen Ma</a>
+                </p>
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/blog.js"></script>
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://yoursite.com/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+
+
+<!-- swiftype -->
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','null','2.0.0');
+</script>
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<!--wechat title img-->
+<img class="wechat-title-img" src="http://7xrw7v.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160402220553.png">
+</body>
+
+</html>
