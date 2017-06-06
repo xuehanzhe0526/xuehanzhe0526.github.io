@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="Haozhe">
-    <title>Archives: 2017/3 - Haozhe</title>
+    <title>Archiv: 2017/3 - Haozhe</title>
     <meta name="author" content="Haozhe Xue">
     
     
@@ -61,7 +61,7 @@
                 href="#about">
         
         
-            <img class="header-picture" src="http://7xrw7v.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160402220553.png" alt="Author&#39;s picture"/>
+            <img class="header-picture" src="http://7xrw7v.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160402220553.png" alt="Bild des Autors"/>
         
         </a>
     
@@ -79,7 +79,7 @@
         
             <div class="sidebar-profile">
                 <a href="/#about">
-                    <img class="sidebar-profile-picture" src="http://7xrw7v.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160402220553.png" alt="Author&#39;s picture"/>
+                    <img class="sidebar-profile-picture" src="http://7xrw7v.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160402220553.png" alt="Bild des Autors"/>
                 </a>
                 <h4 class="sidebar-profile-name">Haozhe Xue</h4>
                 
@@ -111,7 +111,7 @@
                         >
                     
                         <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
-                        <span class="sidebar-button-desc">Categories</span>
+                        <span class="sidebar-button-desc">Kategorien</span>
                     </a>
             </li>
             
@@ -135,7 +135,7 @@
                         >
                     
                         <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
-                        <span class="sidebar-button-desc">Archives</span>
+                        <span class="sidebar-button-desc">Archiv</span>
                     </a>
             </li>
             
@@ -147,7 +147,7 @@
                         >
                     
                         <i class="sidebar-button-icon fa fa-lg fa-search"></i>
-                        <span class="sidebar-button-desc">Search</span>
+                        <span class="sidebar-button-desc">Suche</span>
                     </a>
             </li>
             
@@ -159,7 +159,7 @@
                         >
                     
                         <i class="sidebar-button-icon fa fa-lg fa-question"></i>
-                        <span class="sidebar-button-desc">About</span>
+                        <span class="sidebar-button-desc">Über</span>
                     </a>
             </li>
             
@@ -183,7 +183,7 @@
                         >
                     
                         <i class="sidebar-button-icon fa fa-lg fa-envelope-o"></i>
-                        <span class="sidebar-button-desc">Mail</span>
+                        <span class="sidebar-button-desc">E-Mail</span>
                     </a>
             </li>
             
@@ -201,7 +201,7 @@
     <section class="postShorten-group main-content-wrap">
     
     
-    <article class="postShorten postShorten--thumbnailimg-bottom" itemscope itemType="http://schema.org/BlogPosting">
+    <article class="postShorten postShorten--thumbnailimg-right" itemscope itemType="http://schema.org/BlogPosting">
         <div class="postShorten-wrap">
             
             <div class="postShorten-header">
@@ -215,7 +215,7 @@
                 <div class="postShorten-meta">
     <time itemprop="datePublished" datetime="2017-03-13T16:02:22+08:00">
 	
-		    Mar 13, 2017
+		    13 Mar 2017
     	
     </time>
     
@@ -223,130 +223,26 @@
 
             </div>
             
-                <div class="postShorten-content" itemprop="articleBody">
-                    <h2 id="pandas-数据结构和数据操作"><a href="#pandas-数据结构和数据操作" class="headerlink" title="pandas 数据结构和数据操作"></a>pandas 数据结构和数据操作</h2><blockquote>
+                <div class="postShorten-excerpt" itemprop="articleBody">
+                    <blockquote>
 <p>一个强大的分析结构化数据的工具集<br>基础是NumPy，提供了高性能矩阵的运算</p>
 </blockquote>
-<h3 id="pandas-数据结构"><a href="#pandas-数据结构" class="headerlink" title="pandas 数据结构"></a>pandas 数据结构</h3><h4 id="Series"><a href="#Series" class="headerlink" title="Series"></a>Series</h4><p>类似一维数组的对象</p>
-<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/20170313148937278741204.png" alt=""></p>
-<h5 id="通过list构建Series"><a href="#通过list构建Series" class="headerlink" title="通过list构建Series"></a>通过list构建Series</h5><blockquote>
-<p>ser_obj = pd.Series(range(10))</p>
-</blockquote>
-<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="comment"># 通过list构建Series</span></div><div class="line">ser_obj = pd.Series(range(<span class="number">10</span>, <span class="number">20</span>))</div><div class="line">print(type(ser_obj))</div></pre></td></tr></table></figure>
-<h5 id="获取数据和索引"><a href="#获取数据和索引" class="headerlink" title="获取数据和索引"></a>获取数据和索引</h5><blockquote>
-<p>ser_obj.index, ser_obj.values</p>
-</blockquote>
-<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="comment"># 获取数据</span></div><div class="line">print(ser_obj.values)</div><div class="line"></div><div class="line"><span class="comment"># 获取索引</span></div><div class="line">print(ser_obj.index)</div></pre></td></tr></table></figure>
-<h5 id="预览数据"><a href="#预览数据" class="headerlink" title="预览数据"></a>预览数据</h5><blockquote>
-<p>ser_obj.head(n)</p>
-</blockquote>
-<h5 id="通过索引获取数据"><a href="#通过索引获取数据" class="headerlink" title="通过索引获取数据"></a>通过索引获取数据</h5><blockquote>
-<p>ser_obj[idx]</p>
-</blockquote>
-<p>索引与数据的对应关系仍保持在数组运算的结果中</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="comment">#通过索引获取数据</span></div><div class="line">print(ser_obj[<span class="number">0</span>])</div><div class="line">print(ser_obj[<span class="number">8</span>])</div><div class="line"></div><div class="line"><span class="comment"># 索引与数据的对应关系仍保持在数组运算的结果中</span></div><div class="line">print(ser_obj * <span class="number">2</span>)</div><div class="line">print(ser_obj &gt; <span class="number">15</span>)</div><div class="line"></div><div class="line"><span class="string">"""</span></div><div class="line">0    20</div><div class="line">1    22</div><div class="line">2    24</div><div class="line">3    26</div><div class="line">4    28</div><div class="line">5    30</div><div class="line">6    32</div><div class="line">7    34</div><div class="line">8    36</div><div class="line">9    38</div><div class="line">dtype: int64</div><div class="line">0    False</div><div class="line">1    False</div><div class="line">2    False</div><div class="line">3    False</div><div class="line">4    False</div><div class="line">5    False</div><div class="line">6     True</div><div class="line">7     True</div><div class="line">8     True</div><div class="line">9     True</div><div class="line">dtype: bool</div><div class="line">"""</div></pre></td></tr></table></figure>
-<h5 id="通过dict构建Series"><a href="#通过dict构建Series" class="headerlink" title="通过dict构建Series"></a>通过dict构建Series</h5><figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="comment"># 通过dict构建Series</span></div><div class="line">year_data = &#123;<span class="number">2001</span>: <span class="number">17.8</span>, <span class="number">2002</span>: <span class="number">20.1</span>, <span class="number">2003</span>: <span class="number">16.5</span>&#125;</div><div class="line">ser_obj2 = pd.Series(year_data)</div><div class="line">print(ser_obj2.head())</div><div class="line">print(ser_obj2.index)</div><div class="line"></div><div class="line"><span class="string">"""</span></div><div class="line">2001    17.8</div><div class="line">2002    20.1</div><div class="line">2003    16.5</div><div class="line">dtype: float64</div><div class="line">Int64Index([2001, 2002, 2003], dtype='int64')</div><div class="line">"""</div></pre></td></tr></table></figure>
-<h5 id="name属性"><a href="#name属性" class="headerlink" title="name属性"></a>name属性</h5><blockquote>
-<p>ser_obj.name, ser_obj.index.name</p>
-</blockquote>
-<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="comment"># name属性</span></div><div class="line">ser_obj2.name = <span class="string">'temp'</span></div><div class="line">ser_obj2.index.name = <span class="string">'year'</span></div><div class="line">print(ser_obj2.head())</div><div class="line"></div><div class="line"><span class="string">"""</span></div><div class="line">year</div><div class="line">2001    17.8</div><div class="line">2002    20.1</div><div class="line">2003    16.5</div><div class="line">Name: temp, dtype: float64</div><div class="line">"""</div></pre></td></tr></table></figure>
-<h4 id="DataFrame"><a href="#DataFrame" class="headerlink" title="DataFrame"></a>DataFrame</h4><blockquote>
-<p>类似多维数组/表格数据 (如，excel, R中的data.frame)<br>每列数据可以是不同的类型<br>索引包括列索引和行索引</p>
-</blockquote>
-<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/20170313148937278741204.png" alt="20170313148937278741204.png"></p>
-<h5 id="通过ndarray构建DataFrame"><a href="#通过ndarray构建DataFrame" class="headerlink" title="通过ndarray构建DataFrame"></a>通过ndarray构建DataFrame</h5><figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</div><div class="line"></div><div class="line"><span class="comment"># 通过ndarray构建DataFrame</span></div><div class="line">array = np.random.randn(<span class="number">5</span>,<span class="number">4</span>)</div><div class="line">print(array)</div><div class="line"></div><div class="line"><span class="string">"""</span></div><div class="line">[[ 0.24080667 -0.52446211 -2.00060545  1.58069728]</div><div class="line"> [-0.25096401  0.18001484 -0.66252232  0.20919581]</div><div class="line"> [ 1.06301792  0.25150653 -0.67519772 -1.16752965]</div><div class="line"> [-0.61844643  0.60141776 -0.11604881  1.05742347]</div><div class="line"> [-0.63934044 -0.52350101  0.13534844  0.77631123]]</div><div class="line">"""</div><div class="line"></div><div class="line">df_obj = pd.DataFrame(array)</div><div class="line">print(df_obj.head())</div></pre></td></tr></table></figure>
-<h5 id="通过dict构建DataFrame"><a href="#通过dict构建DataFrame" class="headerlink" title="通过dict构建DataFrame"></a>通过dict构建DataFrame</h5><figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="comment"># 通过dict构建DataFrame</span></div><div class="line">dict_data = &#123;<span class="string">'A'</span>: <span class="number">1.</span>, </div><div class="line">             <span class="string">'B'</span>: pd.Timestamp(<span class="string">'20161217'</span>),</div><div class="line">             <span class="string">'C'</span>: pd.Series(<span class="number">1</span>, index=list(range(<span class="number">4</span>)),dtype=<span class="string">'float32'</span>),</div><div class="line">             <span class="string">'D'</span>: np.array([<span class="number">3</span>] * <span class="number">4</span>,dtype=<span class="string">'int32'</span>),</div><div class="line">             <span class="string">'E'</span> : pd.Categorical([<span class="string">"Python"</span>,<span class="string">"Java"</span>,<span class="string">"C++"</span>,<span class="string">"C#"</span>]),</div><div class="line">             <span class="string">'F'</span> : <span class="string">'ChinaHadoop'</span> &#125;</div><div class="line"><span class="keyword">print</span> (dict_data) <span class="comment">#无序</span></div><div class="line"></div><div class="line">df_obj2 = pd.DataFrame(dict_data)</div><div class="line">print(df_obj2.head())</div><div class="line"></div><div class="line"><span class="string">"""</span></div><div class="line">     A          B    C  D       E            F</div><div class="line">0  1.0 2016-12-17  1.0  3  Python  ChinaHadoop</div><div class="line">1  1.0 2016-12-17  1.0  3    Java  ChinaHadoop</div><div class="line">2  1.0 2016-12-17  1.0  3     C++  ChinaHadoop</div><div class="line">3  1.0 2016-12-17  1.0  3      C#  ChinaHadoop</div><div class="line">"""</div></pre></td></tr></table></figure>
-<h5 id="通过列索引获取列数据-Series类型"><a href="#通过列索引获取列数据-Series类型" class="headerlink" title="通过列索引获取列数据(Series类型 )"></a>通过列索引获取列数据(Series类型 )</h5><blockquote>
-<p>df_obj[col_idx] 或 df_obj.col_idx</p>
-</blockquote>
-<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="comment"># 通过列索引获取列数据</span></div><div class="line">print(df_obj2[<span class="string">'A'</span>])</div><div class="line">print(type(df_obj2[<span class="string">'A'</span>])) <span class="comment">#&lt;class 'pandas.core.series.Series'&gt;</span></div><div class="line"></div><div class="line">print(df_obj2.A)</div></pre></td></tr></table></figure>
-<h5 id="增加列数据，类似dict添加key-value"><a href="#增加列数据，类似dict添加key-value" class="headerlink" title="增加列数据，类似dict添加key-value"></a>增加列数据，类似dict添加key-value</h5><blockquote>
-<p>df_obj[new_col_idx] = data</p>
-</blockquote>
-<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="comment"># 增加列</span></div><div class="line">df_obj2[<span class="string">'G'</span>] = df_obj2[<span class="string">'D'</span>] + <span class="number">4</span></div><div class="line">print(df_obj2.head())</div></pre></td></tr></table></figure>
-<h5 id="删除列"><a href="#删除列" class="headerlink" title="删除列"></a>删除列</h5><blockquote>
-<p>del df_obj[col_idx]</p>
-</blockquote>
-<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="comment"># 删除列</span></div><div class="line"><span class="keyword">del</span>(df_obj2[<span class="string">'G'</span>] )</div><div class="line">print(df_obj2.head())</div></pre></td></tr></table></figure>
-<h5 id="索引对象Index"><a href="#索引对象Index" class="headerlink" title="索引对象Index"></a>索引对象Index</h5><blockquote>
-<p> Series和DataFrame中的索引都是Index对象 不可变(immutable 保证了数据的安全)<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">常见的Index种类• Index• Int64Index• MultiIndex，“层级”索引• DatetimeIndex，时间戳类型</div></pre></td></tr></table></figure></p>
-</blockquote>
-<figure class="highlight python"><table><tr><td class="code"><pre><div class="line">print(type(ser_obj.index))</div><div class="line">print(type(df_obj2.index))</div><div class="line"></div><div class="line">print(df_obj2.index)</div><div class="line"></div><div class="line"><span class="string">"""</span></div><div class="line">&lt;class 'pandas.indexes.range.RangeIndex'&gt;</div><div class="line">&lt;class 'pandas.indexes.numeric.Int64Index'&gt;</div><div class="line">Int64Index([0, 1, 2, 3], dtype='int64')</div><div class="line">"""</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment"># 索引对象不可变</span></div><div class="line">df_obj2.index[<span class="number">0</span>] = <span class="number">2</span> <span class="comment">#报错</span></div></pre></td></tr></table></figure>
-<h3 id="Pandas的数据操作"><a href="#Pandas的数据操作" class="headerlink" title="Pandas的数据操作"></a>Pandas的数据操作</h3><h4 id="索引操作"><a href="#索引操作" class="headerlink" title="索引操作"></a>索引操作</h4><h5 id="Series索引操作"><a href="#Series索引操作" class="headerlink" title="Series索引操作"></a>Series索引操作</h5><blockquote>
-<p>行索引，ser_obj[‘label’], ser_obj[pos]</p>
-<p>切片索引，ser_obj[2:4], ser_obj[‘label1’: ’label3’]</p>
-</blockquote>
-<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="comment"># 切片索引</span></div><div class="line">print(ser_obj[<span class="number">1</span>:<span class="number">3</span>])</div><div class="line">print(ser_obj[<span class="string">'b'</span>:<span class="string">'d'</span>]) <span class="comment">#含 d</span></div></pre></td></tr></table></figure>
-<blockquote>
-<p>不连续索引，ser_obj[[‘label1’, ’label2’, ‘label3’]]<br>ser_obj[[pos1, pos2, pos3]]</p>
-</blockquote>
-<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="comment"># 不连续索引</span></div><div class="line">print(ser_obj[[<span class="number">0</span>, <span class="number">2</span>, <span class="number">4</span>]])</div><div class="line">print(ser_obj[[<span class="string">'a'</span>, <span class="string">'e'</span>]])</div></pre></td></tr></table></figure>
-<blockquote>
-<p>布尔索引</p>
-</blockquote>
-<figure class="highlight python"><table><tr><td class="code"><pre><div class="line">ser_obj = pd.Series(range(<span class="number">5</span>), index = [<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>, <span class="string">'d'</span>, <span class="string">'e'</span>])</div><div class="line">print(ser_obj.head())</div><div class="line"></div><div class="line"><span class="comment"># 布尔索引</span></div><div class="line">ser_bool = ser_obj &gt; <span class="number">2</span></div><div class="line">print(ser_bool)</div><div class="line">print(ser_obj[ser_bool])</div><div class="line"></div><div class="line">print(ser_obj[ser_obj &gt; <span class="number">2</span>])</div><div class="line"></div><div class="line"><span class="string">"""</span></div><div class="line">a    False</div><div class="line">b    False</div><div class="line">c    False</div><div class="line">d     True</div><div class="line">e     True</div><div class="line">dtype: bool</div><div class="line">d    3</div><div class="line">e    4</div><div class="line">dtype: int64</div><div class="line">d    3</div><div class="line">e    4</div><div class="line">dtype: int64</div><div class="line">"""</div></pre></td></tr></table></figure>
-<h5 id="DataFrame索引操作"><a href="#DataFrame索引操作" class="headerlink" title="DataFrame索引操作"></a>DataFrame索引操作</h5><blockquote>
-<p>列索引 df_obj[‘label’]</p>
-<p>不连续索引 df_obj[[‘label1’, ‘label2’]]</p>
-</blockquote>
-<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="comment"># 列索引</span></div><div class="line">print(<span class="string">'列索引'</span>)</div><div class="line">print(df_obj[<span class="string">'a'</span>]) <span class="comment"># 返回Series类型</span></div><div class="line">print(type(df_obj[[<span class="number">0</span>]])) <span class="comment"># 返回DataFrame类型 #df_obj[['a']]</span></div><div class="line"></div><div class="line"><span class="comment"># 不连续索引</span></div><div class="line">print(<span class="string">'不连续索引'</span>)</div><div class="line">print(df_obj[[<span class="string">'a'</span>,<span class="string">'c'</span>]])</div><div class="line">print(df_obj[[<span class="number">1</span>, <span class="number">3</span>]])</div></pre></td></tr></table></figure>
-<h5 id="Pandas的索引操作"><a href="#Pandas的索引操作" class="headerlink" title="Pandas的索引操作"></a>Pandas的索引操作</h5><p>可归纳为3种</p>
-<p> .loc，标签索引<br> .iloc，位置索引<br> .ix，标签与位置混合索引(先按标签索引尝试操作，然后再按位置索引尝试操作)</p>
-<p> DataFrame索引时可将其看作ndarray操作 </p>
-<p> • 标签的切片索引是包含末尾位置的</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"> <span class="comment"># DataFrame</span></div><div class="line">print(df_obj[<span class="string">'a'</span>])</div><div class="line">print(df_obj.loc[<span class="number">0</span>:<span class="number">2</span>, <span class="string">'a'</span>])<span class="comment">#标签的切片索引是包含末尾位置的</span></div><div class="line"></div><div class="line"><span class="string">"""</span></div><div class="line">0   -0.236778</div><div class="line">1    0.045082</div><div class="line">2   -1.522824</div><div class="line">3    1.232838</div><div class="line">4    1.054741</div><div class="line">Name: a, dtype: float64</div><div class="line">0   -0.236778</div><div class="line">1    0.045082</div><div class="line">2   -1.522824</div><div class="line">Name: a, dtype: float64</div><div class="line">"""</div></pre></td></tr></table></figure>
-<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="comment"># 整型位置索引 iloc</span></div><div class="line">print(ser_obj[<span class="number">1</span>:<span class="number">3</span>]) <span class="comment">#不含 ]</span></div><div class="line">print(ser_obj.iloc[<span class="number">1</span>:<span class="number">3</span>])</div><div class="line"></div><div class="line"><span class="comment"># DataFrame</span></div><div class="line">print(df_obj.iloc[<span class="number">0</span>:<span class="number">2</span>, <span class="number">0</span>])<span class="comment"># 位置索引 0:2 不含2    </span></div><div class="line"><span class="comment"># 注意和df_obj.loc[0:2, 'a']的区别 </span></div><div class="line"><span class="comment"># 标签的切片索引 是包含末尾位置</span></div></pre></td></tr></table></figure>
-<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="comment"># 混合索引 ix</span></div><div class="line">print(ser_obj.ix[<span class="number">1</span>:<span class="number">3</span>])</div><div class="line">print(ser_obj.ix[<span class="string">'b'</span>:<span class="string">'c'</span>])</div><div class="line"></div><div class="line"><span class="comment"># DataFrame</span></div><div class="line">print(df_obj.ix[<span class="number">0</span>:<span class="number">2</span>, <span class="number">0</span>]) <span class="comment"># 先按标签索引尝试操作，然后再按位置索引尝试操作</span></div><div class="line"><span class="string">"""</span></div><div class="line">0   -0.236778</div><div class="line">1    0.045082</div><div class="line">2   -1.522824</div><div class="line">Name: a, dtype: float64</div><div class="line">"""</div></pre></td></tr></table></figure>
-<h4 id="运算与对齐"><a href="#运算与对齐" class="headerlink" title="运算与对齐"></a>运算与对齐</h4><blockquote>
-<p>索引对齐运算，没对齐的位置补NaN<br>Series 按行索引对齐<br>DataFrame按行、列索引对齐</p>
-</blockquote>
-<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</div><div class="line"></div><div class="line">df1 = pd.DataFrame(np.ones((<span class="number">2</span>,<span class="number">2</span>)), columns = [<span class="string">'a'</span>, <span class="string">'b'</span>])</div><div class="line">df2 = pd.DataFrame(np.ones((<span class="number">3</span>,<span class="number">3</span>)), columns = [<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>])</div><div class="line"></div><div class="line">print(<span class="string">'df1: '</span>)</div><div class="line">print(df1)</div><div class="line"></div><div class="line">print(<span class="string">''</span>) </div><div class="line">print(<span class="string">'df2: '</span>)</div><div class="line">print(df2)</div><div class="line"></div><div class="line"><span class="string">"""</span></div><div class="line">df1: </div><div class="line">     a    b</div><div class="line">0  1.0  1.0</div><div class="line">1  1.0  1.0</div><div class="line"></div><div class="line">df2: </div><div class="line">     a    b    c</div><div class="line">0  1.0  1.0  1.0</div><div class="line">1  1.0  1.0  1.0</div><div class="line">2  1.0  1.0  1.0</div><div class="line">"""</div></pre></td></tr></table></figure>
-<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/20170313148938399743856.png" alt="20170313148938399743856.png"></p>
-<h5 id="填充未对齐的数据进行运算"><a href="#填充未对齐的数据进行运算" class="headerlink" title="填充未对齐的数据进行运算"></a>填充未对齐的数据进行运算</h5><blockquote>
-<p>使用add, sub, div, mul<br>同时通过fill_value指定填充值</p>
-</blockquote>
-<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/20170313148938408793713.png" alt="20170313148938408793713.png"></p>
-<h5 id="填充NaN"><a href="#填充NaN" class="headerlink" title="填充NaN"></a>填充NaN</h5><p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/20170313148938414999084.png" alt="20170313148938414999084.png"></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><div class="line">df3 = df1 + df2</div><div class="line">print(df3)</div><div class="line"><span class="string">"""</span></div><div class="line">   a    b   c</div><div class="line">0  2.0  2.0 NaN</div><div class="line">1  2.0  2.0 NaN</div><div class="line">2  NaN  NaN NaN</div><div class="line">"""</div><div class="line">df3.fillna(<span class="number">100</span>, inplace = <span class="keyword">True</span>)</div><div class="line">print(df3)</div><div class="line"><span class="string">"""</span></div><div class="line">    a      b      c</div><div class="line">0    2.0    2.0  100.0</div><div class="line">1    2.0    2.0  100.0</div><div class="line">2  100.0  100.0  100.0</div><div class="line">"""</div></pre></td></tr></table></figure>
-<h4 id="函数应用"><a href="#函数应用" class="headerlink" title="函数应用"></a>函数应用</h4><p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/20170313148938431945746.png" alt="20170313148938431945746.png"><br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/20170313148938435711320.png" alt="20170313148938435711320.png"></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="comment"># 使用apply应用行或列数据</span></div><div class="line"><span class="comment">#f = lambda x : x.max()</span></div><div class="line">print(df.apply(<span class="keyword">lambda</span> x : x.max()))</div><div class="line"></div><div class="line"><span class="string">"""</span></div><div class="line">0    0.149288</div><div class="line">1    0.211810</div><div class="line">2    0.725562</div><div class="line">3   -0.223388</div><div class="line">dtype: float64</div><div class="line">"""</div><div class="line"></div><div class="line"><span class="comment"># 指定轴方向 行</span></div><div class="line">print(df.apply(<span class="keyword">lambda</span> x : x.max(), axis=<span class="number">1</span>))</div><div class="line"><span class="string">"""</span></div><div class="line">0    0.725562</div><div class="line">1   -0.423329</div><div class="line">2    0.242500</div><div class="line">3   -0.223388</div><div class="line">4   -0.236904</div><div class="line">dtype: float64</div><div class="line">"""</div></pre></td></tr></table></figure>
-<h5 id="使用applymap应用到每个数据"><a href="#使用applymap应用到每个数据" class="headerlink" title="使用applymap应用到每个数据"></a>使用applymap应用到每个数据</h5><figure class="highlight python"><table><tr><td class="code"><pre><div class="line">f2 = <span class="keyword">lambda</span> x : <span class="string">'%.2f'</span> % x</div><div class="line">print(df.applymap(f2))</div><div class="line"></div><div class="line"><span class="string">"""</span></div><div class="line">       0      1      2      3</div><div class="line">0  -2.35  -1.36   0.73  -0.91</div><div class="line">1  -2.37  -1.35  -0.59  -0.42</div><div class="line">2   0.15   0.21   0.24  -0.68</div><div class="line">3  -2.88  -1.44  -0.92  -0.22</div><div class="line">4  -0.69  -0.24  -1.12  -1.17</div><div class="line">"""</div></pre></td></tr></table></figure>
-<h4 id="排序"><a href="#排序" class="headerlink" title="排序"></a>排序</h4><p>sort_index，索引排序<br>(对DataFrame操作时注意轴方向)</p>
-<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/20170313148938475289180.png" alt="20170313148938475289180.png"></p>
-<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/20170313148938481872406.png" alt="20170313148938481872406.png"></p>
-<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/20170313148938486578186.png" alt="20170313148938486578186.png"></p>
-<p>按值排序</p>
-<blockquote>
-<p>sort_values(by=‘label’)</p>
-</blockquote>
-<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/20170313148938489844109.png" alt="20170313148938489844109.png"></p>
-<h4 id="处理缺失数据"><a href="#处理缺失数据" class="headerlink" title="处理缺失数据"></a>处理缺失数据</h4><p>判断是否存在缺失值</p>
-<blockquote>
-<p>ser_obj.isnull(), df_obj.isnull()</p>
-</blockquote>
-<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/20170313148938495287350.png" alt="20170313148938495287350.png"></p>
-<blockquote>
-<p>dropna 丢弃缺失数据</p>
-</blockquote>
-<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/20170313148938499024703.png" alt="20170313148938499024703.png"></p>
-<blockquote>
-<p>fillna 填充缺失数据</p>
-</blockquote>
-<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/20170313148938509320508.png" alt="20170313148938509320508.png"></p>
-
                     
+                        <a href="/2017/03/13/pandas 数据结构和数据操作/" class="postShorten-excerpt_link link">
+                            Weiterlesen
+                        </a>
                         
-                    
-                    
-                        <p>
-                            <a href="/2017/03/13/pandas 数据结构和数据操作/#post-footer" class="postShorten-excerpt_link link">
-                                Comment and share
-                            </a>
-                        </p>
                     
                 </div>
             
         </div>
+        
+            <a href="/2017/03/13/pandas 数据结构和数据操作/">
+                <div class="postShorten-thumbnailimg">
+                    <img alt="" itemprop="image" src="http://upyun.geekap.com/gitblog-img/car-6-140.jpg"/>
+                </div>
+            </a>
+            
         
     </article>
     
@@ -365,7 +261,7 @@
                 <div class="postShorten-meta">
     <time itemprop="datePublished" datetime="2017-03-04T00:22:41+08:00">
 	
-		    Mar 04, 2017
+		    04 Mar 2017
     	
     </time>
     
@@ -379,7 +275,7 @@
 <p><a href="https://blog.gtwang.org/mac-os-x/mac-os-x-graphviz/">在 Mac OS X 中安裝與使用 Graphviz 圖形視覺化工具</a></p>
                     
                         <a href="/2017/03/04/决策树算法实现（scikit-learn）/" class="postShorten-excerpt_link link">
-                            Continue reading
+                            Weiterlesen
                         </a>
                         
                     
@@ -393,7 +289,7 @@
     <ul class="pagination">
         
         
-        <li class="pagination-number">page 1 of 1</li>
+        <li class="pagination-number">Seite 1 von 1</li>
     </ul>
 </div>
 
@@ -423,7 +319,7 @@
             <i class="fa fa-remove"></i>
         </div>
         
-            <img id="about-card-picture" src="http://7xrw7v.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160402220553.png" alt="Author&#39;s picture"/>
+            <img id="about-card-picture" src="http://7xrw7v.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160402220553.png" alt="Bild des Autors"/>
         
             <h4 id="about-card-name">Haozhe Xue</h4>
         
@@ -464,7 +360,7 @@
             </form>
         </div>
         <div class="modal-body">
-            <div class="no-result text-color-light text-center">no post found</div>
+            <div class="no-result text-color-light text-center">keinen Beitrag gefunden</div>
             <div class="results">
                 
                 <div class="media">
@@ -569,31 +465,6 @@
                 <div class="media">
                     
                     <div class="media-body">
-                        <a class="link-unstyled" href="http://yoursite.com/2016/03/15/2016-03-15-hadoop1/">
-                            <h3 class="media-heading">hadoope下API操作</h3>
-                        </a>
-                        <span class="media-meta">
-                            <span class="media-date text-small">
-                                
-                                    Mar 15, 2016
-                                
-                            </span>
-                        </span>
-                        <div class="media-content hide-xs font-merryweather"><p>摘要：</p>
-<ul>
-<li>创建Java项目</li>
-<li>添加jar包</li>
-<li>代码</li>
-<li>单元测试</li>
-</ul></div>
-                    </div>
-                    <div style="clear:both;"></div>
-                    <hr>
-                </div>
-                
-                <div class="media">
-                    
-                    <div class="media-body">
                         <a class="link-unstyled" href="http://yoursite.com/2016/03/15/2016-03-15-haozhe/">
                             <h3 class="media-heading">博客：Markdown入门</h3>
                         </a>
@@ -613,6 +484,31 @@
 <li>粗体斜体</li>
 <li>标量</li>
 <li>添加代码</li>
+</ul></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yoursite.com/2016/03/15/2016-03-15-hadoop1/">
+                            <h3 class="media-heading">hadoope下API操作</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Mar 15, 2016
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>摘要：</p>
+<ul>
+<li>创建Java项目</li>
+<li>添加jar包</li>
+<li>代码</li>
+<li>单元测试</li>
 </ul></div>
                     </div>
                     <div style="clear:both;"></div>
@@ -671,10 +567,10 @@
         </div>
         <div class="modal-footer">
             <p class="results-count text-medium"
-                data-message-zero="no post found"
-                data-message-one="1 post found"
-                data-message-other="{n} posts found">
-                141 posts found
+                data-message-zero="keinen Beitrag gefunden"
+                data-message-one="1 Beitrag gefunden"
+                data-message-other="{n} Einträge gefunden">
+                141 Einträge gefunden
             </p>
         </div>
     </div>
