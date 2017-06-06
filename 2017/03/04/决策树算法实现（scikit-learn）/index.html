@@ -28,7 +28,7 @@
 <meta property="og:image" content="http://img.blog.csdn.net/20161021125650259">
 <meta property="og:image" content="http://7xrw7v.com1.z0.glb.clouddn.com//17-3-3/30950483-file_1488556319461_11f16.png">
 <meta property="og:image" content="http://7xrw7v.com1.z0.glb.clouddn.com//17-3-4/73391572-file_1488557754358_b778.png">
-<meta property="og:updated_time" content="2017-03-03T16:27:21.000Z">
+<meta property="og:updated_time" content="2017-06-06T10:00:45.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="决策树算法实现（scikit-learn）">
 <meta name="twitter:description" content="参考：sk-learn的决策树文档决策树的算法介绍
@@ -119,18 +119,6 @@
                 <li class="sidebar-button">
                     
                         <a  class="sidebar-button-link "
-                             href="/all-categories"
-                            
-                        >
-                    
-                        <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
-                        <span class="sidebar-button-desc">Kategorien</span>
-                    </a>
-            </li>
-            
-                <li class="sidebar-button">
-                    
-                        <a  class="sidebar-button-link "
                              href="/all-tags"
                             
                         >
@@ -172,7 +160,7 @@
                         >
                     
                         <i class="sidebar-button-icon fa fa-lg fa-question"></i>
-                        <span class="sidebar-button-desc">Über</span>
+                        <span class="sidebar-button-desc">About me</span>
                     </a>
             </li>
             
@@ -191,12 +179,10 @@
             
                 <li class="sidebar-button">
                     
-                        <a  class="sidebar-button-link "
-                             href="/xuehaozhe0526@163.com"
-                        >
+                        <a  class="sidebar-button-link " href="mailto:xuehaozhe0526@163.com" target="_blank" rel="noopener">
                     
                         <i class="sidebar-button-icon fa fa-lg fa-envelope-o"></i>
-                        <span class="sidebar-button-desc">E-Mail</span>
+                        <span class="sidebar-button-desc">Mail</span>
                     </a>
             </li>
             
@@ -239,6 +225,7 @@
 </a></p>
 <p><a href="https://blog.gtwang.org/mac-os-x/mac-os-x-graphviz/" target="_blank" rel="external">在 Mac OS X 中安裝與使用 Graphviz 圖形視覺化工具</a></p>
 <a id="more"></a>
+<h1 id="table-of-contents">Inhaltsverzeichnis</h1><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#参考："><span class="toc-text">参考：</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#决策树归纳算法（ID3）"><span class="toc-text">决策树归纳算法（ID3）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#决策树的优缺点"><span class="toc-text">决策树的优缺点</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#代码实现"><span class="toc-text">代码实现</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#数据转换为-sklearn需要的格式"><span class="toc-text">数据转换为 sklearn需要的格式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#生成的-dot-文件"><span class="toc-text">生成的 .dot 文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#将dot文件用graphviz转换为pdf文件"><span class="toc-text">将dot文件用graphviz转换为pdf文件</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#文件和源码"><span class="toc-text">文件和源码</span></a></li></ol>
 <h4 id="决策树归纳算法（ID3）"><a href="#决策树归纳算法（ID3）" class="headerlink" title="决策树归纳算法（ID3）"></a>决策树归纳算法（ID3）</h4><p>优先选择信息获取量最大的属性作为属性判断结点</p>
 <p>信息获取量(Information Gain)：Gain(A) = Info(D) - Infor_A(D)</p>
 <p>age属性信息获取量的计算过程如下所示：<br><img src="http://7xrw7v.com1.z0.glb.clouddn.com//17-3-3/55899140-file_1488555682501_b9f5.png" alt=""></p>
@@ -339,7 +326,7 @@
         
         <li class="post-action">
             
-                <a class="post-action-btn btn btn--default" href="#">
+                <a class="post-action-btn btn btn--default" href="#table-of-contents">
             
                 <i class="fa fa-list"></i>
             </a>
@@ -421,7 +408,7 @@
         
         <li class="post-action">
             
-                <a class="post-action-btn btn btn--default" href="#">
+                <a class="post-action-btn btn btn--default" href="#table-of-contents">
             
                 <i class="fa fa-list"></i>
             </a>

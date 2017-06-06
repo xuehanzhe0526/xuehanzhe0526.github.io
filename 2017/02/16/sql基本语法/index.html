@@ -13,30 +13,18 @@
         <link rel="icon" href="http://yoursite.com/assets/images/favicon.ico">
     
     
-    <meta name="description" content="sql介绍SQL语言一个结构化查询语言。它是用来查询、更新和修改数据库中的数据
-一个数据库就是tables的集合，一个表格包含一行行的数据，以及列信息。table和Pandas中的DataFrame很像。 
-数据：https://github.com/fivethirtyeight/data/tree/master/college-majors
-
-QueryingSELECT statement">
+    <meta name="description" content="sql基本语法">
 <meta property="og:type" content="blog">
 <meta property="og:title" content="sql基本语法">
 <meta property="og:url" content="http://yoursite.com/2017/02/16/sql基本语法/index.html">
 <meta property="og:site_name" content="Haozhe">
-<meta property="og:description" content="sql介绍SQL语言一个结构化查询语言。它是用来查询、更新和修改数据库中的数据
-一个数据库就是tables的集合，一个表格包含一行行的数据，以及列信息。table和Pandas中的DataFrame很像。 
-数据：https://github.com/fivethirtyeight/data/tree/master/college-majors
-
-QueryingSELECT statement">
+<meta property="og:description" content="sql基本语法">
 <meta property="og:image" content="http://7xrw7v.com1.z0.glb.clouddn.com/2017021314869882211964.png">
 <meta property="og:image" content="http://7xrw7v.com1.z0.glb.clouddn.com/20170213148698959199202.png">
-<meta property="og:updated_time" content="2017-02-16T06:44:40.000Z">
+<meta property="og:updated_time" content="2017-06-06T10:04:29.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="sql基本语法">
-<meta name="twitter:description" content="sql介绍SQL语言一个结构化查询语言。它是用来查询、更新和修改数据库中的数据
-一个数据库就是tables的集合，一个表格包含一行行的数据，以及列信息。table和Pandas中的DataFrame很像。 
-数据：https://github.com/fivethirtyeight/data/tree/master/college-majors
-
-QueryingSELECT statement">
+<meta name="twitter:description" content="sql基本语法">
 <meta name="twitter:image" content="http://7xrw7v.com1.z0.glb.clouddn.com/2017021314869882211964.png">
     
     
@@ -122,18 +110,6 @@ QueryingSELECT statement">
                 <li class="sidebar-button">
                     
                         <a  class="sidebar-button-link "
-                             href="/all-categories"
-                            
-                        >
-                    
-                        <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
-                        <span class="sidebar-button-desc">Kategorien</span>
-                    </a>
-            </li>
-            
-                <li class="sidebar-button">
-                    
-                        <a  class="sidebar-button-link "
                              href="/all-tags"
                             
                         >
@@ -175,7 +151,7 @@ QueryingSELECT statement">
                         >
                     
                         <i class="sidebar-button-icon fa fa-lg fa-question"></i>
-                        <span class="sidebar-button-desc">Über</span>
+                        <span class="sidebar-button-desc">About me</span>
                     </a>
             </li>
             
@@ -194,12 +170,10 @@ QueryingSELECT statement">
             
                 <li class="sidebar-button">
                     
-                        <a  class="sidebar-button-link "
-                             href="/xuehaozhe0526@163.com"
-                        >
+                        <a  class="sidebar-button-link " href="mailto:xuehaozhe0526@163.com" target="_blank" rel="noopener">
                     
                         <i class="sidebar-button-icon fa fa-lg fa-envelope-o"></i>
-                        <span class="sidebar-button-desc">E-Mail</span>
+                        <span class="sidebar-button-desc">Mail</span>
                     </a>
             </li>
             
@@ -238,7 +212,10 @@ QueryingSELECT statement">
     
     <div class="post-content markdown" itemprop="articleBody">
         <div class="main-content-wrap">
-            <h3 id="sql介绍"><a href="#sql介绍" class="headerlink" title="sql介绍"></a>sql介绍</h3><p>SQL语言一个结构化查询语言。它是用来查询、更新和修改数据库中的数据</p>
+            <p>sql基本语法</p>
+<a id="more"></a>
+<h1 id="table-of-contents">Inhaltsverzeichnis</h1><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#sql介绍"><span class="toc-text">sql介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Querying"><span class="toc-text">Querying</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Where"><span class="toc-text">Where</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Limit"><span class="toc-text">Limit</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Logical-Operators"><span class="toc-text">Logical Operators</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#AND的语法"><span class="toc-text">AND的语法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#OR的语法"><span class="toc-text">OR的语法</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Order-By"><span class="toc-text">Order By</span></a></li></ol>
+<h3 id="sql介绍"><a href="#sql介绍" class="headerlink" title="sql介绍"></a>sql介绍</h3><p>SQL语言一个结构化查询语言。它是用来查询、更新和修改数据库中的数据</p>
 <p>一个数据库就是tables的集合，一个表格包含一行行的数据，以及列信息。table和Pandas中的DataFrame很像。 </p>
 <p>数据：<br><a href="https://github.com/fivethirtyeight/data/tree/master/college-majors" target="_blank" rel="external">https://github.com/fivethirtyeight/data/tree/master/college-majors</a></p>
 <p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/2017021314869882211964.png" alt="2017021314869882211964.png"></p>
@@ -324,7 +301,7 @@ QueryingSELECT statement">
         
         <li class="post-action">
             
-                <a class="post-action-btn btn btn--default" href="#">
+                <a class="post-action-btn btn btn--default" href="#table-of-contents">
             
                 <i class="fa fa-list"></i>
             </a>
@@ -406,7 +383,7 @@ QueryingSELECT statement">
         
         <li class="post-action">
             
-                <a class="post-action-btn btn btn--default" href="#">
+                <a class="post-action-btn btn btn--default" href="#table-of-contents">
             
                 <i class="fa fa-list"></i>
             </a>
