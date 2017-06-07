@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="Haozhe">
-    <title>Archives - Haozhe</title>
+    <title>آرشیو مطالب - Haozhe</title>
     <meta name="author" content="Haozhe Xue">
     
     
@@ -61,7 +61,7 @@
                 href="#about">
         
         
-            <img class="header-picture" src="http://7xrw7v.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160402220553.png" alt="Author&#39;s picture"/>
+            <img class="header-picture" src="http://7xrw7v.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160402220553.png" alt="تصویر نویسنده"/>
         
         </a>
     
@@ -79,7 +79,7 @@
         
             <div class="sidebar-profile">
                 <a href="/#about">
-                    <img class="sidebar-profile-picture" src="http://7xrw7v.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160402220553.png" alt="Author&#39;s picture"/>
+                    <img class="sidebar-profile-picture" src="http://7xrw7v.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160402220553.png" alt="تصویر نویسنده"/>
                 </a>
                 <h4 class="sidebar-profile-name">Haozhe Xue</h4>
                 
@@ -99,7 +99,7 @@
                         >
                     
                         <i class="sidebar-button-icon fa fa-lg fa-home"></i>
-                        <span class="sidebar-button-desc">Home</span>
+                        <span class="sidebar-button-desc">خانه</span>
                     </a>
             </li>
             
@@ -111,7 +111,7 @@
                         >
                     
                         <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
-                        <span class="sidebar-button-desc">Tags</span>
+                        <span class="sidebar-button-desc">برچسب‌ها</span>
                     </a>
             </li>
             
@@ -123,7 +123,7 @@
                         >
                     
                         <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
-                        <span class="sidebar-button-desc">Archives</span>
+                        <span class="sidebar-button-desc">آرشیو مطالب</span>
                     </a>
             </li>
             
@@ -135,7 +135,7 @@
                         >
                     
                         <i class="sidebar-button-icon fa fa-lg fa-search"></i>
-                        <span class="sidebar-button-desc">Search</span>
+                        <span class="sidebar-button-desc">جست‌و‌جو</span>
                     </a>
             </li>
             
@@ -160,7 +160,7 @@
                         <a  class="sidebar-button-link " href="https://github.com/xuehanzhe0526" target="_blank" rel="noopener">
                     
                         <i class="sidebar-button-icon fa fa-lg fa-github"></i>
-                        <span class="sidebar-button-desc">GitHub</span>
+                        <span class="sidebar-button-desc">گیت‌هاب</span>
                     </a>
             </li>
             
@@ -193,6 +193,83 @@
             <div class="postShorten-header">
                 <h1 class="postShorten-title" itemprop="headline">
                     
+                        <a class="link-unstyled" href="/2017/02/13/机器学习-回归/">
+                            线性回归(汽车数据)
+                        </a>
+                    
+                </h1>
+                <div class="postShorten-meta">
+    <time itemprop="datePublished" datetime="2017-02-13T21:55:35+08:00">
+	
+		    Monday، 13 Feb 2017
+    	
+    </time>
+    
+</div>
+
+            </div>
+            
+                <div class="postShorten-content" itemprop="articleBody">
+                    <blockquote>
+<p>汽车的性能如何影响它的燃料效率</p>
+</blockquote>
+<h3 id="数据集："><a href="#数据集：" class="headerlink" title="数据集："></a>数据集：</h3><p>数据：<br><a href="https://archive.ics.uci.edu/ml/datasets/Auto+MPG" target="_blank" rel="external">https://archive.ics.uci.edu/ml/datasets/Auto+MPG</a></p>
+<p>列名：<br><a href="https://archive.ics.uci.edu/ml/machine-learning-databases/auto-mpg/auto-mpg.names" target="_blank" rel="external">https://archive.ics.uci.edu/ml/machine-learning-databases/auto-mpg/auto-mpg.names</a><br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/20170213148697380011485.png" alt="20170213148697380011485.png"><br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/20170213148697210870929.png" alt="20170213148697210870929.png"><br>文件并不是CSV格式 而是以空白分隔</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"></div><div class="line">columns = [<span class="string">"mpg"</span>, <span class="string">"cylinders"</span>, <span class="string">"displacement"</span>, <span class="string">"horsepower"</span>, <span class="string">"weight"</span>, <span class="string">"acceleration"</span>, <span class="string">"model year"</span>, <span class="string">"origin"</span>, <span class="string">"car name"</span>]</div><div class="line"></div><div class="line">cars = pd.read_table(<span class="string">"auto-mpg.data"</span>, delim_whitespace=<span class="keyword">True</span>, names=columns)</div><div class="line"></div><div class="line">print(cars.head(<span class="number">5</span>))</div></pre></td></tr></table></figure>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/20170213148697419996698.png" alt="20170213148697419996698.png"></p>
+<h3 id="探索数据分析"><a href="#探索数据分析" class="headerlink" title="探索数据分析"></a>探索数据分析</h3><figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="keyword">import</span> matplotlib</div><div class="line">matplotlib.style.use(<span class="string">'ggplot'</span>)</div><div class="line"></div><div class="line">fig = plt.figure()</div><div class="line">ax1 = fig.add_subplot(<span class="number">2</span>,<span class="number">1</span>,<span class="number">1</span>)</div><div class="line">ax2 = fig.add_subplot(<span class="number">2</span>,<span class="number">1</span>,<span class="number">2</span>)</div><div class="line">cars.plot(<span class="string">"weight"</span>, <span class="string">"mpg"</span>, kind=<span class="string">'scatter'</span>, ax=ax1)<span class="comment"># 重量  strong negative linear relationship</span></div><div class="line">cars.plot(<span class="string">"acceleration"</span>, <span class="string">"mpg"</span>, kind=<span class="string">'scatter'</span>, ax=ax2)<span class="comment">#加速度  a weak, positive linear relationship</span></div><div class="line">plt.show()</div><div class="line"></div><div class="line"><span class="comment">## 每加仑汽油可行驶英里数 mpg 加仑里</span></div></pre></td></tr></table></figure>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/201702131486976370267.png" alt="201702131486976370267.png"></p>
+<blockquote>
+<p>the dependent variable (因变量) is the fuel efficiency and the independent variables（自变量） are the other columns in the dataset.</p>
+</blockquote>
+<h3 id="线性模型"><a href="#线性模型" class="headerlink" title="线性模型"></a>线性模型</h3><p>x 输入 经过 m (slope 斜率) and b (intercept 截距)的转换 得到输出 y</p>
+<p>where the input and output values are continuous values<br>fitting：找到一个最好的方程 去拟合数据</p>
+<h3 id="Scikit-Learn"><a href="#Scikit-Learn" class="headerlink" title="Scikit-Learn"></a>Scikit-Learn</h3><figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="keyword">from</span> sklearn.linear_model <span class="keyword">import</span> LinearRegression</div><div class="line">lr = LinearRegression()</div><div class="line"></div><div class="line">lr.fit(inputs, output)</div></pre></td></tr></table></figure>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/20170213148697799719630.png" alt="20170213148697799719630.png"></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="keyword">import</span> sklearn</div><div class="line"><span class="keyword">from</span> sklearn.linear_model <span class="keyword">import</span> LinearRegression</div><div class="line">lr = LinearRegression()</div><div class="line">lr.fit(cars[[<span class="string">"weight"</span>]], cars[<span class="string">"mpg"</span>]) <span class="comment">#输入 inputs：NumPy matrix   lr.fit(inputs, output)</span></div></pre></td></tr></table></figure>
+<h3 id="Making-Predictions"><a href="#Making-Predictions" class="headerlink" title="Making Predictions"></a>Making Predictions</h3><blockquote>
+<p>The predict method has a single required parameter参数, the n_samples by n_features input matrix and returns the predicted values as a n_samples by 1 matrix (really just a list).</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="keyword">import</span> sklearn</div><div class="line"><span class="keyword">from</span> sklearn.linear_model <span class="keyword">import</span> LinearRegression</div><div class="line">lr = LinearRegression(fit_intercept=<span class="keyword">True</span>)</div><div class="line">lr.fit(cars[[<span class="string">"weight"</span>]], cars[<span class="string">"mpg"</span>])</div><div class="line"></div><div class="line">predictions = lr.predict(cars[[<span class="string">"weight"</span>]])</div><div class="line">print(predictions[<span class="number">0</span>:<span class="number">5</span>])</div><div class="line">print(cars[<span class="string">"mpg"</span>][<span class="number">0</span>:<span class="number">5</span>])</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">[ 19.41852276  17.96764345  19.94053224  19.96356207  19.84073631]</div><div class="line">0    18.0</div><div class="line">1    15.0</div><div class="line">2    18.0</div><div class="line">3    16.0</div><div class="line">4    17.0</div><div class="line">Name: mpg, dtype: float64</div></pre></td></tr></table></figure>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/20170213148698056036881.png" alt="20170213148698056036881.png"></p>
+<h3 id="误差度量"><a href="#误差度量" class="headerlink" title="误差度量"></a>误差度量</h3><p>回归误差度量的衡量 ：MSE 均方误差mean squared error<br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/20170213148698144871746.png" alt="20170213148698144871746.png"></p>
+<p>参考：<br><a href="http://scikit-learn.org/stable/modules/generated/sklearn.metrics.mean_squared_error.html#sklearn.metrics.mean_squared_error" target="_blank" rel="external">http://scikit-learn.org/stable/modules/generated/sklearn.metrics.mean_squared_error.html#sklearn.metrics.mean_squared_error</a></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> mean_squared_error</div><div class="line">mse = mean_squared_error(cars[<span class="string">"mpg"</span>], predictions)</div><div class="line">print(mse) <span class="comment">#18.7809397346</span></div></pre></td></tr></table></figure>
+<blockquote>
+<p>Root mean squared error, or RMSE</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line">mse = mean_squared_error(cars[<span class="string">"mpg"</span>], predictions)</div><div class="line">rmse = mse ** (<span class="number">1</span>/<span class="number">2</span>)</div><div class="line">print(rmse) <span class="comment">#4.33369815915</span></div></pre></td></tr></table></figure>
+<h3 id="应用-马力"><a href="#应用-马力" class="headerlink" title="应用 (马力)"></a>应用 (马力)</h3><p>the horsepower column 存在缺失值 用 ？表示</p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/2017021314869842187899.png" alt="2017021314869842187899.png"><br>缺失值处理：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</div><div class="line"></div><div class="line">columns = [<span class="string">"mpg"</span>, <span class="string">"cylinders"</span>, <span class="string">"displacement"</span>, <span class="string">"horsepower"</span>, <span class="string">"weight"</span>, <span class="string">"acceleration"</span>, <span class="string">"model year"</span>, <span class="string">"origin"</span>, <span class="string">"car name"</span>]</div><div class="line"></div><div class="line">cars = pd.read_table(<span class="string">"auto-mpg.data"</span>, delim_whitespace=<span class="keyword">True</span>, names=columns)</div><div class="line"></div><div class="line">filtered_cars = cars[cars[<span class="string">'horsepower'</span>] != <span class="string">'?'</span>]</div><div class="line">filtered_cars[<span class="string">'horsepower'</span>] = filtered_cars[<span class="string">'horsepower'</span>].astype(<span class="string">'float'</span>)</div><div class="line"></div><div class="line">filtered_cars.plot(<span class="string">'horsepower'</span>, <span class="string">'mpg'</span>, kind=<span class="string">'scatter'</span>, c=<span class="string">'red'</span>)</div><div class="line">filtered_cars.plot(<span class="string">'weight'</span>, <span class="string">'mpg'</span>, kind=<span class="string">'scatter'</span>, c=<span class="string">'blue'</span>)</div><div class="line">plt.show()</div></pre></td></tr></table></figure>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/20170213148698482446431.png" alt="20170213148698482446431.png"><br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/20170213148698484278921.png" alt="20170213148698484278921.png"></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"></div><div class="line"><span class="keyword">import</span> sklearn</div><div class="line"><span class="keyword">from</span> sklearn.linear_model <span class="keyword">import</span> LinearRegression</div><div class="line">lr = LinearRegression()</div><div class="line">lr.fit(filtered_cars[[<span class="string">"horsepower"</span>]], filtered_cars[<span class="string">"mpg"</span>])</div><div class="line">predictions = lr.predict(filtered_cars[[<span class="string">"horsepower"</span>]])</div><div class="line">print(predictions[<span class="number">0</span>:<span class="number">5</span>])</div><div class="line">print(filtered_cars[<span class="string">"mpg"</span>][<span class="number">0</span>:<span class="number">5</span>].values)</div><div class="line"></div><div class="line"><span class="string">"""</span></div><div class="line">[ 19.41604569  13.89148002  16.25915102  16.25915102  17.83759835]</div><div class="line">[ 18.  15.  18.  16.  17.]</div><div class="line">"""</div></pre></td></tr></table></figure>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/20170213148698592898420.png" alt="20170213148698592898420.png"></p>
+
+                    
+                        
+                    
+                    
+                        <p>
+                            <a href="/2017/02/13/机器学习-回归/#post-footer" class="postShorten-excerpt_link link">
+                                در مورد پست بحث کنید
+                            </a>
+                        </p>
+                    
+                </div>
+            
+        </div>
+        
+    </article>
+    
+    
+    <article class="postShorten postShorten--thumbnailimg-bottom" itemscope itemType="http://schema.org/BlogPosting">
+        <div class="postShorten-wrap">
+            
+            <div class="postShorten-header">
+                <h1 class="postShorten-title" itemprop="headline">
+                    
                         <a class="link-unstyled" href="/2017/02/08/探索出生日/">
                             GuidedProject:Explore U.S. Births
                         </a>
@@ -201,7 +278,7 @@
                 <div class="postShorten-meta">
     <time itemprop="datePublished" datetime="2017-02-08T21:55:35+08:00">
 	
-		    Feb 08, 2017
+		    Wednesday، 08 Feb 2017
     	
     </time>
     
@@ -222,7 +299,7 @@
                     
                         <p>
                             <a href="/2017/02/08/探索出生日/#post-footer" class="postShorten-excerpt_link link">
-                                Comment and share
+                                در مورد پست بحث کنید
                             </a>
                         </p>
                     
@@ -247,7 +324,7 @@
                 <div class="postShorten-meta">
     <time itemprop="datePublished" datetime="2017-02-08T13:43:23+08:00">
 	
-		    Feb 08, 2017
+		    Wednesday، 08 Feb 2017
     	
     </time>
     
@@ -271,7 +348,7 @@
                     
                         <p>
                             <a href="/2017/02/08/python list及list添加元素/#post-footer" class="postShorten-excerpt_link link">
-                                Comment and share
+                                در مورد پست بحث کنید
                             </a>
                         </p>
                     
@@ -296,7 +373,7 @@
                 <div class="postShorten-meta">
     <time itemprop="datePublished" datetime="2017-02-06T23:43:23+08:00">
 	
-		    Feb 06, 2017
+		    Monday، 06 Feb 2017
     	
     </time>
     
@@ -327,7 +404,7 @@
                     
                         <p>
                             <a href="/2017/02/06/numpy和pandas入门/#post-footer" class="postShorten-excerpt_link link">
-                                Comment and share
+                                در مورد پست بحث کنید
                             </a>
                         </p>
                     
@@ -352,7 +429,7 @@
                 <div class="postShorten-meta">
     <time itemprop="datePublished" datetime="2017-02-04T20:35:19+08:00">
 	
-		    Feb 04, 2017
+		    Saturday، 04 Feb 2017
     	
     </time>
     
@@ -367,7 +444,7 @@
 </ul>
                     
                         <a href="/2017/02/04/python操作sqlite数据库/" class="postShorten-excerpt_link link">
-                            Continue reading
+                            بیشتر بخوانید
                         </a>
                         
                     
@@ -392,7 +469,7 @@
                 <div class="postShorten-meta">
     <time itemprop="datePublished" datetime="2017-02-04T15:06:51+08:00">
 	
-		    Feb 04, 2017
+		    Saturday، 04 Feb 2017
     	
     </time>
     
@@ -404,7 +481,7 @@
                     <p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/16-12-11/73471976-file_1481457498781_15146.png" alt=""><br>
                     
                         <a href="/2017/02/04/python数据文件常用格式的读写/" class="postShorten-excerpt_link link">
-                            Continue reading
+                            بیشتر بخوانید
                         </a>
                         
                     
@@ -429,7 +506,7 @@
                 <div class="postShorten-meta">
     <time itemprop="datePublished" datetime="2016-12-09T20:48:57+08:00">
 	
-		    Dec 09, 2016
+		    Friday، 09 Dec 2016
     	
     </time>
     
@@ -443,7 +520,7 @@
 </ul>
                     
                         <a href="/2016/12/09/案例1：2016美国大选可视化分析/" class="postShorten-excerpt_link link">
-                            Continue reading
+                            بیشتر بخوانید
                         </a>
                         
                     
@@ -468,7 +545,7 @@
                 <div class="postShorten-meta">
     <time itemprop="datePublished" datetime="2016-12-09T20:43:21+08:00">
 	
-		    Dec 09, 2016
+		    Friday، 09 Dec 2016
     	
     </time>
     
@@ -485,50 +562,7 @@
 </ul>
                     
                         <a href="/2016/12/09/数据分析：科学计算及数据可视化入门/" class="postShorten-excerpt_link link">
-                            Continue reading
-                        </a>
-                        
-                    
-                </div>
-            
-        </div>
-        
-    </article>
-    
-    
-    <article class="postShorten postShorten--thumbnailimg-right" itemscope itemType="http://schema.org/BlogPosting">
-        <div class="postShorten-wrap">
-            
-            <div class="postShorten-header">
-                <h1 class="postShorten-title" itemprop="headline">
-                    
-                        <a class="link-unstyled" href="/2016/12/09/数据分析：python数据结构/">
-                            数据分析：python数据结构
-                        </a>
-                    
-                </h1>
-                <div class="postShorten-meta">
-    <time itemprop="datePublished" datetime="2016-12-09T20:42:45+08:00">
-	
-		    Dec 09, 2016
-    	
-    </time>
-    
-</div>
-
-            </div>
-            
-                <div class="postShorten-excerpt" itemprop="articleBody">
-                    <p>摘要：</p>
-<ul>
-<li>数据分析基本步骤</li>
-<li>Python语言基础回顾</li>
-<li>Python数据结构讲解</li>
-<li>Python高级特性</li>
-<li>Python高阶函数
-                    
-                        <a href="/2016/12/09/数据分析：python数据结构/" class="postShorten-excerpt_link link">
-                            Continue reading
+                            بیشتر بخوانید
                         </a>
                         
                     
@@ -546,19 +580,19 @@
                 <a class="btn btn--default btn--small" href="/ ">
             
                 <i class="fa fa-angle-left text-base icon-mr"></i>
-                    <span>NEWER POSTS</span>
+                    <span>پست‌های جدیدتر</span>
             </a>
         </li>
         
         
         <li class="pagination-next">
             <a class="btn btn--default btn--small" href="/archives/page/3/">
-                    <span>OLDER POSTS</span>
+                    <span>پست‌های قدیمیتر</span>
                 <i class="fa fa-angle-right text-base icon-ml"></i>
             </a>
         </li>
         
-        <li class="pagination-number">page 2 of 18</li>
+        <li class="pagination-number">صفحه 2 از 18</li>
     </ul>
 </div>
 
@@ -588,7 +622,7 @@
             <i class="fa fa-remove"></i>
         </div>
         
-            <img id="about-card-picture" src="http://7xrw7v.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160402220553.png" alt="Author&#39;s picture"/>
+            <img id="about-card-picture" src="http://7xrw7v.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160402220553.png" alt="تصویر نویسنده"/>
         
             <h4 id="about-card-name">Haozhe Xue</h4>
         
@@ -629,7 +663,7 @@
             </form>
         </div>
         <div class="modal-body">
-            <div class="no-result text-color-light text-center">no post found</div>
+            <div class="no-result text-color-light text-center">هیچ پستی یافت نشد :(</div>
             <div class="results">
                 
                 <div class="media">
@@ -734,31 +768,6 @@
                 <div class="media">
                     
                     <div class="media-body">
-                        <a class="link-unstyled" href="http://yoursite.com/2016/03/15/2016-03-15-hadoop1/">
-                            <h3 class="media-heading">hadoope下API操作</h3>
-                        </a>
-                        <span class="media-meta">
-                            <span class="media-date text-small">
-                                
-                                    Mar 15, 2016
-                                
-                            </span>
-                        </span>
-                        <div class="media-content hide-xs font-merryweather"><p>摘要：</p>
-<ul>
-<li>创建Java项目</li>
-<li>添加jar包</li>
-<li>代码</li>
-<li>单元测试</li>
-</ul></div>
-                    </div>
-                    <div style="clear:both;"></div>
-                    <hr>
-                </div>
-                
-                <div class="media">
-                    
-                    <div class="media-body">
                         <a class="link-unstyled" href="http://yoursite.com/2016/03/15/2016-03-15-haozhe/">
                             <h3 class="media-heading">博客：Markdown入门</h3>
                         </a>
@@ -778,6 +787,31 @@
 <li>粗体斜体</li>
 <li>标量</li>
 <li>添加代码</li>
+</ul></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yoursite.com/2016/03/15/2016-03-15-hadoop1/">
+                            <h3 class="media-heading">hadoope下API操作</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Mar 15, 2016
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>摘要：</p>
+<ul>
+<li>创建Java项目</li>
+<li>添加jar包</li>
+<li>代码</li>
+<li>单元测试</li>
 </ul></div>
                     </div>
                     <div style="clear:both;"></div>
@@ -836,10 +870,10 @@
         </div>
         <div class="modal-footer">
             <p class="results-count text-medium"
-                data-message-zero="no post found"
-                data-message-one="1 post found"
-                data-message-other="{n} posts found">
-                141 posts found
+                data-message-zero="هیچ پستی یافت نشد :("
+                data-message-one="۱ پست یافت شد"
+                data-message-other="{n} پست یافت شد">
+                142 پست یافت شد
             </p>
         </div>
     </div>
