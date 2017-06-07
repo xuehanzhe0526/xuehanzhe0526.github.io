@@ -32,7 +32,7 @@
 梯度下降：代码
 梯度下降算法">
 <meta property="og:image" content="http://7xrw7v.com1.z0.glb.clouddn.com/20170607149683904639236.png">
-<meta property="og:updated_time" content="2017-06-07T16:23:44.000Z">
+<meta property="og:updated_time" content="2017-06-07T16:27:59.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="深度学习：梯度下降">
 <meta name="twitter:description" content="摘要：
@@ -243,7 +243,7 @@
 <li>梯度下降算法</li>
 </ul>
 <a id="more"></a>
-<h1 id="table-of-contents">Inhaltsverzeichnis</h1><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#梯度下降：数学"><span class="toc-text">梯度下降：数学</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#梯度下降：代码-梯度下降一步"><span class="toc-text">梯度下降：代码(梯度下降一步)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#实现梯度下降"><span class="toc-text">实现梯度下降</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#均方差"><span class="toc-text">均方差</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#梯度下降算法"><span class="toc-text">梯度下降算法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#数据预处理"><span class="toc-text">数据预处理</span></a></li></ol></li></ol>
+<h1 id="table-of-contents">Inhaltsverzeichnis</h1><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#梯度下降：数学"><span class="toc-text">梯度下降：数学</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#梯度下降：代码-梯度下降一步"><span class="toc-text">梯度下降：代码(梯度下降一步)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#实现梯度下降"><span class="toc-text">实现梯度下降</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#均方差"><span class="toc-text">均方差</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#梯度下降算法"><span class="toc-text">梯度下降算法</span></a></li></ol></li></ol>
 <h3 id="梯度下降：数学"><a href="#梯度下降：数学" class="headerlink" title="梯度下降：数学"></a>梯度下降：数学</h3><p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/20170607149683863131214.png" alt="20170607149683863131214.png"></p>
 <p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/20170607149683868049552.png" alt="20170607149683868049552.png"></p>
 <p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/20170607149683869145151.png" alt="20170607149683869145151.png"></p>
@@ -267,42 +267,16 @@
 <figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="comment"># 创建figure </span></div><div class="line">fig = plt.figure()</div><div class="line">ax1 = fig.add_subplot(<span class="number">2</span>,<span class="number">2</span>,<span class="number">1</span>) </div><div class="line">ax2 = fig.add_subplot(<span class="number">2</span>,<span class="number">2</span>,<span class="number">2</span>) </div><div class="line">ax3 = fig.add_subplot(<span class="number">2</span>,<span class="number">2</span>,<span class="number">3</span>) </div><div class="line">ax4 = fig.add_subplot(<span class="number">2</span>,<span class="number">2</span>,<span class="number">4</span>)</div><div class="line"></div><div class="line">ax1.scatter(rank_1_1[<span class="string">'gpa'</span>],rank_1_1[<span class="string">'gre'</span>],color= <span class="string">'g'</span>,label=<span class="string">'i'</span>,marker = <span class="string">'o'</span>)</div><div class="line">ax1.scatter(rank_1_0[<span class="string">'gpa'</span>],rank_1_0[<span class="string">'gre'</span>],c = <span class="string">'b'</span>,label=<span class="string">'o'</span>,marker = <span class="string">'o'</span>)</div><div class="line"></div><div class="line"></div><div class="line">ax2.scatter(rank_2_1[<span class="string">'gpa'</span>],rank_2_1[<span class="string">'gre'</span>],color= <span class="string">'g'</span>,label=<span class="string">'i'</span>,marker = <span class="string">'o'</span>)</div><div class="line">ax2.scatter(rank_2_0[<span class="string">'gpa'</span>],rank_2_0[<span class="string">'gre'</span>],c = <span class="string">'b'</span>,label=<span class="string">'o'</span>,marker = <span class="string">'o'</span>)</div><div class="line"></div><div class="line">ax3.scatter(rank_3_1[<span class="string">'gpa'</span>],rank_3_1[<span class="string">'gre'</span>],color= <span class="string">'g'</span>,label=<span class="string">'i'</span>,marker = <span class="string">'o'</span>)</div><div class="line">ax3.scatter(rank_3_0[<span class="string">'gpa'</span>],rank_3_0[<span class="string">'gre'</span>],c = <span class="string">'b'</span>,label=<span class="string">'o'</span>,marker = <span class="string">'o'</span>)</div><div class="line"></div><div class="line">ax4.scatter(rank_4_1[<span class="string">'gpa'</span>],rank_4_1[<span class="string">'gre'</span>],color= <span class="string">'g'</span>,label=<span class="string">'i'</span>,marker = <span class="string">'o'</span>)</div><div class="line">ax4.scatter(rank_4_0[<span class="string">'gpa'</span>],rank_4_0[<span class="string">'gre'</span>],c = <span class="string">'b'</span>,label=<span class="string">'o'</span>,marker = <span class="string">'o'</span>)</div><div class="line"></div><div class="line">ax1.legend(loc = <span class="string">'lower left'</span>)</div><div class="line"></div><div class="line">plt.xlabel(<span class="string">'GPA'</span>)</div><div class="line">plt.ylabel(<span class="string">'GRE'</span>)</div><div class="line">plt.tight_layout()</div><div class="line">plt.show()</div></pre></td></tr></table></figure>
 <p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/20170608149685258918725.png" alt="20170608149685258918725.png"></p>
 <figure class="highlight python"><table><tr><td class="code"><pre><div class="line">df.head()</div></pre></td></tr></table></figure>
-<div><br><table border="1" class="dataframe"><br>  <thead><br>    <tr style="text-align: right;"><br>      <th></th><br>      <th>admit</th><br>      <th>gre</th><br>      <th>gpa</th><br>      <th>rank</th><br>    </tr><br>  </thead><br>  <tbody><br>    <tr><br>      <th>0</th><br>      <td>0</td><br>      <td>380</td><br>      <td>3.61</td><br>      <td>3</td><br>    </tr><br>    <tr><br>      <th>1</th><br>      <td>1</td><br>      <td>660</td><br>      <td>3.67</td><br>      <td>3</td><br>    </tr><br>    <tr><br>      <th>2</th><br>      <td>1</td><br>      <td>800</td><br>      <td>4.00</td><br>      <td>1</td><br>    </tr><br>    <tr><br>      <th>3</th><br>      <td>1</td><br>      <td>640</td><br>      <td>3.19</td><br>      <td>4</td><br>    </tr><br>    <tr><br>      <th>4</th><br>      <td>0</td><br>      <td>520</td><br>      <td>2.93</td><br>      <td>4</td><br>    </tr><br>  </tbody><br></table><br></div>
-
-
-
-<h4 id="数据预处理"><a href="#数据预处理" class="headerlink" title="数据预处理"></a>数据预处理</h4><ul>
-<li><p>1、rank 是类别特征，数字并不包含任何想对的值。<br>排名第 2 并不是排名第 1 的两倍；排名第 3 也不是排名第 2 的 1.5 倍。</p>
-<p>因此，我们需要用 dummy variables 来对rank进行编码。</p>
-</li>
-</ul>
-<ul>
-<li><p>2、我们还需要把 GRE 和 GPA 分数标准化，也就是说使得他们的平均值是 0，标准差是 1。</p>
-<p>因为 sigmoid 函数会挤压很大或者很小的输入，所以这一步是必要的。</p>
-<p>很大或者很小输入的梯度是 0 意味着梯度下降的步长也会是 0。因为 GRE 和 GPA 的值都相对较大，我们在初始化权重的时候要非常小心，否则梯度下降就会死亡，网络也没发训练了。如果我们对数据做了标准化处理，我们能更容易地对权重进行初始化。</p>
-</li>
-</ul>
-<figure class="highlight python"><table><tr><td class="code"><pre><div class="line">pd.get_dummies(df[<span class="string">'rank'</span>], prefix=<span class="string">'rank'</span>).head()</div></pre></td></tr></table></figure>
-<div><br><table border="1" class="dataframe"><br>  <thead><br>    <tr style="text-align: right;"><br>      <th></th><br>      <th>rank_1</th><br>      <th>rank_2</th><br>      <th>rank_3</th><br>      <th>rank_4</th><br>    </tr><br>  </thead><br>  <tbody><br>    <tr><br>      <th>0</th><br>      <td>0</td><br>      <td>0</td><br>      <td>1</td><br>      <td>0</td><br>    </tr><br>    <tr><br>      <th>1</th><br>      <td>0</td><br>      <td>0</td><br>      <td>1</td><br>      <td>0</td><br>    </tr><br>    <tr><br>      <th>2</th><br>      <td>1</td><br>      <td>0</td><br>      <td>0</td><br>      <td>0</td><br>    </tr><br>    <tr><br>      <th>3</th><br>      <td>0</td><br>      <td>0</td><br>      <td>0</td><br>      <td>1</td><br>    </tr><br>    <tr><br>      <th>4</th><br>      <td>0</td><br>      <td>0</td><br>      <td>0</td><br>      <td>1</td><br>    </tr><br>  </tbody><br></table><br></div>
-
-
-
+<div><br><table border="1" class="dataframe"><br>  <thead><br>    <tr style="text-align: right;"><br>      <th></th><br>      <th>admit</th><br>      <th>gre</th><br>      <th>gpa</th><br>      <th>rank</th><br>    </tr><br>  </thead><br>  <tbody><br>    <tr><br>      <th>0</th><br>      <td>0</td><br>      <td>380</td><br>      <td>3.61</td><br>      <td>3</td><br>    </tr><br>    <tr><br>      <th>1</th><br>      <td>1</td><br>      <td>660</td><br>      <td>3.67</td><br>      <td>3</td><br>    </tr><br>    <tr><br>      <th>2</th><br>      <td>1</td><br>      <td>800</td><br>      <td>4.00</td><br>      <td>1</td><br>    </tr><br>    <tr><br>      <th>3</th><br>      <td>1</td><br>      <td>640</td><br>      <td>3.19</td><br>      <td>4</td><br>    </tr><br>    <tr><br>      <th>4</th><br>      <td>0</td><br>      <td>520</td><br>      <td>2.93</td><br>      <td>4</td><br>    </tr><br>  </tbody><br></table><br></div><br>#### 数据预处理<br><br>- 1、rank 是类别特征，数字并不包含任何想对的值。<br> 排名第 2 并不是排名第 1 的两倍；排名第 3 也不是排名第 2 的 1.5 倍。<br><br> 因此，我们需要用 dummy variables 来对rank进行编码。<br><br><br>- 2、我们还需要把 GRE 和 GPA 分数标准化，也就是说使得他们的平均值是 0，标准差是 1。<br><br> 因为 sigmoid 函数会挤压很大或者很小的输入，所以这一步是必要的。<br><br> 很大或者很小输入的梯度是 0 意味着梯度下降的步长也会是 0。因为 GRE 和 GPA 的值都相对较大，我们在初始化权重的时候要非常小心，否则梯度下降就会死亡，网络也没发训练了。如果我们对数据做了标准化处理，我们能更容易地对权重进行初始化。<br><br><br><figure class="highlight python"><table><tr><td class="code"><pre><div class="line">pd.get_dummies(df[<span class="string">'rank'</span>], prefix=<span class="string">'rank'</span>).head()</div></pre></td></tr></table></figure><br><br><div><br><table border="1" class="dataframe"><br>  <thead><br>    <tr style="text-align: right;"><br>      <th></th><br>      <th>rank_1</th><br>      <th>rank_2</th><br>      <th>rank_3</th><br>      <th>rank_4</th><br>    </tr><br>  </thead><br>  <tbody><br>    <tr><br>      <th>0</th><br>      <td>0</td><br>      <td>0</td><br>      <td>1</td><br>      <td>0</td><br>    </tr><br>    <tr><br>      <th>1</th><br>      <td>0</td><br>      <td>0</td><br>      <td>1</td><br>      <td>0</td><br>    </tr><br>    <tr><br>      <th>2</th><br>      <td>1</td><br>      <td>0</td><br>      <td>0</td><br>      <td>0</td><br>    </tr><br>    <tr><br>      <th>3</th><br>      <td>0</td><br>      <td>0</td><br>      <td>0</td><br>      <td>1</td><br>    </tr><br>    <tr><br>      <th>4</th><br>      <td>0</td><br>      <td>0</td><br>      <td>0</td><br>      <td>1</td><br>    </tr><br>  </tbody><br></table><br></div>
 
 <figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="comment"># Make dummy variables for rank</span></div><div class="line">data = pd.concat([df, pd.get_dummies(df[<span class="string">'rank'</span>], prefix=<span class="string">'rank'</span>)], axis=<span class="number">1</span>)</div></pre></td></tr></table></figure>
 <figure class="highlight python"><table><tr><td class="code"><pre><div class="line">data = data.drop(<span class="string">'rank'</span>, axis=<span class="number">1</span>)</div><div class="line">data.head()</div></pre></td></tr></table></figure>
 <div><br><table border="1" class="dataframe"><br>  <thead><br>    <tr style="text-align: right;"><br>      <th></th><br>      <th>admit</th><br>      <th>gre</th><br>      <th>gpa</th><br>      <th>rank_1</th><br>      <th>rank_2</th><br>      <th>rank_3</th><br>      <th>rank_4</th><br>    </tr><br>  </thead><br>  <tbody><br>    <tr><br>      <th>0</th><br>      <td>0</td><br>      <td>380</td><br>      <td>3.61</td><br>      <td>0</td><br>      <td>0</td><br>      <td>1</td><br>      <td>0</td><br>    </tr><br>    <tr><br>      <th>1</th><br>      <td>1</td><br>      <td>660</td><br>      <td>3.67</td><br>      <td>0</td><br>      <td>0</td><br>      <td>1</td><br>      <td>0</td><br>    </tr><br>    <tr><br>      <th>2</th><br>      <td>1</td><br>      <td>800</td><br>      <td>4.00</td><br>      <td>1</td><br>      <td>0</td><br>      <td>0</td><br>      <td>0</td><br>    </tr><br>    <tr><br>      <th>3</th><br>      <td>1</td><br>      <td>640</td><br>      <td>3.19</td><br>      <td>0</td><br>      <td>0</td><br>      <td>0</td><br>      <td>1</td><br>    </tr><br>    <tr><br>      <th>4</th><br>      <td>0</td><br>      <td>520</td><br>      <td>2.93</td><br>      <td>0</td><br>      <td>0</td><br>      <td>0</td><br>      <td>1</td><br>    </tr><br>  </tbody><br></table><br></div>
 
-
-
-
 <figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="comment"># Standarize features</span></div><div class="line"><span class="keyword">for</span> field <span class="keyword">in</span> [<span class="string">'gre'</span>, <span class="string">'gpa'</span>]:</div><div class="line">    mean, std = data[field].mean(), data[field].std()</div><div class="line">    data.loc[:,field] = (data[field]-mean)/std</div></pre></td></tr></table></figure>
 <figure class="highlight python"><table><tr><td class="code"><pre><div class="line">data.head()</div></pre></td></tr></table></figure>
-<div><br><table border="1" class="dataframe"><br>  <thead><br>    <tr style="text-align: right;"><br>      <th></th><br>      <th>admit</th><br>      <th>gre</th><br>      <th>gpa</th><br>      <th>rank_1</th><br>      <th>rank_2</th><br>      <th>rank_3</th><br>      <th>rank_4</th><br>    </tr><br>  </thead><br>  <tbody><br>    <tr><br>      <th>0</th><br>      <td>0</td><br>      <td>-1.798011</td><br>      <td>0.578348</td><br>      <td>0</td><br>      <td>0</td><br>      <td>1</td><br>      <td>0</td><br>    </tr><br>    <tr><br>      <th>1</th><br>      <td>1</td><br>      <td>0.625884</td><br>      <td>0.736008</td><br>      <td>0</td><br>      <td>0</td><br>      <td>1</td><br>      <td>0</td><br>    </tr><br>    <tr><br>      <th>2</th><br>      <td>1</td><br>      <td>1.837832</td><br>      <td>1.603135</td><br>      <td>1</td><br>      <td>0</td><br>      <td>0</td><br>      <td>0</td><br>    </tr><br>    <tr><br>      <th>3</th><br>      <td>1</td><br>      <td>0.452749</td><br>      <td>-0.525269</td><br>      <td>0</td><br>      <td>0</td><br>      <td>0</td><br>      <td>1</td><br>    </tr><br>    <tr><br>      <th>4</th><br>      <td>0</td><br>      <td>-0.586063</td><br>      <td>-1.208461</td><br>      <td>0</td><br>      <td>0</td><br>      <td>0</td><br>      <td>1</td><br>    </tr><br>  </tbody><br></table><br></div>
-
-
-
-
-<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="comment"># Split off random 10% of the data for testing</span></div><div class="line">np.random.seed(<span class="number">42</span>)</div><div class="line">sample = np.random.choice(data.index, size=int(len(data)*<span class="number">0.9</span>), replace=<span class="keyword">False</span>)</div><div class="line"></div><div class="line">data, test_data = data.ix[sample], data.drop(sample)</div><div class="line"></div><div class="line"><span class="comment"># Split into features and targets</span></div><div class="line">features, targets = data.drop(<span class="string">'admit'</span>, axis=<span class="number">1</span>), data[<span class="string">'admit'</span>]</div><div class="line">features_test, targets_test = test_data.drop(<span class="string">'admit'</span>, axis=<span class="number">1</span>), test_data[<span class="string">'admit'</span>]</div></pre></td></tr></table></figure>
+<p><div></div></p>
+<p><table border="1" class="dataframe"><br>  <thead><br>    <tr style="text-align: right;"><br>      <th></th><br>      <th>admit</th><br>      <th>gre</th><br>      <th>gpa</th><br>      <th>rank_1</th><br>      <th>rank_2</th><br>      <th>rank_3</th><br>      <th>rank_4</th><br>    </tr><br>  </thead><br>  <tbody><br>    <tr><br>      <th>0</th><br>      <td>0</td><br>      <td>-1.798011</td><br>      <td>0.578348</td><br>      <td>0</td><br>      <td>0</td><br>      <td>1</td><br>      <td>0</td><br>    </tr><br>    <tr><br>      <th>1</th><br>      <td>1</td><br>      <td>0.625884</td><br>      <td>0.736008</td><br>      <td>0</td><br>      <td>0</td><br>      <td>1</td><br>      <td>0</td><br>    </tr><br>    <tr><br>      <th>2</th><br>      <td>1</td><br>      <td>1.837832</td><br>      <td>1.603135</td><br>      <td>1</td><br>      <td>0</td><br>      <td>0</td><br>      <td>0</td><br>    </tr><br>    <tr><br>      <th>3</th><br>      <td>1</td><br>      <td>0.452749</td><br>      <td>-0.525269</td><br>      <td>0</td><br>      <td>0</td><br>      <td>0</td><br>      <td>1</td><br>    </tr><br>    <tr><br>      <th>4</th><br>      <td>0</td><br>      <td>-0.586063</td><br>      <td>-1.208461</td><br>      <td>0</td><br>      <td>0</td><br>      <td>0</td><br>      <td>1</td><br>    </tr><br>  </tbody><br></table><br><br><figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="comment"># Split off random 10% of the data for testing</span></div><div class="line">np.random.seed(<span class="number">42</span>)</div><div class="line">sample = np.random.choice(data.index, size=int(len(data)*<span class="number">0.9</span>), replace=<span class="keyword">False</span>)</div><div class="line"></div><div class="line">data, test_data = data.ix[sample], data.drop(sample)</div><div class="line"></div><div class="line"><span class="comment"># Split into features and targets</span></div><div class="line">features, targets = data.drop(<span class="string">'admit'</span>, axis=<span class="number">1</span>), data[<span class="string">'admit'</span>]</div><div class="line">features_test, targets_test = test_data.drop(<span class="string">'admit'</span>, axis=<span class="number">1</span>), test_data[<span class="string">'admit'</span>]</div></pre></td></tr></table></figure></p>
 <figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">sigmoid</span><span class="params">(x)</span>:</span></div><div class="line">    <span class="string">"""</span></div><div class="line">    Calculate sigmoid</div><div class="line">    """</div><div class="line">    <span class="keyword">return</span> <span class="number">1</span> / (<span class="number">1</span> + np.exp(-x))</div><div class="line"></div><div class="line"><span class="comment"># Use to same seed to make debugging easier</span></div><div class="line">np.random.seed(<span class="number">42</span>)</div><div class="line"></div><div class="line">n_records, n_features = features.shape</div><div class="line">last_loss = <span class="keyword">None</span></div><div class="line"></div><div class="line"><span class="comment"># Initialize weights</span></div><div class="line">weights = np.random.normal(scale=<span class="number">1</span> / n_features**<span class="number">.5</span>, size=n_features)</div><div class="line"></div><div class="line"><span class="comment"># Neural Network hyperparameters</span></div><div class="line">epochs = <span class="number">1000</span></div><div class="line">learnrate = <span class="number">0.5</span></div><div class="line"></div><div class="line"><span class="keyword">for</span> e <span class="keyword">in</span> range(epochs):</div><div class="line">    del_w = np.zeros(weights.shape)</div><div class="line">    <span class="keyword">for</span> x, y <span class="keyword">in</span> zip(features.values, targets):</div><div class="line">        <span class="comment"># Loop through all records, x is the input, y is the target</span></div><div class="line"></div><div class="line">        <span class="comment"># Note: We haven't included the h variable from the previous</span></div><div class="line">        <span class="comment">#       lesson. You can add it if you want, or you can calculate</span></div><div class="line">        <span class="comment">#       the h together with the output</span></div><div class="line"></div><div class="line">        <span class="comment"># <span class="doctag">TODO:</span> Calculate the output</span></div><div class="line">        output = sigmoid(np.dot(x,weights))</div><div class="line"></div><div class="line">        <span class="comment"># <span class="doctag">TODO:</span> Calculate the error</span></div><div class="line">        error = y - output</div><div class="line"></div><div class="line">        <span class="comment"># <span class="doctag">TODO:</span> Calculate the error term</span></div><div class="line">        error_term = error * sigmoid(sigmoid(np.dot(x,weights))) * (<span class="number">1</span>- sigmoid(np.dot(x,weights)))</div><div class="line"></div><div class="line">        <span class="comment"># <span class="doctag">TODO:</span> Calculate the change in weights for this sample</span></div><div class="line">        <span class="comment">#       and add it to the total weight change</span></div><div class="line">        del_w += error_term * x</div><div class="line"></div><div class="line">    <span class="comment"># <span class="doctag">TODO:</span> Update weights using the learning rate and the average change in weights</span></div><div class="line">    weights += learnrate * del_w / n_records</div><div class="line"></div><div class="line">    <span class="comment"># Printing out the mean square error on the training set</span></div><div class="line">    <span class="keyword">if</span> e % (epochs / <span class="number">10</span>) == <span class="number">0</span>:</div><div class="line">        out = sigmoid(np.dot(features, weights))</div><div class="line">        loss = np.mean((out - targets) ** <span class="number">2</span>)</div><div class="line">        <span class="keyword">if</span> last_loss <span class="keyword">and</span> last_loss &lt; loss:</div><div class="line">            print(<span class="string">"Train loss: "</span>, loss, <span class="string">"  WARNING - Loss Increasing"</span>)</div><div class="line">        <span class="keyword">else</span>:</div><div class="line">            print(<span class="string">"Train loss: "</span>, loss)</div><div class="line">        last_loss = loss</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment"># Calculate accuracy on test data</span></div><div class="line">tes_out = sigmoid(np.dot(features_test, weights))</div><div class="line">predictions = tes_out &gt; <span class="number">0.5</span></div><div class="line">accuracy = np.mean(predictions == targets_test)</div><div class="line">print(<span class="string">"Prediction accuracy: &#123;:.3f&#125;"</span>.format(accuracy))</div></pre></td></tr></table></figure>
 <pre><code>(&apos;Train loss: &apos;, 0.2623659850572397)
 (&apos;Train loss: &apos;, 0.20793084299554782)
@@ -326,7 +300,7 @@ Prediction accuracy: 0.750
             
             
             <div class="photo-box">
-                <a class="photo-box-inner fancybox" data-fancybox-group="gallery-cj3n7f6pf008ergs6b3lglgcp"
+                <a class="photo-box-inner fancybox" data-fancybox-group="gallery-cj3n80bou008rv8s66rbpgukv"
                    title="" href="http://7xrw7v.com1.z0.glb.clouddn.com/20170607149683904639236.png">
                     <img class="photo" src="http://7xrw7v.com1.z0.glb.clouddn.com/20170607149683904639236.png" itemprop="image">
                 </a>
@@ -686,31 +660,6 @@ Prediction accuracy: 0.750
                 <div class="media">
                     
                     <div class="media-body">
-                        <a class="link-unstyled" href="http://yoursite.com/2016/03/15/2016-03-15-hadoop1/">
-                            <h3 class="media-heading">hadoope下API操作</h3>
-                        </a>
-                        <span class="media-meta">
-                            <span class="media-date text-small">
-                                
-                                    Mar 15, 2016
-                                
-                            </span>
-                        </span>
-                        <div class="media-content hide-xs font-merryweather"><p>摘要：</p>
-<ul>
-<li>创建Java项目</li>
-<li>添加jar包</li>
-<li>代码</li>
-<li>单元测试</li>
-</ul></div>
-                    </div>
-                    <div style="clear:both;"></div>
-                    <hr>
-                </div>
-                
-                <div class="media">
-                    
-                    <div class="media-body">
                         <a class="link-unstyled" href="http://yoursite.com/2016/03/15/2016-03-15-haozhe/">
                             <h3 class="media-heading">博客：Markdown入门</h3>
                         </a>
@@ -730,6 +679,31 @@ Prediction accuracy: 0.750
 <li>粗体斜体</li>
 <li>标量</li>
 <li>添加代码</li>
+</ul></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yoursite.com/2016/03/15/2016-03-15-hadoop1/">
+                            <h3 class="media-heading">hadoope下API操作</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Mar 15, 2016
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>摘要：</p>
+<ul>
+<li>创建Java项目</li>
+<li>添加jar包</li>
+<li>代码</li>
+<li>单元测试</li>
 </ul></div>
                     </div>
                     <div style="clear:both;"></div>
