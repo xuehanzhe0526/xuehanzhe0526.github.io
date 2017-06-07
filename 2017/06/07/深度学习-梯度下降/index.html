@@ -6,38 +6,62 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="Haozhe">
-    <title>hadoop集群分布式规划安装 - Haozhe</title>
+    <title> - Haozhe</title>
     <meta name="author" content="Haozhe Xue">
     
     
         <link rel="icon" href="http://yoursite.com/assets/images/favicon.ico">
     
     
-    <meta name="description" content="摘要：
+    <meta name="description" content="深度学习-梯度下降title: 深度学习：梯度下降photos:
 
-hadoop集群分布式规划安装">
+http://7xrw7v.com1.z0.glb.clouddn.com/20170607149683904639236.pngtags:
+深度学习date: 2017-06-07 20:34:34
+
+
+摘要：
+
+梯度下降：数学
+梯度下降：代码">
 <meta property="og:type" content="blog">
-<meta property="og:title" content="hadoop集群分布式规划安装">
-<meta property="og:url" content="http://yoursite.com/2016/07/19/hadoop集群分布式规划安装/index.html">
+<meta property="og:title" content="Haozhe">
+<meta property="og:url" content="http://yoursite.com/2017/06/07/深度学习-梯度下降/index.html">
 <meta property="og:site_name" content="Haozhe">
-<meta property="og:description" content="摘要：
+<meta property="og:description" content="深度学习-梯度下降title: 深度学习：梯度下降photos:
 
-hadoop集群分布式规划安装">
-<meta property="og:image" content="http://7xrw7v.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160521164139.png">
-<meta property="og:image" content="http://7xrw7v.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160521164205.png">
-<meta property="og:image" content="http://7xrw7v.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160521164234.png">
-<meta property="og:image" content="http://7xrw7v.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160521155646.png">
-<meta property="og:image" content="http://7xrw7v.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160521160426.png">
-<meta property="og:image" content="http://7xrw7v.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160521164419.png">
-<meta property="og:image" content="http://7xrw7v.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160521164537.png">
-<meta property="og:image" content="http://7xrw7v.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160521164517.png">
-<meta property="og:updated_time" content="2016-08-22T06:36:20.000Z">
+http://7xrw7v.com1.z0.glb.clouddn.com/20170607149683904639236.pngtags:
+深度学习date: 2017-06-07 20:34:34
+
+
+摘要：
+
+梯度下降：数学
+梯度下降：代码">
+<meta property="og:image" content="http://7xrw7v.com1.z0.glb.clouddn.com/20170607149683863131214.png">
+<meta property="og:image" content="http://7xrw7v.com1.z0.glb.clouddn.com/20170607149683868049552.png">
+<meta property="og:image" content="http://7xrw7v.com1.z0.glb.clouddn.com/20170607149683869145151.png">
+<meta property="og:image" content="http://7xrw7v.com1.z0.glb.clouddn.com/20170607149683870213633.png">
+<meta property="og:image" content="http://7xrw7v.com1.z0.glb.clouddn.com/201706071496838716192.png">
+<meta property="og:image" content="http://7xrw7v.com1.z0.glb.clouddn.com/20170607149683873188916.png">
+<meta property="og:image" content="http://7xrw7v.com1.z0.glb.clouddn.com/20170607149683874136091.png">
+<meta property="og:image" content="http://7xrw7v.com1.z0.glb.clouddn.com/2017060714968387471464.png">
+<meta property="og:image" content="http://7xrw7v.com1.z0.glb.clouddn.com/2017060714968387556817.png">
+<meta property="og:image" content="http://7xrw7v.com1.z0.glb.clouddn.com/20170607149683876398397.png">
+<meta property="og:image" content="http://7xrw7v.com1.z0.glb.clouddn.com/20170607149683877229907.png">
+<meta property="og:updated_time" content="2017-06-07T12:37:58.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="hadoop集群分布式规划安装">
-<meta name="twitter:description" content="摘要：
+<meta name="twitter:title" content="Haozhe">
+<meta name="twitter:description" content="深度学习-梯度下降title: 深度学习：梯度下降photos:
 
-hadoop集群分布式规划安装">
-<meta name="twitter:image" content="http://7xrw7v.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160521164139.png">
+http://7xrw7v.com1.z0.glb.clouddn.com/20170607149683904639236.pngtags:
+深度学习date: 2017-06-07 20:34:34
+
+
+摘要：
+
+梯度下降：数学
+梯度下降：代码">
+<meta name="twitter:image" content="http://7xrw7v.com1.z0.glb.clouddn.com/20170607149683863131214.png">
     
     
         
@@ -206,14 +230,14 @@ hadoop集群分布式规划安装">
         <div class="post-header main-content-wrap text-left">
     
         <h1 class="post-title" itemprop="headline">
-            hadoop集群分布式规划安装
+            (no title)
         </h1>
     
     
         <div class="post-meta">
-    <time itemprop="datePublished" datetime="2016-07-19T10:31:28+08:00">
+    <time itemprop="datePublished" datetime="2017-06-07T20:30:55+08:00">
 	
-		    Jul 19, 2016
+		    Jun 07, 2017
     	
     </time>
     
@@ -224,24 +248,32 @@ hadoop集群分布式规划安装">
     
     <div class="post-content markdown" itemprop="articleBody">
         <div class="main-content-wrap">
-            <p>摘要：</p>
+            <h2 id="深度学习-梯度下降"><a href="#深度学习-梯度下降" class="headerlink" title="深度学习-梯度下降"></a>深度学习-梯度下降</h2><p>title: 深度学习：梯度下降<br>photos:</p>
 <ul>
-<li>hadoop集群分布式规划安装</li>
+<li><a href="http://7xrw7v.com1.z0.glb.clouddn.com/20170607149683904639236.png" target="_blank" rel="external">http://7xrw7v.com1.z0.glb.clouddn.com/20170607149683904639236.png</a><br>tags:</li>
+<li>深度学习<br>date: 2017-06-07 20:34:34</li>
+</ul>
+<hr>
+<p>摘要：</p>
+<ul>
+<li>梯度下降：数学</li>
+<li>梯度下降：代码</li>
 </ul>
 <a id="more"></a>
-<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160521164139.png" alt=""><br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160521164205.png" alt=""><br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160521164234.png" alt=""><br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160521155646.png" alt=""><br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160521160426.png" alt=""><br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160521164419.png" alt=""><br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160521164537.png" alt=""><br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160521164517.png" alt=""></p>
-
+<h1 id="table-of-contents">Table of Contents</h1><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#深度学习-梯度下降"><span class="toc-text">深度学习-梯度下降</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#梯度下降：数学"><span class="toc-text">梯度下降：数学</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#梯度下降：代码"><span class="toc-text">梯度下降：代码</span></a></li></ol></li></ol>
+<h3 id="梯度下降：数学"><a href="#梯度下降：数学" class="headerlink" title="梯度下降：数学"></a>梯度下降：数学</h3><p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/20170607149683863131214.png" alt="20170607149683863131214.png"></p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/20170607149683868049552.png" alt="20170607149683868049552.png"></p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/20170607149683869145151.png" alt="20170607149683869145151.png"></p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/20170607149683870213633.png" alt="20170607149683870213633.png"></p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/201706071496838716192.png" alt="201706071496838716192.png"><br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/20170607149683873188916.png" alt="20170607149683873188916.png"><br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/20170607149683874136091.png" alt="20170607149683874136091.png"></p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/2017060714968387471464.png" alt="2017060714968387471464.png"></p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/2017060714968387556817.png" alt="2017060714968387556817.png"></p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/20170607149683876398397.png" alt="20170607149683876398397.png"><br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/20170607149683877229907.png" alt="20170607149683877229907.png"></p>
+<h3 id="梯度下降：代码"><a href="#梯度下降：代码" class="headerlink" title="梯度下降：代码"></a>梯度下降：代码</h3>
             
         </div>
     </div>
     <div id="post-footer" class="post-footer main-content-wrap">
-        
-            <div class="post-footer-tags">
-                <span class="text-color-light text-small">TAGGED IN</span><br/>
-                
-    <a class="tag tag--primary tag--small t-link" href="/tags/hadoop/">hadoop</a>
-
-            </div>
         
         
             <div class="post-actions-wrap">
@@ -249,7 +281,7 @@ hadoop集群分布式规划安装">
         <ul class="post-actions post-action-nav">
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2016/07/21/1、什么是set/"  data-tooltip="python入门 (四)(转载)">
+                    <a class="post-action-btn btn btn--disabled">
                 
                     <i class="fa fa-angle-left"></i>
                     <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
@@ -257,7 +289,7 @@ hadoop集群分布式规划安装">
             </li>
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2016/07/13/hadoop源码导入/" data-tooltip="hadoop源码导入">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2017/06/07/模型评估与选择/" data-tooltip="西瓜书：模型评估与选择">
                 
                     <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
                     <i class="fa fa-angle-right"></i>
@@ -275,7 +307,7 @@ hadoop集群分布式规划安装">
             
             
             <li class="post-action hide-xs">
-                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2016/07/19/hadoop集群分布式规划安装/">
+                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2017/06/07/深度学习-梯度下降/">
                     <i class="fa fa-facebook-official"></i>
                 </a>
             </li>
@@ -283,7 +315,7 @@ hadoop集群分布式规划安装">
             
             
             <li class="post-action hide-xs">
-                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://yoursite.com/2016/07/19/hadoop集群分布式规划安装/">
+                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://yoursite.com/2017/06/07/深度学习-梯度下降/">
                     <i class="fa fa-twitter"></i>
                 </a>
             </li>
@@ -291,7 +323,7 @@ hadoop集群分布式规划安装">
             
             
             <li class="post-action hide-xs">
-                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://yoursite.com/2016/07/19/hadoop集群分布式规划安装/">
+                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://yoursite.com/2017/06/07/深度学习-梯度下降/">
                     <i class="fa fa-google-plus"></i>
                 </a>
             </li>
@@ -299,7 +331,7 @@ hadoop集群分布式规划安装">
         
         <li class="post-action">
             
-                <a class="post-action-btn btn btn--default" href="#">
+                <a class="post-action-btn btn btn--default" href="#table-of-contents">
             
                 <i class="fa fa-list"></i>
             </a>
@@ -331,7 +363,7 @@ hadoop集群分布式规划安装">
         <ul class="post-actions post-action-nav">
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2016/07/21/1、什么是set/"  data-tooltip="python入门 (四)(转载)">
+                    <a class="post-action-btn btn btn--disabled">
                 
                     <i class="fa fa-angle-left"></i>
                     <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
@@ -339,7 +371,7 @@ hadoop集群分布式规划安装">
             </li>
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2016/07/13/hadoop源码导入/" data-tooltip="hadoop源码导入">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2017/06/07/模型评估与选择/" data-tooltip="西瓜书：模型评估与选择">
                 
                     <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
                     <i class="fa fa-angle-right"></i>
@@ -357,7 +389,7 @@ hadoop集群分布式规划安装">
             
             
             <li class="post-action hide-xs">
-                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2016/07/19/hadoop集群分布式规划安装/">
+                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2017/06/07/深度学习-梯度下降/">
                     <i class="fa fa-facebook-official"></i>
                 </a>
             </li>
@@ -365,7 +397,7 @@ hadoop集群分布式规划安装">
             
             
             <li class="post-action hide-xs">
-                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://yoursite.com/2016/07/19/hadoop集群分布式规划安装/">
+                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://yoursite.com/2017/06/07/深度学习-梯度下降/">
                     <i class="fa fa-twitter"></i>
                 </a>
             </li>
@@ -373,7 +405,7 @@ hadoop集群分布式规划安装">
             
             
             <li class="post-action hide-xs">
-                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://yoursite.com/2016/07/19/hadoop集群分布式规划安装/">
+                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://yoursite.com/2017/06/07/深度学习-梯度下降/">
                     <i class="fa fa-google-plus"></i>
                 </a>
             </li>
@@ -381,7 +413,7 @@ hadoop集群分布式规划安装">
         
         <li class="post-action">
             
-                <a class="post-action-btn btn btn--default" href="#">
+                <a class="post-action-btn btn btn--default" href="#table-of-contents">
             
                 <i class="fa fa-list"></i>
             </a>
@@ -398,7 +430,7 @@ hadoop集群分布式规划安装">
             
             
             <li class="share-option">
-                <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2016/07/19/hadoop集群分布式规划安装/">
+                <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2017/06/07/深度学习-梯度下降/">
                     <i class="fa fa-facebook-official"></i><span>Share on Facebook</span>
                 </a>
             </li>
@@ -406,7 +438,7 @@ hadoop集群分布式规划安装">
             
             
             <li class="share-option">
-                <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://yoursite.com/2016/07/19/hadoop集群分布式规划安装/">
+                <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://yoursite.com/2017/06/07/深度学习-梯度下降/">
                     <i class="fa fa-twitter"></i><span>Share on Twitter</span>
                 </a>
             </li>
@@ -414,7 +446,7 @@ hadoop集群分布式规划安装">
             
             
             <li class="share-option">
-                <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://yoursite.com/2016/07/19/hadoop集群分布式规划安装/">
+                <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://yoursite.com/2017/06/07/深度学习-梯度下降/">
                     <i class="fa fa-google-plus"></i><span>Share on Google+</span>
                 </a>
             </li>
