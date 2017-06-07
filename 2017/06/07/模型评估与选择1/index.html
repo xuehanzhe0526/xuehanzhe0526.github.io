@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="Haozhe">
-    <title>Challenge:Summarizing data - Haozhe</title>
+    <title>西瓜书：模型评估与选择1 - Haozhe</title>
     <meta name="author" content="Haozhe Xue">
     
     
@@ -15,22 +15,34 @@
     
     <meta name="description" content="摘要：
 
-As a data person, it is your job to be skeptical of any broad claims and analyze relevant data to obtain a more nuanced view.">
+经验误差与过拟合
+评估方法
+交叉验证
+自助法
+留出法">
 <meta property="og:type" content="blog">
-<meta property="og:title" content="Challenge:Summarizing data">
-<meta property="og:url" content="http://yoursite.com/2016/09/26/数据概述/index.html">
+<meta property="og:title" content="西瓜书：模型评估与选择1">
+<meta property="og:url" content="http://yoursite.com/2017/06/07/模型评估与选择1/index.html">
 <meta property="og:site_name" content="Haozhe">
 <meta property="og:description" content="摘要：
 
-As a data person, it is your job to be skeptical of any broad claims and analyze relevant data to obtain a more nuanced view.">
-<meta property="og:image" content="http://7xrw7v.com1.z0.glb.clouddn.com/6d01c0b78d02ad85cb6058d9ce49935f.png">
-<meta property="og:updated_time" content="2016-09-26T14:55:05.000Z">
+经验误差与过拟合
+评估方法
+交叉验证
+自助法
+留出法">
+<meta property="og:image" content="http://7xrw7v.com1.z0.glb.clouddn.com/2017060714968191073738.png">
+<meta property="og:updated_time" content="2017-06-07T19:27:34.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Challenge:Summarizing data">
+<meta name="twitter:title" content="西瓜书：模型评估与选择1">
 <meta name="twitter:description" content="摘要：
 
-As a data person, it is your job to be skeptical of any broad claims and analyze relevant data to obtain a more nuanced view.">
-<meta name="twitter:image" content="http://7xrw7v.com1.z0.glb.clouddn.com/6d01c0b78d02ad85cb6058d9ce49935f.png">
+经验误差与过拟合
+评估方法
+交叉验证
+自助法
+留出法">
+<meta name="twitter:image" content="http://7xrw7v.com1.z0.glb.clouddn.com/2017060714968191073738.png">
     
     
         
@@ -42,8 +54,8 @@ As a data person, it is your job to be skeptical of any broad claims and analyze
     
     
         
-            <meta property="og:image" content="http://7xrw7v.com1.z0.glb.clouddn.com/6d01c0b78d02ad85cb6058d9ce49935f.png" />
-            <meta class="swiftype" name="image" data-type="enum" content="http://7xrw7v.com1.z0.glb.clouddn.com/6d01c0b78d02ad85cb6058d9ce49935f.png" />
+            <meta property="og:image" content="http://7xrw7v.com1.z0.glb.clouddn.com/2017060714968191073738.png" />
+            <meta class="swiftype" name="image" data-type="enum" content="http://7xrw7v.com1.z0.glb.clouddn.com/2017060714968191073738.png" />
         
     
     <!--STYLES-->
@@ -204,14 +216,14 @@ As a data person, it is your job to be skeptical of any broad claims and analyze
         <div class="post-header main-content-wrap text-left">
     
         <h1 class="post-title" itemprop="headline">
-            Challenge:Summarizing data
+            西瓜书：模型评估与选择1
         </h1>
     
     
         <div class="post-meta">
-    <time itemprop="datePublished" datetime="2016-09-26T21:47:40+08:00">
+    <time itemprop="datePublished" datetime="2017-06-07T16:34:34+08:00">
 	
-		    26 Sep 2016
+		    07 Jun 2017
     	
     </time>
     
@@ -223,31 +235,47 @@ As a data person, it is your job to be skeptical of any broad claims and analyze
     <div class="post-content markdown" itemprop="articleBody">
         <div class="main-content-wrap">
             <p>摘要：</p>
-<blockquote>
-<p>As a data person, it is your job to be skeptical of any broad claims and analyze relevant data to obtain a more nuanced view.</p>
-</blockquote>
+<ul>
+<li>经验误差与过拟合</li>
+<li>评估方法</li>
+<li>交叉验证</li>
+<li>自助法</li>
+<li>留出法</li>
+</ul>
 <a id="more"></a>
-<h3 id="Introduction-To-The-Data"><a href="#Introduction-To-The-Data" class="headerlink" title="Introduction To The Data"></a>Introduction To The Data</h3><p> <a href="https://github.com/fivethirtyeight/data/tree/master/college-majors" target="_blank" rel="external">数据下载</a></p>
-<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/dcf6a918a04c2ee27b12b98052bf3240.png" alt=""></p>
-<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/8993bd338c588fbca774f6c28fb0bbc7.png" alt=""><br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/1d17db594826ccfa28f595bebb7b7e42.png" alt=""></p>
-<p>导入数据<br><figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</div><div class="line"></div><div class="line">all_ages = pd.read_csv(<span class="string">"all-ages.csv"</span>)</div><div class="line"></div><div class="line">recent_grads = pd.read_csv(<span class="string">"recent-grads.csv"</span>)</div></pre></td></tr></table></figure></p>
-<h3 id="Summarizing-Major-Categories"><a href="#Summarizing-Major-Categories" class="headerlink" title="Summarizing Major Categories"></a>Summarizing Major Categories</h3><p>统计 每一个 <code>Major_category</code> 的人数。</p>
-<p><code>Pandas Series method unique()</code></p>
-<p>统计 <code>Major_category</code> 唯一值：<br><code>recent_grads[&#39;Major_category&#39;].unique()</code></p>
-<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/83a2eb38d6a12f96fef54ba39adb0887.png" alt=""></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><div class="line">aa_cat_counts = dict()</div><div class="line">rg_cat_counts = dict()</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">calculate_major_cat_totals</span><span class="params">(df)</span>:</span></div><div class="line">    cats = df[<span class="string">'Major_category'</span>].unique()</div><div class="line">    counts_dictionary = dict()</div><div class="line"></div><div class="line">    <span class="keyword">for</span> c <span class="keyword">in</span> cats:</div><div class="line">        major_df = df[df[<span class="string">"Major_category"</span>] == c]</div><div class="line">        total = major_df[<span class="string">"Total"</span>].sum()</div><div class="line">        counts_dictionary[c] = total</div><div class="line">    <span class="keyword">return</span> counts_dictionary</div><div class="line"></div><div class="line"></div><div class="line">aa_cat_counts = calculate_major_cat_totals(all_ages)</div><div class="line">rg_cat_counts = calculate_major_cat_totals(recent_grads)</div></pre></td></tr></table></figure>
-<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/08dd3e583b33da77bbac1938545e6d0c.png" alt=""></p>
-<h3 id="Low-Wage-Jobs-Rates"><a href="#Low-Wage-Jobs-Rates" class="headerlink" title="Low Wage Jobs Rates"></a>Low Wage Jobs Rates</h3><p>媒体喜欢报道说 刚刚毕业的学生 很难获得一个 薪水不错的工资</p>
-<p>这句话很不错：</p>
-<blockquote>
-<p>As a data person, it is your job to be skeptical of any broad claims and analyze relevant data to obtain a more nuanced view.</p>
-</blockquote>
-<p>统计<code>Low_wage_jobs</code>占所有人数的比率。<br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/e446128a20b53675a11d46e1803bae2e.png" alt=""></p>
-<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/383383d3d80ba698048c635788f99a9e.png" alt=""></p>
-<p>只有<code>9.85%</code>毕业生低的工资所占的比率。</p>
-<h3 id="Comparing-Datasets"><a href="#Comparing-Datasets" class="headerlink" title="Comparing Datasets"></a>Comparing Datasets</h3><p>统计毕业生 的失业率 小于全部人数据 失业率 的人数</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="comment"># All majors, common to both DataFrames</span></div><div class="line">majors = recent_grads[<span class="string">'Major'</span>].unique()</div><div class="line"></div><div class="line">rg_lower_count = <span class="number">0</span></div><div class="line"><span class="keyword">for</span> m <span class="keyword">in</span> majors:</div><div class="line">    recent_grads_row = recent_grads[recent_grads[<span class="string">'Major'</span>] == m]</div><div class="line">    all_ages_row = all_ages[all_ages[<span class="string">'Major'</span>] == m]</div><div class="line"></div><div class="line">    rg_unemp_rate = recent_grads_row.iloc[<span class="number">0</span>][<span class="string">'Unemployment_rate'</span>]</div><div class="line">    aa_unemp_rate = all_ages_row.iloc[<span class="number">0</span>][<span class="string">'Unemployment_rate'</span>]</div><div class="line"></div><div class="line">    <span class="keyword">if</span> rg_unemp_rate &lt; aa_unemp_rate:</div><div class="line">        rg_lower_count += <span class="number">1</span></div><div class="line"></div><div class="line">print(rg_lower_count) <span class="comment">## 43</span></div></pre></td></tr></table></figure>
-<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/1cf17a4d164ae96dd3ec8e1bfb18fb39.png" alt=""></p>
+<h1 id="table-of-contents">Inhaltsverzeichnis</h1><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#经验误差与过拟合"><span class="toc-text">经验误差与过拟合</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#评估方法"><span class="toc-text">评估方法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#留出法：直接对数据集D进行划分两个互斥的集合。"><span class="toc-text">留出法：直接对数据集D进行划分两个互斥的集合。</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#交叉验证法"><span class="toc-text">交叉验证法</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#留一法-LOO"><span class="toc-text">留一法 LOO</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#自助法"><span class="toc-text">自助法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#调参与最终模型"><span class="toc-text">调参与最终模型</span></a></li></ol></li></ol>
+<h3 id="经验误差与过拟合"><a href="#经验误差与过拟合" class="headerlink" title="经验误差与过拟合"></a>经验误差与过拟合</h3><ul>
+<li>错误率 error rate：$E = a / m$ m个样本中 a 个分错。</li>
+<li>精度 accuracy：$(1-a/m)*100$%</li>
+<li>经验误差（训练误差）empirical error ：训练集上的误差</li>
+<li>泛化误差：新样本上的误差（我们希望得到使泛化误差最小的学习器）</li>
+<li>过拟合 overfitting：把训练样本学得‘太好’导致泛化性能下降。</li>
+<li>欠拟合：训练样本的一般性能尚未学好。</li>
+</ul>
+<p>模型选择 model selection ：理想的解决方案是对候选模型的<code>泛化误差</code>进行评估，选择泛化误差最小的模型。（ 可是无法直接获得泛化误差，而 训练误差又由于过拟合现象的存在不适合作为标准。）</p>
+<p>HOW？模型选择</p>
+<h3 id="评估方法"><a href="#评估方法" class="headerlink" title="评估方法"></a>评估方法</h3><p>使用<code>测试集 testing set</code> 测试学习器对新样本的判别能力。</p>
+<p>用测试集上的 <code>测试误差testing error</code>作为泛化误差的近似。</p>
+<p>测试集和训练集尽可能互斥。</p>
+<p>对数据集D进行划分为：训练集S 和 测试集T。</p>
+<p>具体方法：</p>
+<h4 id="留出法：直接对数据集D进行划分两个互斥的集合。"><a href="#留出法：直接对数据集D进行划分两个互斥的集合。" class="headerlink" title="留出法：直接对数据集D进行划分两个互斥的集合。"></a>留出法：直接对数据集D进行划分两个互斥的集合。</h4><p>分层采样：保留类别比例。</p>
+<p>不同的划分导致不同的训练／测试集，单次使用留出法得到的评估结果不够稳定，可以随机若干次划分、重复进行实验取平均。</p>
+<p>使用留出法 ，会导致一个窘境：训练集含多数样本 测训练的模型更接近使用D训练出的模型，但是由于测试集样本少，评估结果不够稳定准确；若测试集样本多一点，则训练集和数据集差别更大，降低评估结果的保真性（fidelity）。</p>
+<p>2/3 - 4/5的样本用于训练。</p>
+<h4 id="交叉验证法"><a href="#交叉验证法" class="headerlink" title="交叉验证法"></a>交叉验证法</h4><p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/20170608149686226212957.png" alt="20170608149686226212957.png"></p>
+<h5 id="留一法-LOO"><a href="#留一法-LOO" class="headerlink" title="留一法 LOO"></a>留一法 LOO</h5><p>leave-one-out K = m<br>与使用训练集D相比 只少一个样本，使得评估结果比较准确。<br>但是，当训练样本很大时，开销太大。</p>
+<h4 id="自助法"><a href="#自助法" class="headerlink" title="自助法"></a>自助法</h4><p>上述两个方法留出法和交叉验证由于训练样本比D小，从而导致估计偏差。</p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/2017060814968628431692.png" alt="2017060814968628431692.png"></p>
+<ul>
+<li>优点：多用于数据集小、难以划分训练／测试集，从初始训练集中产生多个不同的训练集，对<code>集成学习</code>方法有很大好处。</li>
+<li>缺点：改变了数据集分布，会引入估计偏差。</li>
+</ul>
+<p>当数据量足够的时候，尽量不要用该方法。</p>
+<h4 id="调参与最终模型"><a href="#调参与最终模型" class="headerlink" title="调参与最终模型"></a>调参与最终模型</h4><p>   不同的参数其实就代表着不同的模型了。一般参数分两种：一类是算法的参数，亦称“超参数”，如聚类要分的簇数量k；一类是模型的参数，如神经网络中每个节点的权重。前者多为人工选择一组候选，后者是让机器自己学习。<br>调参是机器学习的重点，也是决定模型性能的关键。一般调参过程中，会将训练数据再次划分为训练集和验证集（validation set）。具体包含关系如下：</p>
+<p><img src="media/14968189459021/14968632997463.jpg" alt=""></p>
+<p>基于验证集（validation set）上的性能进行模型的选择和调参。</p>
+<p>参考链接：<a href="http://www.jianshu.com/p/8e369f73a0cc" target="_blank" rel="external">http://www.jianshu.com/p/8e369f73a0cc</a></p>
 
             
     
@@ -259,9 +287,9 @@ As a data person, it is your job to be skeptical of any broad claims and analyze
             
             
             <div class="photo-box">
-                <a class="photo-box-inner fancybox" data-fancybox-group="gallery-cj3ndzi7e006zwps6xkwklijf"
-                   title="" href="http://7xrw7v.com1.z0.glb.clouddn.com/6d01c0b78d02ad85cb6058d9ce49935f.png">
-                    <img class="photo" src="http://7xrw7v.com1.z0.glb.clouddn.com/6d01c0b78d02ad85cb6058d9ce49935f.png" itemprop="image">
+                <a class="photo-box-inner fancybox" data-fancybox-group="gallery-cj3ndzi8l008cwps6ho0yze87"
+                   title="" href="http://7xrw7v.com1.z0.glb.clouddn.com/2017060714968191073738.png">
+                    <img class="photo" src="http://7xrw7v.com1.z0.glb.clouddn.com/2017060714968191073738.png" itemprop="image">
                 </a>
             </div>
             
@@ -275,7 +303,7 @@ As a data person, it is your job to be skeptical of any broad claims and analyze
             <div class="post-footer-tags">
                 <span class="text-color-light text-small">GETAGGT IN</span><br/>
                 
-    <a class="tag tag--primary tag--small t-link" href="/tags/dataquest/">dataquest</a>
+    <a class="tag tag--primary tag--small t-link" href="/tags/西瓜书/">西瓜书</a>
 
             </div>
         
@@ -285,7 +313,7 @@ As a data person, it is your job to be skeptical of any broad claims and analyze
         <ul class="post-actions post-action-nav">
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2016/09/27/pandas内部组件-Series/"  data-tooltip="pandas内部组件-Series">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2017/06/07/深度学习：梯度下降/"  data-tooltip="深度学习：梯度下降">
                 
                     <i class="fa fa-angle-left"></i>
                     <span class="hide-xs hide-sm text-small icon-ml">FRÜHER</span>
@@ -293,7 +321,7 @@ As a data person, it is your job to be skeptical of any broad claims and analyze
             </li>
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2016/09/26/从github下载单个文件/" data-tooltip="从github下载单个文件">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2017/03/13/pandas 数据结构和数据操作/" data-tooltip="pandas 数据结构和数据操作">
                 
                     <span class="hide-xs hide-sm text-small icon-mr">NÄCHSTER</span>
                     <i class="fa fa-angle-right"></i>
@@ -311,7 +339,7 @@ As a data person, it is your job to be skeptical of any broad claims and analyze
             
             
             <li class="post-action hide-xs">
-                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2016/09/26/数据概述/">
+                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2017/06/07/模型评估与选择1/">
                     <i class="fa fa-facebook-official"></i>
                 </a>
             </li>
@@ -319,7 +347,7 @@ As a data person, it is your job to be skeptical of any broad claims and analyze
             
             
             <li class="post-action hide-xs">
-                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://yoursite.com/2016/09/26/数据概述/">
+                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://yoursite.com/2017/06/07/模型评估与选择1/">
                     <i class="fa fa-twitter"></i>
                 </a>
             </li>
@@ -327,7 +355,7 @@ As a data person, it is your job to be skeptical of any broad claims and analyze
             
             
             <li class="post-action hide-xs">
-                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://yoursite.com/2016/09/26/数据概述/">
+                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://yoursite.com/2017/06/07/模型评估与选择1/">
                     <i class="fa fa-google-plus"></i>
                 </a>
             </li>
@@ -335,7 +363,7 @@ As a data person, it is your job to be skeptical of any broad claims and analyze
         
         <li class="post-action">
             
-                <a class="post-action-btn btn btn--default" href="#">
+                <a class="post-action-btn btn btn--default" href="#table-of-contents">
             
                 <i class="fa fa-list"></i>
             </a>
@@ -367,7 +395,7 @@ As a data person, it is your job to be skeptical of any broad claims and analyze
         <ul class="post-actions post-action-nav">
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2016/09/27/pandas内部组件-Series/"  data-tooltip="pandas内部组件-Series">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2017/06/07/深度学习：梯度下降/"  data-tooltip="深度学习：梯度下降">
                 
                     <i class="fa fa-angle-left"></i>
                     <span class="hide-xs hide-sm text-small icon-ml">FRÜHER</span>
@@ -375,7 +403,7 @@ As a data person, it is your job to be skeptical of any broad claims and analyze
             </li>
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2016/09/26/从github下载单个文件/" data-tooltip="从github下载单个文件">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2017/03/13/pandas 数据结构和数据操作/" data-tooltip="pandas 数据结构和数据操作">
                 
                     <span class="hide-xs hide-sm text-small icon-mr">NÄCHSTER</span>
                     <i class="fa fa-angle-right"></i>
@@ -393,7 +421,7 @@ As a data person, it is your job to be skeptical of any broad claims and analyze
             
             
             <li class="post-action hide-xs">
-                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2016/09/26/数据概述/">
+                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2017/06/07/模型评估与选择1/">
                     <i class="fa fa-facebook-official"></i>
                 </a>
             </li>
@@ -401,7 +429,7 @@ As a data person, it is your job to be skeptical of any broad claims and analyze
             
             
             <li class="post-action hide-xs">
-                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://yoursite.com/2016/09/26/数据概述/">
+                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://yoursite.com/2017/06/07/模型评估与选择1/">
                     <i class="fa fa-twitter"></i>
                 </a>
             </li>
@@ -409,7 +437,7 @@ As a data person, it is your job to be skeptical of any broad claims and analyze
             
             
             <li class="post-action hide-xs">
-                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://yoursite.com/2016/09/26/数据概述/">
+                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://yoursite.com/2017/06/07/模型评估与选择1/">
                     <i class="fa fa-google-plus"></i>
                 </a>
             </li>
@@ -417,7 +445,7 @@ As a data person, it is your job to be skeptical of any broad claims and analyze
         
         <li class="post-action">
             
-                <a class="post-action-btn btn btn--default" href="#">
+                <a class="post-action-btn btn btn--default" href="#table-of-contents">
             
                 <i class="fa fa-list"></i>
             </a>
@@ -434,7 +462,7 @@ As a data person, it is your job to be skeptical of any broad claims and analyze
             
             
             <li class="share-option">
-                <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2016/09/26/数据概述/">
+                <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2017/06/07/模型评估与选择1/">
                     <i class="fa fa-facebook-official"></i><span>Teilen auf Facebook</span>
                 </a>
             </li>
@@ -442,7 +470,7 @@ As a data person, it is your job to be skeptical of any broad claims and analyze
             
             
             <li class="share-option">
-                <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://yoursite.com/2016/09/26/数据概述/">
+                <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://yoursite.com/2017/06/07/模型评估与选择1/">
                     <i class="fa fa-twitter"></i><span>Teilen auf Twitter</span>
                 </a>
             </li>
@@ -450,7 +478,7 @@ As a data person, it is your job to be skeptical of any broad claims and analyze
             
             
             <li class="share-option">
-                <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://yoursite.com/2016/09/26/数据概述/">
+                <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://yoursite.com/2017/06/07/模型评估与选择1/">
                     <i class="fa fa-google-plus"></i><span>Teilen auf Google Plus</span>
                 </a>
             </li>
