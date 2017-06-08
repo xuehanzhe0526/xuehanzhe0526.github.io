@@ -6,22 +6,34 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="Haozhe">
-    <title>Etiqueta: linux - Haozhe</title>
+    <title>深度学习：多层感知器 - Haozhe</title>
     <meta name="author" content="Haozhe Xue">
     
     
         <link rel="icon" href="http://yoursite.com/assets/images/favicon.ico">
     
     
-    <meta name="description" content="What hurts more,the pain of hard work or the pain of regret.">
+    <meta name="description" content="摘要：
+
+多层感知器
+构建一个列向量">
 <meta property="og:type" content="blog">
-<meta property="og:title" content="Haozhe">
-<meta property="og:url" content="http://yoursite.com/tags/linux/index.html">
+<meta property="og:title" content="深度学习：多层感知器">
+<meta property="og:url" content="http://yoursite.com/2017/06/08/多层感知器/index.html">
 <meta property="og:site_name" content="Haozhe">
-<meta property="og:description" content="What hurts more,the pain of hard work or the pain of regret.">
+<meta property="og:description" content="摘要：
+
+多层感知器
+构建一个列向量">
+<meta property="og:image" content="http://7xrw7v.com1.z0.glb.clouddn.com/20170607149683904639236.png">
+<meta property="og:updated_time" content="2017-06-08T03:50:02.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Haozhe">
-<meta name="twitter:description" content="What hurts more,the pain of hard work or the pain of regret.">
+<meta name="twitter:title" content="深度学习：多层感知器">
+<meta name="twitter:description" content="摘要：
+
+多层感知器
+构建一个列向量">
+<meta name="twitter:image" content="http://7xrw7v.com1.z0.glb.clouddn.com/20170607149683904639236.png">
     
     
         
@@ -31,6 +43,11 @@
     
     
     
+    
+        
+            <meta property="og:image" content="http://7xrw7v.com1.z0.glb.clouddn.com/20170607149683904639236.png" />
+            <meta class="swiftype" name="image" data-type="enum" content="http://7xrw7v.com1.z0.glb.clouddn.com/20170607149683904639236.png" />
+        
     
     <!--STYLES-->
     <link rel="stylesheet" href="/assets/css/style-sxklfps8ywgfyyjcowvnb4gxdgt0zjts3hsguljmv9uqanxjbnitrovtbrek.min.css">
@@ -50,7 +67,7 @@
         
     
 
-<header id="header" data-behavior="1">
+<header id="header" data-behavior="4">
     <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
     <div class="header-title">
         <a class="header-title-link" href="/ ">Haozhe</a>
@@ -74,7 +91,7 @@
         
     
 
-<nav id="sidebar" data-behavior="1">
+<nav id="sidebar" data-behavior="4">
     <div class="sidebar-container">
         
             <div class="sidebar-profile">
@@ -179,214 +196,164 @@
 </nav>
 
             
-            <div id="main" data-behavior="1"
+            <div id="main" data-behavior="4"
                  class="
                         hasCoverMetaIn
                         ">
                 
-    <section class="postShorten-group main-content-wrap">
+<article class="post" itemscope itemType="http://schema.org/BlogPosting">
     
     
-    <article class="postShorten postShorten--thumbnailimg-right" itemscope itemType="http://schema.org/BlogPosting">
-        <div class="postShorten-wrap">
-            
-            <div class="postShorten-header">
-                <h1 class="postShorten-title" itemprop="headline">
-                    
-                        <a class="link-unstyled" href="/2016/09/09/matplotlib中文乱发问题/">
-                            matplotlib中文乱码问题
-                        </a>
-                    
-                </h1>
-                <div class="postShorten-meta">
-    <time itemprop="datePublished" datetime="2016-09-09T16:37:52+08:00">
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title" itemprop="headline">
+            深度学习：多层感知器
+        </h1>
+    
+    
+        <div class="post-meta">
+    <time itemprop="datePublished" datetime="2017-06-08T20:34:34+08:00">
 	
-		    09 Sep 2016
+		    08 Jun 2017
     	
     </time>
     
 </div>
 
+    
+</div>
+    
+    <div class="post-content markdown" itemprop="articleBody">
+        <div class="main-content-wrap">
+            <p>摘要：</p>
+<ul>
+<li>多层感知器</li>
+<li>构建一个列向量</li>
+</ul>
+<a id="more"></a>
+<h1 id="table-of-contents">Tabla de contenido</h1><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#多层感知器"><span class="toc-text">多层感知器</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#构建一个列向量"><span class="toc-text">构建一个列向量</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#编程练习"><span class="toc-text">编程练习</span></a></li></ol></li></ol>
+<h3 id="多层感知器"><a href="#多层感知器" class="headerlink" title="多层感知器"></a>多层感知器</h3><p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/20170608149689033163481.png" alt="20170608149689033163481.png"></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="comment"># Number of records and input units</span></div><div class="line"><span class="comment"># 数据点以及每个数据点有多少输入的个数</span></div><div class="line">n_records, n_inputs = features.shape</div><div class="line"><span class="comment"># Number of hidden units</span></div><div class="line"><span class="comment"># 隐藏层个数</span></div><div class="line">n_hidden = <span class="number">2</span></div><div class="line">weights_input_to_hidden = np.random.normal(<span class="number">0</span>, n_inputs**<span class="number">-0.5</span>, size=(n_inputs, n_hidden))</div></pre></td></tr></table></figure>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/2017060814968905236102.png" alt="2017060814968905236102.png"></p>
+<p>在这里，我们把输入（一个行向量）与权重相乘。要实现这个，要把输入点乘（内积）以权重矩阵的每一列。例如要计算到第一个隐藏节点的输入 j=1，你需要把这个输入与权重矩阵的第一列做点乘：</p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/20170608149689060234053.png" alt="20170608149689060234053.png"></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line">hidden_inputs = np.dot(inputs, weights_input_to_hidden)</div></pre></td></tr></table></figure>
+<h4 id="构建一个列向量"><a href="#构建一个列向量" class="headerlink" title="构建一个列向量"></a>构建一个列向量</h4><p>看上面的介绍，你有时会需要一个列向量，尽管 NumPy 默认是行向量。你可以用 <code>arr.T</code> 来对序列进行转制，但对一维序列来说，转制还是行向量。所以你可以用 <code>arr[:,None]</code> 来创建一个列向量：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"></div><div class="line">print(features)</div><div class="line">&gt; array([ <span class="number">0.49671415</span>, <span class="number">-0.1382643</span> ,  <span class="number">0.64768854</span>])</div><div class="line"></div><div class="line">print(features.T)</div><div class="line">&gt; array([ <span class="number">0.49671415</span>, <span class="number">-0.1382643</span> ,  <span class="number">0.64768854</span>])</div><div class="line"></div><div class="line">print(features[:, <span class="keyword">None</span>])</div><div class="line">&gt; array([[ <span class="number">0.49671415</span>],</div><div class="line">       [<span class="number">-0.1382643</span> ],</div><div class="line">       [ <span class="number">0.64768854</span>]])</div></pre></td></tr></table></figure>
+<p>当然，你可以创建一个二维序列，然后用 <code>arr.T</code> 得到列向量。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line">np.array(features, ndmin=<span class="number">2</span>)</div><div class="line">&gt; array([[ <span class="number">0.49671415</span>, <span class="number">-0.1382643</span> ,  <span class="number">0.64768854</span>]])</div><div class="line"></div><div class="line">np.array(features, ndmin=<span class="number">2</span>).T</div><div class="line">&gt; array([[ <span class="number">0.49671415</span>],</div><div class="line">       [<span class="number">-0.1382643</span> ],</div><div class="line">       [ <span class="number">0.64768854</span>]])</div></pre></td></tr></table></figure>
+<h4 id="编程练习"><a href="#编程练习" class="headerlink" title="编程练习"></a>编程练习</h4><p>下面你要实现一个 4x3x2 网络的正向传播，用 sigmoid 作为两层的激活函数。</p>
+<p>要做的事情：</p>
+<ul>
+<li>计算到隐藏层的输入</li>
+<li>计算隐藏层输出</li>
+<li>计算输出层的输入</li>
+<li>计算神经网络的输出</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">sigmoid</span><span class="params">(x)</span>:</span></div><div class="line">    <span class="string">"""</span></div><div class="line">    Calculate sigmoid</div><div class="line">    """</div><div class="line">    <span class="keyword">return</span> <span class="number">1</span>/(<span class="number">1</span>+np.exp(-x))</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment"># Network size</span></div><div class="line">N_input = <span class="number">4</span></div><div class="line">N_hidden = <span class="number">3</span></div><div class="line">N_output = <span class="number">2</span></div><div class="line"></div><div class="line"></div><div class="line">np.random.seed(<span class="number">42</span>)</div><div class="line"><span class="comment"># Make some fake data</span></div><div class="line">X = np.random.randn(<span class="number">4</span>) <span class="comment">#1*4</span></div><div class="line"></div><div class="line"></div><div class="line">weights_input_to_hidden = np.random.normal(<span class="number">0</span>, scale=<span class="number">0.1</span>, size=(N_input, N_hidden))<span class="comment">#4*3</span></div><div class="line"></div><div class="line"></div><div class="line">weights_hidden_to_output = np.random.normal(<span class="number">0</span>, scale=<span class="number">0.1</span>, size=(N_hidden, N_output)) <span class="comment">#3*2</span></div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"><span class="comment"># <span class="doctag">TODO:</span> Make a forward pass through the network</span></div><div class="line"></div><div class="line">hidden_layer_in = np.dot(X, weights_input_to_hidden) <span class="comment">#1*3</span></div><div class="line"></div><div class="line"></div><div class="line">hidden_layer_out = sigmoid(hidden_layer_in) <span class="comment">#1*2</span></div><div class="line"></div><div class="line">print(<span class="string">'Hidden-layer Output:'</span>)</div><div class="line">print(hidden_layer_out)</div><div class="line"></div><div class="line">output_layer_in = np.dot(hidden_layer_out, weights_hidden_to_output)</div><div class="line">output_layer_out = sigmoid(output_layer_in)</div><div class="line"></div><div class="line"></div><div class="line">print(<span class="string">'Output-layer Output:'</span>)</div><div class="line">print(output_layer_out)</div><div class="line"></div><div class="line"></div><div class="line">Hidden-layer Output:</div><div class="line">[ <span class="number">0.41492192</span>  <span class="number">0.42604313</span>  <span class="number">0.5002434</span> ]</div><div class="line">Output-layer Output:</div><div class="line">[ <span class="number">0.49815196</span>  <span class="number">0.48539772</span>]</div><div class="line">[Finished <span class="keyword">in</span> <span class="number">0.1</span>s]</div></pre></td></tr></table></figure>
+
+            
+    
+    <div class="image-gallery">
+        <div class="image-gallery-metabar">
+            <span>Gallery : 1 images</span>
+        </div>
+        <div class="image-gallery-photos undefined">
+            
+            
+            <div class="photo-box">
+                <a class="photo-box-inner fancybox" data-fancybox-group="gallery-cj3nvyh8n006scis6az0izwkq"
+                   title="" href="http://7xrw7v.com1.z0.glb.clouddn.com/20170607149683904639236.png">
+                    <img class="photo" src="http://7xrw7v.com1.z0.glb.clouddn.com/20170607149683904639236.png" itemprop="image">
+                </a>
             </div>
             
-                <div class="postShorten-excerpt" itemprop="articleBody">
-                    <p>摘要：</p>
-<ul>
-<li>matplotlib中文乱发问题的解决</li>
-<li>查看系统中的中文字体</li>
-</ul>
-                    
-                        <a href="/2016/09/09/matplotlib中文乱发问题/" class="postShorten-excerpt_link link">
-                            Seguir leyendo
-                        </a>
-                        
-                    
-                </div>
-            
         </div>
+    </div>
+
+        </div>
+    </div>
+    <div id="post-footer" class="post-footer main-content-wrap">
         
-            <a href="/2016/09/09/matplotlib中文乱发问题/">
-                <div class="postShorten-thumbnailimg">
-                    <img alt="" itemprop="image" src="http://7xrw7v.com1.z0.glb.clouddn.com/16-8-23/87666861.jpg"/>
-                </div>
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">ETIQUETADO EN</span><br/>
+                
+    <a class="tag tag--primary tag--small t-link" href="/tags/深度学习/">深度学习</a>
+
+            </div>
+        
+        
+            <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--disabled">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">ANTERIOR</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2017/06/07/深度学习：梯度下降/" data-tooltip="深度学习：梯度下降">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">SIGUIENTE</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
             </a>
-            
+        </li>
         
-    </article>
-    
-    
-    <article class="postShorten postShorten--thumbnailimg-right" itemscope itemType="http://schema.org/BlogPosting">
-        <div class="postShorten-wrap">
             
-            <div class="postShorten-header">
-                <h1 class="postShorten-title" itemprop="headline">
-                    
-                        <a class="link-unstyled" href="/2016/08/28/在Anaconda中安装python包seaborn/">
-                            在Anaconda中安装python包seaborn
-                        </a>
-                    
-                </h1>
-                <div class="postShorten-meta">
-    <time itemprop="datePublished" datetime="2016-08-28T13:02:04+08:00">
-	
-		    28 Aug 2016
-    	
-    </time>
-    
-</div>
-
-            </div>
             
-                <div class="postShorten-excerpt" itemprop="articleBody">
-                    <p>摘要：</p>
-<ul>
-<li>seaborn简介</li>
-<li>Anaconda中安装新的包</li>
-</ul>
-                    
-                        <a href="/2016/08/28/在Anaconda中安装python包seaborn/" class="postShorten-excerpt_link link">
-                            Seguir leyendo
-                        </a>
-                        
-                    
-                </div>
-            
-        </div>
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2017/06/08/多层感知器/">
+                    <i class="fa fa-facebook-official"></i>
+                </a>
+            </li>
         
-            <a href="/2016/08/28/在Anaconda中安装python包seaborn/">
-                <div class="postShorten-thumbnailimg">
-                    <img alt="" itemprop="image" src="http://7xrw7v.com1.z0.glb.clouddn.com/d7319dc22a118681432408039e810de9.png"/>
-                </div>
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://yoursite.com/2017/06/08/多层感知器/">
+                    <i class="fa fa-twitter"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://yoursite.com/2017/06/08/多层感知器/">
+                    <i class="fa fa-google-plus"></i>
+                </a>
+            </li>
+        
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#table-of-contents">
+            
+                <i class="fa fa-list"></i>
             </a>
-            
-        
-    </article>
-    
-    
-    <article class="postShorten postShorten--thumbnailimg-right" itemscope itemType="http://schema.org/BlogPosting">
-        <div class="postShorten-wrap">
-            
-            <div class="postShorten-header">
-                <h1 class="postShorten-title" itemprop="headline">
-                    
-                        <a class="link-unstyled" href="/2016/08/23/解压与安装/">
-                            ubuntu解压与安装
-                        </a>
-                    
-                </h1>
-                <div class="postShorten-meta">
-    <time itemprop="datePublished" datetime="2016-08-23T16:25:40+08:00">
-	
-		    23 Aug 2016
-    	
-    </time>
-    
-</div>
-
-            </div>
-            
-                <div class="postShorten-excerpt" itemprop="articleBody">
-                    <p>摘要：</p>
-<ul>
-<li>zip文件解压 及乱码问题</li>
-<li>安装文件</li>
-<li>用dpkg安装.deb文件</li>
-</ul>
-                    
-                        <a href="/2016/08/23/解压与安装/" class="postShorten-excerpt_link link">
-                            Seguir leyendo
-                        </a>
-                        
-                    
-                </div>
-            
-        </div>
-        
-            <a href="/2016/08/23/解压与安装/">
-                <div class="postShorten-thumbnailimg">
-                    <img alt="" itemprop="image" src="http://7xrw7v.com1.z0.glb.clouddn.com/16-8-23/87666861.jpg"/>
-                </div>
-            </a>
-            
-        
-    </article>
-    
-    
-    <article class="postShorten postShorten--thumbnailimg-right" itemscope itemType="http://schema.org/BlogPosting">
-        <div class="postShorten-wrap">
-            
-            <div class="postShorten-header">
-                <h1 class="postShorten-title" itemprop="headline">
-                    
-                        <a class="link-unstyled" href="/2016/03/25/2016-03-25-linux/">
-                            linux常用命令串讲
-                        </a>
-                    
-                </h1>
-                <div class="postShorten-meta">
-    <time itemprop="datePublished" datetime="2016-03-25T19:42:36+08:00">
-	
-		    25 Mar 2016
-    	
-    </time>
-    
-</div>
-
-            </div>
-            
-                <div class="postShorten-excerpt" itemprop="articleBody">
-                    <p>摘要：</p>
-<ul>
-<li>目录初识</li>
-<li>终端常用快捷键</li>
-<li>文件目录操作</li>
-<li>用户和用户组</li>
-<li>用户权限</li>
-<li>系统管理命令</li>
-<li>VIM编辑器命令</li>
-<li>解压、压缩</li>
-</ul>
-                    
-                        <a href="/2016/03/25/2016-03-25-linux/" class="postShorten-excerpt_link link">
-                            Seguir leyendo
-                        </a>
-                        
-                    
-                </div>
-            
-        </div>
-        
-    </article>
-    
-    <div class="pagination-bar">
-    <ul class="pagination">
-        
-        
-        <li class="pagination-number">página 1 de 1</li>
+        </li>
     </ul>
 </div>
 
-</section>
+
+        
+        
+            
+        
+    </div>
+</article>
+
 
 
                 <footer id="footer" class="main-content-wrap">
@@ -396,6 +363,104 @@
 </footer>
 
             </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--disabled">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">ANTERIOR</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2017/06/07/深度学习：梯度下降/" data-tooltip="深度学习：梯度下降">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">SIGUIENTE</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2017/06/08/多层感知器/">
+                    <i class="fa fa-facebook-official"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://yoursite.com/2017/06/08/多层感知器/">
+                    <i class="fa fa-twitter"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://yoursite.com/2017/06/08/多层感知器/">
+                    <i class="fa fa-google-plus"></i>
+                </a>
+            </li>
+        
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#table-of-contents">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                <div id="share-options-bar" class="share-options-bar" data-behavior="4">
+    <i id="btn-close-shareoptions" class="fa fa-close"></i>
+    <ul class="share-options">
+        
+            
+            
+            <li class="share-option">
+                <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2017/06/08/多层感知器/">
+                    <i class="fa fa-facebook-official"></i><span>Compartir en Facebook</span>
+                </a>
+            </li>
+        
+            
+            
+            <li class="share-option">
+                <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://yoursite.com/2017/06/08/多层感知器/">
+                    <i class="fa fa-twitter"></i><span>Compartir en Twitter</span>
+                </a>
+            </li>
+        
+            
+            
+            <li class="share-option">
+                <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://yoursite.com/2017/06/08/多层感知器/">
+                    <i class="fa fa-google-plus"></i><span>Compartir en Google+</span>
+                </a>
+            </li>
+        
+    </ul>
+</div>
+
             
         </div>
         
@@ -673,6 +738,8 @@
         <!--SCRIPTS-->
 <script src="/assets/js/script-ivwiy10zeb8fifc4swnhkwneuk64y53w2scmdmtp8thi9cqfxh31aowtroaz.min.js"></script>
 <!--SCRIPTS END-->
+
+    
 
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.14.1/moment-with-locales.min.js"></script>

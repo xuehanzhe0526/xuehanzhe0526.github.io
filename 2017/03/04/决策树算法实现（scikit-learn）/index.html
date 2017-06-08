@@ -24,7 +24,7 @@
 <meta property="og:image" content="http://img.blog.csdn.net/20161021125650259">
 <meta property="og:image" content="http://7xrw7v.com1.z0.glb.clouddn.com//17-3-3/30950483-file_1488556319461_11f16.png">
 <meta property="og:image" content="http://7xrw7v.com1.z0.glb.clouddn.com//17-3-4/73391572-file_1488557754358_b778.png">
-<meta property="og:updated_time" content="2017-06-06T12:08:25.000Z">
+<meta property="og:updated_time" content="2017-06-06T12:08:26.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="决策树算法实现（scikit-learn）">
 <meta name="twitter:description" content="决策树算法实现（scikit-learn）">
@@ -68,7 +68,7 @@
                 href="#about">
         
         
-            <img class="header-picture" src="http://7xrw7v.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160402220553.png" alt="Bild des Autors"/>
+            <img class="header-picture" src="http://7xrw7v.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160402220553.png" alt="Foto de autor"/>
         
         </a>
     
@@ -86,7 +86,7 @@
         
             <div class="sidebar-profile">
                 <a href="/#about">
-                    <img class="sidebar-profile-picture" src="http://7xrw7v.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160402220553.png" alt="Bild des Autors"/>
+                    <img class="sidebar-profile-picture" src="http://7xrw7v.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160402220553.png" alt="Foto de autor"/>
                 </a>
                 <h4 class="sidebar-profile-name">Haozhe Xue</h4>
                 
@@ -106,7 +106,7 @@
                         >
                     
                         <i class="sidebar-button-icon fa fa-lg fa-home"></i>
-                        <span class="sidebar-button-desc">Home</span>
+                        <span class="sidebar-button-desc">Inicio</span>
                     </a>
             </li>
             
@@ -118,7 +118,7 @@
                         >
                     
                         <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
-                        <span class="sidebar-button-desc">Tags</span>
+                        <span class="sidebar-button-desc">Etiquetas</span>
                     </a>
             </li>
             
@@ -130,7 +130,7 @@
                         >
                     
                         <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
-                        <span class="sidebar-button-desc">Archiv</span>
+                        <span class="sidebar-button-desc">Archivos</span>
                     </a>
             </li>
             
@@ -142,7 +142,7 @@
                         >
                     
                         <i class="sidebar-button-icon fa fa-lg fa-search"></i>
-                        <span class="sidebar-button-desc">Suche</span>
+                        <span class="sidebar-button-desc">Buscar</span>
                     </a>
             </li>
             
@@ -219,7 +219,7 @@
 <li>决策树算法实现（scikit-learn）</li>
 </ul>
 <a id="more"></a>
-<h1 id="table-of-contents">Inhaltsverzeichnis</h1><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#参考："><span class="toc-text">参考：</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#决策树归纳算法（ID3）"><span class="toc-text">决策树归纳算法（ID3）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#决策树的优缺点"><span class="toc-text">决策树的优缺点</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#代码实现"><span class="toc-text">代码实现</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#数据转换为-sklearn需要的格式"><span class="toc-text">数据转换为 sklearn需要的格式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#生成的-dot-文件"><span class="toc-text">生成的 .dot 文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#将dot文件用graphviz转换为pdf文件"><span class="toc-text">将dot文件用graphviz转换为pdf文件</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#文件和源码"><span class="toc-text">文件和源码</span></a></li></ol>
+<h1 id="table-of-contents">Tabla de contenido</h1><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#参考："><span class="toc-text">参考：</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#决策树归纳算法（ID3）"><span class="toc-text">决策树归纳算法（ID3）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#决策树的优缺点"><span class="toc-text">决策树的优缺点</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#代码实现"><span class="toc-text">代码实现</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#数据转换为-sklearn需要的格式"><span class="toc-text">数据转换为 sklearn需要的格式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#生成的-dot-文件"><span class="toc-text">生成的 .dot 文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#将dot文件用graphviz转换为pdf文件"><span class="toc-text">将dot文件用graphviz转换为pdf文件</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#文件和源码"><span class="toc-text">文件和源码</span></a></li></ol>
 <h3 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h3><p><a href="scikit-learn.org/stable/modules/tree.html">sk-learn的决策树文档</a><br><a href="http://blog.csdn.net/youyuyixiu/article/details/52881567" target="_blank" rel="external">决策树的算法介绍
 </a></p>
 <p><a href="https://blog.gtwang.org/mac-os-x/mac-os-x-graphviz/" target="_blank" rel="external">在 Mac OS X 中安裝與使用 Graphviz 圖形視覺化工具</a></p>
@@ -261,7 +261,7 @@
     <div id="post-footer" class="post-footer main-content-wrap">
         
             <div class="post-footer-tags">
-                <span class="text-color-light text-small">GETAGGT IN</span><br/>
+                <span class="text-color-light text-small">ETIQUETADO EN</span><br/>
                 
     <a class="tag tag--primary tag--small t-link" href="/tags/机器学习/">机器学习</a>
 
@@ -276,14 +276,14 @@
                     <a class="post-action-btn btn btn--default tooltip--top" href="/2017/03/13/pandas 数据结构和数据操作/"  data-tooltip="pandas 数据结构和数据操作">
                 
                     <i class="fa fa-angle-left"></i>
-                    <span class="hide-xs hide-sm text-small icon-ml">FRÜHER</span>
+                    <span class="hide-xs hide-sm text-small icon-ml">ANTERIOR</span>
                 </a>
             </li>
             <li class="post-action">
                 
                     <a class="post-action-btn btn btn--default tooltip--top" href="/2017/02/21/数据科学工作者心理健康分析/" data-tooltip="科技工作者心理健康数据分析">
                 
-                    <span class="hide-xs hide-sm text-small icon-mr">NÄCHSTER</span>
+                    <span class="hide-xs hide-sm text-small icon-mr">SIGUIENTE</span>
                     <i class="fa fa-angle-right"></i>
                 </a>
             </li>
@@ -358,14 +358,14 @@
                     <a class="post-action-btn btn btn--default tooltip--top" href="/2017/03/13/pandas 数据结构和数据操作/"  data-tooltip="pandas 数据结构和数据操作">
                 
                     <i class="fa fa-angle-left"></i>
-                    <span class="hide-xs hide-sm text-small icon-ml">FRÜHER</span>
+                    <span class="hide-xs hide-sm text-small icon-ml">ANTERIOR</span>
                 </a>
             </li>
             <li class="post-action">
                 
                     <a class="post-action-btn btn btn--default tooltip--top" href="/2017/02/21/数据科学工作者心理健康分析/" data-tooltip="科技工作者心理健康数据分析">
                 
-                    <span class="hide-xs hide-sm text-small icon-mr">NÄCHSTER</span>
+                    <span class="hide-xs hide-sm text-small icon-mr">SIGUIENTE</span>
                     <i class="fa fa-angle-right"></i>
                 </a>
             </li>
@@ -423,7 +423,7 @@
             
             <li class="share-option">
                 <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2017/03/04/决策树算法实现（scikit-learn）/">
-                    <i class="fa fa-facebook-official"></i><span>Teilen auf Facebook</span>
+                    <i class="fa fa-facebook-official"></i><span>Compartir en Facebook</span>
                 </a>
             </li>
         
@@ -431,7 +431,7 @@
             
             <li class="share-option">
                 <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://yoursite.com/2017/03/04/决策树算法实现（scikit-learn）/">
-                    <i class="fa fa-twitter"></i><span>Teilen auf Twitter</span>
+                    <i class="fa fa-twitter"></i><span>Compartir en Twitter</span>
                 </a>
             </li>
         
@@ -439,7 +439,7 @@
             
             <li class="share-option">
                 <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://yoursite.com/2017/03/04/决策树算法实现（scikit-learn）/">
-                    <i class="fa fa-google-plus"></i><span>Teilen auf Google Plus</span>
+                    <i class="fa fa-google-plus"></i><span>Compartir en Google+</span>
                 </a>
             </li>
         
@@ -461,7 +461,7 @@
             <i class="fa fa-remove"></i>
         </div>
         
-            <img id="about-card-picture" src="http://7xrw7v.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160402220553.png" alt="Bild des Autors"/>
+            <img id="about-card-picture" src="http://7xrw7v.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160402220553.png" alt="Foto de autor"/>
         
             <h4 id="about-card-name">Haozhe Xue</h4>
         
@@ -502,7 +502,7 @@
             </form>
         </div>
         <div class="modal-body">
-            <div class="no-result text-color-light text-center">keinen Beitrag gefunden</div>
+            <div class="no-result text-color-light text-center">no se encontraron artículos</div>
             <div class="results">
                 
                 <div class="media">
@@ -709,10 +709,10 @@
         </div>
         <div class="modal-footer">
             <p class="results-count text-medium"
-                data-message-zero="keinen Beitrag gefunden"
-                data-message-one="1 Beitrag gefunden"
-                data-message-other="{n} Einträge gefunden">
-                143 Einträge gefunden
+                data-message-zero="no se encontraron artículos"
+                data-message-one="1 artículo encontrado"
+                data-message-other="{n} artículos encontrados">
+                144 artículos encontrados
             </p>
         </div>
     </div>
