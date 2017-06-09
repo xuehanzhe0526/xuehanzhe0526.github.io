@@ -19,7 +19,8 @@
 评估方法
 交叉验证
 自助法
-留出法">
+留出法
+代码实现">
 <meta property="og:type" content="blog">
 <meta property="og:title" content="西瓜书：模型评估与选择1">
 <meta property="og:url" content="http://yoursite.com/2017/06/07/模型评估与选择1/index.html">
@@ -30,9 +31,10 @@
 评估方法
 交叉验证
 自助法
-留出法">
+留出法
+代码实现">
 <meta property="og:image" content="http://7xrw7v.com1.z0.glb.clouddn.com/2017060714968191073738.png">
-<meta property="og:updated_time" content="2017-06-07T19:52:44.000Z">
+<meta property="og:updated_time" content="2017-06-08T10:01:50.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="西瓜书：模型评估与选择1">
 <meta name="twitter:description" content="摘要：
@@ -41,7 +43,8 @@
 评估方法
 交叉验证
 自助法
-留出法">
+留出法
+代码实现">
 <meta name="twitter:image" content="http://7xrw7v.com1.z0.glb.clouddn.com/2017060714968191073738.png">
     
     
@@ -245,9 +248,10 @@
 <li>交叉验证</li>
 <li>自助法</li>
 <li>留出法</li>
+<li>代码实现</li>
 </ul>
 <a id="more"></a>
-<h1 id="table-of-contents">Inhaltsverzeichnis</h1><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#经验误差与过拟合"><span class="toc-text">经验误差与过拟合</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#评估方法"><span class="toc-text">评估方法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#留出法：直接对数据集D进行划分两个互斥的集合。"><span class="toc-text">留出法：直接对数据集D进行划分两个互斥的集合。</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#交叉验证法"><span class="toc-text">交叉验证法</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#留一法-LOO"><span class="toc-text">留一法 LOO</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#自助法"><span class="toc-text">自助法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#调参与最终模型"><span class="toc-text">调参与最终模型</span></a></li></ol></li></ol>
+<h1 id="table-of-contents">Inhaltsverzeichnis</h1><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#经验误差与过拟合"><span class="toc-text">经验误差与过拟合</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#评估方法"><span class="toc-text">评估方法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#留出法：直接对数据集D进行划分两个互斥的集合。"><span class="toc-text">留出法：直接对数据集D进行划分两个互斥的集合。</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#交叉验证法"><span class="toc-text">交叉验证法</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#留一法-LOO"><span class="toc-text">留一法 LOO</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#自助法"><span class="toc-text">自助法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#调参与最终模型"><span class="toc-text">调参与最终模型</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#代码实现"><span class="toc-text">代码实现</span></a></li></ol>
 <h3 id="经验误差与过拟合"><a href="#经验误差与过拟合" class="headerlink" title="经验误差与过拟合"></a>经验误差与过拟合</h3><ul>
 <li>错误率 error rate：$E = a / m$ m个样本中 a 个分错。</li>
 <li>精度 accuracy：$(1-a/m)*100$%</li>
@@ -277,8 +281,9 @@
 </ul>
 <p>当数据量足够的时候，尽量不要用该方法。</p>
 <h4 id="调参与最终模型"><a href="#调参与最终模型" class="headerlink" title="调参与最终模型"></a>调参与最终模型</h4><p>   不同的参数其实就代表着不同的模型了。一般参数分两种：一类是算法的参数，亦称“超参数”，如聚类要分的簇数量k；一类是模型的参数，如神经网络中每个节点的权重。前者多为人工选择一组候选，后者是让机器自己学习。<br>调参是机器学习的重点，也是决定模型性能的关键。一般调参过程中，会将训练数据再次划分为训练集和验证集（validation set）。具体包含关系如下：</p>
-<p><img src="media/14968189459021/14968632997463.jpg" alt=""></p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/20170608149691546352438.jpg" alt="20170608149691546352438.jpg"></p>
 <p>基于验证集（validation set）上的性能进行模型的选择和调参。</p>
+<h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><figure class="highlight python"><table><tr><td class="code"><pre><div class="line"></div><div class="line"><span class="comment"># coding: utf-8</span></div><div class="line"></div><div class="line"><span class="comment"># In[1]:</span></div><div class="line"></div><div class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</div><div class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment"># In[2]:</span></div><div class="line"></div><div class="line">df = pd.read_csv(<span class="string">"data.csv"</span>)</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment"># In[3]:</span></div><div class="line"></div><div class="line">df.head()</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment"># ### 数据预测理</span></div><div class="line"></div><div class="line"><span class="comment"># In[4]:</span></div><div class="line"></div><div class="line">print(df.shape)</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment"># In[5]:</span></div><div class="line"></div><div class="line">df.drop(<span class="string">'id'</span>, axis=<span class="number">1</span>, inplace=<span class="keyword">True</span>)</div><div class="line">df.drop(<span class="string">'Unnamed: 32'</span>, axis=<span class="number">1</span>, inplace=<span class="keyword">True</span>)</div><div class="line"></div><div class="line">df[<span class="string">'diagnosis'</span>].replace(&#123;<span class="string">'M'</span>:<span class="number">1</span>,<span class="string">'B'</span>:<span class="number">0</span>&#125;,inplace=<span class="keyword">True</span>)</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment"># In[6]:</span></div><div class="line"></div><div class="line">df.head()</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment"># ### 数据划分</span></div><div class="line"></div><div class="line"><span class="comment"># In[7]:</span></div><div class="line"></div><div class="line"><span class="keyword">import</span> sklearn</div><div class="line">print(<span class="string">'The scikit-learn version is &#123;&#125;.'</span>.format(sklearn.__version__))</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment"># In[8]:</span></div><div class="line"></div><div class="line"><span class="comment">### 留出法 Hold-out</span></div><div class="line"></div><div class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> train_test_split</div><div class="line"></div><div class="line">train, test = train_test_split(df,test_size=<span class="number">0.3</span>, random_state=<span class="number">0</span>) <span class="comment">#默认75%</span></div><div class="line"></div><div class="line"></div><div class="line"><span class="comment"># In[9]:</span></div><div class="line"></div><div class="line">df.shape[<span class="number">0</span>]</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment"># In[11]:</span></div><div class="line"></div><div class="line"><span class="comment"># K-Fold 交叉验证</span></div><div class="line"><span class="keyword">from</span> sklearn.cross_validation <span class="keyword">import</span> KFold</div><div class="line"></div><div class="line">kf = KFold(df.shape[<span class="number">0</span>],n_folds=<span class="number">10</span>)</div><div class="line"><span class="keyword">for</span> train, test <span class="keyword">in</span> kf:</div><div class="line">    print(<span class="string">"Train set shape: &#123;&#125;, Test set shape:&#123;&#125;"</span>.format(train.shape, test.shape))</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment"># In[12]:</span></div><div class="line"></div><div class="line"><span class="comment"># Leave-One-Out 留一法</span></div><div class="line"></div><div class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> LeaveOneOut</div><div class="line">loo = LeaveOneOut()</div><div class="line"></div><div class="line"><span class="comment"># There will be too many output lines, so I write it to a file, you can view it under the output tab</span></div><div class="line">f = open(<span class="string">"LOO_output.txt"</span>,<span class="string">"w"</span>) </div><div class="line">f.write(<span class="string">"This is the output of your LOO commands\n"</span>)</div><div class="line"><span class="keyword">for</span> train, test <span class="keyword">in</span> loo.split(df):</div><div class="line">    f.write(<span class="string">"Train set shape: &#123;&#125;, Test set shape:&#123;&#125;\n"</span>.format(train.shape, test.shape))</div><div class="line">f.close()</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment"># In[13]:</span></div><div class="line"></div><div class="line"><span class="comment"># Method 3: Bootstrapping 自助法</span></div><div class="line"></div><div class="line"><span class="keyword">from</span> sklearn.utils <span class="keyword">import</span> resample</div><div class="line"></div><div class="line">train = resample(df,random_state=<span class="number">0</span>)</div><div class="line">train.describe()</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment"># In[14]:</span></div><div class="line"></div><div class="line">df.describe()</div></pre></td></tr></table></figure>
 <p>参考链接：<a href="http://www.jianshu.com/p/8e369f73a0cc" target="_blank" rel="external">http://www.jianshu.com/p/8e369f73a0cc</a></p>
 
             
@@ -291,7 +296,7 @@
             
             
             <div class="photo-box">
-                <a class="photo-box-inner fancybox" data-fancybox-group="gallery-cj3o2eu340088nus6i8kwfpbn"
+                <a class="photo-box-inner fancybox" data-fancybox-group="gallery-cj3pbejr7008ix9s6agqvusvo"
                    title="" href="http://7xrw7v.com1.z0.glb.clouddn.com/2017060714968191073738.png">
                     <img class="photo" src="http://7xrw7v.com1.z0.glb.clouddn.com/2017060714968191073738.png" itemprop="image">
                 </a>
@@ -651,31 +656,6 @@
                 <div class="media">
                     
                     <div class="media-body">
-                        <a class="link-unstyled" href="http://yoursite.com/2016/03/15/2016-03-15-hadoop1/">
-                            <h3 class="media-heading">hadoope下API操作</h3>
-                        </a>
-                        <span class="media-meta">
-                            <span class="media-date text-small">
-                                
-                                    Mar 15, 2016
-                                
-                            </span>
-                        </span>
-                        <div class="media-content hide-xs font-merryweather"><p>摘要：</p>
-<ul>
-<li>创建Java项目</li>
-<li>添加jar包</li>
-<li>代码</li>
-<li>单元测试</li>
-</ul></div>
-                    </div>
-                    <div style="clear:both;"></div>
-                    <hr>
-                </div>
-                
-                <div class="media">
-                    
-                    <div class="media-body">
                         <a class="link-unstyled" href="http://yoursite.com/2016/03/15/2016-03-15-haozhe/">
                             <h3 class="media-heading">博客：Markdown入门</h3>
                         </a>
@@ -695,6 +675,31 @@
 <li>粗体斜体</li>
 <li>标量</li>
 <li>添加代码</li>
+</ul></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yoursite.com/2016/03/15/2016-03-15-hadoop1/">
+                            <h3 class="media-heading">hadoope下API操作</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Mar 15, 2016
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>摘要：</p>
+<ul>
+<li>创建Java项目</li>
+<li>添加jar包</li>
+<li>代码</li>
+<li>单元测试</li>
 </ul></div>
                     </div>
                     <div style="clear:both;"></div>
