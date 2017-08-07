@@ -61,7 +61,7 @@
                 href="#about">
         
         
-            <img class="header-picture" src="http://7xrw7v.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160402220553.png" alt="Foto de autor"/>
+            <img class="header-picture" src="http://7xrw7v.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160402220553.png" alt="Bild des Autors"/>
         
         </a>
     
@@ -79,7 +79,7 @@
         
             <div class="sidebar-profile">
                 <a href="/#about">
-                    <img class="sidebar-profile-picture" src="http://7xrw7v.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160402220553.png" alt="Foto de autor"/>
+                    <img class="sidebar-profile-picture" src="http://7xrw7v.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160402220553.png" alt="Bild des Autors"/>
                 </a>
                 <h4 class="sidebar-profile-name">Haozhe Xue</h4>
                 
@@ -99,7 +99,7 @@
                         >
                     
                         <i class="sidebar-button-icon fa fa-lg fa-home"></i>
-                        <span class="sidebar-button-desc">Inicio</span>
+                        <span class="sidebar-button-desc">Home</span>
                     </a>
             </li>
             
@@ -111,7 +111,7 @@
                         >
                     
                         <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
-                        <span class="sidebar-button-desc">Etiquetas</span>
+                        <span class="sidebar-button-desc">Tags</span>
                     </a>
             </li>
             
@@ -123,7 +123,7 @@
                         >
                     
                         <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
-                        <span class="sidebar-button-desc">Archivos</span>
+                        <span class="sidebar-button-desc">Archiv</span>
                     </a>
             </li>
             
@@ -135,7 +135,7 @@
                         >
                     
                         <i class="sidebar-button-icon fa fa-lg fa-search"></i>
-                        <span class="sidebar-button-desc">Buscar</span>
+                        <span class="sidebar-button-desc">Suche</span>
                     </a>
             </li>
             
@@ -186,6 +186,111 @@
                 <section class="postShorten-group main-content-wrap">
     
     
+    <article class="postShorten postShorten--thumbnailimg-bottom" itemscope itemType="http://schema.org/BlogPosting">
+        <div class="postShorten-wrap">
+            
+            <div class="postShorten-header">
+                <h1 class="postShorten-title" itemprop="headline">
+                    
+                        <a class="link-unstyled" href="/2017/02/08/python list及list添加元素/">
+                            python list及list添加元素
+                        </a>
+                    
+                </h1>
+                <div class="postShorten-meta">
+    <time itemprop="datePublished" datetime="2017-02-08T13:43:23+08:00">
+	
+		    08 Feb 2017
+    	
+    </time>
+    
+</div>
+
+            </div>
+            
+                <div class="postShorten-content" itemprop="articleBody">
+                    <h3 id="list常用方法"><a href="#list常用方法" class="headerlink" title="list常用方法"></a>list常用方法</h3><p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/20170207148646397229099.png" alt="20170207148646397229099.png"></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line">myList = [<span class="number">1024</span>, <span class="number">3</span>, <span class="keyword">True</span>, <span class="number">6.5</span>]</div><div class="line">myList.append(<span class="keyword">False</span>)</div><div class="line">print(myList)</div><div class="line">myList.insert(<span class="number">2</span>,<span class="number">4.5</span>)</div><div class="line">print(myList)</div><div class="line">print(<span class="string">"------"</span>)</div><div class="line"></div><div class="line">print(myList.pop()) <span class="comment">#若为空 删除末的值</span></div><div class="line">print(myList)</div><div class="line">print(<span class="string">"------"</span>)</div><div class="line">print(myList.pop(<span class="number">1</span>))</div><div class="line">print(myList)</div><div class="line">myList.pop(<span class="number">2</span>)</div><div class="line">print(myList)</div><div class="line">print(<span class="string">"------"</span>)</div><div class="line"></div><div class="line">myList.sort() <span class="comment">#从小到大 原数据上排序</span></div><div class="line">print(myList)</div><div class="line">myList.reverse()</div><div class="line">print(myList)</div><div class="line">print(<span class="string">"------"</span>)</div><div class="line"></div><div class="line">print(myList.count(<span class="number">6.5</span>)) <span class="comment">#Returns the number of occurrences of item</span></div><div class="line">print(myList.index(<span class="number">4.5</span>)) <span class="comment">#Returns the index of firstoccurrence of item</span></div><div class="line">myList.remove(<span class="number">6.5</span>)</div><div class="line">print(myList)</div><div class="line"></div><div class="line"><span class="keyword">del</span> myList[<span class="number">0</span>]</div><div class="line">print(myList)</div></pre></td></tr></table></figure>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/2017020714864656008925.png" alt="2017020714864656008925.png"></p>
+<h3 id="range-函数"><a href="#range-函数" class="headerlink" title="range 函数"></a>range 函数</h3><figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="meta">&gt;&gt;&gt; </span>range(<span class="number">10</span>) <span class="comment">#python2</span></div><div class="line">[<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>]</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>list(range(<span class="number">10</span>))</div><div class="line">[<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>]</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>range(<span class="number">5</span>,<span class="number">10</span>) <span class="comment">#python3</span></div><div class="line">range(<span class="number">5</span>, <span class="number">10</span>)</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>list(range(<span class="number">5</span>,<span class="number">10</span>))</div><div class="line">[<span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>]</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>list(range(<span class="number">5</span>,<span class="number">10</span>,<span class="number">2</span>))</div><div class="line">[<span class="number">5</span>, <span class="number">7</span>, <span class="number">9</span>]</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>list(range(<span class="number">10</span>,<span class="number">1</span>,<span class="number">-1</span>))</div><div class="line">[<span class="number">10</span>, <span class="number">9</span>, <span class="number">8</span>, <span class="number">7</span>, <span class="number">6</span>, <span class="number">5</span>, <span class="number">4</span>, <span class="number">3</span>, <span class="number">2</span>]</div><div class="line">&gt;&gt;&gt;</div></pre></td></tr></table></figure>
+<h3 id="list添加元素"><a href="#list添加元素" class="headerlink" title="list添加元素"></a>list添加元素</h3><p>4种方法（append(),extend(),insert(), +加号）</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line">append()用法示例：  </div><div class="line"><span class="meta">&gt;&gt;&gt; </span>mylist = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">0</span>,<span class="string">'abc'</span>]  </div><div class="line"><span class="meta">&gt;&gt;&gt; </span>mylist  </div><div class="line">[<span class="number">1</span>, <span class="number">2</span>, <span class="number">0</span>, <span class="string">'abc'</span>]  </div><div class="line"><span class="meta">&gt;&gt;&gt; </span>mylist.append(<span class="number">4</span>)  </div><div class="line"><span class="meta">&gt;&gt;&gt; </span>mylist  </div><div class="line">[<span class="number">1</span>, <span class="number">2</span>, <span class="number">0</span>, <span class="string">'abc'</span>, <span class="number">4</span>]  </div><div class="line"><span class="meta">&gt;&gt;&gt; </span>mylist.append(<span class="string">'haha'</span>)  </div><div class="line"><span class="meta">&gt;&gt;&gt; </span>mylist  </div><div class="line">[<span class="number">1</span>, <span class="number">2</span>, <span class="number">0</span>, <span class="string">'abc'</span>, <span class="number">4</span>, <span class="string">'haha'</span>] </div><div class="line"></div><div class="line">extend()用法示例：  </div><div class="line"><span class="meta">&gt;&gt;&gt; </span>mylist  </div><div class="line">[<span class="number">1</span>, <span class="number">2</span>, <span class="number">0</span>, <span class="string">'abc'</span>, <span class="number">4</span>, <span class="string">'haha'</span>]  </div><div class="line"><span class="meta">&gt;&gt;&gt; </span>mylist.extend([<span class="string">'lulu'</span>])  </div><div class="line"><span class="meta">&gt;&gt;&gt; </span>mylist  </div><div class="line">[<span class="number">1</span>, <span class="number">2</span>, <span class="number">0</span>, <span class="string">'abc'</span>, <span class="number">4</span>, <span class="string">'haha'</span>, <span class="string">'lulu'</span>]  </div><div class="line"><span class="meta">&gt;&gt;&gt; </span>mylist.extend([aaa,<span class="string">'lalalala'</span>])  </div><div class="line">Traceback (most recent call last):  </div><div class="line">  File <span class="string">"&lt;stdin&gt;"</span>, line <span class="number">1</span>, <span class="keyword">in</span> &lt;module&gt;  </div><div class="line">NameError: name <span class="string">'aaa'</span> <span class="keyword">is</span> <span class="keyword">not</span> defined  </div><div class="line"><span class="meta">&gt;&gt;&gt; </span>mylist.extend([<span class="string">'123123'</span>,<span class="string">'lalalala'</span>])  </div><div class="line"><span class="meta">&gt;&gt;&gt; </span>mylist  </div><div class="line">[<span class="number">1</span>, <span class="number">2</span>, <span class="number">0</span>, <span class="string">'abc'</span>, <span class="number">4</span>, <span class="string">'haha'</span>, <span class="string">'lulu'</span>, <span class="string">'123123'</span>, <span class="string">'lalalala'</span>]  </div><div class="line"><span class="meta">&gt;&gt;&gt; </span>mylist.extend([<span class="number">111111</span>,<span class="number">222</span>])  </div><div class="line"><span class="meta">&gt;&gt;&gt; </span>mylist  </div><div class="line">[<span class="number">1</span>, <span class="number">2</span>, <span class="number">0</span>, <span class="string">'abc'</span>, <span class="number">4</span>, <span class="string">'haha'</span>, <span class="string">'lulu'</span>, <span class="string">'123123'</span>, <span class="string">'lalalala'</span>, <span class="number">111111</span>, <span class="number">222</span>]</div></pre></td></tr></table></figure>
+<p>分析可以发现：<br>append()只能在list中添加一个元素；<br>extend()只能添加另外一个list。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>list1</div><div class="line">[<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>, <span class="string">'d'</span>]</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>list1.insert(<span class="number">1</span>,<span class="string">'x'</span>)</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>list1</div><div class="line">[<span class="string">'a'</span>, <span class="string">'x'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>, <span class="string">'d'</span>]</div><div class="line"></div><div class="line"></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>list1</div><div class="line">[<span class="string">'a'</span>, <span class="string">'x'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>, <span class="string">'d'</span>]</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>list2=[<span class="string">'y'</span>,<span class="string">'z'</span>]</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>list3=list1+list2</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>list3</div><div class="line">[<span class="string">'a'</span>, <span class="string">'x'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>, <span class="string">'d'</span>, <span class="string">'y'</span>, <span class="string">'z'</span>]</div></pre></td></tr></table></figure>
+
+                    
+                        
+                    
+                    
+                        <p>
+                            <a href="/2017/02/08/python list及list添加元素/#post-footer" class="postShorten-excerpt_link link">
+                                Kommentieren und teilen
+                            </a>
+                        </p>
+                    
+                </div>
+            
+        </div>
+        
+    </article>
+    
+    
+    <article class="postShorten postShorten--thumbnailimg-bottom" itemscope itemType="http://schema.org/BlogPosting">
+        <div class="postShorten-wrap">
+            
+            <div class="postShorten-header">
+                <h1 class="postShorten-title" itemprop="headline">
+                    
+                        <a class="link-unstyled" href="/2017/02/06/numpy和pandas入门/">
+                            numpy和pandas入门
+                        </a>
+                    
+                </h1>
+                <div class="postShorten-meta">
+    <time itemprop="datePublished" datetime="2017-02-06T23:43:23+08:00">
+	
+		    06 Feb 2017
+    	
+    </time>
+    
+</div>
+
+            </div>
+            
+                <div class="postShorten-content" itemprop="articleBody">
+                    <h3 id="numpy"><a href="#numpy" class="headerlink" title="numpy"></a>numpy</h3><blockquote>
+<p>The array object class is the foundation of Numpy, and Numpy arrays are like<br>lists in Python, except that every thing inside an array must be of the<br>same type, like int or float.</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</div><div class="line">array1 = np.array([<span class="number">1</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">8</span>], float)</div><div class="line"><span class="comment">#[ 1.  4.  5.  8.]</span></div><div class="line">array2 = np.array([[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>], [<span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>]], float)  <span class="comment"># a 2D array/Matrix</span></div><div class="line"><span class="string">'''</span></div><div class="line">[[ 1.  2.  3.]</div><div class="line"> [ 4.  5.  6.]]</div><div class="line">'''</div><div class="line"></div><div class="line">array_1 = np.array([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>], float)</div><div class="line">array_2 = np.array([[<span class="number">6</span>], [<span class="number">7</span>], [<span class="number">8</span>]], float)</div><div class="line"><span class="keyword">print</span> np.mean(array_1)</div><div class="line"><span class="keyword">print</span> np.mean(array_2)</div><div class="line"><span class="keyword">print</span> <span class="string">""</span></div><div class="line"><span class="keyword">print</span> np.dot(array_1, array_2)</div></pre></td></tr></table></figure>
+<h3 id="pandas"><a href="#pandas" class="headerlink" title="pandas"></a>pandas</h3><h4 id="Series"><a href="#Series" class="headerlink" title="Series"></a>Series</h4><figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</div><div class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</div><div class="line"></div><div class="line">series = pd.Series([<span class="string">'Dave'</span>, <span class="string">'Cheng-Han'</span>, <span class="string">'Udacity'</span>, <span class="number">42</span>, <span class="number">-1789710578</span>])</div><div class="line"><span class="string">"""</span></div><div class="line">Instructor                 Dave</div><div class="line">Curriculum Manager    Cheng-Han</div><div class="line">Course Number               359</div><div class="line">Power Level                9001</div><div class="line">dtype: object</div><div class="line">"""</div><div class="line">cuteness = pd.Series([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>], index=[<span class="string">'Cockroach'</span>, <span class="string">'Fish'</span>, <span class="string">'Mini Pig'</span>,<span class="string">'Puppy'</span>, <span class="string">'Kitten'</span>])</div><div class="line"><span class="keyword">print</span> cuteness &gt; <span class="number">3</span></div><div class="line"><span class="keyword">print</span> cuteness[cuteness &gt; <span class="number">3</span>]</div><div class="line"></div><div class="line"><span class="string">"""</span></div><div class="line">Cockroach    False</div><div class="line">Fish         False</div><div class="line">Mini Pig     False</div><div class="line">Puppy         True</div><div class="line">Kitten        True</div><div class="line">dtype: bool</div><div class="line"></div><div class="line">Puppy     4</div><div class="line">Kitten    5</div><div class="line">dtype: int64</div><div class="line">"""</div></pre></td></tr></table></figure>
+<h4 id="Dataframe"><a href="#Dataframe" class="headerlink" title="Dataframe"></a>Dataframe</h4><blockquote>
+<p>To create a dataframe, you can pass a dictionary of lists to the Dataframe<br>constructor:<br>1) The key of the dictionary will be the column name<br>2) The associating list will be the values within that column.</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="keyword">if</span> <span class="keyword">True</span>:</div><div class="line">    data = &#123;<span class="string">'year'</span>: [<span class="number">2010</span>, <span class="number">2011</span>, <span class="number">2012</span>, <span class="number">2011</span>, <span class="number">2012</span>, <span class="number">2010</span>, <span class="number">2011</span>, <span class="number">2012</span>],</div><div class="line">            <span class="string">'team'</span>: [<span class="string">'Bears'</span>, <span class="string">'Bears'</span>, <span class="string">'Bears'</span>, <span class="string">'Packers'</span>, <span class="string">'Packers'</span>, <span class="string">'Lions'</span>,</div><div class="line">                     <span class="string">'Lions'</span>, <span class="string">'Lions'</span>],</div><div class="line">            <span class="string">'wins'</span>: [<span class="number">11</span>, <span class="number">8</span>, <span class="number">10</span>, <span class="number">15</span>, <span class="number">11</span>, <span class="number">6</span>, <span class="number">10</span>, <span class="number">4</span>],</div><div class="line">            <span class="string">'losses'</span>: [<span class="number">5</span>, <span class="number">8</span>, <span class="number">6</span>, <span class="number">1</span>, <span class="number">5</span>, <span class="number">10</span>, <span class="number">6</span>, <span class="number">12</span>]&#125;</div><div class="line">    football = pd.DataFrame(data)</div><div class="line">    <span class="keyword">print</span> football</div><div class="line"></div><div class="line"><span class="string">"""</span></div><div class="line">   losses     team  wins  year</div><div class="line">0       5    Bears    11  2010</div><div class="line">1       8    Bears     8  2011</div><div class="line">2       6    Bears    10  2012</div><div class="line">3       1  Packers    15  2011</div><div class="line">4       5  Packers    11  2012</div><div class="line">5      10    Lions     6  2010</div><div class="line">6       6    Lions    10  2011</div><div class="line">7      12    Lions     4  2012</div><div class="line">"""</div></pre></td></tr></table></figure>
+<blockquote>
+<p>Pandas also has various functions that will help you understand some basic<br>information about your data frame. Some of these functions are:<br>1) dtypes: to get the datatype for each column<br>2) describe: useful for seeing basic statistics of the dataframe’s numerical<br>   columns<br>3) head: displays the first five rows of the dataset<br>4) tail: displays the last five rows of the dataset</p>
+</blockquote>
+<h4 id="索引数据框"><a href="#索引数据框" class="headerlink" title="索引数据框"></a>索引数据框</h4><p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/20170206148639037016462.png" alt="20170206148639037016462.png"></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="keyword">print</span> football[<span class="string">'year'</span>]</div><div class="line"><span class="keyword">print</span> football.year</div><div class="line"><span class="keyword">print</span> football[[<span class="string">'year'</span>, <span class="string">'wins'</span>, <span class="string">'losses'</span>]]</div><div class="line"><span class="string">"""</span></div><div class="line">year  wins  losses</div><div class="line">0  2010    11       5</div><div class="line">1  2011     8       8</div><div class="line">2  2012    10       6</div><div class="line">3  2011    15       1</div><div class="line">4  2012    11       5</div><div class="line">5  2010     6      10</div><div class="line">6  2011    10       6</div><div class="line">7  2012     4      12</div><div class="line">"""</div><div class="line"></div><div class="line"><span class="keyword">print</span> football[<span class="number">3</span>:<span class="number">5</span>]</div><div class="line"><span class="string">"""</span></div><div class="line">   losses     team  wins  year</div><div class="line">3       1  Packers    15  2011</div><div class="line">4       5  Packers    11  2012</div><div class="line">"""</div><div class="line"></div><div class="line">avg_medal_count = df[[<span class="string">'gold'</span>,<span class="string">'silver'</span>,<span class="string">'bronze'</span>]].apply(np.mean)</div></pre></td></tr></table></figure>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/20170206148639074972524.png" alt="20170206148639074972524.png"></p>
+
+                    
+                        
+                    
+                    
+                        <p>
+                            <a href="/2017/02/06/numpy和pandas入门/#post-footer" class="postShorten-excerpt_link link">
+                                Kommentieren und teilen
+                            </a>
+                        </p>
+                    
+                </div>
+            
+        </div>
+        
+    </article>
+    
+    
     <article class="postShorten postShorten--thumbnailimg-right" itemscope itemType="http://schema.org/BlogPosting">
         <div class="postShorten-wrap">
             
@@ -215,7 +320,7 @@
 </ul>
                     
                         <a href="/2017/02/04/python操作sqlite数据库/" class="postShorten-excerpt_link link">
-                            Seguir leyendo
+                            Weiterlesen
                         </a>
                         
                     
@@ -252,7 +357,7 @@
                     <p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/16-12-11/73471976-file_1481457498781_15146.png" alt=""><br>
                     
                         <a href="/2017/02/04/python数据文件常用格式的读写/" class="postShorten-excerpt_link link">
-                            Seguir leyendo
+                            Weiterlesen
                         </a>
                         
                     
@@ -291,7 +396,7 @@
 </ul>
                     
                         <a href="/2016/12/09/案例1：2016美国大选可视化分析/" class="postShorten-excerpt_link link">
-                            Seguir leyendo
+                            Weiterlesen
                         </a>
                         
                     
@@ -333,7 +438,7 @@
 </ul>
                     
                         <a href="/2016/12/09/数据分析：科学计算及数据可视化入门/" class="postShorten-excerpt_link link">
-                            Seguir leyendo
+                            Weiterlesen
                         </a>
                         
                     
@@ -376,7 +481,7 @@
 <li>Python高阶函数
                     
                         <a href="/2016/12/09/数据分析：python数据结构/" class="postShorten-excerpt_link link">
-                            Seguir leyendo
+                            Weiterlesen
                         </a>
                         
                     
@@ -418,94 +523,7 @@
 </ul>
                     
                         <a href="/2016/11/21/局部加权回归和逻辑回归/" class="postShorten-excerpt_link link">
-                            Seguir leyendo
-                        </a>
-                        
-                    
-                </div>
-            
-        </div>
-        
-    </article>
-    
-    
-    <article class="postShorten postShorten--thumbnailimg-right" itemscope itemType="http://schema.org/BlogPosting">
-        <div class="postShorten-wrap">
-            
-            <div class="postShorten-header">
-                <h1 class="postShorten-title" itemprop="headline">
-                    
-                        <a class="link-unstyled" href="/2016/11/21/线性回归（python实现）/">
-                            线性回归（python实现）
-                        </a>
-                    
-                </h1>
-                <div class="postShorten-meta">
-    <time itemprop="datePublished" datetime="2016-11-21T10:01:17+08:00">
-	
-		    21 Nov 2016
-    	
-    </time>
-    
-</div>
-
-            </div>
-            
-                <div class="postShorten-excerpt" itemprop="articleBody">
-                    <p>摘要：</p>
-<ul>
-<li>线性回归</li>
-<li>最小二乘</li>
-<li>向量的导数</li>
-<li>交叉验证</li>
-<li>梯度下降算法</li>
-<li>案例及代码</li>
-</ul>
-                    
-                        <a href="/2016/11/21/线性回归（python实现）/" class="postShorten-excerpt_link link">
-                            Seguir leyendo
-                        </a>
-                        
-                    
-                </div>
-            
-        </div>
-        
-    </article>
-    
-    
-    <article class="postShorten postShorten--thumbnailimg-right" itemscope itemType="http://schema.org/BlogPosting">
-        <div class="postShorten-wrap">
-            
-            <div class="postShorten-header">
-                <h1 class="postShorten-title" itemprop="headline">
-                    
-                        <a class="link-unstyled" href="/2016/11/18/协同过滤案例/">
-                            协同过滤案例
-                        </a>
-                    
-                </h1>
-                <div class="postShorten-meta">
-    <time itemprop="datePublished" datetime="2016-11-18T12:41:34+08:00">
-	
-		    18 Nov 2016
-    	
-    </time>
-    
-</div>
-
-            </div>
-            
-                <div class="postShorten-excerpt" itemprop="articleBody">
-                    <p>摘要：</p>
-<ul>
-<li>协同过滤</li>
-<li>明氏距离</li>
-<li>皮尔逊相关系数</li>
-</ul>
-                    
-                        <a href="/2016/11/18/协同过滤案例/" class="postShorten-excerpt_link link">
-                            Seguir leyendo
+                            Weiterlesen
                         </a>
                         
                     
@@ -523,19 +541,19 @@
                 <a class="btn btn--default btn--small" href="/page/2/">
             
                 <i class="fa fa-angle-left text-base icon-mr"></i>
-                    <span>ARTÍCULOS RECIENTES</span>
+                    <span>NEUERE BEITRÄGE</span>
             </a>
         </li>
         
         
         <li class="pagination-next">
             <a class="btn btn--default btn--small" href="/page/4/">
-                    <span>ARTÍCULOS ANTERIORES</span>
+                    <span>ÄLTERE BEITRÄGE</span>
                 <i class="fa fa-angle-right text-base icon-ml"></i>
             </a>
         </li>
         
-        <li class="pagination-number">página 3 de 19</li>
+        <li class="pagination-number">Seite 3 von 19</li>
     </ul>
 </div>
 
@@ -564,7 +582,7 @@
             <i class="fa fa-remove"></i>
         </div>
         
-            <img id="about-card-picture" src="http://7xrw7v.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160402220553.png" alt="Foto de autor"/>
+            <img id="about-card-picture" src="http://7xrw7v.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160402220553.png" alt="Bild des Autors"/>
         
             <h4 id="about-card-name">Haozhe Xue</h4>
         
@@ -605,7 +623,7 @@
             </form>
         </div>
         <div class="modal-body">
-            <div class="no-result text-color-light text-center">no se encontraron artículos</div>
+            <div class="no-result text-color-light text-center">keinen Beitrag gefunden</div>
             <div class="results">
                 
                 <div class="media">
@@ -812,10 +830,10 @@
         </div>
         <div class="modal-footer">
             <p class="results-count text-medium"
-                data-message-zero="no se encontraron artículos"
-                data-message-one="1 artículo encontrado"
-                data-message-other="{n} artículos encontrados">
-                146 artículos encontrados
+                data-message-zero="keinen Beitrag gefunden"
+                data-message-one="1 Beitrag gefunden"
+                data-message-other="{n} Einträge gefunden">
+                148 Einträge gefunden
             </p>
         </div>
     </div>
