@@ -6,52 +6,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="Haozhe">
-    <title>数据类型与操作数据表 - Haozhe</title>
+    <title>python数据结构-树 - Haozhe</title>
     <meta name="author" content="Haozhe Xue">
     
     
         <link rel="icon" href="http://yoursite.com/assets/images/favicon.ico">
     
     
-    <meta name="description" content="摘要：
-
-数据类型
-操作数据表">
+    <meta name="description" content="树是数据结构中常用到的一种结构，其实现较栈和队稍为复杂一些。若树中的所有节点的孩子节点数量不超过2个，则该为一个二叉树。">
 <meta property="og:type" content="blog">
-<meta property="og:title" content="数据类型与操作数据表">
-<meta property="og:url" content="http://yoursite.com/2016/05/13/mysql2/index.html">
+<meta property="og:title" content="python数据结构-树">
+<meta property="og:url" content="http://yoursite.com/2017/08/08/python数据结构-树/index.html">
 <meta property="og:site_name" content="Haozhe">
-<meta property="og:description" content="摘要：
-
-数据类型
-操作数据表">
-<meta property="og:image" content="http://7xrw7v.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160513160517.png">
-<meta property="og:image" content="http://7xrw7v.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160513181121.png">
-<meta property="og:image" content="http://7xrw7v.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160513160801.png">
-<meta property="og:image" content="http://7xrw7v.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160513161205.png">
-<meta property="og:image" content="http://7xrw7v.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160513161446.png">
-<meta property="og:image" content="http://7xrw7v.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160513162133.png">
-<meta property="og:image" content="http://7xrw7v.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160513163726.png">
-<meta property="og:image" content="http://7xrw7v.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160513163939.png">
-<meta property="og:image" content="http://7xrw7v.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160513183439.png">
-<meta property="og:image" content="http://7xrw7v.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160513164235.png">
-<meta property="og:image" content="http://7xrw7v.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160513164639.png">
-<meta property="og:image" content="http://7xrw7v.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160513164905.png">
-<meta property="og:image" content="http://7xrw7v.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160513165054.png">
-<meta property="og:image" content="http://7xrw7v.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160513165222.png">
-<meta property="og:image" content="http://7xrw7v.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160514114742.png">
-<meta property="og:image" content="http://7xrw7v.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160514121104.png">
-<meta property="og:image" content="http://7xrw7v.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160515003432.png">
-<meta property="og:image" content="http://7xrw7v.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160515003529.png">
-<meta property="og:image" content="http://7xrw7v.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160515003540.png">
-<meta property="og:updated_time" content="2016-05-14T16:39:54.000Z">
+<meta property="og:description" content="树是数据结构中常用到的一种结构，其实现较栈和队稍为复杂一些。若树中的所有节点的孩子节点数量不超过2个，则该为一个二叉树。">
+<meta property="og:image" content="http://7xrw7v.com1.z0.glb.clouddn.com/20170807150209644316435.png">
+<meta property="og:updated_time" content="2017-08-08T09:45:50.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="数据类型与操作数据表">
-<meta name="twitter:description" content="摘要：
-
-数据类型
-操作数据表">
-<meta name="twitter:image" content="http://7xrw7v.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160513160517.png">
+<meta name="twitter:title" content="python数据结构-树">
+<meta name="twitter:description" content="树是数据结构中常用到的一种结构，其实现较栈和队稍为复杂一些。若树中的所有节点的孩子节点数量不超过2个，则该为一个二叉树。">
+<meta name="twitter:image" content="http://7xrw7v.com1.z0.glb.clouddn.com/20170807150209644316435.png">
     
     
         
@@ -61,6 +34,11 @@
     
     
     
+    
+        
+            <meta property="og:image" content="http://7xrw7v.com1.z0.glb.clouddn.com/20170807150209644316435.png" />
+            <meta class="swiftype" name="image" data-type="enum" content="http://7xrw7v.com1.z0.glb.clouddn.com/20170807150209644316435.png" />
+        
     
     <!--STYLES-->
     <link rel="stylesheet" href="/assets/css/style-sxklfps8ywgfyyjcowvnb4gxdgt0zjts3hsguljmv9uqanxjbnitrovtbrek.min.css">
@@ -220,14 +198,14 @@
         <div class="post-header main-content-wrap text-left">
     
         <h1 class="post-title" itemprop="headline">
-            数据类型与操作数据表
+            python数据结构-树
         </h1>
     
     
         <div class="post-meta">
-    <time itemprop="datePublished" datetime="2016-05-13T20:18:13+08:00">
+    <time itemprop="datePublished" datetime="2017-08-08T15:34:34+08:00">
 	
-		    13 May 2016
+		    08 Aug 2017
     	
     </time>
     
@@ -238,33 +216,38 @@
     
     <div class="post-content markdown" itemprop="articleBody">
         <div class="main-content-wrap">
-            <p>摘要：</p>
-<ul>
-<li>数据类型</li>
-<li>操作数据表</li>
-</ul>
+            <p>树是数据结构中常用到的一种结构，其实现较栈和队稍为复杂一些。若树中的所有节点的孩子节点数量不超过2个，则该为一个二叉树。</p>
 <a id="more"></a>
-<h3 id="1、数据类型"><a href="#1、数据类型" class="headerlink" title="1、数据类型"></a>1、数据类型</h3><p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160513160517.png" alt=""><br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160513181121.png" alt=""><br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160513160801.png" alt=""><br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160513161205.png" alt=""></p>
-<h3 id="2、操作数据表"><a href="#2、操作数据表" class="headerlink" title="2、操作数据表"></a>2、操作数据表</h3><h4 id="创建数据表"><a href="#创建数据表" class="headerlink" title="创建数据表"></a>创建数据表</h4><p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160513161446.png" alt=""><br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">mysql -uroot -phadoop -P3306 -h127.0.0.1   #登陆</div><div class="line"></div><div class="line">SHOW DATABASES;  #查看已有数据库列表</div><div class="line"></div><div class="line">+--------------------+</div><div class="line">| Database           |</div><div class="line">+--------------------+</div><div class="line">| information_schema |</div><div class="line">| mysql              |</div><div class="line">| performance_schema |</div><div class="line">| t2                 |</div><div class="line">| test               |</div><div class="line">+--------------------+</div><div class="line">USE test #打开数据库</div><div class="line"></div><div class="line">SELECT DATABASE( ); #显示当前用户打开的数据库</div><div class="line"></div><div class="line">+------------+</div><div class="line">| DATABASE() |</div><div class="line">+------------+</div><div class="line">| test       |</div><div class="line">+------------+</div></pre></td></tr></table></figure></p>
-<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160513162133.png" alt=""></p>
-<p>column 列<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">mysql&gt; CREATE TABLE tbl(</div><div class="line">    -&gt; username VARCHAR(20),</div><div class="line">    -&gt; age  TINYINT UNSIGNED,#无符号</div><div class="line">    -&gt; salary FLOAT(8,2) UNSIGNED</div><div class="line">    -&gt; );</div><div class="line">Query OK, 0 rows affected (0.22 sec)</div></pre></td></tr></table></figure></p>
-<h4 id="查看数据表"><a href="#查看数据表" class="headerlink" title="查看数据表"></a>查看数据表</h4><p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160513163726.png" alt=""><br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">mysql&gt; SHOW TABLES;</div><div class="line">+----------------+</div><div class="line">| Tables_in_test |</div><div class="line">+----------------+</div><div class="line">| tbl            |</div><div class="line">+----------------+</div></pre></td></tr></table></figure></p>
-<h4 id="查看数据表结构"><a href="#查看数据表结构" class="headerlink" title="查看数据表结构"></a>查看数据表结构</h4><p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160513163939.png" alt=""><br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160513183439.png" alt=""></p>
-<h4 id="记录-行-的插入与查找"><a href="#记录-行-的插入与查找" class="headerlink" title="记录(行)的插入与查找"></a>记录(行)的插入与查找</h4><p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160513164235.png" alt=""><br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">#给所有字段赋值</div><div class="line">mysql&gt; INSERT tbl VALUES(&apos;tom&apos;,25,7863.25);</div><div class="line">Query OK, 1 row affected (0.06 sec)</div><div class="line"></div><div class="line">#会报错 因为插入值不匹配</div><div class="line">mysql&gt; INSERT tbl VALUES(&apos;tom&apos;,25);</div><div class="line">ERROR 1136 (21S01): Column count doesn&apos;t match value count at row 1</div><div class="line"></div><div class="line">#部分赋值</div><div class="line">mysql&gt; INSERT tbl(username,salary) VALUES(&apos;John&apos;,4500);</div><div class="line">Query OK, 1 row affected (0.07 sec)</div></pre></td></tr></table></figure></p>
-<h5 id="查找"><a href="#查找" class="headerlink" title="查找"></a>查找</h5><p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160513164639.png" alt=""></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">mysql&gt; SELECT * FROM tbl</div><div class="line">    -&gt; ; #不用忽略分号</div><div class="line">+----------+------+---------+</div><div class="line">| username | age  | salary  |</div><div class="line">+----------+------+---------+</div><div class="line">| Tom      |   25 | 7863.25 |</div><div class="line">| John     | NULL | 4500.69 |</div><div class="line">| tom      |   25 | 7863.25 |</div><div class="line">| John     | NULL | 4500.00 |</div><div class="line">+----------+------+---------+</div><div class="line">4 rows in set (0.00 sec)</div></pre></td></tr></table></figure>
-<h4 id="空值与非空"><a href="#空值与非空" class="headerlink" title="空值与非空"></a>空值与非空</h4><p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160513164905.png" alt=""></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">mysql&gt; CREATE TABLE tb2(</div><div class="line">    -&gt; username VARCHAR(20) NOT NULL,</div><div class="line">    -&gt; age TINYINT UNSIGNED NULL</div><div class="line">    -&gt; );</div><div class="line">Query OK, 0 rows affected (0.11 sec)</div><div class="line"></div><div class="line">mysql&gt; SHOW COLUMNS FROM tb2</div><div class="line">    -&gt; ;</div><div class="line">+----------+---------------------+------+-----+---------+-------+</div><div class="line">| Field    | Type                | Null | Key | Default | Extra |</div><div class="line">+----------+---------------------+------+-----+---------+-------+</div><div class="line">| username | varchar(20)         | NO   |     | NULL    |       |</div><div class="line">| age      | tinyint(3) unsigned | YES  |     | NULL    |       |</div><div class="line">+----------+---------------------+------+-----+---------+-------+</div><div class="line">2 rows in set (0.01 sec)</div><div class="line"></div><div class="line">mysql&gt; INSERT tb2 VALUES(&apos;TOM&apos;,NULL);</div><div class="line">Query OK, 1 row affected (0.07 sec)</div><div class="line"></div><div class="line">mysql&gt; SELECT*FROM tb2;</div><div class="line">+----------+------+</div><div class="line">| username | age  |</div><div class="line">+----------+------+</div><div class="line">| TOM      | NULL |</div><div class="line">+----------+------+</div><div class="line">1 row in set (0.00 sec)</div><div class="line"></div><div class="line">#出错</div><div class="line">mysql&gt; INSERT tb2 VALUES(NULL,26);</div><div class="line">ERROR 1048 (23000): Column &apos;username&apos; cannot be null</div></pre></td></tr></table></figure>
-<h4 id="自动编号-保证唯一性"><a href="#自动编号-保证唯一性" class="headerlink" title="自动编号(保证唯一性)"></a>自动编号(保证唯一性)</h4><p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160513165054.png" alt=""></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">mysql&gt; CREATE TABLE tb3(</div><div class="line">    -&gt; id SMALLINT UNSIGNED AUTO_INCREMENT,</div><div class="line">    -&gt; username VARCHAR(30) NOT NULL</div><div class="line">    -&gt; );</div><div class="line"></div><div class="line">#错误 自动编号字段 必须是主键key</div><div class="line">ERROR 1075 (42000): Incorrect table definition; there can be only one auto column and it must be defined as a key</div></pre></td></tr></table></figure>
-<h5 id="主键"><a href="#主键" class="headerlink" title="主键"></a>主键</h5><p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160513165222.png" alt=""><br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">mysql&gt; CREATE TABLE tb3(</div><div class="line">    -&gt; id SMALLINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,</div><div class="line">    -&gt; username VARCHAR(30) NOT NULL</div><div class="line">    -&gt; );</div><div class="line">Query OK, 0 rows affected (0.12 sec)</div></pre></td></tr></table></figure></p>
-<p>主键自动为 NOT NULL<br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160514114742.png" alt=""></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">#只需为一个值赋值</div><div class="line">mysql&gt; INSERT tb3(username) VALUES(&apos;TOM&apos;);</div><div class="line">Query OK, 1 row affected (0.06 sec)</div><div class="line"></div><div class="line">mysql&gt; INSERT tb3(username) VALUES(&apos;xue&apos;);</div><div class="line">Query OK, 1 row affected (0.15 sec)</div><div class="line"></div><div class="line">mysql&gt; INSERT tb3(username) VALUES(&apos;hao&apos;);</div><div class="line">Query OK, 1 row affected (0.05 sec)</div><div class="line"></div><div class="line">mysql&gt; INSERT tb3(username) VALUES(&apos;zhe&apos;);</div><div class="line">Query OK, 1 row affected (0.15 sec)</div><div class="line"></div><div class="line">mysql&gt; SELECT*FROM tb3;</div><div class="line">+----+----------+</div><div class="line">| id | username |</div><div class="line">+----+----------+</div><div class="line">|  1 | TOM      |</div><div class="line">|  2 | xue      |</div><div class="line">|  3 | hao      |</div><div class="line">|  4 | zhe      |</div><div class="line">+----+----------+</div></pre></td></tr></table></figure>
-<p>主键不一定要和AUTO_INCREMENT一起使用<br>但AUTO_INCREMENT一定要和主键一起使用<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">mysql&gt; CREATE TABLE tb4(</div><div class="line">    -&gt; id SMALLINT UNSIGNED  PRIMARY KEY,</div><div class="line">    -&gt; username VARCHAR(30) NOT NULL</div><div class="line">    -&gt; );</div><div class="line">Query OK, 0 rows affected (0.11 sec)</div><div class="line"></div><div class="line">mysql&gt; SHOW COLUMNS FROM tb4;</div><div class="line">+----------+----------------------+------+-----+---------+-------+</div><div class="line">| Field    | Type                 | Null | Key | Default | Extra |</div><div class="line">+----------+----------------------+------+-----+---------+-------+</div><div class="line">| id       | smallint(5) unsigned | NO   | PRI | NULL    |       |</div><div class="line">| username | varchar(30)          | NO   |     | NULL    |       |</div><div class="line">+----------+----------------------+------+-----+---------+-------+</div><div class="line"></div><div class="line">mysql&gt; INSERT tb4 VALUES(4,&apos;TOM&apos;);</div><div class="line">Query OK, 1 row affected (0.05 sec)</div><div class="line"></div><div class="line">mysql&gt; INSERT tb4 VALUES(22,&apos;Hox&apos;);</div><div class="line">Query OK, 1 row affected (0.05 sec)</div><div class="line"></div><div class="line">mysql&gt; SELECT*FROM tb4;</div><div class="line">+----+----------+</div><div class="line">| id | username |</div><div class="line">+----+----------+</div><div class="line">|  4 | TOM      |</div><div class="line">| 22 | Hox      |</div><div class="line">+----+----------+</div></pre></td></tr></table></figure></p>
-<h4 id="唯一约束"><a href="#唯一约束" class="headerlink" title="唯一约束"></a>唯一约束</h4><p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160514121104.png" alt=""><br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">mysql&gt; CREATE TABLE tb5(</div><div class="line">    -&gt; id SMALLINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,</div><div class="line">    -&gt; username VARCHAR(30) NOT NULL UNIQUE KEY,</div><div class="line">    -&gt; age TINYINT UNSIGNED</div><div class="line">    -&gt; );</div><div class="line"></div><div class="line">mysql&gt; SHOW COLUMNS FROM tb5;</div><div class="line">+----------+----------------------+------+-----+---------+----------------+</div><div class="line">| Field    | Type                 | Null | Key | Default | Extra          |</div><div class="line">+----------+----------------------+------+-----+---------+----------------+</div><div class="line">| id       | smallint(5) unsigned | NO   | PRI | NULL    | auto_increment |</div><div class="line">| username | varchar(30)          | NO   | UNI | NULL    |                |</div><div class="line">| age      | tinyint(3) unsigned  | YES  |     | NULL    |                |</div><div class="line">+----------+----------------------+------+-----+---------+----------------+</div><div class="line">3 rows in set (0.01 sec)</div><div class="line"></div><div class="line">mysql&gt; INSERT tb5(username,age) VALUES(&apos;TOM&apos;,22);</div><div class="line">Query OK, 1 row affected (0.05 sec)</div><div class="line"></div><div class="line">#唯一约束  一张数据表可以有多个</div><div class="line">mysql&gt; INSERT tb5(username,age) VALUES(&apos;TOM&apos;,22);</div><div class="line">ERROR 1062 (23000): Duplicate entry &apos;TOM&apos; for key &apos;username&apos;</div></pre></td></tr></table></figure></p>
-<h4 id="默认约束"><a href="#默认约束" class="headerlink" title="默认约束"></a>默认约束</h4><p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160515003432.png" alt=""><br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160515003529.png" alt=""><br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160515003540.png" alt=""></p>
+<h1 id="table-of-contents">Inhaltsverzeichnis</h1><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#树"><span class="toc-text">树</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二叉树"><span class="toc-text">二叉树</span></a></li></ol>
+<h3 id="树"><a href="#树" class="headerlink" title="树"></a>树</h3><p>“嵌套列表”表示树</p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/2017080815021788582607.png" alt="2017080815021788582607.png"></p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/20170808150217857149175.png" alt="20170808150217857149175.png"></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line">myTree = [<span class="string">'a'</span>,   <span class="comment">#root</span></div><div class="line">      [<span class="string">'b'</span>,  <span class="comment">#left subtree</span></div><div class="line">       [<span class="string">'d'</span> [], []],</div><div class="line">       [<span class="string">'e'</span> [], []] ],</div><div class="line">      [<span class="string">'c'</span>,  <span class="comment">#right subtree</span></div><div class="line">       [<span class="string">'f'</span> [], []],</div><div class="line">       [] ]</div><div class="line">     ]</div><div class="line"></div><div class="line">myTree = [<span class="string">'a'</span>, [<span class="string">'b'</span>, [<span class="string">'d'</span>,[],[]], [<span class="string">'e'</span>,[],[]] ], [<span class="string">'c'</span>, [<span class="string">'f'</span>,[],[]], []] ]</div><div class="line">print(myTree)</div><div class="line">print(<span class="string">'left subtree = '</span>, myTree[<span class="number">1</span>])</div><div class="line">print(<span class="string">'root = '</span>, myTree[<span class="number">0</span>])</div><div class="line">print(<span class="string">'right subtree = '</span>, myTree[<span class="number">2</span>])</div></pre></td></tr></table></figure>
+<p>树的根是<code>myTree[0]</code>，根的左子树是<code>myTree[1]</code>，和右子树是<code>myTree[2]</code></p>
+<h3 id="二叉树"><a href="#二叉树" class="headerlink" title="二叉树"></a>二叉树</h3><p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/20170808150217865294242.png" alt="20170808150217865294242.png"></p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/20170808150217881617379.png" alt="20170808150217881617379.png"></p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/20170808150217917424511.png" alt="20170808150217917424511.png"></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="comment">#!/usr/bin/env python</span></div><div class="line"><span class="comment"># -*- coding: utf-8 -*-</span></div><div class="line"><span class="comment"># Created by xuehz on 2017/8/8</span></div><div class="line"></div><div class="line"><span class="comment">#二叉树</span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Tree</span><span class="params">()</span>:</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, leftjd=<span class="number">0</span>, rightjd=<span class="number">0</span>, data =<span class="number">0</span>)</span>:</span></div><div class="line">        self.leftjd = leftjd</div><div class="line">        self.rightjd = rightjd</div><div class="line">        self.data = data</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Btree</span><span class="params">()</span>:</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, base = <span class="number">0</span>)</span>:</span></div><div class="line">        self.base = base</div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">empty</span><span class="params">(self)</span>:</span></div><div class="line">        <span class="keyword">if</span> self.base <span class="keyword">is</span> <span class="number">0</span>:</div><div class="line">            <span class="keyword">return</span> <span class="keyword">True</span></div><div class="line">        <span class="keyword">else</span>:</div><div class="line">            <span class="keyword">return</span> <span class="keyword">False</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">qout</span><span class="params">(self, jd)</span>:</span></div><div class="line">        <span class="string">"""</span></div><div class="line">        前序遍历 NLR 根左右</div><div class="line">        :param jd:</div><div class="line">        :return:</div><div class="line">        """</div><div class="line">        <span class="keyword">if</span> jd == <span class="number">0</span>:</div><div class="line">            <span class="keyword">return</span></div><div class="line">        <span class="keyword">print</span> jd.data</div><div class="line">        self.qout(jd.leftjd) <span class="comment">#递归调用</span></div><div class="line">        self.qout(jd.rightjd)</div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">mout</span><span class="params">(self,jd)</span>:</span></div><div class="line">        <span class="string">"""</span></div><div class="line">        中序遍历 LNR 左根右</div><div class="line">        :param jd:</div><div class="line">        :return:</div><div class="line">        """</div><div class="line">        <span class="keyword">if</span> jd == <span class="number">0</span>:</div><div class="line">            <span class="keyword">return</span></div><div class="line">        self.qout(jd.leftjd)</div><div class="line">        <span class="keyword">print</span> jd.data</div><div class="line">        self.qout(jd.rightjd)</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">hout</span><span class="params">(self,jd)</span>:</span></div><div class="line">        <span class="string">"""</span></div><div class="line">        后序遍历 LRN 左右根</div><div class="line">        :param jd:</div><div class="line">        :return:</div><div class="line">        """</div><div class="line">        <span class="keyword">if</span> jd ==<span class="number">0</span>:</div><div class="line">            <span class="keyword">return</span></div><div class="line">        self.qout(jd.leftjd)  <span class="comment"># 递归调用</span></div><div class="line">        self.qout(jd.rightjd)</div><div class="line">        <span class="keyword">print</span> jd.data</div><div class="line"></div><div class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</div><div class="line">    dj1 = Tree(data=<span class="number">8</span>)</div><div class="line">    dj2 = Tree(data=<span class="number">9</span>)</div><div class="line">    base = Tree(dj1, dj2, <span class="number">7</span>)<span class="comment"># 根节点</span></div><div class="line">    x = Btree(base)</div><div class="line">    x.qout(x.base)</div><div class="line">    <span class="keyword">print</span> <span class="string">'========'</span></div><div class="line">    x.mout(x.base)</div><div class="line">    <span class="keyword">print</span> <span class="string">'========'</span></div><div class="line">    x.hout(x.base)</div></pre></td></tr></table></figure>
 
             
+    
+    <div class="image-gallery">
+        <div class="image-gallery-metabar">
+            <span>Gallery : 1 images</span>
+        </div>
+        <div class="image-gallery-photos undefined">
+            
+            
+            <div class="photo-box">
+                <a class="photo-box-inner fancybox" data-fancybox-group="gallery-cj63ghhbh0049g6cz9b1tjas4"
+                   title="" href="http://7xrw7v.com1.z0.glb.clouddn.com/20170807150209644316435.png">
+                    <img class="photo" src="http://7xrw7v.com1.z0.glb.clouddn.com/20170807150209644316435.png" itemprop="image">
+                </a>
+            </div>
+            
+        </div>
+    </div>
+
         </div>
     </div>
     <div id="post-footer" class="post-footer main-content-wrap">
@@ -272,7 +255,7 @@
             <div class="post-footer-tags">
                 <span class="text-color-light text-small">GETAGGT IN</span><br/>
                 
-    <a class="tag tag--primary tag--small t-link" href="/tags/Mysql/">Mysql</a>
+    <a class="tag tag--primary tag--small t-link" href="/tags/数据结构与算法/">数据结构与算法</a> <a class="tag tag--primary tag--small t-link" href="/tags/校招/">校招</a>
 
             </div>
         
@@ -282,7 +265,7 @@
         <ul class="post-actions post-action-nav">
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2016/05/23/python入门5/"  data-tooltip="python入门 (五)(转载)">
+                    <a class="post-action-btn btn btn--disabled">
                 
                     <i class="fa fa-angle-left"></i>
                     <span class="hide-xs hide-sm text-small icon-ml">FRÜHER</span>
@@ -290,7 +273,7 @@
             </li>
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2016/05/12/mysql1/" data-tooltip="初涉Mysql">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2017/08/08/python数据结构-队列/" data-tooltip="python数据结构-队列">
                 
                     <span class="hide-xs hide-sm text-small icon-mr">NÄCHSTER</span>
                     <i class="fa fa-angle-right"></i>
@@ -308,7 +291,7 @@
             
             
             <li class="post-action hide-xs">
-                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2016/05/13/mysql2/">
+                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2017/08/08/python数据结构-树/">
                     <i class="fa fa-facebook-official"></i>
                 </a>
             </li>
@@ -316,7 +299,7 @@
             
             
             <li class="post-action hide-xs">
-                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://yoursite.com/2016/05/13/mysql2/">
+                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://yoursite.com/2017/08/08/python数据结构-树/">
                     <i class="fa fa-twitter"></i>
                 </a>
             </li>
@@ -324,7 +307,7 @@
             
             
             <li class="post-action hide-xs">
-                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://yoursite.com/2016/05/13/mysql2/">
+                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://yoursite.com/2017/08/08/python数据结构-树/">
                     <i class="fa fa-google-plus"></i>
                 </a>
             </li>
@@ -332,7 +315,7 @@
         
         <li class="post-action">
             
-                <a class="post-action-btn btn btn--default" href="#">
+                <a class="post-action-btn btn btn--default" href="#table-of-contents">
             
                 <i class="fa fa-list"></i>
             </a>
@@ -364,7 +347,7 @@
         <ul class="post-actions post-action-nav">
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2016/05/23/python入门5/"  data-tooltip="python入门 (五)(转载)">
+                    <a class="post-action-btn btn btn--disabled">
                 
                     <i class="fa fa-angle-left"></i>
                     <span class="hide-xs hide-sm text-small icon-ml">FRÜHER</span>
@@ -372,7 +355,7 @@
             </li>
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2016/05/12/mysql1/" data-tooltip="初涉Mysql">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2017/08/08/python数据结构-队列/" data-tooltip="python数据结构-队列">
                 
                     <span class="hide-xs hide-sm text-small icon-mr">NÄCHSTER</span>
                     <i class="fa fa-angle-right"></i>
@@ -390,7 +373,7 @@
             
             
             <li class="post-action hide-xs">
-                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2016/05/13/mysql2/">
+                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2017/08/08/python数据结构-树/">
                     <i class="fa fa-facebook-official"></i>
                 </a>
             </li>
@@ -398,7 +381,7 @@
             
             
             <li class="post-action hide-xs">
-                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://yoursite.com/2016/05/13/mysql2/">
+                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://yoursite.com/2017/08/08/python数据结构-树/">
                     <i class="fa fa-twitter"></i>
                 </a>
             </li>
@@ -406,7 +389,7 @@
             
             
             <li class="post-action hide-xs">
-                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://yoursite.com/2016/05/13/mysql2/">
+                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://yoursite.com/2017/08/08/python数据结构-树/">
                     <i class="fa fa-google-plus"></i>
                 </a>
             </li>
@@ -414,7 +397,7 @@
         
         <li class="post-action">
             
-                <a class="post-action-btn btn btn--default" href="#">
+                <a class="post-action-btn btn btn--default" href="#table-of-contents">
             
                 <i class="fa fa-list"></i>
             </a>
@@ -431,7 +414,7 @@
             
             
             <li class="share-option">
-                <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2016/05/13/mysql2/">
+                <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2017/08/08/python数据结构-树/">
                     <i class="fa fa-facebook-official"></i><span>Teilen auf Facebook</span>
                 </a>
             </li>
@@ -439,7 +422,7 @@
             
             
             <li class="share-option">
-                <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://yoursite.com/2016/05/13/mysql2/">
+                <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://yoursite.com/2017/08/08/python数据结构-树/">
                     <i class="fa fa-twitter"></i><span>Teilen auf Twitter</span>
                 </a>
             </li>
@@ -447,7 +430,7 @@
             
             
             <li class="share-option">
-                <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://yoursite.com/2016/05/13/mysql2/">
+                <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://yoursite.com/2017/08/08/python数据结构-树/">
                     <i class="fa fa-google-plus"></i><span>Teilen auf Google Plus</span>
                 </a>
             </li>
