@@ -193,6 +193,133 @@
             <div class="postShorten-header">
                 <h1 class="postShorten-title" itemprop="headline">
                     
+                        <a class="link-unstyled" href="/2017/02/16/数据可视化进阶/">
+                            数据可视化进阶
+                        </a>
+                    
+                </h1>
+                <div class="postShorten-meta">
+    <time itemprop="datePublished" datetime="2017-02-16T11:55:35+08:00">
+	
+		    16 Feb 2017
+    	
+    </time>
+    
+</div>
+
+            </div>
+            
+                <div class="postShorten-content" itemprop="articleBody">
+                    <blockquote>
+<p> 探讨 不同学科之间 性别的差距</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"></div><div class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</div><div class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</div><div class="line"></div><div class="line">women_degrees = pd.read_csv(<span class="string">'percent-bachelors-degrees-women-usa.csv'</span>)</div><div class="line"></div><div class="line">women_degrees.head()</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment"># 生物学 授予 女性 的比率 </span></div><div class="line">plt.plot(women_degrees[<span class="string">"Year"</span>],women_degrees[<span class="string">"Biology"</span>])</div><div class="line"></div><div class="line">plt.show()</div></pre></td></tr></table></figure>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com//17-2-16/17936167-file_1487215731833_10362.png" alt=""></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"></div><div class="line"><span class="comment">## 画出 授予男性的 图 。用100 - 女性 women_degrees["Biology"]</span></div><div class="line">plt.plot(women_degrees[<span class="string">"Year"</span>],women_degrees[<span class="string">"Biology"</span>],label=<span class="string">'Women'</span>)</div><div class="line">plt.plot(women_degrees[<span class="string">"Year"</span>],<span class="number">100</span> - women_degrees[<span class="string">"Biology"</span>],label=<span class="string">'Men'</span>)</div><div class="line">plt.legend(loc=<span class="string">'upper right'</span>)</div><div class="line">plt.title(<span class="string">"Percentage of Biology Degrees Awarded By Gender"</span>)</div><div class="line">plt.show()</div></pre></td></tr></table></figure>
+<h3 id="Axes-tick-params-隐藏-坐标轴的-不需要的-标记"><a href="#Axes-tick-params-隐藏-坐标轴的-不需要的-标记" class="headerlink" title="Axes.tick_params(): 隐藏 坐标轴的 不需要的 标记"></a>Axes.tick_params(): 隐藏 坐标轴的 不需要的 标记</h3><h3 id="隐去-坐标框架"><a href="#隐去-坐标框架" class="headerlink" title="隐去 坐标框架"></a>隐去 坐标框架</h3><figure class="highlight python"><table><tr><td class="code"><pre><div class="line"></div><div class="line">print(ax.spines)</div><div class="line">&#123;<span class="string">u'top'</span>: &lt;matplotlib.spines.Spine object at <span class="number">0x10ff05cd0</span>&gt;, <span class="string">u'right'</span>: &lt;matplotlib.spines.Spine object at <span class="number">0x10ff28bd0</span>&gt;, <span class="string">u'bottom'</span>: &lt;matplotlib.spines.Spine object at <span class="number">0x10fc37b90</span>&gt;, <span class="string">u'left'</span>: &lt;matplotlib.spines.Spine object at <span class="number">0x10ff28b90</span>&gt;&#125;</div><div class="line"></div><div class="line">ax.spines[<span class="string">"right"</span>].set_visible(<span class="keyword">False</span>)</div></pre></td></tr></table></figure>
+<h3 id="不同学科之间-性别的差距"><a href="#不同学科之间-性别的差距" class="headerlink" title="不同学科之间 性别的差距"></a>不同学科之间 性别的差距</h3><figure class="highlight python"><table><tr><td class="code"><pre><div class="line"></div><div class="line">major_cats = [<span class="string">'Biology'</span>, <span class="string">'Computer Science'</span>, <span class="string">'Engineering'</span>, <span class="string">'Math and Statistics'</span>]</div><div class="line">fig = plt.figure(figsize=(<span class="number">10</span>, <span class="number">10</span>))</div><div class="line"></div><div class="line"><span class="keyword">for</span> sp <span class="keyword">in</span> range(<span class="number">0</span>,<span class="number">4</span>):</div><div class="line">    ax = fig.add_subplot(<span class="number">2</span>,<span class="number">2</span>,sp+<span class="number">1</span>)</div><div class="line">    ax.plot(women_degrees[<span class="string">'Year'</span>], women_degrees[major_cats[sp]], c=<span class="string">'blue'</span>, label=<span class="string">'Women'</span>)</div><div class="line">    ax.plot(women_degrees[<span class="string">'Year'</span>], <span class="number">100</span>-women_degrees[major_cats[sp]], c=<span class="string">'green'</span>, label=<span class="string">'Men'</span>)</div><div class="line">    </div><div class="line">    <span class="keyword">for</span> key,spine <span class="keyword">in</span> ax.spines.items():<span class="comment">#隐藏 坐标标记</span></div><div class="line">        spine.set_visible(<span class="keyword">False</span>)</div><div class="line">        </div><div class="line">    ax.set_xlim(<span class="number">1968</span>, <span class="number">2011</span>)<span class="comment">#设置相同的坐标范围</span></div><div class="line">    ax.set_ylim(<span class="number">0</span>,<span class="number">100</span>)</div><div class="line">    ax.set_title(major_cats[sp])</div><div class="line">    </div><div class="line">    ax.tick_params(bottom=<span class="string">"off"</span>, top=<span class="string">"off"</span>, left=<span class="string">"off"</span>, right=<span class="string">"off"</span>)<span class="comment"># 隐去 坐标框架</span></div><div class="line"></div><div class="line"><span class="comment"># Calling pyplot.legend() here will add the legend to the last subplot that was created.</span></div><div class="line">plt.legend(loc=<span class="string">'upper right'</span>)</div><div class="line">plt.show()</div></pre></td></tr></table></figure>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com//17-2-16/85122692-file_1487220302703_133d9.png" alt=""></p>
+
+                    
+                        
+                    
+                    
+                        <p>
+                            <a href="/2017/02/16/数据可视化进阶/#post-footer" class="postShorten-excerpt_link link">
+                                Kommentieren und teilen
+                            </a>
+                        </p>
+                    
+                </div>
+            
+        </div>
+        
+    </article>
+    
+    
+    <article class="postShorten postShorten--thumbnailimg-bottom" itemscope itemType="http://schema.org/BlogPosting">
+        <div class="postShorten-wrap">
+            
+            <div class="postShorten-header">
+                <h1 class="postShorten-title" itemprop="headline">
+                    
+                        <a class="link-unstyled" href="/2017/02/13/机器学习-回归/">
+                            线性回归(汽车数据)
+                        </a>
+                    
+                </h1>
+                <div class="postShorten-meta">
+    <time itemprop="datePublished" datetime="2017-02-13T21:55:35+08:00">
+	
+		    13 Feb 2017
+    	
+    </time>
+    
+</div>
+
+            </div>
+            
+                <div class="postShorten-content" itemprop="articleBody">
+                    <blockquote>
+<p>汽车的性能如何影响它的燃料效率</p>
+</blockquote>
+<h3 id="数据集："><a href="#数据集：" class="headerlink" title="数据集："></a>数据集：</h3><p>数据：<br><a href="https://archive.ics.uci.edu/ml/datasets/Auto+MPG" target="_blank" rel="external">https://archive.ics.uci.edu/ml/datasets/Auto+MPG</a></p>
+<p>列名：<br><a href="https://archive.ics.uci.edu/ml/machine-learning-databases/auto-mpg/auto-mpg.names" target="_blank" rel="external">https://archive.ics.uci.edu/ml/machine-learning-databases/auto-mpg/auto-mpg.names</a><br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/20170213148697380011485.png" alt="20170213148697380011485.png"><br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/20170213148697210870929.png" alt="20170213148697210870929.png"><br>文件并不是CSV格式 而是以空白分隔</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"></div><div class="line">columns = [<span class="string">"mpg"</span>, <span class="string">"cylinders"</span>, <span class="string">"displacement"</span>, <span class="string">"horsepower"</span>, <span class="string">"weight"</span>, <span class="string">"acceleration"</span>, <span class="string">"model year"</span>, <span class="string">"origin"</span>, <span class="string">"car name"</span>]</div><div class="line"></div><div class="line">cars = pd.read_table(<span class="string">"auto-mpg.data"</span>, delim_whitespace=<span class="keyword">True</span>, names=columns)</div><div class="line"></div><div class="line">print(cars.head(<span class="number">5</span>))</div></pre></td></tr></table></figure>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/20170213148697419996698.png" alt="20170213148697419996698.png"></p>
+<h3 id="探索数据分析"><a href="#探索数据分析" class="headerlink" title="探索数据分析"></a>探索数据分析</h3><figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="keyword">import</span> matplotlib</div><div class="line">matplotlib.style.use(<span class="string">'ggplot'</span>)</div><div class="line"></div><div class="line">fig = plt.figure()</div><div class="line">ax1 = fig.add_subplot(<span class="number">2</span>,<span class="number">1</span>,<span class="number">1</span>)</div><div class="line">ax2 = fig.add_subplot(<span class="number">2</span>,<span class="number">1</span>,<span class="number">2</span>)</div><div class="line">cars.plot(<span class="string">"weight"</span>, <span class="string">"mpg"</span>, kind=<span class="string">'scatter'</span>, ax=ax1)<span class="comment"># 重量  strong negative linear relationship</span></div><div class="line">cars.plot(<span class="string">"acceleration"</span>, <span class="string">"mpg"</span>, kind=<span class="string">'scatter'</span>, ax=ax2)<span class="comment">#加速度  a weak, positive linear relationship</span></div><div class="line">plt.show()</div><div class="line"></div><div class="line"><span class="comment">## 每加仑汽油可行驶英里数 mpg 加仑里</span></div></pre></td></tr></table></figure>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/201702131486976370267.png" alt="201702131486976370267.png"></p>
+<blockquote>
+<p>the dependent variable (因变量) is the fuel efficiency and the independent variables（自变量） are the other columns in the dataset.</p>
+</blockquote>
+<h3 id="线性模型"><a href="#线性模型" class="headerlink" title="线性模型"></a>线性模型</h3><p>x 输入 经过 m (slope 斜率) and b (intercept 截距)的转换 得到输出 y</p>
+<p>where the input and output values are continuous values<br>fitting：找到一个最好的方程 去拟合数据</p>
+<h3 id="Scikit-Learn"><a href="#Scikit-Learn" class="headerlink" title="Scikit-Learn"></a>Scikit-Learn</h3><figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="keyword">from</span> sklearn.linear_model <span class="keyword">import</span> LinearRegression</div><div class="line">lr = LinearRegression()</div><div class="line"></div><div class="line">lr.fit(inputs, output)</div></pre></td></tr></table></figure>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/20170213148697799719630.png" alt="20170213148697799719630.png"></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="keyword">import</span> sklearn</div><div class="line"><span class="keyword">from</span> sklearn.linear_model <span class="keyword">import</span> LinearRegression</div><div class="line">lr = LinearRegression()</div><div class="line">lr.fit(cars[[<span class="string">"weight"</span>]], cars[<span class="string">"mpg"</span>]) <span class="comment">#输入 inputs：NumPy matrix   lr.fit(inputs, output)</span></div></pre></td></tr></table></figure>
+<h3 id="Making-Predictions"><a href="#Making-Predictions" class="headerlink" title="Making Predictions"></a>Making Predictions</h3><blockquote>
+<p>The predict method has a single required parameter参数, the n_samples by n_features input matrix and returns the predicted values as a n_samples by 1 matrix (really just a list).</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="keyword">import</span> sklearn</div><div class="line"><span class="keyword">from</span> sklearn.linear_model <span class="keyword">import</span> LinearRegression</div><div class="line">lr = LinearRegression(fit_intercept=<span class="keyword">True</span>)</div><div class="line">lr.fit(cars[[<span class="string">"weight"</span>]], cars[<span class="string">"mpg"</span>])</div><div class="line"></div><div class="line">predictions = lr.predict(cars[[<span class="string">"weight"</span>]])</div><div class="line">print(predictions[<span class="number">0</span>:<span class="number">5</span>])</div><div class="line">print(cars[<span class="string">"mpg"</span>][<span class="number">0</span>:<span class="number">5</span>])</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">[ 19.41852276  17.96764345  19.94053224  19.96356207  19.84073631]</div><div class="line">0    18.0</div><div class="line">1    15.0</div><div class="line">2    18.0</div><div class="line">3    16.0</div><div class="line">4    17.0</div><div class="line">Name: mpg, dtype: float64</div></pre></td></tr></table></figure>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/20170213148698056036881.png" alt="20170213148698056036881.png"></p>
+<h3 id="误差度量"><a href="#误差度量" class="headerlink" title="误差度量"></a>误差度量</h3><p>回归误差度量的衡量 ：MSE 均方误差mean squared error<br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/20170213148698144871746.png" alt="20170213148698144871746.png"></p>
+<p>参考：<br><a href="http://scikit-learn.org/stable/modules/generated/sklearn.metrics.mean_squared_error.html#sklearn.metrics.mean_squared_error" target="_blank" rel="external">http://scikit-learn.org/stable/modules/generated/sklearn.metrics.mean_squared_error.html#sklearn.metrics.mean_squared_error</a></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> mean_squared_error</div><div class="line">mse = mean_squared_error(cars[<span class="string">"mpg"</span>], predictions)</div><div class="line">print(mse) <span class="comment">#18.7809397346</span></div></pre></td></tr></table></figure>
+<blockquote>
+<p>Root mean squared error, or RMSE</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line">mse = mean_squared_error(cars[<span class="string">"mpg"</span>], predictions)</div><div class="line">rmse = mse ** (<span class="number">1</span>/<span class="number">2</span>)</div><div class="line">print(rmse) <span class="comment">#4.33369815915</span></div></pre></td></tr></table></figure>
+<h3 id="应用-马力"><a href="#应用-马力" class="headerlink" title="应用 (马力)"></a>应用 (马力)</h3><p>the horsepower column 存在缺失值 用 ？表示</p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/2017021314869842187899.png" alt="2017021314869842187899.png"><br>缺失值处理：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</div><div class="line"></div><div class="line">columns = [<span class="string">"mpg"</span>, <span class="string">"cylinders"</span>, <span class="string">"displacement"</span>, <span class="string">"horsepower"</span>, <span class="string">"weight"</span>, <span class="string">"acceleration"</span>, <span class="string">"model year"</span>, <span class="string">"origin"</span>, <span class="string">"car name"</span>]</div><div class="line"></div><div class="line">cars = pd.read_table(<span class="string">"auto-mpg.data"</span>, delim_whitespace=<span class="keyword">True</span>, names=columns)</div><div class="line"></div><div class="line">filtered_cars = cars[cars[<span class="string">'horsepower'</span>] != <span class="string">'?'</span>]</div><div class="line">filtered_cars[<span class="string">'horsepower'</span>] = filtered_cars[<span class="string">'horsepower'</span>].astype(<span class="string">'float'</span>)</div><div class="line"></div><div class="line">filtered_cars.plot(<span class="string">'horsepower'</span>, <span class="string">'mpg'</span>, kind=<span class="string">'scatter'</span>, c=<span class="string">'red'</span>)</div><div class="line">filtered_cars.plot(<span class="string">'weight'</span>, <span class="string">'mpg'</span>, kind=<span class="string">'scatter'</span>, c=<span class="string">'blue'</span>)</div><div class="line">plt.show()</div></pre></td></tr></table></figure>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/20170213148698482446431.png" alt="20170213148698482446431.png"><br><img src="http://7xrw7v.com1.z0.glb.clouddn.com/20170213148698484278921.png" alt="20170213148698484278921.png"></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"></div><div class="line"><span class="keyword">import</span> sklearn</div><div class="line"><span class="keyword">from</span> sklearn.linear_model <span class="keyword">import</span> LinearRegression</div><div class="line">lr = LinearRegression()</div><div class="line">lr.fit(filtered_cars[[<span class="string">"horsepower"</span>]], filtered_cars[<span class="string">"mpg"</span>])</div><div class="line">predictions = lr.predict(filtered_cars[[<span class="string">"horsepower"</span>]])</div><div class="line">print(predictions[<span class="number">0</span>:<span class="number">5</span>])</div><div class="line">print(filtered_cars[<span class="string">"mpg"</span>][<span class="number">0</span>:<span class="number">5</span>].values)</div><div class="line"></div><div class="line"><span class="string">"""</span></div><div class="line">[ 19.41604569  13.89148002  16.25915102  16.25915102  17.83759835]</div><div class="line">[ 18.  15.  18.  16.  17.]</div><div class="line">"""</div></pre></td></tr></table></figure>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/20170213148698592898420.png" alt="20170213148698592898420.png"></p>
+
+                    
+                        
+                    
+                    
+                        <p>
+                            <a href="/2017/02/13/机器学习-回归/#post-footer" class="postShorten-excerpt_link link">
+                                Kommentieren und teilen
+                            </a>
+                        </p>
+                    
+                </div>
+            
+        </div>
+        
+    </article>
+    
+    
+    <article class="postShorten postShorten--thumbnailimg-bottom" itemscope itemType="http://schema.org/BlogPosting">
+        <div class="postShorten-wrap">
+            
+            <div class="postShorten-header">
+                <h1 class="postShorten-title" itemprop="headline">
+                    
                         <a class="link-unstyled" href="/2017/02/08/探索出生日/">
                             GuidedProject:Explore U.S. Births
                         </a>
@@ -453,91 +580,6 @@
         
     </article>
     
-    
-    <article class="postShorten postShorten--thumbnailimg-right" itemscope itemType="http://schema.org/BlogPosting">
-        <div class="postShorten-wrap">
-            
-            <div class="postShorten-header">
-                <h1 class="postShorten-title" itemprop="headline">
-                    
-                        <a class="link-unstyled" href="/2016/12/09/数据分析：科学计算及数据可视化入门/">
-                            数据分析：科学计算及数据可视化入门
-                        </a>
-                    
-                </h1>
-                <div class="postShorten-meta">
-    <time itemprop="datePublished" datetime="2016-12-09T20:43:21+08:00">
-	
-		    09 Dec 2016
-    	
-    </time>
-    
-</div>
-
-            </div>
-            
-                <div class="postShorten-excerpt" itemprop="articleBody">
-                    <p>摘要：</p>
-<ul>
-<li>NumPy</li>
-<li>SciPy</li>
-<li>Matplotlib入门</li>
-</ul>
-                    
-                        <a href="/2016/12/09/数据分析：科学计算及数据可视化入门/" class="postShorten-excerpt_link link">
-                            Weiterlesen
-                        </a>
-                        
-                    
-                </div>
-            
-        </div>
-        
-    </article>
-    
-    
-    <article class="postShorten postShorten--thumbnailimg-right" itemscope itemType="http://schema.org/BlogPosting">
-        <div class="postShorten-wrap">
-            
-            <div class="postShorten-header">
-                <h1 class="postShorten-title" itemprop="headline">
-                    
-                        <a class="link-unstyled" href="/2016/12/09/数据分析：python数据结构/">
-                            数据分析：python数据结构
-                        </a>
-                    
-                </h1>
-                <div class="postShorten-meta">
-    <time itemprop="datePublished" datetime="2016-12-09T20:42:45+08:00">
-	
-		    09 Dec 2016
-    	
-    </time>
-    
-</div>
-
-            </div>
-            
-                <div class="postShorten-excerpt" itemprop="articleBody">
-                    <p>摘要：</p>
-<ul>
-<li>数据分析基本步骤</li>
-<li>Python语言基础回顾</li>
-<li>Python数据结构讲解</li>
-<li>Python高级特性</li>
-<li>Python高阶函数
-                    
-                        <a href="/2016/12/09/数据分析：python数据结构/" class="postShorten-excerpt_link link">
-                            Weiterlesen
-                        </a>
-                        
-                    
-                </div>
-            
-        </div>
-        
-    </article>
-    
     <div class="pagination-bar">
     <ul class="pagination">
         
@@ -734,31 +776,6 @@
                 <div class="media">
                     
                     <div class="media-body">
-                        <a class="link-unstyled" href="http://yoursite.com/2016/03/15/2016-03-15-hadoop1/">
-                            <h3 class="media-heading">hadoope下API操作</h3>
-                        </a>
-                        <span class="media-meta">
-                            <span class="media-date text-small">
-                                
-                                    Mar 15, 2016
-                                
-                            </span>
-                        </span>
-                        <div class="media-content hide-xs font-merryweather"><p>摘要：</p>
-<ul>
-<li>创建Java项目</li>
-<li>添加jar包</li>
-<li>代码</li>
-<li>单元测试</li>
-</ul></div>
-                    </div>
-                    <div style="clear:both;"></div>
-                    <hr>
-                </div>
-                
-                <div class="media">
-                    
-                    <div class="media-body">
                         <a class="link-unstyled" href="http://yoursite.com/2016/03/15/2016-03-15-haozhe/">
                             <h3 class="media-heading">博客：Markdown入门</h3>
                         </a>
@@ -778,6 +795,31 @@
 <li>粗体斜体</li>
 <li>标量</li>
 <li>添加代码</li>
+</ul></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yoursite.com/2016/03/15/2016-03-15-hadoop1/">
+                            <h3 class="media-heading">hadoope下API操作</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Mar 15, 2016
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>摘要：</p>
+<ul>
+<li>创建Java项目</li>
+<li>添加jar包</li>
+<li>代码</li>
+<li>单元测试</li>
 </ul></div>
                     </div>
                     <div style="clear:both;"></div>
@@ -839,7 +881,7 @@
                 data-message-zero="keinen Beitrag gefunden"
                 data-message-one="1 Beitrag gefunden"
                 data-message-other="{n} Einträge gefunden">
-                149 Einträge gefunden
+                151 Einträge gefunden
             </p>
         </div>
     </div>

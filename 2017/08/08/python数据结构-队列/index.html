@@ -1,0 +1,727 @@
+
+<!DOCTYPE html>
+<html lang="zh-Hans">
+    
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="Haozhe">
+    <title>python数据结构-队列 - Haozhe</title>
+    <meta name="author" content="Haozhe Xue">
+    
+    
+        <link rel="icon" href="http://yoursite.com/assets/images/favicon.ico">
+    
+    
+    <meta name="description" content="队列（Queue）是一种先进先出（FIFO）的线性数据结构，插入操作在队尾（rear）进行，删除操作在队首（front）进行。">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="python数据结构-队列">
+<meta property="og:url" content="http://yoursite.com/2017/08/08/python数据结构-队列/index.html">
+<meta property="og:site_name" content="Haozhe">
+<meta property="og:description" content="队列（Queue）是一种先进先出（FIFO）的线性数据结构，插入操作在队尾（rear）进行，删除操作在队首（front）进行。">
+<meta property="og:image" content="http://7xrw7v.com1.z0.glb.clouddn.com/20170807150209644316435.png">
+<meta property="og:updated_time" content="2017-08-08T06:33:36.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="python数据结构-队列">
+<meta name="twitter:description" content="队列（Queue）是一种先进先出（FIFO）的线性数据结构，插入操作在队尾（rear）进行，删除操作在队首（front）进行。">
+<meta name="twitter:image" content="http://7xrw7v.com1.z0.glb.clouddn.com/20170807150209644316435.png">
+    
+    
+        
+    
+    
+        <meta property="og:image" content="http://7xrw7v.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160402220553.png"/>
+    
+    
+    
+    
+        
+            <meta property="og:image" content="http://7xrw7v.com1.z0.glb.clouddn.com/20170807150209644316435.png" />
+            <meta class="swiftype" name="image" data-type="enum" content="http://7xrw7v.com1.z0.glb.clouddn.com/20170807150209644316435.png" />
+        
+    
+    <!--STYLES-->
+    <link rel="stylesheet" href="/assets/css/style-sxklfps8ywgfyyjcowvnb4gxdgt0zjts3hsguljmv9uqanxjbnitrovtbrek.min.css">
+    <!--STYLES END-->
+    
+    
+</head>
+
+    <body>
+        <div id="blog">
+            <!-- Define author's picture -->
+
+
+    
+        
+            
+        
+    
+
+<header id="header" data-behavior="4">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <div class="header-title">
+        <a class="header-title-link" href="/ ">Haozhe</a>
+    </div>
+    
+        
+            <a  class="header-right-picture "
+                href="#about">
+        
+        
+            <img class="header-picture" src="http://7xrw7v.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160402220553.png" alt="Bild des Autors"/>
+        
+        </a>
+    
+</header>
+
+            <!-- Define author's picture -->
+
+
+
+        
+    
+
+<nav id="sidebar" data-behavior="4">
+    <div class="sidebar-container">
+        
+            <div class="sidebar-profile">
+                <a href="/#about">
+                    <img class="sidebar-profile-picture" src="http://7xrw7v.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160402220553.png" alt="Bild des Autors"/>
+                </a>
+                <h4 class="sidebar-profile-name">Haozhe Xue</h4>
+                
+                    <h5 class="sidebar-profile-bio"><p>What hurts more,the pain of hard work or the pain of regret.</p>
+</h5>
+                
+            </div>
+        
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/ "
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+                        <span class="sidebar-button-desc">Home</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/all-tags"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
+                        <span class="sidebar-button-desc">Tags</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/all-archives"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
+                        <span class="sidebar-button-desc">Archiv</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link open-algolia-search"
+                             href="#search"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-search"></i>
+                        <span class="sidebar-button-desc">Suche</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="#about"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-question"></i>
+                        <span class="sidebar-button-desc">About me</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link " href="https://github.com/xuehanzhe0526" target="_blank" rel="noopener">
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-github"></i>
+                        <span class="sidebar-button-desc">GitHub</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link " href="mailto:xuehaozhe0526@163.com" target="_blank" rel="noopener">
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-envelope-o"></i>
+                        <span class="sidebar-button-desc">Mail</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+    </div>
+</nav>
+
+            
+            <div id="main" data-behavior="4"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post" itemscope itemType="http://schema.org/BlogPosting">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title" itemprop="headline">
+            python数据结构-队列
+        </h1>
+    
+    
+        <div class="post-meta">
+    <time itemprop="datePublished" datetime="2017-08-08T11:04:34+08:00">
+	
+		    08 Aug 2017
+    	
+    </time>
+    
+</div>
+
+    
+</div>
+    
+    <div class="post-content markdown" itemprop="articleBody">
+        <div class="main-content-wrap">
+            <p>队列（Queue）是一种先进先出（FIFO）的线性数据结构，插入操作在队尾（rear）进行，删除操作在队首（front）进行。</p>
+<a id="more"></a>
+<h1 id="table-of-contents">Inhaltsverzeichnis</h1>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/20170808150216106124006.png" alt="20170808150216106124006.png"></p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/2017080815021733642971.png" alt="2017080815021733642971.png"></p>
+<p>队列ADT（抽象数据类型）一般提供以下接口：</p>
+<p>① Queue() 创建队列<br>② enqueue(item) 向队尾插入项<br>③ dequeue() 返回队首的项，并从队列中删除该项<br>④ empty() 判断队列是否为空<br>⑤ size() 返回队列中项的个数</p>
+<p><img src="http://7xrw7v.com1.z0.glb.clouddn.com/20170808150217386840423.png" alt="20170808150217386840423.png"></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="comment">#!/usr/bin/env python</span></div><div class="line"><span class="comment"># -*- coding: utf-8 -*-</span></div><div class="line"><span class="comment"># Created by xuehz on 2017/8/8</span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Queue</span><span class="params">()</span>:</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self,size)</span>:</span></div><div class="line">        self.queue = []</div><div class="line">        self.size = size</div><div class="line">        self.head = <span class="number">-1</span></div><div class="line">        self.tail = <span class="number">-1</span></div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">Empty</span><span class="params">(self)</span>:</span></div><div class="line">        <span class="keyword">if</span> self.head == self.tail:</div><div class="line">            <span class="keyword">return</span> <span class="keyword">True</span></div><div class="line">        <span class="keyword">else</span>:</div><div class="line">            <span class="keyword">return</span> <span class="keyword">False</span></div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">Full</span><span class="params">(self)</span>:</span></div><div class="line">        <span class="keyword">if</span> self.tail - self.head +<span class="number">1</span> == self.size:</div><div class="line">            <span class="keyword">return</span> <span class="keyword">True</span></div><div class="line">        <span class="keyword">else</span>:</div><div class="line">            <span class="keyword">return</span> <span class="keyword">False</span></div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">enQueue</span><span class="params">(self, content)</span>:</span></div><div class="line">        <span class="keyword">if</span> self.Full():</div><div class="line">            <span class="keyword">print</span> <span class="string">'Queue is Full'</span></div><div class="line">        <span class="keyword">else</span>:</div><div class="line">            self.queue.append(content)</div><div class="line">            self.tail = self.tail+<span class="number">1</span></div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">outQueue</span><span class="params">(self)</span>:</span></div><div class="line">        <span class="keyword">if</span> self.Empty():</div><div class="line">            <span class="keyword">print</span> <span class="string">'Queue is Empty'</span></div><div class="line">        <span class="keyword">else</span>:</div><div class="line">            self.head = self.head+<span class="number">1</span></div><div class="line">     </div><div class="line"> </div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Queue</span>:</span></div><div class="line">  <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></div><div class="line">    self.items = []</div><div class="line">  <span class="function"><span class="keyword">def</span> <span class="title">enqueue</span><span class="params">(self, item)</span>:</span></div><div class="line">    self.items.append(item)</div><div class="line">  <span class="function"><span class="keyword">def</span> <span class="title">dequeue</span><span class="params">(self)</span>:</span></div><div class="line">    <span class="keyword">return</span> self.items.pop(<span class="number">0</span>)</div><div class="line">  <span class="function"><span class="keyword">def</span> <span class="title">empty</span><span class="params">(self)</span>:</span></div><div class="line">    <span class="keyword">return</span> self.size() == <span class="number">0</span></div><div class="line">  <span class="function"><span class="keyword">def</span> <span class="title">size</span><span class="params">(self)</span>:</span></div><div class="line">    <span class="keyword">return</span> len(self.items)</div></pre></td></tr></table></figure>
+
+            
+    
+    <div class="image-gallery">
+        <div class="image-gallery-metabar">
+            <span>Gallery : 1 images</span>
+        </div>
+        <div class="image-gallery-photos undefined">
+            
+            
+            <div class="photo-box">
+                <a class="photo-box-inner fancybox" data-fancybox-group="gallery-cj637nn2z0045sxczxnge9bsu"
+                   title="" href="http://7xrw7v.com1.z0.glb.clouddn.com/20170807150209644316435.png">
+                    <img class="photo" src="http://7xrw7v.com1.z0.glb.clouddn.com/20170807150209644316435.png" itemprop="image">
+                </a>
+            </div>
+            
+        </div>
+    </div>
+
+        </div>
+    </div>
+    <div id="post-footer" class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">GETAGGT IN</span><br/>
+                
+    <a class="tag tag--primary tag--small t-link" href="/tags/数据结构与算法/">数据结构与算法</a> <a class="tag tag--primary tag--small t-link" href="/tags/校招/">校招</a>
+
+            </div>
+        
+        
+            <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--disabled">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">FRÜHER</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2017/08/08/python数据结构-栈/" data-tooltip="python数据结构-栈">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">NÄCHSTER</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2017/08/08/python数据结构-队列/">
+                    <i class="fa fa-facebook-official"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://yoursite.com/2017/08/08/python数据结构-队列/">
+                    <i class="fa fa-twitter"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://yoursite.com/2017/08/08/python数据结构-队列/">
+                    <i class="fa fa-google-plus"></i>
+                </a>
+            </li>
+        
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#table-of-contents">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        
+        
+            
+        
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2017 Haozhe Xue. All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--disabled">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">FRÜHER</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2017/08/08/python数据结构-栈/" data-tooltip="python数据结构-栈">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">NÄCHSTER</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2017/08/08/python数据结构-队列/">
+                    <i class="fa fa-facebook-official"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://yoursite.com/2017/08/08/python数据结构-队列/">
+                    <i class="fa fa-twitter"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://yoursite.com/2017/08/08/python数据结构-队列/">
+                    <i class="fa fa-google-plus"></i>
+                </a>
+            </li>
+        
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#table-of-contents">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                <div id="share-options-bar" class="share-options-bar" data-behavior="4">
+    <i id="btn-close-shareoptions" class="fa fa-close"></i>
+    <ul class="share-options">
+        
+            
+            
+            <li class="share-option">
+                <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2017/08/08/python数据结构-队列/">
+                    <i class="fa fa-facebook-official"></i><span>Teilen auf Facebook</span>
+                </a>
+            </li>
+        
+            
+            
+            <li class="share-option">
+                <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://yoursite.com/2017/08/08/python数据结构-队列/">
+                    <i class="fa fa-twitter"></i><span>Teilen auf Twitter</span>
+                </a>
+            </li>
+        
+            
+            
+            <li class="share-option">
+                <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://yoursite.com/2017/08/08/python数据结构-队列/">
+                    <i class="fa fa-google-plus"></i><span>Teilen auf Google Plus</span>
+                </a>
+            </li>
+        
+    </ul>
+</div>
+
+            
+        </div>
+        
+
+
+    
+        
+    
+
+<div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-remove"></i>
+        </div>
+        
+            <img id="about-card-picture" src="http://7xrw7v.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160402220553.png" alt="Bild des Autors"/>
+        
+            <h4 id="about-card-name">Haozhe Xue</h4>
+        
+            <div id="about-card-bio"><p>What hurts more,the pain of hard work or the pain of regret.</p>
+</div>
+        
+        
+            <div id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <p>算法实习生</p>
+
+            </div>
+        
+        
+            <div id="about-card-location">
+                <i class="fa fa-map-marker"></i>
+                <br/>
+                西安
+            </div>
+        
+    </div>
+</div>
+
+        <div id="algolia-search-modal" class="modal-container">
+    <div class="modal">
+        <div class="modal-header">
+            <span class="close-button"><i class="fa fa-close"></i></span>
+            <a href="https://algolia.com" target="_blank" rel="noopener" class="searchby-algolia text-color-light link-unstyled">
+                <span class="searchby-algolia-text text-color-light text-small">by</span>
+                <img class="searchby-algolia-logo" src="https://www.algolia.com/static_assets/images/press/downloads/algolia-light.svg">
+            </a>
+            <i class="search-icon fa fa-search"></i>
+            <form id="algolia-search-form">
+                <input type="text" id="algolia-search-input" name="search"
+                    class="form-control input--large search-input" placeholder="Search "
+                    />
+            </form>
+        </div>
+        <div class="modal-body">
+            <div class="no-result text-color-light text-center">keinen Beitrag gefunden</div>
+            <div class="results">
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yoursite.com/2016/01/13/python入门6/">
+                            <h3 class="media-heading">python入门 (六)(转载)</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Jan 13, 2016
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>摘要：</p>
+<ul>
+<li>切片</li>
+<li>对list进行切片</li>
+<li>倒序切片</li>
+<li>对字符串切片</li>
+</ul></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yoursite.com/2016/01/14/Python入门7/">
+                            <h3 class="media-heading">python入门 (七)(转载)</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Jan 14, 2016
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>摘要：</p>
+<ul>
+<li>迭代</li>
+<li>什么是迭代</li>
+<li>索引迭代</li>
+<li>迭代dict的value</li>
+<li>迭代dict的key和value</li>
+</ul></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yoursite.com/2016/01/15/Python入门8/">
+                            <h3 class="media-heading">python入门 (八)(转载)</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Jan 15, 2016
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>摘要：</p>
+<ul>
+<li>生成列表</li>
+<li>条件过滤</li>
+<li>多层表达式</li>
+</ul></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yoursite.com/2016/02/13/Python进阶1/">
+                            <h3 class="media-heading">map()、reduce()函数</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Feb 13, 2016
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>摘要：</p>
+<ul>
+<li>高阶函数</li>
+<li>map()函数</li>
+<li>reduce()函数</li>
+</ul></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yoursite.com/2016/03/15/2016-03-15-haozhe/">
+                            <h3 class="media-heading">博客：Markdown入门</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Mar 15, 2016
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>Markdown 新手指南<br>摘要：</p>
+<ul>
+<li>标题</li>
+<li>列表</li>
+<li>引用</li>
+<li>图片和链接</li>
+<li>粗体斜体</li>
+<li>标量</li>
+<li>添加代码</li>
+</ul></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yoursite.com/2016/03/15/2016-03-15-hadoop1/">
+                            <h3 class="media-heading">hadoope下API操作</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Mar 15, 2016
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>摘要：</p>
+<ul>
+<li>创建Java项目</li>
+<li>添加jar包</li>
+<li>代码</li>
+<li>单元测试</li>
+</ul></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yoursite.com/2016/03/25/2016-03-25-linux/">
+                            <h3 class="media-heading">linux常用命令串讲</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Mar 25, 2016
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>摘要：</p>
+<ul>
+<li>目录初识</li>
+<li>终端常用快捷键</li>
+<li>文件目录操作</li>
+<li>用户和用户组</li>
+<li>用户权限</li>
+<li>系统管理命令</li>
+<li>VIM编辑器命令</li>
+<li>解压、压缩</li>
+</ul></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="http://yoursite.com/2016/04/01/hello-world/">
+                            <h3 class="media-heading">Hello World</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Apr 1, 2016
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.<br></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+            </div>
+        </div>
+        <div class="modal-footer">
+            <p class="results-count text-medium"
+                data-message-zero="keinen Beitrag gefunden"
+                data-message-one="1 Beitrag gefunden"
+                data-message-other="{n} Einträge gefunden">
+                151 Einträge gefunden
+            </p>
+        </div>
+    </div>
+</div>
+
+        
+<div id="cover" style="background-image:url('/assets/images/cover.jpg');"></div>
+        <!--SCRIPTS-->
+<script src="/assets/js/script-ivwiy10zeb8fifc4swnhkwneuk64y53w2scmdmtp8thi9cqfxh31aowtroaz.min.js"></script>
+<!--SCRIPTS END-->
+
+    
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.14.1/moment-with-locales.min.js"></script>
+    <script src="//cdn.jsdelivr.net/algoliasearch/3/algoliasearch.min.js"></script>
+    <script>
+        var algoliaClient = algoliasearch('3DQL5UQW1G', 'ca28ed8f33c8eb6584e31121a30f274a');
+        var algoliaIndex = algoliaClient.initIndex('tranquilpeak');
+    </script>
+
+    </body>
+</html>
