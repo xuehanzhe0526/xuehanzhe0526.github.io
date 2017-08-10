@@ -69,7 +69,7 @@
                 href="#about">
         
         
-            <img class="header-picture" src="http://7xrw7v.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160402220553.png" alt="Author&#39;s picture"/>
+            <img class="header-picture" src="http://7xrw7v.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160402220553.png" alt="Bild des Autors"/>
         
         </a>
     
@@ -87,7 +87,7 @@
         
             <div class="sidebar-profile">
                 <a href="/#about">
-                    <img class="sidebar-profile-picture" src="http://7xrw7v.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160402220553.png" alt="Author&#39;s picture"/>
+                    <img class="sidebar-profile-picture" src="http://7xrw7v.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160402220553.png" alt="Bild des Autors"/>
                 </a>
                 <h4 class="sidebar-profile-name">Haozhe Xue</h4>
                 
@@ -131,7 +131,7 @@
                         >
                     
                         <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
-                        <span class="sidebar-button-desc">Archives</span>
+                        <span class="sidebar-button-desc">Archiv</span>
                     </a>
             </li>
             
@@ -143,7 +143,7 @@
                         >
                     
                         <i class="sidebar-button-icon fa fa-lg fa-search"></i>
-                        <span class="sidebar-button-desc">Search</span>
+                        <span class="sidebar-button-desc">Suche</span>
                     </a>
             </li>
             
@@ -205,7 +205,7 @@
         <div class="post-meta">
     <time itemprop="datePublished" datetime="2017-08-08T10:34:34+08:00">
 	
-		    Aug 08, 2017
+		    08 Aug 2017
     	
     </time>
     
@@ -218,7 +218,7 @@
         <div class="main-content-wrap">
             <p>想象一摞被堆起来的书，这就是栈。这堆书的特点是，最后被堆进去的书，永远在最上面。<br>从这堆书里面取一本书出来，取哪本书最方便？肯定是最上面那本。<br>栈这种数据结构的特点就是如此：后进先出（Last In First Out - LIFO），即最后被堆进去的数据，最先被拿出来。</p>
 <a id="more"></a>
-<h1 id="table-of-contents">Table of Contents</h1>
+<h1 id="table-of-contents">Inhaltsverzeichnis</h1>
 <p>想象一摞被堆起来的书，这就是栈。这堆书的特点是，最后被堆进去的书，永远在最上面。<br>从这堆书里面取一本书出来，取哪本书最方便？肯定是最上面那本。<br>栈这种数据结构的特点就是如此：后进先出（Last In First Out - LIFO），即最后被堆进去的数据，最先被拿出来。</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="comment">#!/usr/bin/env python</span></div><div class="line"><span class="comment"># -*- coding: utf-8 -*-</span></div><div class="line"><span class="comment"># Created by xuehz on 2017/8/8</span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Stack</span><span class="params">()</span>:</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, size)</span>:</span></div><div class="line">        self.stack = []</div><div class="line">        self.size = size</div><div class="line">        self.top = <span class="number">-1</span></div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">push</span><span class="params">(self, content)</span>:</span></div><div class="line">        <span class="keyword">if</span> self.Full():</div><div class="line">            <span class="keyword">print</span> <span class="string">'Stack is Full'</span></div><div class="line">        <span class="keyword">else</span>:</div><div class="line">            self.stack.append(content)</div><div class="line">            self.top = self.top+<span class="number">1</span></div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">out</span><span class="params">(self)</span>:</span></div><div class="line">        <span class="keyword">if</span> self.Empty():</div><div class="line">            <span class="keyword">print</span> <span class="string">'Stack is Empty'</span></div><div class="line">        <span class="keyword">else</span>:</div><div class="line">            self.top = self.top<span class="number">-1</span></div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">Full</span><span class="params">(self)</span>:</span></div><div class="line">        <span class="keyword">if</span> self.top == self.size:</div><div class="line">            <span class="keyword">return</span> <span class="keyword">True</span></div><div class="line">        <span class="keyword">else</span>:</div><div class="line">            <span class="keyword">return</span> <span class="keyword">False</span></div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">Empty</span><span class="params">(self)</span>:</span></div><div class="line">        <span class="keyword">if</span> self.top == <span class="number">-1</span>:</div><div class="line">            <span class="keyword">return</span> <span class="keyword">True</span></div><div class="line">        <span class="keyword">else</span>:</div><div class="line">            <span class="keyword">return</span> <span class="keyword">False</span></div><div class="line"></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Stack1</span>:</span></div><div class="line">    <span class="string">"""模拟栈"""</span></div><div class="line">    <span class="string">"""</span></div><div class="line">    Stack() 建立一个空的栈对象</div><div class="line">    push() 把一个元素添加到栈的最顶层</div><div class="line">    pop() 删除栈最顶层的元素，并返回这个元素</div><div class="line">    peek()  返回最顶层的元素，并不删除它</div><div class="line">    isEmpty()  判断栈是否为空</div><div class="line">    size()  返回栈中元素的个数</div><div class="line"></div><div class="line">    Stack Operation      Stack Contents   Return Value</div><div class="line">     s.isEmpty()   []        True</div><div class="line">     s.push(4)   [4]</div><div class="line">     s.push('dog')   [4,'dog']</div><div class="line">     s.peek()   [4,'dog']    'dog'</div><div class="line">     s.push(True)   [4,'dog',True]</div><div class="line">     s.size()   [4,'dog',True]   3</div><div class="line">     s.isEmpty()   [4,'dog',True]   False</div><div class="line">     s.push(8.4)   [4,'dog',True,8.4]</div><div class="line">     s.pop()       [4,'dog',True]   8.4</div><div class="line">     s.pop()       [4,'dog']     True</div><div class="line">     s.size()   [4,'dog']     2</div><div class="line">    """</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></div><div class="line">        self.items = []</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">isEmpty</span><span class="params">(self)</span>:</span></div><div class="line">        <span class="keyword">return</span> len(self.items) == <span class="number">0</span></div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">push</span><span class="params">(self, item)</span>:</span></div><div class="line">        self.items.append(item)</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">pop</span><span class="params">(self)</span>:</span></div><div class="line">        <span class="keyword">return</span> self.items.pop()</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">peek</span><span class="params">(self)</span>:</span></div><div class="line">        <span class="keyword">if</span> <span class="keyword">not</span> self.isEmpty():</div><div class="line">            <span class="keyword">return</span> self.items[len(self.items) - <span class="number">1</span>]</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">size</span><span class="params">(self)</span>:</span></div><div class="line">        <span class="keyword">return</span> len(self.items)</div><div class="line"></div><div class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</div><div class="line">    s = Stack1()</div><div class="line">    print(s.isEmpty())</div><div class="line">    s.push(<span class="number">4</span>)</div><div class="line">    s.push(<span class="string">'dog'</span>)</div><div class="line">    print(s.peek())</div><div class="line">    s.push(<span class="keyword">True</span>)</div><div class="line">    print(s.size())</div><div class="line">    print(s.isEmpty())</div><div class="line">    s.push(<span class="number">8.4</span>)</div><div class="line">    print(s.pop())</div><div class="line">    print(s.pop())</div><div class="line">    print(s.size())</div></pre></td></tr></table></figure>
 
@@ -232,7 +232,7 @@
             
             
             <div class="photo-box">
-                <a class="photo-box-inner fancybox" data-fancybox-group="gallery-cj64ck0jk0047t9cz0k0nhuzl"
+                <a class="photo-box-inner fancybox" data-fancybox-group="gallery-cj65ys7ux00457ncz6kv3gnxs"
                    title="" href="http://7xrw7v.com1.z0.glb.clouddn.com/20170807150209644316435.png">
                     <img class="photo" src="http://7xrw7v.com1.z0.glb.clouddn.com/20170807150209644316435.png" itemprop="image">
                 </a>
@@ -246,7 +246,7 @@
     <div id="post-footer" class="post-footer main-content-wrap">
         
             <div class="post-footer-tags">
-                <span class="text-color-light text-small">TAGGED IN</span><br/>
+                <span class="text-color-light text-small">GETAGGT IN</span><br/>
                 
     <a class="tag tag--primary tag--small t-link" href="/tags/数据结构与算法/">数据结构与算法</a> <a class="tag tag--primary tag--small t-link" href="/tags/校招/">校招</a>
 
@@ -261,14 +261,14 @@
                     <a class="post-action-btn btn btn--default tooltip--top" href="/2017/08/08/python数据结构-队列/"  data-tooltip="python数据结构-队列">
                 
                     <i class="fa fa-angle-left"></i>
-                    <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                    <span class="hide-xs hide-sm text-small icon-ml">FRÜHER</span>
                 </a>
             </li>
             <li class="post-action">
                 
                     <a class="post-action-btn btn btn--default tooltip--top" href="/2017/08/07/剑指offer(2)：字符串的替换(python)/" data-tooltip="剑指offer(2)：替换空格(python)">
                 
-                    <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                    <span class="hide-xs hide-sm text-small icon-mr">NÄCHSTER</span>
                     <i class="fa fa-angle-right"></i>
                 </a>
             </li>
@@ -343,14 +343,14 @@
                     <a class="post-action-btn btn btn--default tooltip--top" href="/2017/08/08/python数据结构-队列/"  data-tooltip="python数据结构-队列">
                 
                     <i class="fa fa-angle-left"></i>
-                    <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                    <span class="hide-xs hide-sm text-small icon-ml">FRÜHER</span>
                 </a>
             </li>
             <li class="post-action">
                 
                     <a class="post-action-btn btn btn--default tooltip--top" href="/2017/08/07/剑指offer(2)：字符串的替换(python)/" data-tooltip="剑指offer(2)：替换空格(python)">
                 
-                    <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                    <span class="hide-xs hide-sm text-small icon-mr">NÄCHSTER</span>
                     <i class="fa fa-angle-right"></i>
                 </a>
             </li>
@@ -408,7 +408,7 @@
             
             <li class="share-option">
                 <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2017/08/08/python数据结构-栈/">
-                    <i class="fa fa-facebook-official"></i><span>Share on Facebook</span>
+                    <i class="fa fa-facebook-official"></i><span>Teilen auf Facebook</span>
                 </a>
             </li>
         
@@ -416,7 +416,7 @@
             
             <li class="share-option">
                 <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://yoursite.com/2017/08/08/python数据结构-栈/">
-                    <i class="fa fa-twitter"></i><span>Share on Twitter</span>
+                    <i class="fa fa-twitter"></i><span>Teilen auf Twitter</span>
                 </a>
             </li>
         
@@ -424,7 +424,7 @@
             
             <li class="share-option">
                 <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://yoursite.com/2017/08/08/python数据结构-栈/">
-                    <i class="fa fa-google-plus"></i><span>Share on Google+</span>
+                    <i class="fa fa-google-plus"></i><span>Teilen auf Google Plus</span>
                 </a>
             </li>
         
@@ -446,7 +446,7 @@
             <i class="fa fa-remove"></i>
         </div>
         
-            <img id="about-card-picture" src="http://7xrw7v.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160402220553.png" alt="Author&#39;s picture"/>
+            <img id="about-card-picture" src="http://7xrw7v.com1.z0.glb.clouddn.com/QQ%E6%88%AA%E5%9B%BE20160402220553.png" alt="Bild des Autors"/>
         
             <h4 id="about-card-name">Haozhe Xue</h4>
         
@@ -487,7 +487,7 @@
             </form>
         </div>
         <div class="modal-body">
-            <div class="no-result text-color-light text-center">no post found</div>
+            <div class="no-result text-color-light text-center">keinen Beitrag gefunden</div>
             <div class="results">
                 
                 <div class="media">
@@ -694,10 +694,10 @@
         </div>
         <div class="modal-footer">
             <p class="results-count text-medium"
-                data-message-zero="no post found"
-                data-message-one="1 post found"
-                data-message-other="{n} posts found">
-                153 posts found
+                data-message-zero="keinen Beitrag gefunden"
+                data-message-one="1 Beitrag gefunden"
+                data-message-other="{n} Einträge gefunden">
+                154 Einträge gefunden
             </p>
         </div>
     </div>
